@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nav_dashboard"
+        android:visible="false"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/nav_settings"
+        android:visible="false"
+        android:title="Settings" />
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout" />
+    <item
+        android:id="@+id/nav_search"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:visible="false"
+        android:title="Search" />
+    <item
+        android:id="@+id/nav_profile"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_person_outline_black_24dp"
+        android:title="Search" />
+    <item
+        android:id="@+id/nav_notif"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_notifications_none_black_24dp"
+        android:title="Search" />
+</menu>

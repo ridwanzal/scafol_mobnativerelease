@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_paketlist"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_height="match_parent"
+    tools:context="com.release.activity.ActivityMain">
+    <LinearLayout
+        android:id="@+id/layout_total"
+        android:layout_width="match_parent"
+        android:paddingLeft="15dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:paddingRight="10dp"
+        android:background="#69B578"
+        android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/total_paket_caption"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:text="Total Paket"
+                android:textColor="#fff"
+                android:layout_height="wrap_content" />
+    </LinearLayout>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_listpaket"
+        android:visibility="visible"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_listpaket"
+        android:clipToPadding="true"
+        android:scrollbarStyle="outsideOverlay"
+        android:layout_below="@id/layout_total"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

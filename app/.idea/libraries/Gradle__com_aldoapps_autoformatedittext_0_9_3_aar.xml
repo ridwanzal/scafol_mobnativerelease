@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.aldoapps:autoformatedittext:0.9.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/daf410700df0b5e28602e99ee8b372cd/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/daf410700df0b5e28602e99ee8b372cd/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.aldoapps/autoformatedittext/0.9.3/a2c5c423dc3bec264f90200e9a33d781d2621cf2/autoformatedittext-0.9.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
