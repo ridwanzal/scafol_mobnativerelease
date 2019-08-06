@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_paketlist"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.example.scafolmobile.activity.ActivityProgressFisik">
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progress_listprogress"
+        android:visibility="gone"
+        />
+        <TextView
+            android:id="@+id/text_notfound"
+            android:textAlignment="center"
+            android:padding="20dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:text="Belum ada progress"
+            android:layout_height="wrap_content" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/text_notfound"
+        android:id="@+id/recycle_listprogress2"
+        android:clipToPadding="true"
+        android:scrollbarStyle="outsideOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

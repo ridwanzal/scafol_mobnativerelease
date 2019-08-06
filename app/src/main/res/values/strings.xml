@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Scafol Mobile</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_proyek">Proyek</string>
+    <string name="title_notifications">Notifications</string>
+
+
+    <string name="title_kegiatan">Kegiatan</string>
+    <string name="title_paket">Paket</string>
+    <string name="title_detail_paket">Detail Paket</string>
+
+    <string name="tab_text_1">Info Umum</string>
+    <string name="tab_text_2">Info Tagihan</string>
+
+    <string name="tab_titleupdatedata">Update Data</string>
+    .
+    <string name="update_kurvas">Kurva S Rencana</string>
+    <string name="update_editkontrak">Edit Kontrak</string>
+    <string name="update_editlokasi">Edit Lokasi</string>
+    <string name="update_progress">Progress</string>
+    <string name="update_penyediajasa">Penyedia Jasa</string>
+    <string name="update_upload">Upload Data</string>
+    <string name="kurva_s">Kurva S Rencana</string>
+    <string name="date">Tanggal</string>
+    <string name="progress">Progres</string>
+    <string name="date_range">Date Range</string>
+    <string name="submit">Submit</string>
+    <string name="aksi">Aksi</string>
+    <string name="delete">Hapus</string>
+
+
+</resources>

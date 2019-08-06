@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- START*** Root Container *** -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!-- TextView Employee Name -->
+
+    <TextView
+        android:id="@+id/txt_namauser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:text="Ini contoh list"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:textStyle="bold" />
+
+    <View android:background="#eee"
+        android:layout_below="@id/txt_namauser"
+        android:layout_width = "match_parent"
+        android:layout_height="1dp"/>
+</RelativeLayout>
+
+<!-- END*** Root Container *** -->

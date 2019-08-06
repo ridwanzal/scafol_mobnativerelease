@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <RelativeLayout
+        android:id="@+id/relone"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+        <org.osmdroid.views.MapView android:id="@+id/map2"
+            android:layout_width="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_height="match_parent" />
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/edittext_namalokasi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextborder_generic"
+            android:textSize="14dp"
+            android:padding="10dp"
+            android:hint="Nama Lokasi"
+            android:editable="false"
+            android:layout_marginBottom="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edittext_lat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/edittextborder_generic"
+            android:hint="Latitude"
+            android:textSize="14dp"
+            android:editable="false"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/edittext_longitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextborder_generic"
+            android:textSize="14dp"
+            android:padding="10dp"
+            android:editable="false"
+            android:hint="Longitude"
+            android:layout_marginBottom="5dp"
+            />
+
+        <Button
+            android:id="@+id/btn_changelocation"
+            android:visibility="gone"
+            android:layout_marginTop="3dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:padding="8dp"
+            android:clickable="true"
+            android:background="@drawable/button_ripple"
+            android:text="Ubah Lokasi" />
+    </LinearLayout>
+
+</LinearLayout>
