@@ -128,7 +128,9 @@ public class ActivityLogin extends AppCompatActivity{
                         }
                         @Override
                         public void onFailure(Call<DataResponse> call, Throwable t) {
-
+                            Log.w(TAG, "result response problem" + t);
+                            Log.w(TAG, "result response problem" + call);
+                            Toast.makeText(ActivityLogin.this, "System Error, Apps Not Working. Please report this issue", Toast.LENGTH_SHORT).show();
                         }
                     });
                 }

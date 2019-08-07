@@ -21,6 +21,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.dropbox.core.v2.users.FullAccount;
+import com.dropbox.core.android.Auth;
+
 import com.release.R;
 
 import java.io.IOException;

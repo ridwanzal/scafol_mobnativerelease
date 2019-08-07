@@ -18,8 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.release.R;
+import com.release.dropbox.FilesActivity;
+import com.release.dropbox.UserActivity;
 import com.release.model.PaketDashboard;
 import com.release.model.DataResponsePA;
+import com.release.model.User;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.service.ServiceReminder;
@@ -331,6 +334,10 @@ public class ActivityDashboard extends AppCompatActivity {
                         })
                         .show();
             case R.id.nav_search :
+                break;
+            case R.id.nav_uploaddropbox :
+                Intent dropbox_act = new Intent(this, UserActivity.class);
+                startActivity(dropbox_act);
                 break;
             case R.id.nav_profile :
                 Intent intent2 = new Intent(ActivityDashboard.this, ActivityEditProfilPPTK.class);
