@@ -51,12 +51,12 @@ public class FilesActivity extends DropboxActivity {
     private FilesAdapter mFilesAdapter;
     private FileMetadata mSelectedFile;
 
+
     public static Intent getIntent(Context context, String path) {
         Intent filesIntent = new Intent(context, FilesActivity.class);
         filesIntent.putExtra(FilesActivity.EXTRA_PATH, path);
         return filesIntent;
     }
-
 
 
     @Override

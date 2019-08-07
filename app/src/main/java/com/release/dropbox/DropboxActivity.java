@@ -23,7 +23,7 @@ public abstract class DropboxActivity extends AppCompatActivity {
         String accessToken = prefs.getString("access-token", null);
         if (accessToken == null) {
 //            accessToken = Auth.getOAuth2Token();
-            accessToken = "sl.AIe6Xyztf7ii9o-xW4g_lKv8LEwwi8w89KvhBO0qLjn-4YoST8_BBmIIccs9oePHi3YwQK_ctxVDsBpsw_60qvLY5FAWmZXu146K8i2ApgfNGGWBbxQben0eWa0ycKdobWDlIfch";
+            accessToken = "sl.AIelT6L_gdPLSdivhV5y0etHvw6vVFFoc9oHCI0-Awyx5IgcY-ocBo3bZ93cx64jj9VGSjDY5Yt2OlQwRCQCuGCLOMKr4hps0XZC2HlMpT-daejSuZFKzEWlIRAnWpHXcBGCNyHX";
             if (accessToken != null) {
                 prefs.edit().putString("access-token", accessToken).apply();
                 initAndLoadData(accessToken);
