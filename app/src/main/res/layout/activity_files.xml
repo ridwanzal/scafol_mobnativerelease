@@ -19,14 +19,18 @@
             />
         <TextView
             android:id="@+id/paket_name_oflistfiles"
-            android:background="#ccc"
-            android:padding="10dp"
+            android:background="#69B578"
+            android:paddingLeft="15dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:paddingRight="10dp"
             android:layout_above="@+id/frame_layoutfile"
             android:layout_width="match_parent"
             android:text="No item found"
             android:layout_gravity="center"
             android:visibility="visible"
             android:textAlignment="textStart"
+            android:textColor="#fff"
             android:gravity="center"
             android:layout_height="wrap_content"
             />

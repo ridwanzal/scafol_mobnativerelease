@@ -106,7 +106,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MetadataView
                             .error(R.drawable.ic_photo_grey_600_36dp)
                             .into(mImageView);
                 } else {
-                    mPicasso.load(R.drawable.ic_insert_drive_file_blue_36dp)
+                    mPicasso.load(R.drawable.docs)
                             .noFade()
                             .into(mImageView);
                 }
