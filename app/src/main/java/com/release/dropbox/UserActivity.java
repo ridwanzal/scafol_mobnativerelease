@@ -97,13 +97,22 @@ public class UserActivity extends DropboxActivity {
         new GetCurrentAccountTask(DropboxClientFactory.getClient(), new GetCurrentAccountTask.Callback() {
             @Override
             public void onComplete(FullAccount result) {
-                ((TextView) findViewById(R.id.email_text)).setText(result.getEmail());
-                ((TextView) findViewById(R.id.name_text)).setText(result.getName().getDisplayName());
-                ((TextView) findViewById(R.id.type_text)).setText(result.getAccountType().name());
+                if(result.getEmail().equals("scafoltk@gmail.com")){
+
+                }
+//                ((TextView) findViewById(R.id.email_text)).setText(result.getEmail());
+//                ((TextView) findViewById(R.id.name_text)).setText(result.getName().getDisplayName());
+//                ((TextView) findViewById(R.id.type_text)).setText(result.getAccountType().name());
+                ((TextView) findViewById(R.id.sync_status_condc)).setVisibility(View.GONE);
+                ((TextView) findViewById(R.id.sync_status_con)).setVisibility(View.VISIBLE);
+                ((Button) findViewById(R.id.files_button)).setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onError(Exception e) {
+                ((TextView) findViewById(R.id.sync_status_condc)).setVisibility(View.VISIBLE);
+                ((TextView) findViewById(R.id.sync_status_con)).setVisibility(View.GONE);
+                ((Button) findViewById(R.id.files_button)).setVisibility(View.GONE);
                 Log.e(getClass().getName(), "Failed to get account details.", e);
             }
         }).execute();

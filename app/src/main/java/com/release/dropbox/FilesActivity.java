@@ -10,6 +10,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -32,7 +34,10 @@ import com.release.dropbox.DropboxActivity;
 import com.release.dropbox.FilesAdapter;
 
 import java.io.File;
+import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import com.release.R;
 
@@ -49,13 +54,15 @@ public class FilesActivity extends DropboxActivity {
     public final static String EXTRA_DETAIL = "";
     public final static String EXTRA_PATH = "";
     private static final int PICKFILE_REQUEST_CODE = 1;
-
+    private static final int PICKFILE_CAMERA_REQUEST_CODE = 2;
     private String mPath;
     private String mDetail;
     private FilesAdapter mFilesAdapter;
     private FileMetadata mSelectedFile;
     private TextView count_files;
     private TextView paket_name;
+    String mCurrentPhotoPath;
+
 
     public static Intent getIntent(Context context, String path) {
         Intent filesIntent = new Intent(context, FilesActivity.class);
@@ -86,12 +93,21 @@ public class FilesActivity extends DropboxActivity {
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
 //        setSupportActionBar(toolbar);
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
+        FloatingActionButton fab2 = (FloatingActionButton)findViewById(R.id.fab2);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 performWithPermissions(FileAction.UPLOAD);
             }
         });
+
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performWithPermissions(FileAction.CAMERA);
+            }
+        });
+
         //init picaso client
         PicassoClient.init(this,DropboxClientFactory.getClient());
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.files_list);
@@ -121,16 +137,72 @@ public class FilesActivity extends DropboxActivity {
         intent.setType("*/*");
         startActivityForResult(intent, PICKFILE_REQUEST_CODE);
     }
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        mCurrentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
+    private Uri imageUri;
+    private static int TAKE_PICTURE = 1;
+    private void launchCamera(){
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        File photo = new File(Environment.getExternalStorageDirectory(), "pic.png");
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT,
+//                Uri.fromFile(photo));
+//        imageUri = Uri.fromFile(photo);
+//        startActivityForResult(intent, TAKE_PICTURE);
+        Intent pictureIntent = new Intent(
+            MediaStore.ACTION_IMAGE_CAPTURE
+        );
+        if(pictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(pictureIntent, PICKFILE_CAMERA_REQUEST_CODE);
+        }
+//        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//        if(intent.resolveActivity(getPackageManager()) != null){
+//            //Create the File where the photo should go
+//            File photoFile = null;
+//            try{
+//                photoFile = createImageFile();
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+//            //Continue only if the File was successfully created
+//            if(photoFile != null){
+//                Uri photoURI = FileProvider.getUriForFile(this, AUTHORITY , photoFile);
+//                intent.putExtra(MediaStore.EXTRA_OUTPUT,photoURI);
+//                startActivityForResult(intent, PICKFILE_CAMERA_REQUEST_CODE);
+//            }
+//        }
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == PICKFILE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
 
-                // This is the result of a call to launchFilePicker
+            // This is the result of a call to launchFilePicker
+                Log.d(TAG, "request code pick file camera " +  data.toString());
+                Log.d(TAG, data.toString());
                 uploadFile(data.getData().toString());
+            }
+        }else if(requestCode == PICKFILE_CAMERA_REQUEST_CODE){
+            if(resultCode == RESULT_OK){
+//              Uri imageUri = data.getData();
+                uploadFile(data.getExtras().get("data").toString());
+//              Log.d(TAG, "request code pick file camera " +  data.toString());
+//              Log.d(TAG, data.toString());
+//              uploadFile(data.getExtras().get("data").toString());
             }
         }
     }
@@ -167,6 +239,13 @@ public class FilesActivity extends DropboxActivity {
                             Toast.LENGTH_LONG)
                         .show();
                     break;
+                case CAMERA:
+                    Toast.makeText(this,
+                            "Can't download file: write access denied. " +
+                                    "Please grant storage permissions to use this functionality.",
+                            Toast.LENGTH_LONG)
+                            .show();
+                    break;
             }
         }
     }
@@ -182,6 +261,9 @@ public class FilesActivity extends DropboxActivity {
                 } else {
                     Log.e(TAG, "No file selected to download.");
                 }
+                break;
+            case CAMERA:
+                launchCamera();
                 break;
             default:
                 Log.e(TAG, "Can't perform unhandled file action: " + action);
@@ -253,8 +335,9 @@ public class FilesActivity extends DropboxActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         String ext = result.getName().substring(result.getName().indexOf(".") + 1);
         String type = mime.getMimeTypeFromExtension(ext);
-        Intent intent = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(this, getApplicationContext().getOpPackageName() + ".provider", result));
-        intent.setDataAndType(Uri.fromFile(result), type);
+        Uri photoUri = FileProvider.getUriForFile(this, getApplicationContext().getOpPackageName() + ".provider", result);
+        Intent intent = new Intent(Intent.ACTION_VIEW, photoUri);
+        intent.setDataAndType(photoUri, type);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         try{
             startActivity(intent);
@@ -358,8 +441,8 @@ public class FilesActivity extends DropboxActivity {
 
     private enum FileAction {
         DOWNLOAD(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-        UPLOAD(Manifest.permission.READ_EXTERNAL_STORAGE);
-
+        UPLOAD(Manifest.permission.READ_EXTERNAL_STORAGE),
+        CAMERA(Manifest.permission.CAMERA);
         private static final FileAction [] values = values();
 
         private final String [] permissions;
