@@ -98,7 +98,6 @@ public class ActivityDashboard extends AppCompatActivity {
         show_list2 = findViewById(R.id.btn_tolist2);
         progress = new ProgressDialog(this);
 
-
 //        Toast.makeText(ActivityDashboard.this, "Masuk pak eko", Toast.LENGTH_SHORT).show();
         tx_dashtotalpaket = findViewById(R.id.tx_dashtotalpaket);
         tx_dashongoing = findViewById(R.id.tx_dsahongoing);
@@ -116,12 +115,9 @@ public class ActivityDashboard extends AppCompatActivity {
         date = Calendar.getInstance().getTime();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy/MM/dd");
         String date_result = format1.format(date);
-
         Log.d(TAG, "Date today " + date_result);
-
         tx_datecalendar.setText(date_result);
         tx_namauser.setText("Welcome, " + user_name);
-
 
         startServiceReminder();
         final ProgressDialog dialog = new ProgressDialog(this);
@@ -130,9 +126,8 @@ public class ActivityDashboard extends AppCompatActivity {
         dialog.setMessage("Loading");
 
         if(sessionManager.isLoggedIn()){
-            dialog.show();
-
             // total paket count
+            dialog.show();
             Call<DataResponsePA> callpaketall = apiInterface.countPaketPPTK(user_id);
             Log.d(TAG, "paket datas " + user_id);
             callpaketall.enqueue(new Callback<DataResponsePA>() {
@@ -300,7 +295,7 @@ public class ActivityDashboard extends AppCompatActivity {
 
         container_dashboards.setVisibility(View.VISIBLE);
         if(container_dashboards.getVisibility() == View.VISIBLE){
-//            progress.hide();
+                //            progress.hide();
         }
 
     }
@@ -340,6 +335,7 @@ public class ActivityDashboard extends AppCompatActivity {
                             }
                         })
                         .show();
+                break;
             case R.id.nav_search :
                 break;
             case R.id.nav_uploaddropbox :
@@ -350,6 +346,16 @@ public class ActivityDashboard extends AppCompatActivity {
                 Intent intent2 = new Intent(ActivityDashboard.this, ActivityEditProfilPPTK.class);
                 intent2.putExtra("user_id", user_id);
                 startActivity(intent2);
+                break;
+            case R.id.nav_about :
+                new AlertDialog.Builder(this)
+                    .setTitle("About")
+                    .setMessage("Scafol Mobile Version 1.0.0")
+                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    }).show();
                 break;
             case R.id.nav_notif :
                 Intent intent = new Intent(getApplicationContext(), ActivityNotif.class);
