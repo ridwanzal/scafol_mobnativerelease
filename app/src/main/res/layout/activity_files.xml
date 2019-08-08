@@ -1,19 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-xmlns:app="http://schemas.android.com/apk/res-auto">
-
-<androidx.recyclerview.widget.RecyclerView
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/files_list" />
-<com.google.android.material.floatingactionbutton.FloatingActionButton
-    android:id="@+id/fab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:clickable="true"
-    android:layout_gravity="bottom|right"
-    app:srcCompat="@drawable/ic_add_black_24dp" />
-</FrameLayout>
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/linhahah"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/notfoundfile"
+            android:layout_above="@+id/frame_layoutfile"
+            android:layout_width="match_parent"
+            android:text="No item found"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_height="30dp"
+            />
+        <TextView
+            android:id="@+id/paket_name_oflistfiles"
+            android:background="#ccc"
+            android:padding="10dp"
+            android:layout_above="@+id/frame_layoutfile"
+            android:layout_width="match_parent"
+            android:text="No item found"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            android:textAlignment="textStart"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:id="@+id/frame_layoutfile"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linhahah"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/files_list" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:clickable="true"
+            android:layout_gravity="bottom|right"
+            app:srcCompat="@drawable/ic_add_black_24dp" />
+    </FrameLayout>
+</RelativeLayout>

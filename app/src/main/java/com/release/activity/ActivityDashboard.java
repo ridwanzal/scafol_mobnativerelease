@@ -123,8 +123,14 @@ public class ActivityDashboard extends AppCompatActivity {
         tx_namauser.setText("Welcome, " + user_name);
 
 
+        startServiceReminder();
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setCancelable(false);
+        dialog.setMessage("Loading");
+
         if(sessionManager.isLoggedIn()){
-            startServiceReminder();
+            dialog.show();
 
             // total paket count
             Call<DataResponsePA> callpaketall = apiInterface.countPaketPPTK(user_id);
@@ -267,6 +273,7 @@ public class ActivityDashboard extends AppCompatActivity {
                 }
             });
 
+            dialog.dismiss();
         }
 
         tx_dashsisa.setText("Rp. 0");

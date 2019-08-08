@@ -18,8 +18,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.release.R;
+import com.release.dropbox.FilesActivity;
+import com.release.dropbox.UserActivity;
 import com.release.model.DataResponsePaket;
 import com.release.model.Paket;
+import com.release.model.User;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.sharedexternalmodule.formatMoneyIDR;
@@ -76,12 +79,12 @@ public class ActivityDetailPaket extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paketdetail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         sessionManager = new SessionManager(getApplicationContext());
         HashMap<String, String> user = sessionManager.getUserDetails();
         String role = user.get(SessionManager.KEY_ROLE);
         String dinas_id =  user.get(SessionManager.KEY_DINASID);
         String user_id =  user.get(SessionManager.KEY_USERID);
+
         String bi_id = "";
         final String user_fullname = user.get(SessionManager.KEY_NAME);
         String user_name = user.get(SessionManager.KEY_USERNAME);
@@ -269,9 +272,19 @@ public class ActivityDetailPaket extends AppCompatActivity {
             case android.R.id.home :
                 finish();
                 return true;
-//            case R.id.nav_upload :
-//                fileChooser();
-//                return true;
+            case R.id.nav_upload :
+                String path_todropbox = "";
+                sessionManager = new SessionManager(getApplicationContext());
+                HashMap<String, String> user = sessionManager.getUserDetails();
+                String dinas_id =  user.get(SessionManager.KEY_DINASID);
+//                mPath = "/files/gov/16731/pa-483/photos";
+                path_todropbox = "/files/gov/"+dinas_id+"/pa-"+id_paket+"/photos";
+//                startActivity(FilesActivity.getIntent(ActivityDetailPaket.this, path_todropbox));
+                Intent intent = new Intent(ActivityDetailPaket.this, UserActivity.class);
+                intent.putExtra("path_dropbox", path_todropbox);
+                intent.putExtra("pa_judul", nama_paket);
+                startActivity(intent);
+                return true;
 //            case R.id.nav_kurvasrencana :
 //                Intent intent = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
 //                intent.putExtra("position", 0);

@@ -13,12 +13,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -44,17 +46,28 @@ public class FilesActivity extends DropboxActivity {
     private static final String TAG = FilesActivity.class.getName();
     private static final String AUTHORITY="com.release.dropbox.FilesActivity.provider";
 
-    public final static String EXTRA_PATH = "/files/gov";
+    public final static String EXTRA_DETAIL = "";
+    public final static String EXTRA_PATH = "";
     private static final int PICKFILE_REQUEST_CODE = 1;
 
     private String mPath;
+    private String mDetail;
     private FilesAdapter mFilesAdapter;
     private FileMetadata mSelectedFile;
-
+    private TextView count_files;
+    private TextView paket_name;
 
     public static Intent getIntent(Context context, String path) {
         Intent filesIntent = new Intent(context, FilesActivity.class);
         filesIntent.putExtra(FilesActivity.EXTRA_PATH, path);
+        return filesIntent;
+    }
+
+
+    public static Intent getIntent(Context context, String path, String detail) {
+        Intent filesIntent = new Intent(context, FilesActivity.class);
+        filesIntent.putExtra(FilesActivity.EXTRA_PATH, path);
+        filesIntent.putExtra(FilesActivity.EXTRA_DETAIL, detail);
         return filesIntent;
     }
 
@@ -64,14 +77,14 @@ public class FilesActivity extends DropboxActivity {
         super.onCreate(savedInstanceState);
 
         String path = getIntent().getStringExtra(EXTRA_PATH);
-//        mPath = path == null ? "" : path;
-        mPath = "/files/gov/16731/pa-483/photos";
+        String pa_judul = getIntent().getStringExtra(EXTRA_DETAIL);
 
+        mPath = path == null ? "" : path;
+        mDetail = pa_judul == null ? "" : pa_judul;
+//        mPath = "/files/gov/16731/pa-483/photos";
         setContentView(R.layout.activity_files);
-
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
 //        setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,9 +107,10 @@ public class FilesActivity extends DropboxActivity {
                 performWithPermissions(FileAction.DOWNLOAD);
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setAdapter(mFilesAdapter);
-
+        paket_name = findViewById(R.id.paket_name_oflistfiles);
+        paket_name.setText(mDetail.toString());
         mSelectedFile = null;
     }
 
@@ -176,7 +190,7 @@ public class FilesActivity extends DropboxActivity {
 
     @Override
     protected void loadData() {
-
+        final TextView notfoundfile = findViewById(R.id.notfoundfile);
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
@@ -187,17 +201,17 @@ public class FilesActivity extends DropboxActivity {
             @Override
             public void onDataLoaded(ListFolderResult result) {
                 dialog.dismiss();
-
+                notfoundfile.setVisibility(View.GONE);
                 mFilesAdapter.setFiles(result.getEntries());
             }
 
             @Override
             public void onError(Exception e) {
                 dialog.dismiss();
-
+                notfoundfile.setVisibility(View.VISIBLE);
                 Log.e(TAG, "Failed to list folder.", e);
                 Toast.makeText(FilesActivity.this,
-                        "An error has occurred",
+                        "No item in directory, please upload file",
                         Toast.LENGTH_SHORT)
                         .show();
             }
@@ -239,17 +253,23 @@ public class FilesActivity extends DropboxActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         String ext = result.getName().substring(result.getName().indexOf(".") + 1);
         String type = mime.getMimeTypeFromExtension(ext);
-
-        Intent intent = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(this, AUTHORITY, result));
+        Intent intent = new Intent(Intent.ACTION_VIEW, FileProvider.getUriForFile(this, getApplicationContext().getOpPackageName() + ".provider", result));
         intent.setDataAndType(Uri.fromFile(result), type);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-        // Check for a handler first to avoid a crash
-        PackageManager manager = getPackageManager();
-        List<ResolveInfo> resolveInfo = manager.queryIntentActivities(intent, 0);
-        if (resolveInfo.size() > 0) {
+        try{
             startActivity(intent);
+        }catch (android.content.ActivityNotFoundException e){
+            Log.e(TAG, e.toString());
         }
+        // Check for a handler first to avoid a crash
+        //        try{
+        //            PackageManager manager = getPackageManager();
+        //            List<ResolveInfo> resolveInfo = manager.queryIntentActivities(intent, 0);
+        //            if (resolveInfo.size() > 0) {
+        //            }
+        //        }catch (Exception e){
+        //            Log.e(TAG, e.toString());
+        //        }
     }
 
     private void uploadFile(String fileUri) {

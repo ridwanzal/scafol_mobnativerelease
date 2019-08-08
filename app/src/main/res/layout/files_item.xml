@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/global_padding"
-    android:paddingRight="@dimen/global_padding"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp">
-
-    <ImageView
-        android:id="@+id/image"
-        android:scaleType="centerCrop"
-        android:layout_gravity="center_vertical"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:contentDescription="icon"/>
-    <TextView
-        android:id="@+id/text"
-        android:maxLines="1"
-        android:textSize="14sp"
-        android:layout_marginStart="@dimen/global_padding"
-        android:layout_gravity="center_vertical"
+    >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/linx1"
+        android:padding="8dp"
+        >
+        <ImageView
+            android:foregroundGravity="center"
+            android:textAlignment="center"
+            android:id="@+id/image"
+            android:scaleType="center"
+            android:layout_gravity="left"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/rupiah_red"
+            android:contentDescription="icon"/>
+        <TextView
+            android:id="@+id/text"
+            android:maxLines="1"
+            android:text="Ini contoh yang terabaik bagi kita semyua"
+            android:textSize="14sp"
+            android:layout_width="match_parent"
+            android:background="#eee"
+            android:ellipsize="end"
+            android:padding="10dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
+        android:id="@+id/linx2"
+        android:layout_below="@id/linx1"
+        android:layout_height="wrap_content">
+        <View
+            android:layout_width="match_parent"
+            android:background="#eee"
+            android:layout_height="1dp">
+        </View>
+    </LinearLayout>
+
+</RelativeLayout>

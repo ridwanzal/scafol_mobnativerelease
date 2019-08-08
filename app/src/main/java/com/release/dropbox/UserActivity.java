@@ -40,7 +40,24 @@ public class UserActivity extends DropboxActivity {
         filesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(FilesActivity.getIntent(UserActivity.this, ""));
+                String result_path = "";
+                String result_detail = "";
+                Intent intent = getIntent();
+                String id_paket = intent.getStringExtra("path_dropbox");
+                String nama_paket = intent.getStringExtra("pa_judul");
+                if(id_paket == ""){
+                    result_path = "";
+                }else{
+                    result_path = id_paket;
+                }
+
+                if(nama_paket == ""){
+                    result_detail = "";
+                }else{
+                    result_detail = nama_paket;
+                }
+                startActivity(FilesActivity.getIntent(UserActivity.this, result_path));
+//                startActivity(FilesActivity.getIntent(UserActivity.this, result_path, result_detail));
             }
         });
 

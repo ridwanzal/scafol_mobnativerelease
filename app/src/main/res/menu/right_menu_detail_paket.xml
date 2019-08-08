@@ -12,14 +12,14 @@
         <!--android:enabled="false"-->
         <!--android:id="@+id/nav_kurvasrencana"-->
         <!--android:title="Kurva S Rencana" />-->
-    <!--<item-->
-        <!--android:id="@+id/nav_upload"-->
-        <!--app:showAsAction="ifRoom|collapseActionView"-->
-        <!--android:icon="@drawable/ic_cloud_upload_white_24dp"-->
-        <!--android:visible="true"-->
-        <!--android:iconTint="@color/colorwhite"-->
-        <!--android:iconTintMode="add"  -->
-        <!--android:title="Upload" />-->
+    <item
+        android:id="@+id/nav_upload"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:icon="@drawable/ic_cloud_upload_white_24dp"
+        android:visible="true"
+        android:iconTint="@color/colorwhite"
+        android:iconTintMode="add"
+        android:title="Upload" />
     <item
         android:id="@+id/nav_editkontrak"
         android:title="Edit Kontrak" />
