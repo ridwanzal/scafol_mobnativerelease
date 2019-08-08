@@ -17,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.release.R;
 import com.release.dropbox.FilesActivity;
 import com.release.dropbox.UserActivity;
@@ -97,6 +98,7 @@ public class ActivityDashboard extends AppCompatActivity {
         show_list = findViewById(R.id.btn_tolist);
         show_list2 = findViewById(R.id.btn_tolist2);
         progress = new ProgressDialog(this);
+        final View parentLayout = findViewById(android.R.id.content);
 
 //        Toast.makeText(ActivityDashboard.this, "Masuk pak eko", Toast.LENGTH_SHORT).show();
         tx_dashtotalpaket = findViewById(R.id.tx_dashtotalpaket);
@@ -126,6 +128,7 @@ public class ActivityDashboard extends AppCompatActivity {
         dialog.setMessage("Loading");
 
         if(sessionManager.isLoggedIn()){
+            Snackbar.make(parentLayout, "Selamat Datang", Snackbar.LENGTH_LONG).show();
             // total paket count
             dialog.show();
             Call<DataResponsePA> callpaketall = apiInterface.countPaketPPTK(user_id);

@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.release.R;
 import com.release.model.DataResponse;
 import com.release.model.User;
@@ -60,6 +62,7 @@ public class ActivityLogin extends AppCompatActivity{
         tx_helpslogin = findViewById(R.id.tx_helpslogin);
 
         sessionManager = new SessionManager(getApplicationContext());
+        final View parentLayout = findViewById(android.R.id.content);
 
         check_pass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -87,7 +90,8 @@ public class ActivityLogin extends AppCompatActivity{
                 String result_name = txt_uname.getText().toString().trim();
                 String result_pass = txt_uname.getText().toString().trim();
                 if(result_name.equals("") || result_pass.equals("")){
-                    Toast.makeText(ActivityLogin.this, "Silahkan isi data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ActivityLogin.this, "Silahkan isi data", Toast.LENGTH_SHORT).show();
+                   Snackbar.make(parentLayout, "Silahkan isi data", Snackbar.LENGTH_LONG).show();
                 }else{
                     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
                     Call<DataResponse> call= apiInterface.checkLogin(txt_uname.getText().toString(), txt_pass.getText().toString());
@@ -96,7 +100,7 @@ public class ActivityLogin extends AppCompatActivity{
                         public void onResponse(Call<DataResponse> call, Response<DataResponse> response) {
                             Log.w(TAG, "result response" + new Gson().toJson(response));
                             if(response.isSuccessful()){
-                                Toast.makeText(ActivityLogin.this, "Login Succed", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(ActivityLogin.this, "Login Succed", Toast.LENGTH_SHORT).show();
                                 ArrayList<User> data = response.body().getData();
                                 if(!data.isEmpty()){
                                     for(int i = 0 ; i < data.size(); i++){
