@@ -68,7 +68,7 @@ public class ActivityLogin extends AppCompatActivity{
         linearLayout = findViewById(R.id.layoutlogins2);
 
         if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1){
-            / // BACKGROUND JADI HITAM karena bug di versi N KEBAWAH (<)
+            // BACKGROUND JADI HITAM karena bug di versi N
             Toast.makeText(this, "Ini versi N BROH", Toast.LENGTH_SHORT).show();
             Log.d(TAG, "INI ANDROID M" + android.os.Build.VERSION.SDK_INT );
             relativeLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
