@@ -3,21 +3,28 @@ package com.release.dropbox;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -33,6 +40,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.release.dropbox.DropboxActivity;
 import com.release.dropbox.FilesAdapter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -62,6 +70,8 @@ public class FilesActivity extends DropboxActivity {
     private TextView count_files;
     private TextView paket_name;
     String mCurrentPhotoPath;
+    private Uri mPhotoUri;
+    private ImageView dump_image;
 
 
     public static Intent getIntent(Context context, String path) {
@@ -82,18 +92,18 @@ public class FilesActivity extends DropboxActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String path = getIntent().getStringExtra(EXTRA_PATH);
         String pa_judul = getIntent().getStringExtra(EXTRA_DETAIL);
-
         mPath = path == null ? "" : path;
         mDetail = pa_judul == null ? "" : pa_judul;
 //        mPath = "/files/gov/16731/pa-483/photos";
         setContentView(R.layout.activity_files);
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
 //        setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
-        FloatingActionButton fab2 = (FloatingActionButton)findViewById(R.id.fab2);
+        Button fab = (Button)findViewById(R.id.fab);
+        Button fab2 = (Button)findViewById(R.id.fab2);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -161,12 +171,20 @@ public class FilesActivity extends DropboxActivity {
 //                Uri.fromFile(photo));
 //        imageUri = Uri.fromFile(photo);
 //        startActivityForResult(intent, TAKE_PICTURE);
-        Intent pictureIntent = new Intent(
-            MediaStore.ACTION_IMAGE_CAPTURE
-        );
-        if(pictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(pictureIntent, PICKFILE_CAMERA_REQUEST_CODE);
-        }
+//        Intent pictureIntent = new Intent(
+//            MediaStore.ACTION_IMAGE_CAPTURE
+//        );
+//        if(pictureIntent.resolveActivity(getPackageManager()) != null) {
+//            startActivityForResult(pictureIntent, PICKFILE_CAMERA_REQUEST_CODE);
+//        }
+
+//        mPhotoUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+//                new ContentValues());
+//        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//        intent.putExtra(MediaStore.EXTRA_OUTPUT, mPhotoUri);
+//        startActivityForResult(intent,PICKFILE_CAMERA_REQUEST_CODE);
+
+
 //        Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
 //        if(intent.resolveActivity(getPackageManager()) != null){
 //            //Create the File where the photo should go
@@ -183,6 +201,22 @@ public class FilesActivity extends DropboxActivity {
 //                startActivityForResult(intent, PICKFILE_CAMERA_REQUEST_CODE);
 //            }
 //        }
+
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, PICKFILE_CAMERA_REQUEST_CODE);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home :
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -190,21 +224,28 @@ public class FilesActivity extends DropboxActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICKFILE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-
             // This is the result of a call to launchFilePicker
-                Log.d(TAG, "request code pick file camera " +  data.toString());
+                Log.d(TAG, "request code pick file gambar" +  data.toString());
                 Log.d(TAG, data.toString());
                 uploadFile(data.getData().toString());
             }
         }else if(requestCode == PICKFILE_CAMERA_REQUEST_CODE){
             if(resultCode == RESULT_OK){
-//              Uri imageUri = data.getData();
-                uploadFile(data.getExtras().get("data").toString());
-//              Log.d(TAG, "request code pick file camera " +  data.toString());
-//              Log.d(TAG, data.toString());
-//              uploadFile(data.getExtras().get("data").toString());
+                dump_image = findViewById(R.id.dump_image);
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                dump_image.setImageBitmap(imageBitmap);
+                Uri result_uri = getImageUri(getApplicationContext(), imageBitmap);
+                uploadFile(result_uri.toString());
             }
         }
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 
     @Override
