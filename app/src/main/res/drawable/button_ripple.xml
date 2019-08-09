@@ -13,7 +13,7 @@
             <solid
                 android:color="@color/colorMain"
                 ></solid>
-            <corners android:radius="2dp" />
+            <corners android:radius="4dp" />
         </shape>
     </item>
 </ripple>

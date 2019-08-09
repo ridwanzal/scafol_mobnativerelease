@@ -26,10 +26,10 @@ import retrofit2.Response;
 public class ActivityEditProfilPPTK extends AppCompatActivity {
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     private static String TAG = "ActivityEditProfilPPTK";
-    private EditText prof_username;
-    private EditText prof_email;
-    private EditText prof_telepon;
-    private EditText prof_bagian;
+    private TextView prof_username;
+    private TextView prof_email;
+    private TextView prof_telepon;
+    private TextView prof_bagian;
     private TextView prof_nama;
     SessionManager sessionManager;
     String user_id;
