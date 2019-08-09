@@ -3,30 +3,31 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:padding="0dp"
     android:layout_height="match_parent">
 
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:padding="5dp"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_margin="7dp"
             android:id="@+id/card1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp">
+            android:padding="15dp"
+            android:layout_marginBottom="20dp"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp">
+                android:paddingLeft="15dp"
+                android:paddingTop="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp"
+
+                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -45,11 +46,12 @@
                         android:id="@+id/text_judul"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginTop="4dp"
+                        android:layout_weight="1"
                         android:text="TextView"
-                        android:textSize="16sp"
+                        android:paddingRight="15dp"
                         android:textColor="#000"
+                        android:textSize="16sp"
                         android:textStyle="" />
 
                     <View
@@ -70,11 +72,11 @@
                         android:id="@+id/text_jenis"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginTop="4dp"
+                        android:layout_weight="1"
                         android:text="Lelang"
-                        android:textSize="16sp"
                         android:textColor="#000"
+                        android:textSize="16sp"
                         android:textStyle="" />
 
                     <View
@@ -95,12 +97,12 @@
                         android:id="@+id/text_tahun"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginTop="4dp"
+                        android:layout_weight="1"
                         android:text="TextView"
-                        android:textSize="16sp"
                         android:textColor="#000"
-                        />
+                        android:textSize="16sp" />
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -119,12 +121,11 @@
                         android:id="@+id/text_pagu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:layout_weight="1"
                         android:text="TextView"
-                        android:textSize="16sp"
-                        android:layout_marginTop="4dp"
                         android:textColor="#000"
-                        />
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -144,12 +145,11 @@
                         android:id="@+id/prof_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:layout_weight="1"
                         android:text="TextView"
-                        android:textSize="16sp"
-                        android:layout_marginTop="4dp"
                         android:textColor="#000"
-                        />
+                        android:textSize="16sp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -169,12 +169,11 @@
                         android:id="@+id/text_progress"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="16sp"
-                        android:text="0 %"
                         android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        android:text="0 %"
                         android:textColor="#000"
-                        />
+                        android:textSize="16sp" />
 
                 </LinearLayout>
 
@@ -185,23 +184,20 @@
         <!-- detail -->
 
         <androidx.cardview.widget.CardView
-            android:layout_margin="7dp"
             android:id="@+id/card2"
+            android:layout_marginBottom="20dp"
             android:layout_below="@id/card1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:paddingLeft="10dp">
+            android:padding="15dp"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_alignStart="@+id/card2"
-                android:padding="10dp"
-                android:paddingLeft="10dp"
-                android:paddingTop="10dp"
-                android:paddingRight="10dp"
-                android:paddingBottom="10dp"
+                android:padding="15dp"
+
                 android:layout_alignLeft="@+id/card2">
 
                 <LinearLayout
@@ -430,10 +426,10 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:layout_margin="7dp"
             android:id="@+id/map_cards"
             android:clickable="true"
             android:layout_below="@id/card3"
+            android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
              >
@@ -443,7 +439,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:padding="10dp"
+                android:padding="15dp"
                 android:orientation="horizontal">
 
                 <ImageView

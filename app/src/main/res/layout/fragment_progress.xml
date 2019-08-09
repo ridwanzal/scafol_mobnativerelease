@@ -4,7 +4,6 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:padding="5dp"
         android:layout_height="match_parent">
         <ProgressBar
             android:id="@+id/loading_progress_submit"
@@ -21,7 +20,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Progres Fisik"
-                android:padding="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textColor="#aaa" />
 
             <TextView
@@ -30,7 +32,10 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lihat Daftar Progres"
-                android:padding="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:textAlignment="textEnd"
                 android:textColor="#4a9ed6" />
 
@@ -38,7 +43,6 @@
 
 
         <androidx.cardview.widget.CardView
-            android:layout_margin="7dp"
             android:id="@+id/card1x"
             android:layout_below="@id/labelis"
             android:layout_width="match_parent"

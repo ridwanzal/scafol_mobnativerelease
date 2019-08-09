@@ -18,7 +18,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@drawable/image_cons"
-        android:paddingTop="60dp"
+        android:paddingTop="30dp"
         android:paddingLeft="24dp"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
@@ -29,7 +29,7 @@
             android:layout_width="94dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="45dp"
             android:textAlignment="viewStart"
             app:srcCompat="@drawable/ic_scafol_logo2" />
 

@@ -343,7 +343,7 @@ public class FilesActivity extends DropboxActivity {
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
-        dialog.setMessage("Fetching Files");
+        dialog.setMessage("Fetching & Downloading Files");
         dialog.show();
 
         new DownloadFileTask(FilesActivity.this, DropboxClientFactory.getClient(), new DownloadFileTask.Callback() {

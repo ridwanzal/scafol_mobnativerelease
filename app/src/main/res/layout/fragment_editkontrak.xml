@@ -9,11 +9,9 @@
     <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:padding="5dp"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_margin="7dp"
             android:id="@+id/card1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
