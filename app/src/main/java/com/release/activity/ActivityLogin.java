@@ -2,6 +2,7 @@ package com.release.activity;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +42,8 @@ public class ActivityLogin extends AppCompatActivity{
     private TextView tx_helpslogin;
     private Button btn;
     private CheckBox check_pass;
+    private RelativeLayout relativeLayout;
+    private LinearLayout linearLayout;
 
     SessionManager sessionManager;
     private String login_name = "";
@@ -60,6 +64,19 @@ public class ActivityLogin extends AppCompatActivity{
         txt_pass = findViewById(R.id.txt_password);
         check_pass = findViewById(R.id.check_pass);
         tx_helpslogin = findViewById(R.id.tx_helpslogin);
+        relativeLayout = findViewById(R.id.layoutlogins);
+        linearLayout = findViewById(R.id.layoutlogins2);
+
+        if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1){
+            / // BACKGROUND JADI HITAM karena bug di versi N KEBAWAH (<)
+            Toast.makeText(this, "Ini versi N BROH", Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "INI ANDROID M" + android.os.Build.VERSION.SDK_INT );
+            relativeLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            linearLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        } else{
+            // BACKGROUND AS IS
+            Log.d(TAG, "INI BUKAN ANDROID M" + android.os.Build.VERSION.SDK_INT );
+        }
 
         sessionManager = new SessionManager(getApplicationContext());
         final View parentLayout = findViewById(android.R.id.content);

@@ -8,19 +8,18 @@
     app:layout_constrainedHeight="true"
     android:adjustViewBounds="true"
     android:scaleType="fitXY"
-    android:background="@color/colorPrimary"
-    android:backgroundTint="@color/colorPrimary"
+    android:background="@drawable/image_cons"
     android:layout_height="fill_parent"
     android:fitsSystemWindows="true">
 
     <LinearLayout
+        android:id="@+id/layoutlogins2"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/image_cons"
         android:paddingTop="60dp"
         android:paddingLeft="24dp"
-        android:backgroundTint="@color/colorPrimary"
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:paddingRight="24dp">
