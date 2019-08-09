@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -48,6 +49,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import com.release.R;
+import com.release.service.ServiceReminder;
 
 /**
  * Activity that displays the content of a path in dropbox and lets users navigate folders,
@@ -91,7 +93,6 @@ public class FilesActivity extends DropboxActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         String path = getIntent().getStringExtra(EXTRA_PATH);
         String pa_judul = getIntent().getStringExtra(EXTRA_DETAIL);
         mPath = path == null ? "" : path;
@@ -337,6 +338,12 @@ public class FilesActivity extends DropboxActivity {
                         .show();
             }
         }).execute(mPath);
+    }
+
+    public void startServiceReminder(){
+        Intent serviceIntent = new Intent(this, ServiceReminder.class);
+        serviceIntent.putExtra("inputExtra", "Let's update our progress");
+        ContextCompat.startForegroundService(this, serviceIntent);
     }
 
     private void downloadFile(FileMetadata file) {
