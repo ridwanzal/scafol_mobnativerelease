@@ -19,9 +19,9 @@ public class ServiceReminder extends Service {
         Intent notificationIntent = new Intent(this, ActivityDashboard.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
-        String input = "Don't forget to update your progress";
+        String input = "Jangan lupa untuk update progres pekerjaan";
         Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_ID)
-                .setContentTitle("Notification")
+                .setContentTitle("Reminder")
                 .setContentText(input)
                 .setSmallIcon(R.drawable.ic_logo_notification)
                 .setContentIntent(pendingIntent)

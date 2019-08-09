@@ -49,8 +49,6 @@ import java.util.Date;
 import java.util.List;
 import com.release.R;
 
-
-
 /**
  * Activity that displays the content of a path in dropbox and lets users navigate folders,
  * and upload/download files
@@ -300,7 +298,7 @@ public class FilesActivity extends DropboxActivity {
                 if (mSelectedFile != null) {
                     downloadFile(mSelectedFile);
                 } else {
-                    Log.e(TAG, "No file selected to download.");
+                    Log.e(TAG, "Tidak ada file terpilih untuk di download");
                 }
                 break;
             case CAMERA:
@@ -332,9 +330,9 @@ public class FilesActivity extends DropboxActivity {
             public void onError(Exception e) {
                 dialog.dismiss();
                 notfoundfile.setVisibility(View.VISIBLE);
-                Log.e(TAG, "Failed to list folder.", e);
+                Log.e(TAG, "Gagal mengambil file", e);
                 Toast.makeText(FilesActivity.this,
-                        "No item in directory, please upload file",
+                        "Tidak ada item, silahkan upload",
                         Toast.LENGTH_SHORT)
                         .show();
             }
@@ -345,7 +343,7 @@ public class FilesActivity extends DropboxActivity {
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
-        dialog.setMessage("Downloading");
+        dialog.setMessage("Fetching Files");
         dialog.show();
 
         new DownloadFileTask(FilesActivity.this, DropboxClientFactory.getClient(), new DownloadFileTask.Callback() {
@@ -362,9 +360,9 @@ public class FilesActivity extends DropboxActivity {
             public void onError(Exception e) {
                 dialog.dismiss();
 
-                Log.e(TAG, "Failed to download file.", e);
+                Log.e(TAG, "Gagal mendownload file", e);
                 Toast.makeText(FilesActivity.this,
-                        "An error has occurred",
+                        "Error, Tidak dapat memproses",
                         Toast.LENGTH_SHORT)
                         .show();
             }

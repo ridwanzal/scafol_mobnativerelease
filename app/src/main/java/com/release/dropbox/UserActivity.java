@@ -3,10 +3,12 @@ package com.release.dropbox;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
 import com.dropbox.core.android.Auth;
@@ -24,7 +26,7 @@ public class UserActivity extends DropboxActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_user);
 
         Button loginButton = (Button)findViewById(R.id.login_button);
@@ -69,6 +71,17 @@ public class UserActivity extends DropboxActivity {
                 startActivity(openWithIntent);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home :
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
