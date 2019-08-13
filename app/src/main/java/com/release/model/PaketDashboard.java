@@ -17,6 +17,16 @@ public class PaketDashboard {
     private String totalPaguPPTK;
     @SerializedName("total_real_pptk")
     private String totalRealPPTK;
+    @SerializedName("total_sisa")
+    private String totalSisa;
+
+    public String getTotalSisa() {
+        return totalSisa;
+    }
+
+    public void setTotalSisa(String totalSisa) {
+        this.totalSisa = totalSisa;
+    }
 
     public String getPaketProgress() {
         return paketProgress;

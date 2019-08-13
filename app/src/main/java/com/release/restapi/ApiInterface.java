@@ -46,6 +46,8 @@ public interface ApiInterface {
     @GET("login")
     Call<DataResponse> checkLogin(@Query("username") String username, @Query("password") String password);
 
+    // role pptk
+
     @GET("dashboardpptk/paketall/")
     Call<DataResponsePA> countPaketPPTK(@Query("pptk_id") String pptk_id);
 
@@ -76,7 +78,15 @@ public interface ApiInterface {
     @POST("progress/addprogressf/")
     Call<DataResponseProgress> addNewProgress(@Field("pa_id") String pa_id,  @Field("pr_target") String pr_target, @Field("pr_real") String pr_real, @Field("pr_deviasi") String pr_deviasi, @Field("pr_tanggal") String pr_tanggal,  @Field("ke_id") String ke_id);
 
-//    @POST("paket/updatemap/")
-//    Call<DataResponsePA> updateMapPaket(@Field("pa_id") String pa_id, @Field("lat") String lat, @Field("long") String longitude);
+    // role admin
+    @GET("dashboardadmin/paguadmin/")
+    Call<DataResponsePA> countPaguAdmin(@Query("dinas_id") String dinas_id);
+
+    @GET("dashboardadmin/realadmin/")
+    Call<DataResponsePA> countRealuAdmin(@Query("dinas_id") String dinas_id);
+
+    @GET("dashboardadmin/sisaadmin/")
+    Call<DataResponsePA> countSisaAdmin(@Query("dinas_id") String dinas_id);
+
 
 }

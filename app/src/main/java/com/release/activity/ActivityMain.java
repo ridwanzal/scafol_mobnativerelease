@@ -80,19 +80,24 @@ public class ActivityMain extends AppCompatActivity{
         switch (role){
             case "Admin" :
                 // user admin
-                setContentView(R.layout.recycle_listkegiatan);
-                Call<DataResponseKegiatan> call_kegiatan_admin = apiInterface.getKegiatanAdminDinas(dinas_id);
-                call_kegiatan_admin.enqueue(new Callback<DataResponseKegiatan>() {
+                setContentView(R.layout.recycle_listpaket);
+                progress_listpaket = findViewById(R.id.progress_listpaket);
+                Snackbar.make(findViewById(R.id.activity_paketlist), "Selamat Datang", Snackbar.LENGTH_LONG);
+                Call<DataResponsePaket> call_paket2 = apiInterface.getPaketPptk(user_id);
+                call_paket2.enqueue(new Callback<DataResponsePaket>() {
                     @Override
-                    public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
-                        ArrayList<Kegiatan> data = response.body().getData();
-                        Log.w(TAG, "kegiatan data " + new Gson().toJson(data));
-                        generateKegiatanList(response.body().getData());
+                    public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                        ArrayList<Paket> data = response.body().getData();
+                        Log.w(TAG, "paket data " + new Gson().toJson(data));
+                        generatePaketList(response.body().getData());
+                        progress_listpaket.setVisibility(View.GONE);
+                        recyclerView = findViewById(R.id.recycle_listpaket);
+                        recyclerView.setVisibility(View.VISIBLE);
                     }
 
                     @Override
-                    public void onFailure(Call<DataResponseKegiatan> call, Throwable t) {
-                         Log.e(TAG, t.toString());
+                    public void onFailure(Call<DataResponsePaket> call, Throwable t) {
+                        Log.e(TAG, t.toString());
                     }
                 });
                 break;

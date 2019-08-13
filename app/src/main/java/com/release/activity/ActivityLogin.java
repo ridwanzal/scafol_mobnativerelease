@@ -138,7 +138,6 @@ public class ActivityLogin extends AppCompatActivity{
                                                 login_role,
                                                 login_bidang);
                                     }
-
                                     Intent intent = new Intent(getApplicationContext(), ActivityDashboard.class);
                                     startActivity(intent);
                                     finish();

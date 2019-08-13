@@ -139,150 +139,225 @@ public class ActivityDashboard extends AppCompatActivity {
             Snackbar.make(parentLayout, "Selamat Datang", Snackbar.LENGTH_LONG).show();
             // total paket count
             dialog.show();
-            Call<DataResponsePA> callpaketall = apiInterface.countPaketPPTK(user_id);
-            Log.d(TAG, "paket datas " + user_id);
-            callpaketall.enqueue(new Callback<DataResponsePA>() {
-                @Override
-                public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                    Log.d(TAG, "paket datas " + response.body().getData());
-                    if(!response.body().getData().equals(null)){
-                        ArrayList<PaketDashboard> result = response.body().getData();
-                        for(int i = 0; i < result.size(); i++){
-                            Log.d(TAG, "paket size all : " + result.get(i).getPaketAll());
-                            total_paket = result.get(i).getPaketAll();
-                            tx_dashtotalpaket.setText(result.get(i).getPaketAll());
+            if(role.toLowerCase().equals("pptk")){
+                        Call<DataResponsePA> callpaketall = apiInterface.countPaketPPTK(user_id);
+                        Log.d(TAG, "paket datas " + user_id);
+                        callpaketall.enqueue(new Callback<DataResponsePA>() {
+                            @Override
+                            public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                                Log.d(TAG, "paket datas " + response.body().getData());
+                                if(!response.body().getData().equals(null)){
+                                    ArrayList<PaketDashboard> result = response.body().getData();
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getPaketAll());
+                                        total_paket = result.get(i).getPaketAll();
+                                        tx_dashtotalpaket.setText(result.get(i).getPaketAll());
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                            }
+                        });
+
+                        // total progress count
+                        Call<DataResponsePA> callprogress = apiInterface.countPaketProgressPPTK(user_id);
+                        Log.d(TAG, "paket datas " + user_id);
+                        callprogress.enqueue(new Callback<DataResponsePA>() {
+                            @Override
+                            public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                                Log.d(TAG, "paket datas " + response.body().getData());
+                                if(!response.body().getData().equals(null)){
+                                    ArrayList<PaketDashboard> result = response.body().getData();
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getPaketProgress());
+                                        total_progress =  result.get(i).getPaketProgress();
+        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                        tx_dashongoing.setText(result.get(i).getPaketProgress());
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                            }
+                        });
+
+                        // total paket  belum count
+                        Call<DataResponsePA> callpaketbelum = apiInterface.countPaketBelumPPTK(user_id);
+                        Log.d(TAG, "paket datas " + user_id);
+                        callpaketbelum.enqueue(new Callback<DataResponsePA>() {
+                            @Override
+                            public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                                Log.d(TAG, "paket datas " + response.body().getData());
+                                if(!response.body().getData().equals(null)){
+                                    ArrayList<PaketDashboard> result = response.body().getData();
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getPaketBelumMulai());
+                                        total_progress =  result.get(i).getPaketBelumMulai();
+        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                        tx_dashbelum.setText(result.get(i).getPaketBelumMulai());
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                            }
+                        });
+
+                        // total paket  belum count
+                        Call<DataResponsePA> callpaketselesai = apiInterface.countPaketSelesai(user_id);
+                        Log.d(TAG, "paket datas " + user_id);
+                        callpaketselesai.enqueue(new Callback<DataResponsePA>() {
+                            @Override
+                            public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                                Log.d(TAG, "paket datas " + response.body().getData());
+                                if(!response.body().getData().equals(null)){
+                                    ArrayList<PaketDashboard> result = response.body().getData();
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getPaketSelesai());
+                                        total_progress =  result.get(i).getPaketSelesai();
+        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketSelesai(), Toast.LENGTH_SHORT).show();
+                                        tx_dashselesai.setText(result.get(i).getPaketSelesai());
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                            }
+                        });
+
+
+                        // call total pagu
+                        Call<DataResponsePA> calltotalpagu = apiInterface.countPaguPPTK(user_id);
+                        Log.d(TAG, "paket datas " + user_id);
+                        calltotalpagu.enqueue(new Callback<DataResponsePA>() {
+                            @Override
+                            public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                                Log.d(TAG, "paket datas " + response.body().getData());
+                                if(!response.body().getData().equals(null)){
+                                    ArrayList<PaketDashboard> result = response.body().getData();
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getTotalPaguPPTK());
+                                        total_progress =  result.get(i).getPaketProgress();
+        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                        String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguPPTK());
+                                        tx_dashpagu.setText(reformat);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                            }
+                        });
+
+
+                        // call total realisasi
+                        Call<DataResponsePA> callreal = apiInterface.countRealPPTK(user_id);
+                        Log.d(TAG, "paket datas " + user_id);
+                        callreal.enqueue(new Callback<DataResponsePA>() {
+                            @Override
+                            public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                                Log.d(TAG, "paket datas " + response.body().getData());
+                                if(!response.body().getData().equals(null)){
+                                    ArrayList<PaketDashboard> result = response.body().getData();
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
+                                        total_progress =  result.get(i).getTotalRealPPTK();
+        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                        String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
+                                        tx_dashreal.setText(reformat);
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                            }
+                        });
+            }else if(role.toLowerCase().equals("admin")){
+                // admin page goes heres
+                show_list.setVisibility(View.GONE);
+                // call total pagu
+                    Call<DataResponsePA> calltotalpagu = apiInterface.countPaguAdmin(dinas_id);
+                    Log.d(TAG, "paket datas " + user_id);
+                    calltotalpagu.enqueue(new Callback<DataResponsePA>() {
+                        @Override
+                        public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                            Log.d(TAG, "paket datas " + response.body().getData());
+                            if(!response.body().getData().equals(null)){
+                                ArrayList<PaketDashboard> result = response.body().getData();
+                                for(int i = 0; i < result.size(); i++){
+                                    Log.d(TAG, "paket size all : " + result.get(i).getTotalPaguPPTK());
+                                    total_progress =  result.get(i).getPaketProgress();
+                                    //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                    String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguPPTK());
+                                    tx_dashpagu.setText(reformat);
+                                }
+                            }
                         }
-                    }
-                }
-                @Override
-                public void onFailure(Call<DataResponsePA> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<DataResponsePA> call, Throwable t) {
 
-                }
-            });
-
-            // total progress count
-            Call<DataResponsePA> callprogress = apiInterface.countPaketProgressPPTK(user_id);
-            Log.d(TAG, "paket datas " + user_id);
-            callprogress.enqueue(new Callback<DataResponsePA>() {
-                @Override
-                public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                    Log.d(TAG, "paket datas " + response.body().getData());
-                    if(!response.body().getData().equals(null)){
-                        ArrayList<PaketDashboard> result = response.body().getData();
-                        for(int i = 0; i < result.size(); i++){
-                            Log.d(TAG, "paket size all : " + result.get(i).getPaketProgress());
-                            total_progress =  result.get(i).getPaketProgress();
-//                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
-                            tx_dashongoing.setText(result.get(i).getPaketProgress());
                         }
-                    }
-                }
-                @Override
-                public void onFailure(Call<DataResponsePA> call, Throwable t) {
+                    });
 
-                }
-            });
 
-            // total paket  belum count
-            Call<DataResponsePA> callpaketbelum = apiInterface.countPaketBelumPPTK(user_id);
-            Log.d(TAG, "paket datas " + user_id);
-            callpaketbelum.enqueue(new Callback<DataResponsePA>() {
-                @Override
-                public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                    Log.d(TAG, "paket datas " + response.body().getData());
-                    if(!response.body().getData().equals(null)){
-                        ArrayList<PaketDashboard> result = response.body().getData();
-                        for(int i = 0; i < result.size(); i++){
-                            Log.d(TAG, "paket size all : " + result.get(i).getPaketBelumMulai());
-                            total_progress =  result.get(i).getPaketBelumMulai();
-//                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
-                            tx_dashbelum.setText(result.get(i).getPaketBelumMulai());
+                    // call total realisasi
+                    Call<DataResponsePA> callreal = apiInterface.countRealuAdmin(dinas_id);
+                    Log.d(TAG, "paket datas " + user_id);
+                    callreal.enqueue(new Callback<DataResponsePA>() {
+                        @Override
+                        public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                            Log.d(TAG, "paket datas " + response.body().getData());
+                            if(!response.body().getData().equals(null)){
+                                ArrayList<PaketDashboard> result = response.body().getData();
+                                for(int i = 0; i < result.size(); i++){
+                                    Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
+                                    total_progress =  result.get(i).getTotalRealPPTK();
+                                    //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                    String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
+                                    tx_dashreal.setText(reformat);
+                                }
+                            }
                         }
-                    }
-                }
-                @Override
-                public void onFailure(Call<DataResponsePA> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<DataResponsePA> call, Throwable t) {
 
-                }
-            });
-
-            // total paket  belum count
-            Call<DataResponsePA> callpaketselesai = apiInterface.countPaketSelesai(user_id);
-            Log.d(TAG, "paket datas " + user_id);
-            callpaketselesai.enqueue(new Callback<DataResponsePA>() {
-                @Override
-                public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                    Log.d(TAG, "paket datas " + response.body().getData());
-                    if(!response.body().getData().equals(null)){
-                        ArrayList<PaketDashboard> result = response.body().getData();
-                        for(int i = 0; i < result.size(); i++){
-                            Log.d(TAG, "paket size all : " + result.get(i).getPaketSelesai());
-                            total_progress =  result.get(i).getPaketSelesai();
-//                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketSelesai(), Toast.LENGTH_SHORT).show();
-                            tx_dashselesai.setText(result.get(i).getPaketSelesai());
                         }
-                    }
-                }
-                @Override
-                public void onFailure(Call<DataResponsePA> call, Throwable t) {
-
-                }
-            });
+                    });
 
 
-            // call total pagu
-            Call<DataResponsePA> calltotalpagu = apiInterface.countPaguPPTK(user_id);
-            Log.d(TAG, "paket datas " + user_id);
-            calltotalpagu.enqueue(new Callback<DataResponsePA>() {
-                @Override
-                public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                    Log.d(TAG, "paket datas " + response.body().getData());
-                    if(!response.body().getData().equals(null)){
-                        ArrayList<PaketDashboard> result = response.body().getData();
-                        for(int i = 0; i < result.size(); i++){
-                            Log.d(TAG, "paket size all : " + result.get(i).getTotalPaguPPTK());
-                            total_progress =  result.get(i).getPaketProgress();
-//                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
-                            String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguPPTK());
-                            tx_dashpagu.setText(reformat);
+                    // call total sisa anggaran
+                    Call<DataResponsePA> callsisa = apiInterface.countSisaAdmin(dinas_id);
+                    callsisa.enqueue(new Callback<DataResponsePA>() {
+                        @Override
+                        public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                            Log.d(TAG, "paket datas " + response.body().getData());
+                            if(!response.body().getData().equals(null)){
+                                ArrayList<PaketDashboard> result = response.body().getData();
+                                for(int i = 0; i < result.size(); i++){
+                                    Log.d(TAG, "paket size all : " + result.get(i).getTotalSisa());
+                                    //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                    String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalSisa());
+                                    tx_dashsisa.setText(reformat);
+                                }
+                            }
                         }
-                    }
-                }
-                @Override
-                public void onFailure(Call<DataResponsePA> call, Throwable t) {
+                        @Override
+                        public void onFailure(Call<DataResponsePA> call, Throwable t) {
 
-                }
-            });
-
-
-            // call total realisasi
-            Call<DataResponsePA> callreal = apiInterface.countRealPPTK(user_id);
-            Log.d(TAG, "paket datas " + user_id);
-            callreal.enqueue(new Callback<DataResponsePA>() {
-                @Override
-                public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                    Log.d(TAG, "paket datas " + response.body().getData());
-                    if(!response.body().getData().equals(null)){
-                        ArrayList<PaketDashboard> result = response.body().getData();
-                        for(int i = 0; i < result.size(); i++){
-                            Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
-                            total_progress =  result.get(i).getTotalRealPPTK();
-//                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
-                            String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
-                            tx_dashreal.setText(reformat);
                         }
-                    }
-                }
-                @Override
-                public void onFailure(Call<DataResponsePA> call, Throwable t) {
-
-                }
-            });
+                    });
+            }
 
             dialog.dismiss();
         }
 
-        tx_dashsisa.setText("Rp. 0");
         tx_dashbelum.setText("0");
         tx_dashongoing.setText("0");
         tx_dashselesai.setText("0");
