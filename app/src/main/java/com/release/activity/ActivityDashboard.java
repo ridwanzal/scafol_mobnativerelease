@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 import com.release.R;
 import com.release.dropbox.FilesActivity;
 import com.release.dropbox.UserActivity;
@@ -236,7 +237,6 @@ public class ActivityDashboard extends AppCompatActivity {
                         calltotalpagu.enqueue(new Callback<DataResponsePA>() {
                             @Override
                             public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                                Log.d(TAG, "paket datas " + response.body().getData());
                                 if(!response.body().getData().equals(null)){
                                     ArrayList<PaketDashboard> result = response.body().getData();
                                     for(int i = 0; i < result.size(); i++){
@@ -261,7 +261,6 @@ public class ActivityDashboard extends AppCompatActivity {
                         callreal.enqueue(new Callback<DataResponsePA>() {
                             @Override
                             public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                                Log.d(TAG, "paket datas " + response.body().getData());
                                 if(!response.body().getData().equals(null)){
                                     ArrayList<PaketDashboard> result = response.body().getData();
                                     for(int i = 0; i < result.size(); i++){
@@ -287,15 +286,18 @@ public class ActivityDashboard extends AppCompatActivity {
                     calltotalpagu.enqueue(new Callback<DataResponsePA>() {
                         @Override
                         public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                            Log.d(TAG, "paket datas " + response.body().getData());
-                            if(!response.body().getData().equals(null)){
+                            Log.d(TAG, "RESPONSE " + new Gson().toJson(response.code()));
+                            String response_code = new Gson().toJson(response.code()).toString();
+                            if(response_code.equals("200")){
                                 ArrayList<PaketDashboard> result = response.body().getData();
-                                for(int i = 0; i < result.size(); i++){
-                                    Log.d(TAG, "paket size all : " + result.get(i).getTotalPaguPPTK());
-                                    total_progress =  result.get(i).getPaketProgress();
-                                    //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
-                                    String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguPPTK());
-                                    tx_dashpagu.setText(reformat);
+                                if(result != null){
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getTotalPaguPPTK());
+                                        total_progress =  result.get(i).getPaketProgress();
+                                        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                        String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguPPTK());
+                                        tx_dashpagu.setText(reformat);
+                                    }
                                 }
                             }
                         }
@@ -312,15 +314,19 @@ public class ActivityDashboard extends AppCompatActivity {
                     callreal.enqueue(new Callback<DataResponsePA>() {
                         @Override
                         public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                            Log.d(TAG, "paket datas " + response.body().getData());
-                            if(!response.body().getData().equals(null)){
-                                ArrayList<PaketDashboard> result = response.body().getData();
-                                for(int i = 0; i < result.size(); i++){
-                                    Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
-                                    total_progress =  result.get(i).getTotalRealPPTK();
-                                    //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
-                                    String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
-                                    tx_dashreal.setText(reformat);
+                            Log.d(TAG, "RESPONSE " + new Gson().toJson(response.code()));
+                            String response_code = new Gson().toJson(response.code()).toString();
+                            if(response_code.equals("200")){
+                                ArrayList<PaketDashboard> result = null;
+                                result = (response.body().getData() == null) ?  null : response.body().getData();
+                                if(result != null){
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
+                                        total_progress =  result.get(i).getTotalRealPPTK();
+                                        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                        String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
+                                        tx_dashreal.setText(reformat);
+                                    }
                                 }
                             }
                         }
@@ -336,14 +342,18 @@ public class ActivityDashboard extends AppCompatActivity {
                     callsisa.enqueue(new Callback<DataResponsePA>() {
                         @Override
                         public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                            Log.d(TAG, "paket datas " + response.body().getData());
-                            if(!response.body().getData().equals(null)){
-                                ArrayList<PaketDashboard> result = response.body().getData();
-                                for(int i = 0; i < result.size(); i++){
-                                    Log.d(TAG, "paket size all : " + result.get(i).getTotalSisa());
-                                    //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
-                                    String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalSisa());
-                                    tx_dashsisa.setText(reformat);
+                            Log.d(TAG, "RESPONSE " + new Gson().toJson(response.code()));
+                            String response_code = new Gson().toJson(response.code()).toString();
+                            if(response_code.equals("200")){
+                                ArrayList<PaketDashboard> result = null;
+                                result = (response.body().getData() == null) ?  null : response.body().getData();
+                                if(result != null){
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getTotalSisa());
+                                        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                        String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalSisa());
+                                        tx_dashsisa.setText(reformat);
+                                    }
                                 }
                             }
                         }
