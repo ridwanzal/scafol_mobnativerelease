@@ -128,7 +128,7 @@
                         android:layout_gravity="left"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="1"
-                        android:text="Rp. 12.500.000.000"
+                        android:text="Rp. 0"
                         android:textColor="#444"
                         android:textSize="16sp"
                         android:textStyle="bold" />
@@ -188,7 +188,7 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="Rp. 12.500.000.000"
+                    android:text="Rp. 0"
                     android:textColor="#444"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -248,7 +248,7 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="Rp. 12.500.000.000"
+                    android:text="Rp. 0"
                     android:textColor="#444"
                     android:textSize="16sp"
                     android:textStyle="bold" />
