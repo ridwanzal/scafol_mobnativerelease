@@ -6,6 +6,7 @@ import java.util.HashMap;
 import android.content.Context;
 import android.content.Intent;
 
+import com.release.activity.ActivityDashboard;
 import com.release.activity.ActivityLogin;
 
 public class SessionManager {

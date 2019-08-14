@@ -80,6 +80,10 @@ public class ActivityDashboard extends AppCompatActivity {
     String user_fullname;
     String user_name;
 
+    public ActivityDashboard(){
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
