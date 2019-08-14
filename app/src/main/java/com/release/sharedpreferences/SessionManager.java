@@ -28,7 +28,7 @@ public class SessionManager {
     // All Shared Preferences Keys
     private static final String IS_LOGIN = "IsLoggedIn";
 
-    public static final String KEY_NAME = ",";
+    public static final String KEY_NAME = "nama";
 
     public static final String KEY_USERID = "userid";
 

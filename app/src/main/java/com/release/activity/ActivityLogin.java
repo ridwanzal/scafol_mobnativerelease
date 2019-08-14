@@ -130,7 +130,7 @@ public class ActivityLogin extends AppCompatActivity{
                                         login_bidang = data.get(i).getBiId();
 
                                         sessionManager.createLoginSessionUsername(
-                                                "login_name",
+                                                login_name,
                                                 login_username,
                                                 login_userid,
                                                 login_dinasid,

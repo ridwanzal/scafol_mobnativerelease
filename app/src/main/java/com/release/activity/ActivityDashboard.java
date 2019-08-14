@@ -126,7 +126,7 @@ public class ActivityDashboard extends AppCompatActivity {
         String date_result = format1.format(date);
         Log.d(TAG, "Date today " + date_result);
         tx_datecalendar.setText(date_result);
-        tx_namauser.setText("Welcome, " + user_name);
+        tx_namauser.setText("Welcome, " + user_fullname);
 
         startServiceReminder();
         final ProgressDialog dialog = new ProgressDialog(this);
