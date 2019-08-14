@@ -46,19 +46,19 @@ public class ActivityDashboard extends AppCompatActivity {
     private Button show_list; // button paket fisik
     private Button show_list2; // button anggaran
     private static String TAG = "ActivityDashboard";
+
     SessionManager sessionManager;
+    ProgressDialog progress;
 
     public static ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
     private TextView tx_dashpagu;
     private TextView tx_dashreal;
     private TextView tx_dashsisa;
-
     private TextView tx_dashtotalpaket;
     private TextView tx_dashongoing;
     private TextView tx_dashbelum;
     private TextView tx_dashselesai;
-
     private TextView tx_dashpagu_dummy;
     private TextView tx_dashreal_dummy;
 
@@ -72,18 +72,14 @@ public class ActivityDashboard extends AppCompatActivity {
     private String total_paket;
     private String total_progress;
     private String total_paket_belum;
-    ProgressDialog progress;
+    private String role;
+    private String dinas_id;
+    private String user_id;
+    private String bi_id;
+    private String user_fullname;
+    private String user_name;
 
-    String role;
-    String dinas_id;
-    String user_id;
-    String bi_id;
-    String user_fullname;
-    String user_name;
-
-    public ActivityDashboard(){
-
-    }
+    public ActivityDashboard(){}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -398,7 +394,6 @@ public class ActivityDashboard extends AppCompatActivity {
     public void startServiceReminder(){
         Intent serviceIntent = new Intent(this, ServiceReminder.class);
         serviceIntent.putExtra("inputExtra", "Let's update our progress");
-
         ContextCompat.startForegroundService(this, serviceIntent);
     }
 
@@ -479,33 +474,6 @@ public class ActivityDashboard extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-    }
-
-    private static void retrieveTotalPaket(String user_id, final TextView tx_totalpaket){
-        try{
-            Call<DataResponsePA> callpaketall = apiInterface.countPaketPPTK(user_id);
-            Log.d(TAG, "paket datas " + user_id);
-            callpaketall.enqueue(new Callback<DataResponsePA>() {
-                @Override
-                public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
-                    Log.d(TAG, "paket datas " + response.body().getData());
-                    if(!response.body().getData().equals(null)){
-                        ArrayList<PaketDashboard> result = response.body().getData();
-                        for(int i = 0; i < result.size(); i++){
-                            Log.d(TAG, "paket size all : " + result.get(i).getPaketAll());
-                            tx_totalpaket.setText(result.get(i).getPaketAll());
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<DataResponsePA> call, Throwable t) {
-
-                }
-            });
-        }catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
 }

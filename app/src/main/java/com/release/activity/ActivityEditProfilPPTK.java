@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
 import com.release.R;
 import com.release.model.DataResponse;
 import com.release.model.User;
@@ -54,13 +55,16 @@ public class ActivityEditProfilPPTK extends AppCompatActivity {
         call_user.enqueue(new Callback<DataResponse>() {
             @Override
             public void onResponse(Call<DataResponse> call, Response<DataResponse> response) {
-                ArrayList<User> list = response.body().getData();
-                for(int i = 0; i < list.size(); i++){
-                    prof_username.setText(list.get(i).getUsername());
-                    prof_bagian.setText(list.get(i).getRole().toUpperCase());
-                    prof_telepon.setText(checkData(list.get(i).getTelephone()));
-                    prof_email.setText(checkData(list.get(i).getTelephone()));
-                    prof_nama.setText(checkData(list.get(i).getNama()));
+                String response_code = new Gson().toJson(response.code()).toString();
+                if(response_code.equals("200")){
+                    ArrayList<User> list = response.body().getData();
+                    for(int i = 0; i < list.size(); i++){
+                        prof_username.setText(list.get(i).getUsername());
+                        prof_bagian.setText(list.get(i).getRole().toUpperCase());
+                        prof_telepon.setText(checkData(list.get(i).getTelephone()));
+                        prof_email.setText(checkData(list.get(i).getTelephone()));
+                        prof_nama.setText(checkData(list.get(i).getNama()));
+                    }
                 }
             }
 

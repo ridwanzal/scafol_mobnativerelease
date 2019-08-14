@@ -107,7 +107,6 @@ public class ActivityLogin extends AppCompatActivity{
                 String result_name = txt_uname.getText().toString().trim();
                 String result_pass = txt_uname.getText().toString().trim();
                 if(result_name.equals("") || result_pass.equals("")){
-//                    Toast.makeText(ActivityLogin.this, "Silahkan isi data", Toast.LENGTH_SHORT).show();
                    Snackbar.make(parentLayout, "Silahkan isi data", Snackbar.LENGTH_LONG).show();
                 }else{
                     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -116,8 +115,7 @@ public class ActivityLogin extends AppCompatActivity{
                         @Override
                         public void onResponse(Call<DataResponse> call, Response<DataResponse> response) {
                             Log.w(TAG, "result response" + new Gson().toJson(response));
-                            if(response.isSuccessful()){
-//                                Toast.makeText(ActivityLogin.this, "Login Succed", Toast.LENGTH_SHORT).show();
+                            if(response.isSuccessful() || new Gson().toJson(response.code()).toString().equals("200")){
                                 ArrayList<User> data = response.body().getData();
                                 if(!data.isEmpty()){
                                     for(int i = 0 ; i < data.size(); i++){
@@ -128,7 +126,6 @@ public class ActivityLogin extends AppCompatActivity{
                                         login_role = data.get(i).getRole();
                                         login_email = "";
                                         login_bidang = data.get(i).getBiId();
-
                                         sessionManager.createLoginSessionUsername(
                                                 login_name,
                                                 login_username,

@@ -87,12 +87,15 @@ public class ActivityMain extends AppCompatActivity{
                 call_paket2.enqueue(new Callback<DataResponsePaket>() {
                     @Override
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                        ArrayList<Paket> data = response.body().getData();
-                        Log.w(TAG, "paket data " + new Gson().toJson(data));
-                        generatePaketList(response.body().getData());
-                        progress_listpaket.setVisibility(View.GONE);
-                        recyclerView = findViewById(R.id.recycle_listpaket);
-                        recyclerView.setVisibility(View.VISIBLE);
+                        String response_code = new Gson().toJson(response.code()).toString();
+                        if(response_code.equals("200")){
+                            ArrayList<Paket> data = response.body().getData();
+                            Log.w(TAG, "paket data " + new Gson().toJson(data));
+                            generatePaketList(response.body().getData());
+                            progress_listpaket.setVisibility(View.GONE);
+                            recyclerView = findViewById(R.id.recycle_listpaket);
+                            recyclerView.setVisibility(View.VISIBLE);
+                        }
                     }
 
                     @Override
@@ -110,12 +113,15 @@ public class ActivityMain extends AppCompatActivity{
                 call_paket.enqueue(new Callback<DataResponsePaket>() {
                     @Override
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                        ArrayList<Paket> data = response.body().getData();
-                        Log.w(TAG, "paket data " + new Gson().toJson(data));
-                        generatePaketList(response.body().getData());
-                        progress_listpaket.setVisibility(View.GONE);
-                        recyclerView = findViewById(R.id.recycle_listpaket);
-                        recyclerView.setVisibility(View.VISIBLE);
+                        String response_code = new Gson().toJson(response.code()).toString();
+                        if(response_code.equals("200")){
+                            ArrayList<Paket> data = response.body().getData();
+                            Log.w(TAG, "paket data " + new Gson().toJson(data));
+                            generatePaketList(response.body().getData());
+                            progress_listpaket.setVisibility(View.GONE);
+                            recyclerView = findViewById(R.id.recycle_listpaket);
+                            recyclerView.setVisibility(View.VISIBLE);
+                        }
                     }
 
                     @Override
