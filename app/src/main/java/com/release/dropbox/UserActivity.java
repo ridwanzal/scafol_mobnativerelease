@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -116,9 +118,12 @@ public class UserActivity extends DropboxActivity {
 //                ((TextView) findViewById(R.id.email_text)).setText(result.getEmail());
 //                ((TextView) findViewById(R.id.name_text)).setText(result.getName().getDisplayName());
 //                ((TextView) findViewById(R.id.type_text)).setText(result.getAccountType().name());
+
                 ((TextView) findViewById(R.id.sync_status_condc)).setVisibility(View.GONE);
                 ((TextView) findViewById(R.id.sync_status_con)).setVisibility(View.VISIBLE);
                 ((Button) findViewById(R.id.files_button)).setVisibility(View.VISIBLE);
+                ((ImageView) findViewById(R.id.centang_ok)).setVisibility(View.VISIBLE);
+                ((ProgressBar) findViewById(R.id.progress_bardropboxuseract)).setVisibility(View.GONE);
             }
 
             @Override
@@ -126,6 +131,7 @@ public class UserActivity extends DropboxActivity {
                 ((TextView) findViewById(R.id.sync_status_condc)).setVisibility(View.VISIBLE);
                 ((TextView) findViewById(R.id.sync_status_con)).setVisibility(View.GONE);
                 ((Button) findViewById(R.id.files_button)).setVisibility(View.GONE);
+                ((ImageView) findViewById(R.id.centang_ok)).setVisibility(View.GONE);
                 Log.e(getClass().getName(), "Failed to get account details.", e);
             }
         }).execute();
