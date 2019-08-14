@@ -88,14 +88,9 @@ public class ActivityDashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-//        getSupportActionBar().setDisplayUseLogoEnabled(true);
-//        getSupportActionBar().setLogo(R.drawable.ic_logo_main);
-//        getSupportActionBar().setDisplayUseLogoEnabled(true);
-//        getSupportActionBar().setIcon(R.drawable.ic_logo_main);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.ic_scafol_logo3);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
 
         setContentView(R.layout.activity_dashboard);
         sessionManager = new SessionManager(getApplicationContext());
