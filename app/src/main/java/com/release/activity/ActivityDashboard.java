@@ -358,6 +358,36 @@ public class ActivityDashboard extends AppCompatActivity {
 
                         }
                     });
+
+                    // all paket in admin
+                    Call<DataResponsePA> callpaketall = apiInterface.countTotalPaketAdmin(dinas_id);
+                    callpaketall.enqueue(new Callback<DataResponsePA>() {
+                        @Override
+                        public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                            String response_code = new Gson().toJson(response.code()).toString();
+                            if(response_code.equals("200")){
+                                // do something here
+                                ArrayList<PaketDashboard> result = null;
+                                result = (response.body().getData() == null) ?  null : response.body().getData();
+                                if(result != null){
+                                    for(int i = 0; i < result.size(); i++){
+                                        Log.d(TAG, "paket size all : " + result.get(i).getTotalSisa());
+                                        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                        String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getPaketAll());
+                                        tx_dashtotalpaket.setText(reformat);
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                        }
+                    });
+
+
+
             }
 
             dialog.dismiss();

@@ -88,5 +88,6 @@ public interface ApiInterface {
     @GET("dashboardadmin/sisaadmin/")
     Call<DataResponsePA> countSisaAdmin(@Query("dinas_id") String dinas_id);
 
-
+    @GET("dashboardadmin/paketall/")
+    Call<DataResponsePA> countTotalPaketAdmin(@Query("dinas_id") String dinas_id);
 }
