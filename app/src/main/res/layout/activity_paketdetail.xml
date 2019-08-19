@@ -65,6 +65,31 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="Nomor Kontrak"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:id="@+id/text_nokontrak"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        android:text="-"
+                        android:textColor="#000"
+                        android:textSize="16sp"
+                        android:textStyle="" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#eee" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="Jenis"
                         android:textColor="#aaa" />
 
@@ -435,15 +460,16 @@
         android:padding="15dp"
         >
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignStart="@+id/card2"
             android:padding="15dp"
-
             android:layout_alignLeft="@+id/card2">
 
-            <LinearLayout
+
+                <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -537,7 +563,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:padding="10dp">
+                    android:padding="15dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -559,9 +585,10 @@
                             android:orientation="vertical"
                             >
                             <TextView
+                                android:id="@+id/lin_texttarget"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Target"
+                                android:text="0 %"
                                 android:textColor="#000"
                                 android:textSize="16sp"
                                 />
@@ -597,7 +624,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Real"
+                                android:text="0 %"
+                                android:id="@+id/lin_textreal"
                                 android:textColor="#000"
                                 android:textSize="16sp"
                                 />
@@ -632,7 +660,8 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Deviasi"
+                                android:text="0 %"
+                                android:id="@+id/lin_textdeviasi"
                                 android:textColor="#000"
                                 android:textSize="16sp"
                                 />
@@ -709,6 +738,34 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/list_limit"
+            android:clickable="true"
+            android:layout_below="@id/map_cards"
+            android:padding="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:background="#eee"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Sisa Waktu Pekerjaan : 0 Hari"
+                    />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
 
     </RelativeLayout>
 </ScrollView>

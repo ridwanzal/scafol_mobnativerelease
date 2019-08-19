@@ -70,6 +70,15 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView maps_caption;
     private TextView tx_lasptprog;
 
+    private TextView text_dayaserap;
+    private TextView text_sisakontrak;
+    private TextView text_sisaanggaran;
+
+    private TextView lin_texttarget;
+    private TextView lin_textreal;
+    private TextView lin_textdeviasi;
+    private TextView text_nokontrak;
+
     private Context mContext;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -115,6 +124,16 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
         tx_lasptprog = findViewById(R.id.tx_lasptprog);
 
+        text_dayaserap = findViewById(R.id.text_dayaserap);
+        text_sisakontrak = findViewById(R.id.text_sisakontrak);
+        text_sisaanggaran = findViewById(R.id.text_sisaanggaran);
+
+        lin_texttarget = findViewById(R.id.lin_texttarget);
+        lin_textreal = findViewById(R.id.lin_textreal);
+        lin_textdeviasi = findViewById(R.id.lin_textdeviasi);
+
+        text_nokontrak = findViewById(R.id.text_nokontrak);
+
         Intent intent = getIntent();
         String id_paket = intent.getStringExtra("pa_id");
         Call<DataResponsePaket> call_paket = apiInterface.getPaketId(id_paket);
@@ -135,6 +154,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     String tanggal_akhir = paketlist.get(i).getPaAkhirKontrak();
                     String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
                     String lokasi_name = paketlist.get(i).getPaLokasi();
+                    String nokontrak = paketlist.get(i).getPaNomorKontrak();
 
                     text_judul.setText(checkData(name));
                     text_jenis.setText(checkData(jenis));
@@ -142,11 +162,11 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     text_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(pagu));
                     lokasi_name = lokasi_name.equals("")? "Lokasi tidak diset" : lokasi_name;
                     maps_caption.setText(lokasi_name + "");
-
                     text_namapptk.setText(checkData(user_fullname));
-
                     text_satuan.setText(checkData(satuan));
                     text_volume.setText(checkData(volume));
+                    text_nokontrak.setText(nokontrak);
+
                     String result1 = "";
                     String[] result_temp1;
 
@@ -184,8 +204,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
             }
         });
 
-        Call<DataResponseProgress> call_lastprog = apiInterface.getlastProgressPPTK(id_paket);
-        call_lastprog.enqueue(new Callback<DataResponseProgress>() {
+        Call<DataResponseProgress> call_lastprogall = apiInterface.getlastProgressallPPTK(id_paket);
+        call_lastprogall.enqueue(new Callback<DataResponseProgress>() {
             @Override
             public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {
                 if(response.code() == 200){
@@ -196,9 +216,28 @@ public class ActivityDetailPaket extends AppCompatActivity {
                         real_percent = progressList.get(i).getPr_real().equals("") ||  progressList.get(i).getPr_real() == null ? "0" : progressList.get(i).getPr_real().toString();
                         result = real_percent + " %";
                         tx_lasptprog.setText(result.toString());
-                    }
-                }else{
 
+                        String result_daya_serap = "";
+                        String result_sisa_kontrak = "";
+                        String result_sisa_anggaran = "";
+
+                        String result_lin_textreal = "";
+                        String result_lin_texttarget = "";
+                        String result_lin_textdeviasi = "";
+
+                        result_daya_serap  = progressList.get(i).getPr_daya_serap_kontrak() == null ? "-" : "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_daya_serap_kontrak());
+                        result_sisa_kontrak = progressList.get(i).getPr_sisa_kontrak() == null ? "-" :  "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_kontrak());
+                        result_sisa_anggaran = progressList.get(i).getPr_sisa_anggaran() == null ? "-" :  "Rp. " +  formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_anggaran());
+
+
+                        text_dayaserap.setText(result_daya_serap);
+                        text_sisakontrak.setText(result_sisa_kontrak);
+                        text_sisaanggaran.setText(result_sisa_anggaran);
+
+                        lin_textreal.setText(result);
+                        lin_texttarget.setText(progressList.get(i).getPr_target() + " %");
+                        lin_textdeviasi.setText(progressList.get(i).getPr_deviasi() + " %");
+                    }
                 }
             }
 
@@ -207,6 +246,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
             }
         });
+
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override

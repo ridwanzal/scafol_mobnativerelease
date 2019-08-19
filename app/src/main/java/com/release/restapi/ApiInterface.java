@@ -94,4 +94,7 @@ public interface ApiInterface {
     // http://apiext.scafol.id/api/progress/getlastprogresspptk?pptk_id=317
     @GET("progress/getlastprogress")
     Call<DataResponseProgress> getlastProgressPPTK(@Query("pa_id") String pa_id);
+
+    @GET("progress/getlastprogressall")
+    Call<DataResponseProgress> getlastProgressallPPTK(@Query("pa_id") String pa_id);
 }
