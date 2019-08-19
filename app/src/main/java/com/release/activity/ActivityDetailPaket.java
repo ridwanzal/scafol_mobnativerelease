@@ -22,7 +22,9 @@ import com.release.R;
 import com.release.dropbox.FilesActivity;
 import com.release.dropbox.UserActivity;
 import com.release.model.DataResponsePaket;
+import com.release.model.DataResponseProgress;
 import com.release.model.Paket;
+import com.release.model.Progress;
 import com.release.model.User;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
@@ -66,6 +68,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView text_progress;
 
     private TextView maps_caption;
+    private TextView tx_lasptprog;
 
     private Context mContext;
     private GoogleMap mMap;
@@ -105,11 +108,12 @@ public class ActivityDetailPaket extends AppCompatActivity {
         text_tanggal_akhir = findViewById(R.id.text_date_end);
 
         text_nilaikontrak = findViewById(R.id.prof_email);
-        text_progress = findViewById(R.id.text_progress);
 
         cardView = findViewById(R.id.map_cards);
 
         maps_caption = findViewById(R.id.tx_projectlocations);
+
+        tx_lasptprog = findViewById(R.id.tx_lasptprog);
 
         Intent intent = getIntent();
         String id_paket = intent.getStringExtra("pa_id");
@@ -177,6 +181,30 @@ public class ActivityDetailPaket extends AppCompatActivity {
             @Override
             public void onFailure(Call<DataResponsePaket> call, Throwable t) {
                 Log.e(TAG, t.toString());
+            }
+        });
+
+        Call<DataResponseProgress> call_lastprog = apiInterface.getlastProgressPPTK(id_paket);
+        call_lastprog.enqueue(new Callback<DataResponseProgress>() {
+            @Override
+            public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {
+                if(response.code() == 200){
+                    String real_percent = "";
+                    String result = "";
+                    ArrayList<Progress> progressList = response.body().getData();
+                    for(int i = 0; i < progressList.size(); i++){
+                        real_percent = progressList.get(i).getPr_real().equals("") ||  progressList.get(i).getPr_real() == null ? "0" : progressList.get(i).getPr_real().toString();
+                        result = real_percent + " %";
+                        tx_lasptprog.setText(result.toString());
+                    }
+                }else{
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataResponseProgress> call, Throwable t) {
+
             }
         });
 

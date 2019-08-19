@@ -90,4 +90,8 @@ public interface ApiInterface {
 
     @GET("dashboardadmin/paketall/")
     Call<DataResponsePA> countTotalPaketAdmin(@Query("dinas_id") String dinas_id);
+
+    // http://apiext.scafol.id/api/progress/getlastprogresspptk?pptk_id=317
+    @GET("progress/getlastprogress")
+    Call<DataResponseProgress> getlastProgressPPTK(@Query("pa_id") String pa_id);
 }
