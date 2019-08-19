@@ -29,7 +29,7 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
             R.string.update_editkontrak,
             R.string.update_editlokasi,
             R.string.update_progress,
-            R.string.update_penyediajasa,
+//            R.string.update_penyediajasa,
 //            R.string.update_upload,
             };
     private final Context mContext;
@@ -51,8 +51,8 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
                 return new FragmentEditLokasi();
             case 2 :
                 return new FragmentProgress();
-            case 3 :
-                return new FragmentPenyediaJasa();
+//            case 3 :
+//                return new FragmentPenyediaJasa();
 //                return new FragmentUploadData(); // upload
             default:
                 return null;
@@ -68,6 +68,6 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 4;
+        return 3;
     }
 }

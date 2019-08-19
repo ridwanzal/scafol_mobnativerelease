@@ -123,7 +123,7 @@ public class ActivityDashboard extends AppCompatActivity {
         String date_result = format1.format(date);
         Log.d(TAG, "Date today " + date_result);
         tx_datecalendar.setText(date_result);
-        tx_namauser.setText("Welcome, " + user_fullname);
+        tx_namauser.setText("" + user_fullname);
 
         startServiceReminder();
         final ProgressDialog dialog = new ProgressDialog(this);
@@ -470,7 +470,7 @@ public class ActivityDashboard extends AppCompatActivity {
             case R.id.nav_about :
                 new AlertDialog.Builder(this)
                     .setTitle("About")
-                    .setMessage("Scafol Mobile Version 1.0.0")
+                    .setMessage("Scafol Mobile Version 1.0.3")
                     .setNegativeButton("OK", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

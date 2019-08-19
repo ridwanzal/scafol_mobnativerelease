@@ -46,7 +46,7 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.PaketViewHol
     public void onBindViewHolder(@NonNull PaketViewHolder holder, int position) {
         String paket_pagu = formatMoneyIDR.convertIDR(paketList.get(position).getPaPagu());
         holder.paket_nama.setText(paketList.get(position).getPaJudul());
-        holder.paket_pagu.setText(paket_pagu);
+        holder.paket_pagu.setText("Rp. " + paket_pagu);
         holder.paket_id.setText(paketList.get(position).getPaId());
         holder.kegiatan_id.setText(paketList.get(position).getKeId());
         if(paketList.get(position).getPaJenis() == ""){

@@ -317,14 +317,14 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent4.putExtra("ke_id", ke_id);
                 startActivity(intent4);
                 return true;
-            case R.id.nav_penyediajasa :
-                Intent intent5 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
-                intent5.putExtra("position", 3);
-                intent5.putExtra("pa_id", id_paket);
-                intent5.putExtra("pa_nama", nama_paket);
-                intent5.putExtra("ke_id", ke_id);
-                startActivity(intent5);
-                return true;
+//            case R.id.nav_penyediajasa :
+//                Intent intent5 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+//                intent5.putExtra("position", 3);
+//                intent5.putExtra("pa_id", id_paket);
+//                intent5.putExtra("pa_nama", nama_paket);
+//                intent5.putExtra("ke_id", ke_id);
+//                startActivity(intent5);
+//                return true;
 //            case R.id.nav_upload :
 //                Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
 //                intent6.putExtra("position", 5);
