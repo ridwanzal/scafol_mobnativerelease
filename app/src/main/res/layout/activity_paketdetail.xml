@@ -425,10 +425,107 @@
 
         </androidx.cardview.widget.CardView>
 
+
+        <androidx.cardview.widget.CardView
+        android:id="@+id/card4"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/card2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignStart="@+id/card2"
+            android:padding="15dp"
+
+            android:layout_alignLeft="@+id/card2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="0dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Daya Serap Kontrak"
+                    android:textColor="#aaa" />
+
+                <TextView
+                    android:id="@+id/text_dayaserap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#eee" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sisa Kontrak"
+                    android:textColor="#aaa" />
+
+                <TextView
+                    android:id="@+id/text_sisakontrak"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="#eee" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Sisa Anggaran"
+                    android:textColor="#aaa" />
+
+                <TextView
+                    android:id="@+id/text_sisaanggaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:textColor="#000"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:id="@+id/map_cards"
             android:clickable="true"
-            android:layout_below="@id/card3"
+            android:layout_below="@id/card4"
             android:padding="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

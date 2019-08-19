@@ -15,7 +15,7 @@
     <item
         android:id="@+id/nav_upload"
         app:showAsAction="ifRoom|collapseActionView"
-        android:icon="@drawable/ic_cloud_upload_white_24dp"
+        android:icon="@drawable/ic_photo_camera_white_24dp"
         android:visible="true"
         android:iconTint="@color/colorwhite"
         android:iconTintMode="add"
@@ -26,7 +26,7 @@
     <item
         android:id="@+id/nav_editlokasi"
         android:title="Edit Lokasi" />
-    <item
-        android:id="@+id/nav_penyediajasa"
-        android:title="Penyedia Jasa" />
+    <!--<item-->
+        <!--android:id="@+id/nav_penyediajasa"-->
+        <!--android:title="Penyedia Jasa" />-->
 </menu>
