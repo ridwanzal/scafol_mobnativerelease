@@ -64,6 +64,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView text_nilaikontrak;
     private TextView text_progress;
 
+    private TextView maps_caption;
+
     private Context mContext;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -106,6 +108,9 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
         cardView = findViewById(R.id.map_cards);
 
+        maps_caption = findViewById(R.id.tx_projectlocations);
+
+
         Intent intent = getIntent();
         String id_paket = intent.getStringExtra("pa_id");
         Call<DataResponsePaket> call_paket = apiInterface.getPaketId(id_paket);
@@ -125,11 +130,13 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     String tanggal_awal = paketlist.get(i).getDateCreated();
                     String tanggal_akhir = paketlist.get(i).getDateUpdated();
                     String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
+                    String lokasi_name = paketlist.get(i).getPaLokasi();
 
                     text_judul.setText(checkData(name));
                     text_jenis.setText(checkData(jenis));
                     text_tahun.setText(checkData(tahun));
                     text_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(pagu));
+                    maps_caption.setText(lokasi_name + "");
 
                     text_namapptk.setText(checkData(user_fullname));
 
