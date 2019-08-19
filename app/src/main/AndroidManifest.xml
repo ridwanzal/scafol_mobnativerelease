@@ -84,7 +84,7 @@
         <activity
             android:windowSoftInputMode="adjustResize"
             android:name="com.release.activity.ActivityMapDetail"
-            android:label="Project Location">
+            android:label="Lokasi">
         </activity>
         <activity
             android:windowSoftInputMode="adjustResize"
