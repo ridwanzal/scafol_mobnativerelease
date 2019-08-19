@@ -2,6 +2,7 @@ package com.release.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -110,7 +111,6 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
         maps_caption = findViewById(R.id.tx_projectlocations);
 
-
         Intent intent = getIntent();
         String id_paket = intent.getStringExtra("pa_id");
         Call<DataResponsePaket> call_paket = apiInterface.getPaketId(id_paket);
@@ -136,6 +136,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     text_jenis.setText(checkData(jenis));
                     text_tahun.setText(checkData(tahun));
                     text_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(pagu));
+                    lokasi_name = lokasi_name.equals("")? "Lokasi tidak diset" : lokasi_name;
                     maps_caption.setText(lokasi_name + "");
 
                     text_namapptk.setText(checkData(user_fullname));
