@@ -127,8 +127,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     String satuan = paketlist.get(i).getPaSatuan();
                     String volume = paketlist.get(i).getPaVolume();
                     String status = paketlist.get(i).getStatus();
-                    String tanggal_awal = paketlist.get(i).getDateCreated();
-                    String tanggal_akhir = paketlist.get(i).getDateUpdated();
+                    String tanggal_awal = paketlist.get(i).getPaAwalKontrak();
+                    String tanggal_akhir = paketlist.get(i).getPaAkhirKontrak();
                     String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
                     String lokasi_name = paketlist.get(i).getPaLokasi();
 
@@ -143,27 +143,33 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
                     text_satuan.setText(checkData(satuan));
                     text_volume.setText(checkData(volume));
-                    String result = "";
-                    String[] result_temp;
+                    String result1 = "";
+                    String[] result_temp1;
 
-                    if(tanggal_awal.equals("")){
-                        result = "-";
+                    String result2 = "";
+                    String[] result_temp2;
+
+                    Log.d(TAG, tanggal_awal + "" );
+                    Log.d(TAG, tanggal_akhir + "" );
+
+                    if(tanggal_awal == null){
+                        result1 = "-";
                     }else{
-                        result_temp = tanggal_awal.split(" ");
-                        result = result_temp[0];
+                        result_temp1 = tanggal_awal.split(" ");
+                        result1 = result_temp1[0];
                     }
 
-                    if(tanggal_akhir.equals("")){
-                        result = "-";
+                    if(tanggal_akhir == null){
+                        result2 = "-";
                     }else{
-                        result_temp = tanggal_akhir.split(" ");
-                        result = result_temp[0];
+                        result_temp2 = tanggal_akhir.split(" ");
+                        result2 = result_temp2[0];
                     }
 
 
 
-                    text_tanggal_mulai.setText(result);
-                    text_tanggal_akhir.setText(result);
+                    text_tanggal_mulai.setText(result1);
+                    text_tanggal_akhir.setText(result2);
                     text_nilaikontrak.setText("Rp. " + formatMoneyIDR.convertIDR(nilai_kontrak));
                 }
             }
