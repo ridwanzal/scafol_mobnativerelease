@@ -48,6 +48,9 @@ public interface ApiInterface {
 
     // role pptk
 
+    @GET("dashboardpptk")
+    Call<DataResponsePA> infoPaketPPTK(@Query("pptk_id") String pptk_id);
+
     @GET("dashboardpptk/paketall/")
     Call<DataResponsePA> countPaketPPTK(@Query("pptk_id") String pptk_id);
 
@@ -65,6 +68,9 @@ public interface ApiInterface {
 
     @GET("dashboardpptk/realpptk/")
     Call<DataResponsePA> countRealPPTK(@Query("pptk_id") String pptk_id);
+
+    @GET("dashboardpptk/sisapptk/")
+    Call<DataResponsePA> countSisaPPTK(@Query("pptk_id") String pptk_id);
 
     @FormUrlEncoded
     @POST("paket/updatemap/")
