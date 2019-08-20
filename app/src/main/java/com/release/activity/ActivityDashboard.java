@@ -61,7 +61,6 @@ public class ActivityDashboard extends AppCompatActivity {
     private TextView tx_dashselesai;
     private TextView tx_dashpagu_dummy;
     private TextView tx_dashreal_dummy;
-
     private TextView tx_datecalendar;
     private TextView tx_namauser;
 
@@ -114,6 +113,7 @@ public class ActivityDashboard extends AppCompatActivity {
         tx_namauser = findViewById(R.id.tx_namauser);
         tx_dashbelum = findViewById(R.id.tx_dashpaketbelum);
         tx_dashselesai = findViewById(R.id.tx_dashpaketselesai);
+
         container_dashboards = findViewById(R.id.container_dashboards);
         container_dashboards.setVisibility(View.GONE);
 

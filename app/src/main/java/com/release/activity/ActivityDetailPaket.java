@@ -37,8 +37,13 @@ import com.google.gson.Gson;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,6 +84,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView lin_textdeviasi;
     private TextView text_nokontrak;
 
+    private TextView sisa_waktukerja;
     private Context mContext;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -133,6 +139,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
         lin_textdeviasi = findViewById(R.id.lin_textdeviasi);
 
         text_nokontrak = findViewById(R.id.text_nokontrak);
+        sisa_waktukerja = findViewById(R.id.sisa_waktukerja);
 
         Intent intent = getIntent();
         String id_paket = intent.getStringExtra("pa_id");
@@ -180,17 +187,32 @@ public class ActivityDetailPaket extends AppCompatActivity {
                         result1 = "-";
                     }else{
                         result_temp1 = tanggal_awal.split(" ");
-                        result1 = result_temp1[0];
+                        result1 = result_temp1[0].trim();
                     }
 
                     if(tanggal_akhir == null){
                         result2 = "-";
                     }else{
                         result_temp2 = tanggal_akhir.split(" ");
-                        result2 = result_temp2[0];
+                        result2 = result_temp2[0].trim();
                     }
 
+                    try{
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-ddd", Locale.FRANCE);
 
+                        String str_curDate = sdf.format(new Date());
+                        Date currentDate = sdf.parse(str_curDate);
+                        Date secondDate = sdf.parse(result2);
+
+                        long diffInMillies = Math.abs(secondDate.getTime() - currentDate.getTime());
+                        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+//                        float diff = (diffInMillies / (1000*60*60*24));
+
+                        Log.d(TAG, "Date of activity detail =========> " + diff);
+                        sisa_waktukerja.setText("Siswa Waktu Pekerjaan : " + diff + " hari");
+                    }catch (ParseException e){
+                        e.printStackTrace();
+                    }
 
                     text_tanggal_mulai.setText(result1);
                     text_tanggal_akhir.setText(result2);
