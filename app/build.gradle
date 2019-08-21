@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.0"
@@ -54,4 +60,6 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'info.androidhive:fontawesome:0.0.5'
+    implementation 'com.github.GrenderG:Toasty:1.4.2'
+    implementation 'me.abhinay.input:currency-edittext:1.1'
 }
