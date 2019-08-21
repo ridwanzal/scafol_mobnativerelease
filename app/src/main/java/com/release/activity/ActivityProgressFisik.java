@@ -58,7 +58,7 @@ public class ActivityProgressFisik extends AppCompatActivity {
             public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {
                 try {
                     Log.d(TAG, "-===========-> " + new Gson().toJson(response));
-                        if(response.body().getData()  != null ){
+                        if(response.code() == 200 ){
                             generateProgressList(response.body().getData());
                             textnofound.setVisibility(View.GONE);
                             progressAdapter = new ProgressAdapter(getApplicationContext(), response.body().getData());

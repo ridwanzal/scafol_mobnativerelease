@@ -54,25 +54,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <Button
-            android:background="@drawable/button_ripple"
+            android:background="@drawable/button_ripple_gray"
             android:id="@+id/fab"
-            android:layout_width="150dp"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:clickable="true"
-            android:text="Ambil dari File"
+            android:text="File"
+            android:paddingRight="20dp"
+            android:drawableRight="@drawable/drawright_file"
             android:layout_gravity="bottom|right"
-            app:srcCompat="@drawable/ic_add_black_24dp" />
+            />
         <Button
-            android:background="@drawable/button_ripple"
+            android:background="@drawable/button_ripple_gray"
             android:id="@+id/fab2"
-            android:layout_width="150dp"
+            android:layout_width="155dp"
             android:layout_height="wrap_content"
             android:visibility="visible"
             android:layout_margin="16dp"
             android:clickable="true"
             android:text="Kamera"
             android:layout_gravity="bottom|left"
-            app:srcCompat="@drawable/ic_add_black_24dp" />
+            android:paddingRight="20dp"
+            android:drawableRight="@drawable/drawright_camera"
+            />
     </FrameLayout>
 </RelativeLayout>

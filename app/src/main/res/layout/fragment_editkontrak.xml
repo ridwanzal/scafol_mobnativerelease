@@ -168,7 +168,7 @@
                         android:layout_marginTop="14dp"
                         android:textColor="#000000"
                         android:clickable="true"
-                        android:background="@drawable/button_ripple"
+                        android:background="@drawable/button_ripple_gray"
                         android:text="Simpan" />
 
                 </LinearLayout>
