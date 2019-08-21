@@ -209,7 +209,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
 //                        float diff = (diffInMillies / (1000*60*60*24));
 
                         Log.d(TAG, "Date of activity detail =========> " + diff);
-                        sisa_waktukerja.setText("Siswa Waktu Pekerjaan : " + diff + " hari");
+                        sisa_waktukerja.setText("Sisa Waktu Pekerjaan : " + diff + " hari");
                     }catch (ParseException e){
                         e.printStackTrace();
                     }
