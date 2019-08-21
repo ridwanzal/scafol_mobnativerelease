@@ -335,21 +335,6 @@ public class ActivityDetailPaket extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public static String covertIDR(String money){
-        Double uang = Double.valueOf(money);
-        DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
-        DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
-
-        formatRp.setCurrencySymbol("Rp. ");
-        formatRp.setMonetaryDecimalSeparator(',');
-        formatRp.setGroupingSeparator('.');
-
-        kursIndonesia.setDecimalFormatSymbols(formatRp);
-        String convert = kursIndonesia.format(uang);
-        return convert;
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -448,10 +433,4 @@ public class ActivityDetailPaket extends AppCompatActivity {
         return true;
     }
 
-    private void fileChooser(){
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
-    }
 }
