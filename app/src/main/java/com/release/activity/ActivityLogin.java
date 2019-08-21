@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -140,7 +141,7 @@ public class ActivityLogin extends AppCompatActivity{
                                     finish();
                                 }
                             }else{
-                                Toast.makeText(ActivityLogin.this, "Login Failed", Toast.LENGTH_SHORT).show();
+                                Toasty.error(getApplicationContext(), "Login Failed", Toasty.LENGTH_SHORT, true).show();
                             }
                         }
                         @Override

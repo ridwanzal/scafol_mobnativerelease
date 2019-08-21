@@ -57,12 +57,12 @@
                         android:text="Nilai Kontrak"
                         android:textColor="#aaa" />
 
-                    <com.aldoapps.autoformatedittext.AutoFormatEditText
+                    <EditText
                         android:id="@+id/text_nilaikontrak"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        app:isDecimal="true"
+                        android:inputType="number"
                         android:padding="10dp"
                         android:background="@drawable/edittextborder_generic"
                         android:textSize="16sp"

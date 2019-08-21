@@ -3,6 +3,7 @@ package com.release.fragment;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.util.Currency;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,12 +28,14 @@ import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.sharedexternalmodule.DatePickerFragment;
 import com.google.gson.Gson;
+import com.release.sharedexternalmodule.formatMoneyIDR;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import me.abhinay.input.CurrencyEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,10 +44,10 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     private static String TAG = "FragmentEditKontrak";
     private TextView t_nomorkontrak;
-    private TextView t_nilaikontrak;
     private TextView t_awalkontrak;
     private TextView t_akhirkontrak;
 
+    private EditText t_nilaikontrak;
     private ImageView btn_date_awal;
     private ImageView btn_date_akhir;
     Button btn_simpan;
@@ -62,6 +66,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
         final Context ctx = getActivity();
         t_nomorkontrak = view.findViewById(R.id.text_nomorkontrak);
         t_nilaikontrak = view.findViewById(R.id.text_nilaikontrak);
+
         t_awalkontrak = view.findViewById(R.id.text_awalkontrak);
         t_akhirkontrak = view.findViewById(R.id.text_akhirkontrak);
 
@@ -86,7 +91,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                     String akhir_kontrak = paketlist.get(i).getPaAkhirKontrak();
 
                     t_nomorkontrak.setText(checkData(nomor_kontrak));
-                    t_nilaikontrak.setText(checkData(nilai_kontrak));
+                    t_nilaikontrak.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
                     t_awalkontrak.setText(checkData(awal_kontrak));
                     t_akhirkontrak.setText(checkData(akhir_kontrak));
 
@@ -107,9 +112,8 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                 String get_awalkontrak = t_awalkontrak.getText().toString();
                 String get_akhirkontrak = t_akhirkontrak.getText().toString();
                 String pa_id = id_paket;
-                String get_nilaikontrak = get_nilai_kontrak.replace(",", "");
-                Log.d(TAG, "No Kontrak : " + get_nomorkontrak + " Nilai Kontrak : " + get_nilaikontrak + " | " + id_paket);
-                Call<DataResponsePaket> call_update = apiInterface.updateKontrak(pa_id, get_nomorkontrak, get_nilaikontrak, get_awalkontrak, get_akhirkontrak);
+                Log.d(TAG, "No Kontrak : " + get_nomorkontrak + " Nilai Kontrak : " + get_nilai_kontrak + " | " + id_paket);
+                Call<DataResponsePaket> call_update = apiInterface.updateKontrak(pa_id, get_nomorkontrak, get_nilai_kontrak, get_awalkontrak, get_akhirkontrak);
                 call_update.enqueue(new Callback<DataResponsePaket>() {
                     @Override
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
