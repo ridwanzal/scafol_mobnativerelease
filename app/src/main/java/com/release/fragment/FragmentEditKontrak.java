@@ -7,6 +7,7 @@ import android.icu.util.Currency;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -44,7 +45,7 @@ import retrofit2.Response;
 public class FragmentEditKontrak extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     private static String TAG = "FragmentEditKontrak";
-    private TextView t_nomorkontrak;
+    private EditText t_nomorkontrak;
     private TextView t_awalkontrak;
     private TextView t_akhirkontrak;
 
@@ -52,6 +53,11 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
     private ImageView btn_date_awal;
     private ImageView btn_date_akhir;
     Button btn_simpan;
+
+    final int DRAWABLE_LEFT = 0;
+    final int DRAWABLE_TOP = 1;
+    final int DRAWABLE_RIGHT = 2;
+    final int DRAWABLE_BOTTOM = 3;
 
     public static int isDateEdit1;
 
@@ -67,6 +73,36 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
         final Context ctx = getActivity();
         t_nomorkontrak = view.findViewById(R.id.text_nomorkontrak);
         t_nilaikontrak = view.findViewById(R.id.text_nilaikontrak);
+
+        t_nomorkontrak.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    if(motionEvent.getRawX() >= (t_nilaikontrak.getRight() - t_nilaikontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        t_nomorkontrak.getText().clear();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        t_nilaikontrak.setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    if(motionEvent.getRawX() >= (t_nilaikontrak.getRight() - t_nilaikontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        t_nilaikontrak.getText().clear();
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+        });
 
         t_awalkontrak = view.findViewById(R.id.text_awalkontrak);
         t_akhirkontrak = view.findViewById(R.id.text_akhirkontrak);
