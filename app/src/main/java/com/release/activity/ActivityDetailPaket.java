@@ -357,21 +357,22 @@ public class ActivityDetailPaket extends AppCompatActivity {
         String id_paket = intents.getStringExtra("pa_id");
         String nama_paket = intents.getStringExtra("pa_nama");
         String ke_id = intents.getStringExtra("ke_id");
+        sessionManager = new SessionManager(getApplicationContext());
+        HashMap<String, String> user = sessionManager.getUserDetails();
+        String dinas_id =  user.get(SessionManager.KEY_DINASID);
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
                 return true;
             case R.id.nav_upload :
                 String path_todropbox = "";
-                sessionManager = new SessionManager(getApplicationContext());
-                HashMap<String, String> user = sessionManager.getUserDetails();
-                String dinas_id =  user.get(SessionManager.KEY_DINASID);
 //                mPath = "/files/gov/16731/pa-483/photos";
                 path_todropbox = "/files/gov/"+dinas_id+"/pa-"+id_paket+"/photos";
 //                startActivity(FilesActivity.getIntent(ActivityDetailPaket.this, path_todropbox));
                 Intent intent = new Intent(ActivityDetailPaket.this, UserActivity.class);
                 intent.putExtra("path_dropbox", path_todropbox);
                 intent.putExtra("pa_judul", nama_paket);
+                intent.putExtra("upload_type", "1");
                 startActivity(intent);
                 return true;
 //            case R.id.nav_kurvasrencana :
@@ -389,6 +390,17 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent2.putExtra("pa_nama", nama_paket);
                 intent2.putExtra("ke_id", ke_id);
                 startActivity(intent2);
+                return true;
+            case R.id.nav_uploadoc :
+                String path_todropbox2 = "";
+//                mPath = "/files/gov/16731/pa-483/photos";
+                path_todropbox = "/files/gov/"+dinas_id+"/pa-"+id_paket+"/documents";
+//                startActivity(FilesActivity.getIntent(ActivityDetailPaket.this, path_todropbox));
+                Intent intent5 = new Intent(ActivityDetailPaket.this, UserActivity.class);
+                intent5.putExtra("path_dropbox", path_todropbox);
+                intent5.putExtra("pa_judul", nama_paket);
+                intent5.putExtra("upload_type", "2");
+                startActivity(intent5);
                 return true;
             case R.id.nav_editlokasi :
                 Intent intent3 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);

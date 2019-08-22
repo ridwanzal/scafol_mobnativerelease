@@ -49,6 +49,7 @@ public class UserActivity extends DropboxActivity {
                 Intent intent = getIntent();
                 String id_paket = intent.getStringExtra("path_dropbox");
                 String nama_paket = intent.getStringExtra("pa_judul");
+                String upload_type =  intent.getStringExtra("upload_type");
                 if(id_paket == ""){
                     result_path = "";
                 }else{

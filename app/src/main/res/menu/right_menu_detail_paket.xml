@@ -24,7 +24,7 @@
         android:id="@+id/nav_uploadoc"
         app:showAsAction="always"
         android:icon="@drawable/ic_attach_file_black_24dp"
-        android:visible="false"
+        android:visible="true"
         android:iconTint="@color/colorwhite"
         android:iconTintMode="add"
         android:title="Upload" />

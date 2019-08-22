@@ -22,6 +22,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -134,7 +135,17 @@ public class FilesActivity extends DropboxActivity {
                 performWithPermissions(FileAction.DOWNLOAD);
             }
         });
+
+        Intent intents = getIntent();
+        String id_upload = intents.getStringExtra("upload_type");
+        Boolean contains = mPath.contains("documents");
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        if(contains){
+                //            Toasty.success(getApplicationContext(), "ini dokumen", Toast.LENGTH_LONG).show();
+            fab2.setVisibility(View.GONE);
+        }else{
+                //            Toasty.success(getApplicationContext(), "ini photo", Toast.LENGTH_LONG).show();
+        }
         recyclerView.setAdapter(mFilesAdapter);
         paket_name = findViewById(R.id.paket_name_oflistfiles);
         paket_name.setText(mDetail.toString());
