@@ -10,9 +10,6 @@
         android:visible="false"
         android:title="Settings" />
     <item
-        android:id="@+id/nav_logout"
-        android:title="Logout" />
-    <item
         android:id="@+id/nav_search"
         app:showAsAction="always"
         android:icon="@drawable/ic_search_black_24dp"
@@ -30,13 +27,20 @@
         android:title="Notification" />
     <item
         android:id="@+id/nav_about"
-        app:showAsAction="always"
         android:icon="@drawable/ic_info_outline_black_24dp"
-        android:title="Notification" />
+        android:title="About App" />
+    <item
+        android:id="@+id/nav_mylocation"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_my_location_black_24dp"
+        />
     <item
         android:id="@+id/nav_uploaddropbox"
         app:showAsAction="always"
         android:visible="false"
         android:icon="@drawable/ic_cloud_queue_black_24dp"
         android:title="Search" />
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout" />
 </menu>

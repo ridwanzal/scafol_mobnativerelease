@@ -97,6 +97,11 @@
             android:label="Update Data">
         </activity>
         <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name="com.release.activity.ActivityMyLocation"
+            android:label="Lokasi Saya">
+        </activity>
+        <activity
             android:name="com.release.activity.ActivityDashboard"
             android:label="Scafol"
             android:drawable="@mipmap/ic_launcher_scafol"

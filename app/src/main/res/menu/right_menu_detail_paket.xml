@@ -4,7 +4,7 @@
     <item
         android:id="@+id/nav_progress"
         android:icon="@drawable/ic_show_chart2_black_24dp"
-        app:showAsAction="ifRoom|collapseActionView"
+        app:showAsAction="always"
         android:visible="true"
         android:iconTint="@color/colorwhite"
         android:title="Progres" />
@@ -14,9 +14,17 @@
         <!--android:title="Kurva S Rencana" />-->
     <item
         android:id="@+id/nav_upload"
-        app:showAsAction="ifRoom|collapseActionView"
+        app:showAsAction="always"
         android:icon="@drawable/ic_photo_camera_white_24dp"
         android:visible="true"
+        android:iconTint="@color/colorwhite"
+        android:iconTintMode="add"
+        android:title="Upload" />
+    <item
+        android:id="@+id/nav_uploadoc"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_attach_file_black_24dp"
+        android:visible="false"
         android:iconTint="@color/colorwhite"
         android:iconTintMode="add"
         android:title="Upload" />

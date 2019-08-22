@@ -400,8 +400,8 @@ public class ActivityDashboard extends AppCompatActivity {
             case R.id.nav_logout :
                 new AlertDialog.Builder(this)
                         .setTitle("Logout")
-                        .setMessage("Are you sure?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        .setMessage("Apakah anda ingin keluar ?")
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.d("MainActivity", "Sending atomic bombs to Jupiter");
@@ -409,7 +409,7 @@ public class ActivityDashboard extends AppCompatActivity {
                                 finish();
                             }
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.d("MainActivity", "Aborting mission...");
@@ -430,7 +430,7 @@ public class ActivityDashboard extends AppCompatActivity {
                 break;
             case R.id.nav_about :
                 new AlertDialog.Builder(this)
-                    .setTitle("About")
+                    .setTitle("Tentang")
                     .setMessage("Scafol Mobile Version 1.0.3")
                     .setNegativeButton("OK", new DialogInterface.OnClickListener() {
                         @Override
@@ -442,6 +442,10 @@ public class ActivityDashboard extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ActivityNotif.class);
                 startActivity(intent);
                 return true;
+            case R.id.nav_mylocation :
+                Intent intent3 = new Intent(getApplicationContext(), ActivityMyLocation.class);
+                startActivity(intent3);
+                return  true;
         }
         return super.onOptionsItemSelected(item);
     }

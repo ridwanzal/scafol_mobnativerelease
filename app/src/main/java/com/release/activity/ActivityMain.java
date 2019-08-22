@@ -108,6 +108,7 @@ public class ActivityMain extends AppCompatActivity{
                 // user pptk
                 setContentView(R.layout.recycle_listpaket);
                 progress_listpaket = findViewById(R.id.progress_listpaket);
+                getSupportActionBar().setTitle("Paket");
                 Snackbar.make(findViewById(R.id.activity_paketlist), "Selamat Datang", Snackbar.LENGTH_LONG);
                 Call<DataResponsePaket> call_paket = apiInterface.getPaketPptk(user_id);
                 call_paket.enqueue(new Callback<DataResponsePaket>() {

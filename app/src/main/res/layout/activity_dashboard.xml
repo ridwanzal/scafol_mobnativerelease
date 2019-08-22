@@ -481,7 +481,7 @@
         android:paddingLeft="10dp"
         android:textStyle="normal"
         android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
-        android:background="@drawable/button_ripple_gray"
+        android:background="@drawable/button_ripple_generals"
         android:text="Lihat Semua Paket Fisik" />
 
     <Button
@@ -494,7 +494,7 @@
         android:textColor="#000000"
         android:clickable="true"
         android:textStyle="bold"
-        android:background="@drawable/button_ripple_gray"
+        android:background="@drawable/button_ripple_generals"
         android:text="Lihat Semua Anggaran" />
 
 

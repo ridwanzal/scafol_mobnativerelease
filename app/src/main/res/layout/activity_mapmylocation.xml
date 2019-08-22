@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <org.osmdroid.views.MapView android:id="@+id/mymap"
+        android:layout_width="match_parent"
+        tilesource="Mapnik"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="#eee"
+        android:layout_height="40dp">
+    </RelativeLayout>
+</LinearLayout>

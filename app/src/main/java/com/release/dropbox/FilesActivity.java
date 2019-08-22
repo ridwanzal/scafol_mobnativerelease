@@ -51,6 +51,8 @@ import java.util.List;
 import com.release.R;
 import com.release.service.ServiceReminder;
 
+import es.dmoral.toasty.Toasty;
+
 /**
  * Activity that displays the content of a path in dropbox and lets users navigate folders,
  * and upload/download files
@@ -332,7 +334,7 @@ public class FilesActivity extends DropboxActivity {
                 dialog.dismiss();
                 notfoundfile.setVisibility(View.VISIBLE);
                 Log.e(TAG, "Gagal mengambil file", e);
-                Toast.makeText(FilesActivity.this,
+                Toasty.normal(FilesActivity.this,
                         "Tidak ada item, silahkan upload",
                         Toast.LENGTH_SHORT)
                         .show();
@@ -368,7 +370,7 @@ public class FilesActivity extends DropboxActivity {
                 dialog.dismiss();
 
                 Log.e(TAG, "Gagal mendownload file", e);
-                Toast.makeText(FilesActivity.this,
+                Toasty.error(FilesActivity.this,
                         "Error, Tidak dapat memproses",
                         Toast.LENGTH_SHORT)
                         .show();
@@ -427,7 +429,7 @@ public class FilesActivity extends DropboxActivity {
                 dialog.dismiss();
 
                 Log.e(TAG, "Failed to upload file.", e);
-                Toast.makeText(FilesActivity.this,
+                Toasty.error(FilesActivity.this,
                         "An error has occurred",
                         Toast.LENGTH_SHORT)
                         .show();

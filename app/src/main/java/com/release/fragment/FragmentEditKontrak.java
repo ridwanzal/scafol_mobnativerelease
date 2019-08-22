@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import es.dmoral.toasty.Toasty;
 import me.abhinay.input.CurrencyEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -108,29 +109,33 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
             public void onClick(View view) {
                 // submit data to update contract.
                 String get_nomorkontrak = t_nomorkontrak.getText().toString();
-                String get_nilai_kontrak = t_nilaikontrak.getText().toString();
+                String get_nilai_kontrak = t_nilaikontrak.getText().toString().replaceAll("[.]","");
                 String get_awalkontrak = t_awalkontrak.getText().toString();
                 String get_akhirkontrak = t_akhirkontrak.getText().toString();
                 String pa_id = id_paket;
                 Log.d(TAG, "No Kontrak : " + get_nomorkontrak + " Nilai Kontrak : " + get_nilai_kontrak + " | " + id_paket);
+//                Toasty.success(ctx, "Nilai kontrak  + " + get_nilai_kontrak, Toast.LENGTH_SHORT).show();
                 Call<DataResponsePaket> call_update = apiInterface.updateKontrak(pa_id, get_nomorkontrak, get_nilai_kontrak, get_awalkontrak, get_akhirkontrak);
                 call_update.enqueue(new Callback<DataResponsePaket>() {
                     @Override
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                        Log.d(TAG, "Response Result Success------------------------> : " + response.body());
-                        Toast.makeText(ctx, "Fails", Toast.LENGTH_SHORT).show();
+                        if(response.code() == 200){
+                            Toasty.success(ctx, "Data berhasil di update", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toasty.warning(ctx, "Tidak ada data yang diubah", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
                     public void onFailure(Call<DataResponsePaket> call, Throwable t) {
-                        Toast.makeText(ctx, "Berhasil Edit Kontrak", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ctx, "Berhasil Edit Kontrak", Toast.LENGTH_SHORT).show();
+                        Toasty.success(ctx, "Data berhasil di update", Toast.LENGTH_SHORT).show();
                         btn_simpan.setVisibility(View.GONE);
                     }
                 });
             }
         });
         Log.d(TAG, "GET ID PAKET " + id_paket);
-
         btn_date_awal.setOnClickListener(this);
         btn_date_akhir.setOnClickListener(this);
 

@@ -19,7 +19,7 @@
 
         <ImageView
             android:id="@+id/centang_ok"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="90dp"
             android:layout_marginBottom="30dp"
             android:layout_width="210dp"
             android:layout_height="210dp"
@@ -130,7 +130,7 @@
         android:layout_height="match_parent">
         <Button
             android:id="@+id/files_button"
-            android:background="@drawable/button_ripple_gray"
+            android:background="@drawable/button_ripple_generals"
             android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
