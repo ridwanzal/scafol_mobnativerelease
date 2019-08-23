@@ -14,6 +14,7 @@ import com.google.android.material.tabs.TabLayout;
 
 public class ActivityUpdateData extends AppCompatActivity {
     private TextView titlebardatas;
+    private TextView subtitledata;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +34,8 @@ public class ActivityUpdateData extends AppCompatActivity {
         tabs.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabs.setupWithViewPager(viewPager);
         titlebardatas = findViewById(R.id.titlebardatas);
+        subtitledata = findViewById(R.id.subtitledata);
+        subtitledata.setText("Update progres paket");
         if(get_namafromdetail == ""){
             titlebardatas.setText("Update Detail Paket");
         }else{

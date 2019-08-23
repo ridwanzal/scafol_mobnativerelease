@@ -68,6 +68,7 @@ public class ActivityMain extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
         HashMap<String, String> user = sessionManager.getUserDetails();
@@ -211,7 +212,8 @@ public class ActivityMain extends AppCompatActivity{
         });
 
         total_paket_info = findViewById(R.id.total_paket_caption);
-        total_paket_info.setText("Total Paket  : "   + paketAdapter.getItemCount());
+//        total_paket_info.setText("Total Paket  : "   + paketAdapter.getItemCount());
+        getSupportActionBar().setSubtitle("Total Paket ("   + paketAdapter.getItemCount() + ")");
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityMain.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(paketAdapter);

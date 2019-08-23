@@ -13,6 +13,7 @@
         android:paddingTop="7dp"
         android:paddingBottom="7dp"
         android:paddingRight="10dp"
+        android:visibility="gone"
         android:background="#69B578"
         android:layout_height="wrap_content">
         <TextView
