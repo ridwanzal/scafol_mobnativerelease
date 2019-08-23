@@ -58,7 +58,7 @@ public class SessionManager {
         editor.putString(KEY_DINASID, dinasid);
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_ROLE, role);
-        editor.putString(KEY_BIDANG, role);
+        editor.putString(KEY_BIDANG, bi_id);
         editor.commit();
     }
 

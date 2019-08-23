@@ -21,8 +21,12 @@ import androidx.cardview.widget.CardView;
 import com.release.R;
 import com.release.dropbox.FilesActivity;
 import com.release.dropbox.UserActivity;
+import com.release.model.Bidang;
+import com.release.model.DataResponseBidang;
+import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
+import com.release.model.Kegiatan;
 import com.release.model.Paket;
 import com.release.model.Progress;
 import com.release.model.User;
@@ -35,6 +39,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.gson.Gson;
 
+import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
@@ -45,6 +50,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,6 +74,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView text_emailpptk;
     private TextView text_telpptk;
     private TextView text_bidangpptk;
+    private TextView text_kegiatan;
 
     private TextView text_nilaikontrak;
     private TextView text_progress;
@@ -106,7 +113,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
         String dinas_id =  user.get(SessionManager.KEY_DINASID);
         String user_id =  user.get(SessionManager.KEY_USERID);
 
-        String bi_id = "";
+        String bi_id = user.get(SessionManager.KEY_BIDANG);
+
         final String user_fullname = user.get(SessionManager.KEY_NAME);
         String user_name = user.get(SessionManager.KEY_USERNAME);
 
@@ -121,6 +129,9 @@ public class ActivityDetailPaket extends AppCompatActivity {
         text_volume = findViewById(R.id.text_volume);
         text_tanggal_mulai = findViewById(R.id.text_date_created);
         text_tanggal_akhir = findViewById(R.id.text_date_end);
+
+        text_bidangpptk = findViewById(R.id.textbidangs);
+        text_kegiatan = findViewById(R.id.text_kegjudul);
 
         text_nilaikontrak = findViewById(R.id.prof_email);
 
@@ -141,6 +152,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
         text_nokontrak = findViewById(R.id.text_nokontrak);
         sisa_waktukerja = findViewById(R.id.sisa_waktukerja);
 
+
         Intent intent = getIntent();
         String id_paket = intent.getStringExtra("pa_id");
         Call<DataResponsePaket> call_paket = apiInterface.getPaketId(id_paket);
@@ -156,6 +168,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     String pagu = paketlist.get(i).getPaPagu();
                     String satuan = paketlist.get(i).getPaSatuan();
                     String volume = paketlist.get(i).getPaVolume();
+                    String ke_id = paketlist.get(i).getKeId();
                     String status = paketlist.get(i).getStatus();
                     String tanggal_awal = paketlist.get(i).getPaAwalKontrak();
                     String tanggal_akhir = paketlist.get(i).getPaAkhirKontrak();
@@ -217,6 +230,52 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     text_tanggal_mulai.setText(result1);
                     text_tanggal_akhir.setText(result2);
                     text_nilaikontrak.setText("Rp. " + formatMoneyIDR.convertIDR(nilai_kontrak));
+
+
+                    // get bidang
+                    Call<DataResponseBidang> call_bidanginfo = apiInterface.getBidang(ke_id);
+                    call_bidanginfo.enqueue(new Callback<DataResponseBidang>() {
+                        @Override
+                        public void onResponse(Call<DataResponseBidang> call, Response<DataResponseBidang> response) {
+                            Log.d(TAG, "BIDANG response : " + new Gson().toJson(response));
+                            if(response.code() == 200){
+                                ArrayList<Bidang> bidangList = response.body().getData();
+                                Log.d(TAG, "BIDANG NAME : " + new Gson().toJson(bidangList));
+                                for(int i = 0; i < bidangList.size(); i++){
+                                    text_bidangpptk.setText(bidangList.get(i).getBiNama());
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponseBidang> call, Throwable t) {
+                            Log.e(TAG, " " + call);
+                            Log.e(TAG, " " + t.getMessage());
+                        }
+                    });
+
+
+                    // get kegitan
+                    Call<DataResponseKegiatan> call_kegiataninfo = apiInterface.getKegiatan(ke_id);
+                    call_kegiataninfo.enqueue(new Callback<DataResponseKegiatan>() {
+                        @Override
+                        public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
+                            if(response.code() == 200){
+                                ArrayList<Kegiatan> keglist = response.body().getData();
+                                Log.d(TAG, "BIDANG NAME : " + new Gson().toJson(keglist));
+                                for(int i = 0; i < keglist.size(); i++){
+                                    text_kegiatan.setText(keglist.get(i).getKeJudul());
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponseKegiatan> call, Throwable t) {
+
+                        }
+                    });
+
+
                 }
             }
 
@@ -226,6 +285,10 @@ public class ActivityDetailPaket extends AppCompatActivity {
             }
         });
 
+
+
+
+        // call last progress
         Call<DataResponseProgress> call_lastprogall = apiInterface.getlastProgressallPPTK(id_paket);
         call_lastprogall.enqueue(new Callback<DataResponseProgress>() {
             @Override

@@ -1,6 +1,7 @@
 package com.release.restapi;
 
 import com.release.model.DataResponse;
+import com.release.model.DataResponseBidang;
 import com.release.model.DataResponsePA;
 import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
@@ -16,14 +17,20 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+    // bidang
+    @GET("bidang/bidang")
+    Call<DataResponseBidang> getBidang(@Query("ke_id") String ke_id);
+
+    // main retrieve
+
     @GET("users/")
     Call<DataResponse> getUserById(@Query("user_id") String user_id);
 
     @GET("users/kontraktorall")
     Call<DataResponseUsers> getKontrak();
 
-    @GET("kegiatan/")
-    Call<DataResponse> getKegiatan();
+    @GET("kegiatan")
+    Call<DataResponseKegiatan> getKegiatan(@Query("ke_id") String ke_id);
 
     @GET("kegiatan/")
     Call<DataResponseKegiatan> getKegiatanAdmin();
@@ -71,6 +78,8 @@ public interface ApiInterface {
 
     @GET("dashboardpptk/sisapptk/")
     Call<DataResponsePA> countSisaPPTK(@Query("pptk_id") String pptk_id);
+
+    // paket dan progress
 
     @FormUrlEncoded
     @POST("paket/updatemap/")
