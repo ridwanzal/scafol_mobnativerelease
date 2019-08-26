@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
@@ -213,7 +214,8 @@ public class ActivityMain extends AppCompatActivity{
 
         total_paket_info = findViewById(R.id.total_paket_caption);
 //        total_paket_info.setText("Total Paket  : "   + paketAdapter.getItemCount());
-        getSupportActionBar().setSubtitle("Total Paket ("   + paketAdapter.getItemCount() + ")");
+        String title = "Total Paket ("   + paketAdapter.getItemCount() + ")";
+        getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityMain.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(paketAdapter);

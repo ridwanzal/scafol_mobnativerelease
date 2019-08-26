@@ -1,5 +1,6 @@
 package com.release.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,19 +14,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.release.R;
-import com.release.dropbox.FilesActivity;
 import com.release.dropbox.UserActivity;
 import com.release.model.PaketDashboard;
 import com.release.model.DataResponsePA;
-import com.release.model.User;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.service.ServiceReminder;
@@ -37,7 +35,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import com.release.sharedexternalmodule.formatMoneyIDR;
 import retrofit2.Callback;
@@ -46,6 +43,7 @@ import retrofit2.Response;
 public class ActivityDashboard extends AppCompatActivity {
     private Button show_list; // button paket fisik
     private Button show_list2; // button anggaran
+    private Button btn_mapdash;
     private static String TAG = "ActivityDashboard";
 
     SessionManager sessionManager;
@@ -114,6 +112,7 @@ public class ActivityDashboard extends AppCompatActivity {
         tx_namauser = findViewById(R.id.tx_namauser);
         tx_dashbelum = findViewById(R.id.tx_dashpaketbelum);
         tx_dashselesai = findViewById(R.id.tx_dashpaketselesai);
+        btn_mapdash = findViewById(R.id.btn_mapdash);
 
         container_dashboards = findViewById(R.id.container_dashboards);
         container_dashboards.setVisibility(View.GONE);
@@ -346,10 +345,16 @@ public class ActivityDashboard extends AppCompatActivity {
 
                         }
                     });
-
-
-
             }
+
+            btn_mapdash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), ActivityMapDashboard.class);
+                    intent.putExtra("user_id", user_id);
+                    startActivity(intent);
+                }
+            });
 
             dialog.dismiss();
         }
@@ -429,14 +434,15 @@ public class ActivityDashboard extends AppCompatActivity {
                 startActivity(intent2);
                 break;
             case R.id.nav_about :
-                new AlertDialog.Builder(this)
-                    .setTitle("Tentang")
-                    .setMessage("Scafol Mobile Version 1.0.3")
-                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    }).show();
+//                new AlertDialog.Builder(this)
+//                    .setTitle("Tentang")
+//                    .setMessage("Scafol Mobile Version 1.0.3")
+//                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                        }
+//                    }).show();
+                openBottomDialog();
                 break;
             case R.id.nav_notif :
                 Intent intent = new Intent(getApplicationContext(), ActivityNotif.class);
@@ -471,4 +477,11 @@ public class ActivityDashboard extends AppCompatActivity {
         super.onPause();
     }
 
+
+    public void openBottomDialog(){
+        View view = getLayoutInflater().inflate(R.layout.dialog_bottom, null);
+        Dialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(view);
+        dialog.show();
+    }
 }

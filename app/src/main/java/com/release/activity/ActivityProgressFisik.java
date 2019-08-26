@@ -2,6 +2,7 @@ package com.release.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,7 +46,7 @@ public class ActivityProgressFisik extends AppCompatActivity {
         String nama_paket = intent.getStringExtra("pa_nama");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle("Daftar Progres");
-        getSupportActionBar().setSubtitle(nama_paket);
+        getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + nama_paket + "</small>"));
         setContentView(R.layout.recycle_progress);
         final String id_paket = intent.getStringExtra("pa_id");
         progressBar = findViewById(R.id.progress_listprogress);

@@ -86,16 +86,16 @@
             android:layout_gravity="left"
             android:layout_marginBottom="5dp"
             app:cardCornerRadius="2dp"
-            android:layout_height="120dp">
+            android:layout_height="80dp">
 
             <LinearLayout
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingTop="30dp"
+                android:paddingTop="15dp"
                 android:paddingLeft="20dp"
-                android:paddingBottom="30dp"
+                android:paddingBottom="15dp"
                 android:paddingRight="20dp"
                 android:orientation="horizontal">
 
@@ -147,16 +147,16 @@
         android:layout_gravity="left"
 
         app:cardCornerRadius="2dp"
-        android:layout_height="120dp">
+        android:layout_height="80dp">
 
         <LinearLayout
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingTop="30dp"
+            android:paddingTop="15dp"
             android:paddingLeft="20dp"
-            android:paddingBottom="30dp"
+            android:paddingBottom="15dp"
             android:paddingRight="20dp"
             android:orientation="horizontal">
 
@@ -208,16 +208,16 @@
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         app:cardCornerRadius="2dp"
-        android:layout_height="120dp">
+        android:layout_height="80dp">
 
         <LinearLayout
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:paddingTop="30dp"
+            android:paddingTop="15dp"
             android:paddingLeft="20dp"
-            android:paddingBottom="30dp"
+            android:paddingBottom="15dp"
             android:paddingRight="20dp"
             android:orientation="horizontal">
 
@@ -470,17 +470,35 @@
 </LinearLayout>
 <RelativeLayout
     android:layout_width="match_parent"
+    android:layout_marginTop="10dp"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
-
     <Button
-        android:id="@+id/btn_tolist"
+        android:id="@+id/btn_mapdash"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#555"
         android:clickable="true"
         android:paddingRight="10dp"
-        android:paddingLeft="10dp"
+        android:paddingLeft="15dp"
+        android:drawableLeft="@drawable/ic_location_on_black_24dp"
+        android:textStyle="normal"
+        android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:background="@drawable/button_ripple_white"
+        android:textAlignment="viewStart"
+        android:text="Lihat Map" />
+
+
+    <Button
+        android:id="@+id/btn_tolist"
+        android:layout_below="@id/btn_mapdash"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#555"
+        android:clickable="true"
+        android:paddingRight="10dp"
+        android:textAlignment="viewStart"
+        android:paddingLeft="20dp"
         android:textStyle="normal"
         android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
         android:background="@drawable/button_ripple_generals"

@@ -2,6 +2,7 @@ package com.release.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -44,7 +45,7 @@ public class ActivityCatatan extends AppCompatActivity {
         final String nama_paket = intent.getStringExtra("pa_nama");
         final String id_paket = intent.getStringExtra("pa_id");
         setTitle("Daftar Catatan");
-        getSupportActionBar().setSubtitle(nama_paket);
+        getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + nama_paket + "</small>"));
         progressBar = findViewById(R.id.progress_listprogress_catatan);
         textnofound = findViewById(R.id.text_notfound_catatan);
         progressBar.setVisibility(View.VISIBLE);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +51,7 @@ public class ActivityMyLocation extends AppCompatActivity {
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_mapmylocation);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         FusedLocationProviderClient mFusedLocation = LocationServices.getFusedLocationProviderClient(ActivityMyLocation.this);
         try{
               mFusedLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -75,10 +77,12 @@ public class ActivityMyLocation extends AppCompatActivity {
                         startMarker.setIcon(getResources().getDrawable(R.drawable.ic_locations_on_black_60dp));
                         startMarker.setVisible(true);
                         Call<NominatimReverseMap> call_reverselatlong = apiInterfaceCustom.reverseLatLang("json", String.valueOf(location.getLatitude()),  String.valueOf(location.getLongitude()), "18", "1");
+                        String concat = "Lat : " + location.getLatitude() + ", Long : "  + location.getLongitude() + "";
+                        getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + concat + "</small>"));
                         call_reverselatlong.enqueue(new Callback<NominatimReverseMap>() {
                             @Override
                             public void onResponse(Call<NominatimReverseMap> call, Response<NominatimReverseMap> response) {
-                                if(response.isSuccessful()){
+                                if(response.code() == 200){
                                     startMarker.setTitle(response.body().getDisplay_name());
                                     startMarker.showInfoWindow();
                                     startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);

@@ -1,10 +1,14 @@
 package com.release.fragment;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Currency;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -60,6 +64,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
     final int DRAWABLE_BOTTOM = 3;
 
     public static int isDateEdit1;
+    Handler mHandler;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -73,6 +78,8 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
         final Context ctx = getActivity();
         t_nomorkontrak = view.findViewById(R.id.text_nomorkontrak);
         t_nilaikontrak = view.findViewById(R.id.text_nilaikontrak);
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading");
 
         t_nomorkontrak.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -144,6 +151,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
             @Override
             public void onClick(View view) {
                 // submit data to update contract.
+                progressDialog.show();
                 String get_nomorkontrak = t_nomorkontrak.getText().toString();
                 String get_nilai_kontrak = t_nilaikontrak.getText().toString().replaceAll("[.]","");
                 String get_awalkontrak = t_awalkontrak.getText().toString();
@@ -159,6 +167,17 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                             Toasty.success(ctx, "Data berhasil di update", Toast.LENGTH_SHORT).show();
                         }else{
                             Toasty.warning(ctx, "Tidak ada data yang diubah", Toast.LENGTH_SHORT).show();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try{
+                                        Thread.sleep(100);
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+                                    progressDialog.dismiss();
+                                }
+                            }).start();
                         }
                     }
 
@@ -166,7 +185,30 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                     public void onFailure(Call<DataResponsePaket> call, Throwable t) {
 //                        Toast.makeText(ctx, "Berhasil Edit Kontrak", Toast.LENGTH_SHORT).show();
                         Toasty.success(ctx, "Data berhasil di update", Toast.LENGTH_SHORT).show();
-                        btn_simpan.setVisibility(View.GONE);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    Thread.sleep(500);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                progressDialog.dismiss();
+                                mHandler.sendMessage(Message.obtain(mHandler, 1));
+                            }
+                        }).start();
+                        mHandler = new Handler(Looper.myLooper()){
+                            @Override
+                            public void handleMessage(@NonNull Message msg) {
+                                super.handleMessage(msg);
+                                switch (msg.what){
+                                    case 1 :
+                                        Toasty.success(getActivity(), "Kontrak berhasil diubah", Toasty.LENGTH_LONG).show();
+                                        btn_simpan.setVisibility(View.GONE);
+                                        break;
+                                }
+                            }
+                        };
                     }
                 });
             }
