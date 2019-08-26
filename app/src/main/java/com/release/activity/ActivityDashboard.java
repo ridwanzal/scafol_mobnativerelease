@@ -133,7 +133,7 @@ public class ActivityDashboard extends AppCompatActivity {
         dialog.setMessage("Loading");
 
         if(sessionManager.isLoggedIn()){
-            Snackbar.make(parentLayout, "Selamat Datang", Snackbar.LENGTH_LONG).show();
+//            Snackbar.make(parentLayout, "Selamat Datang", Snackbar.LENGTH_LONG).show();
             // total paket count
             dialog.show();
             if(role.toLowerCase().equals("pptk")){

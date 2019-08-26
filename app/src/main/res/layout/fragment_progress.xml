@@ -252,7 +252,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingLeft="10dp">
+            android:paddingLeft="10dp"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -444,6 +445,93 @@
                 </LinearLayout>
 
             </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+        <LinearLayout
+            android:layout_below="@id/card2x"
+            android:id="@+id/labelisx"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Catatan"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textColor="#aaa" />
+
+            <TextView
+                android:id="@+id/pr_catatan_fisik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Lihat Daftar Catatan"
+                android:paddingLeft="5dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:textAlignment="textEnd"
+                android:textColor="#4a9ed6" />
+
+        </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/labelisx"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="0dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Isi Catatan"
+                    android:textColor="#aaa" />
+
+                <EditText
+                    android:id="@+id/textcatatans"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginTop="4dp"
+                    android:text=""
+                    android:gravity="top|left"
+                    android:maxLines="10"
+                    android:lines="5"
+                    android:minLines="3"
+                    android:inputType="textMultiLine"
+                    android:textSize="16sp"
+                    android:textColor="#000"
+                    android:padding="10dp"
+                    android:background="@drawable/edittextborder_generic"
+                    android:textStyle="" />
+                <Button
+                    android:id="@+id/btn_submit_catatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:background="@drawable/button_ripple_generals"
+                    android:text="Tambah Catatan"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+
 
         </androidx.cardview.widget.CardView>
     </RelativeLayout>

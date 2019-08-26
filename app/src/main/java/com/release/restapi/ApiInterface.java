@@ -2,6 +2,7 @@ package com.release.restapi;
 
 import com.release.model.DataResponse;
 import com.release.model.DataResponseBidang;
+import com.release.model.DataResponseCatatan;
 import com.release.model.DataResponsePA;
 import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
@@ -40,6 +41,13 @@ public interface ApiInterface {
 
     @GET("paket/pptk")
     Call<DataResponsePaket> getPaketPptk(@Query("pptk_id") String pptk_id);
+
+    @GET("paket/catatan")
+    Call<DataResponseCatatan> getCatatan(@Query("pa_id") String pa_id);
+
+    @FormUrlEncoded
+    @POST("paket/submit_catatan")
+    Call<DataResponseCatatan> addCatatan(@Field("pa_id") String pa_id,  @Field("ca_catatan") String ca_catatan, @Field("date_created") String date_created, @Field("date_updated") String date_updated);
 
     @GET("paket/")
     Call<DataResponsePaket> getPaketId(@Query("pa_id") String pa_id);

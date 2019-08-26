@@ -1,8 +1,12 @@
 package com.release.fragment;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,6 +42,7 @@ import org.osmdroid.views.overlay.Marker;
 
 import java.util.ArrayList;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +63,7 @@ public class FragmentEditLokasi extends Fragment {
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     ApiInterfaceCustom apiInterfaceCustom = ApiClientCustom.getClientCustom().create(ApiInterfaceCustom.class);
     Retrofit retrofit_custom;
+    Handler mHandler;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +74,8 @@ public class FragmentEditLokasi extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final LinearLayout view = (LinearLayout) inflater.inflate(R.layout.fragment_editlokasi, container, false);
         final Context ctx = getActivity();
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading");
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         tx_latitude = view.findViewById(R.id.edittext_lat);
         tx_longitude = view.findViewById(R.id.edittext_longitude);
@@ -183,6 +191,7 @@ public class FragmentEditLokasi extends Fragment {
             @Override
             public void onClick(View view) {
                 // submit data to update location.
+                progressDialog.show();
                 progressBar.setVisibility(View.VISIBLE);
                 String get_lat = tx_latitude.getText().toString();
                 String get_long = tx_longitude.getText().toString();
@@ -196,14 +205,37 @@ public class FragmentEditLokasi extends Fragment {
                             Log.d(TAG, "Response Result Success------------------------> : " + response.body());
                             progressBar.setVisibility(View.GONE);
                             Log.d(TAG, "Response Result Success------------------------> : " + response.body());
-                            Toast.makeText(ctx, "Fails", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ctx, "Fails", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onFailure(Call<DataResponsePaket> call, Throwable t) {
                         progressBar.setVisibility(View.GONE);
-                        Toast.makeText(ctx, "Berhasil Ubah Lokasi", Toast.LENGTH_SHORT).show();
-                        btn_changelocation.setVisibility(View.GONE);
+//                        Toast.makeText(ctx, "Berhasil Ubah Lokasi", Toast.LENGTH_SHORT).show();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    Thread.sleep(500);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                progressDialog.dismiss();
+                                mHandler.sendMessage(Message.obtain(mHandler, 1));
+                            }
+                        }).start();
+                        mHandler = new Handler(Looper.myLooper()){
+                            @Override
+                            public void handleMessage(@NonNull Message msg) {
+                                super.handleMessage(msg);
+                                switch (msg.what){
+                                    case 1 :
+                                        Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
+                                        btn_changelocation.setVisibility(View.GONE);
+                                        break;
+                                }
+                            }
+                        };
                     }
                 });
             }

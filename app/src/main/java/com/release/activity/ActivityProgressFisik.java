@@ -43,15 +43,16 @@ public class ActivityProgressFisik extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
         String nama_paket = intent.getStringExtra("pa_nama");
-        setTitle(nama_paket);
-        setContentView(R.layout.recycle_progress);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setTitle("Daftar Progres");
+        getSupportActionBar().setSubtitle(nama_paket);
+        setContentView(R.layout.recycle_progress);
         final String id_paket = intent.getStringExtra("pa_id");
         progressBar = findViewById(R.id.progress_listprogress);
         textnofound = findViewById(R.id.text_notfound);
         progressBar.setVisibility(View.VISIBLE);
         textnofound.setVisibility(View.GONE);
-//        Toast.makeText(this, "paket id : "  + id_paket, Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, "paket id : "  + id_paket, Toast.LENGTH_SHORT).show();
         Call<DataResponseProgress> callprogress = apiInterface.getProgressByPaket(id_paket);
         callprogress.enqueue(new Callback<DataResponseProgress>() {
             @Override
@@ -61,10 +62,9 @@ public class ActivityProgressFisik extends AppCompatActivity {
                         if(response.code() == 200 ){
                             generateProgressList(response.body().getData());
                             textnofound.setVisibility(View.GONE);
-                            progressAdapter = new ProgressAdapter(getApplicationContext(), response.body().getData());
-                            progressAdapter.notifyDataSetChanged();
+//                            progressAdapter = new ProgressAdapter(getApplicationContext(), response.body().getData());
+//                            progressAdapter.notifyDataSetChanged();
                             progressBar.setVisibility(View.GONE);
-
                         }else{
                             progressBar.setVisibility(View.GONE);
                             textnofound.setVisibility(View.VISIBLE);

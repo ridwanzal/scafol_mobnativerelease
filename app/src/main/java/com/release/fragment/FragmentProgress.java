@@ -1,8 +1,12 @@
 package com.release.fragment;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,12 +27,15 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.release.R;
+import com.release.activity.ActivityCatatan;
 import com.release.activity.ActivityProgressFisik;
 import com.release.activity.ActivityProgressKeuangan;
+import com.release.model.DataResponseCatatan;
 import com.release.model.DataResponseProgress;
 import com.release.model.Progress;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
+import com.release.sharedexternalmodule.DateInfo;
 import com.release.sharedexternalmodule.DatePickerFragment;
 import com.google.gson.Gson;
 
@@ -37,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,18 +52,22 @@ import retrofit2.Response;
 public class FragmentProgress extends Fragment implements View.OnClickListener, DatePickerDialog.OnDateSetListener{
     TextView pr_fisik_detail;
     TextView pr_keuangan_detail;
+    TextView pr_catatan_fisik;
     private static String TAG = "FragmentProgress";
     public static ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     ImageView date_progresfisik;
     EditText tx_tanggalprogress;
 
     Button btn_submit_progresfisik;
+    Button btn_submit_catatan;
 
     EditText prog_target_fisik;
     EditText prog_real_fisik;
     EditText prog_deviasi_fisik;
+    EditText textcatatans;
 
     ImageView get_deviasi;
+    Handler mHandler;
 
     public static int isEditFlag;
 
@@ -78,20 +90,25 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress, container, false);
         pr_fisik_detail = view.findViewById(R.id.pr_fisik_detail);
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Loading");
         pr_keuangan_detail = view.findViewById(R.id.pr_keuangan_detail);
         date_progresfisik = view.findViewById(R.id.date_progresfisik);
         tx_tanggalprogress = view.findViewById(R.id.tx_tanggalprogress);
         btn_submit_progresfisik = view.findViewById(R.id.btn_submit_progresfisik);
         get_deviasi = view.findViewById(R.id.get_deviasi);
+        pr_catatan_fisik = view.findViewById(R.id.pr_catatan_fisik);
 
         prog_target_fisik = view.findViewById(R.id.prog_target_fisik);
         prog_real_fisik = view.findViewById(R.id.prog_real_fisik);
         prog_deviasi_fisik = view.findViewById(R.id.prog_deviasi_fisik);
 
         loading_progress_submit = view.findViewById(R.id.loading_progress_submit);
+        btn_submit_catatan = view.findViewById(R.id.btn_submit_catatan);
+        textcatatans = view.findViewById(R.id.textcatatans);
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         Intent intent = getActivity().getIntent();
         pa_id = intent.getStringExtra("pa_id");
@@ -105,6 +122,77 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                 intent.putExtra("pa_id", pa_id);
                 intent.putExtra("pa_nama", pa_judul);
                 startActivity(intent);
+            }
+        });
+
+        pr_catatan_fisik.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ActivityCatatan.class);
+                intent.putExtra("pa_id", pa_id);
+                intent.putExtra("pa_nama", pa_judul);
+                startActivity(intent);
+            }
+        });
+
+        btn_submit_catatan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Boolean catatan_edit = textcatatans.getText().toString().trim().equals("");
+                Boolean next = false;
+
+                if(catatan_edit){
+                    textcatatans.setError("Required");
+                    textcatatans.setHint("Masukkan catatan anda");
+                    next = false;
+                    return;
+                }else{
+                    next = true;
+                }
+
+                if(next){
+                    progressDialog.show();
+                    DateInfo dateInfo = new DateInfo();
+                    Call<DataResponseCatatan> callprogress = apiInterface.addCatatan(pa_id, textcatatans.getText().toString(), dateInfo.dateTime(), dateInfo.dateTime());
+
+                    callprogress.enqueue(new Callback<DataResponseCatatan>() {
+                        @Override
+                        public void onResponse(Call<DataResponseCatatan> call, Response<DataResponseCatatan> response) {
+                            Log.d(TAG, "RESULT "  + response);
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponseCatatan> call, Throwable t) {
+                            Log.e(TAG, "RESULT failed ");
+                            textcatatans.setText("");
+                            new Thread(new Runnable() {
+                                public void run() {
+                                    try {
+                                        Thread.sleep(500);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    progressDialog.dismiss();
+                                    mHandler.sendMessage(Message.obtain(mHandler, 1));
+                                }
+                            }).start();
+                            mHandler = new Handler(Looper.myLooper()){
+                                @Override
+                                public void handleMessage(@NonNull Message msg) {
+                                    super.handleMessage(msg);
+                                    switch (msg.what){
+                                        case 1 :
+                                            Toasty.success(getActivity(), "Catatan berhasil ditambah", Toasty.LENGTH_LONG).show();
+                                            break;
+                                    }
+                                }
+                            };
+
+                        }
+                    });
+                }
+
             }
         });
 
