@@ -185,7 +185,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     text_namapptk.setText(checkData(user_fullname));
                     text_satuan.setText(checkData(satuan));
                     text_volume.setText(checkData(volume));
-                    text_nokontrak.setText(nokontrak);
+                    text_nokontrak.setText(checkData(nokontrak));
 
                     String result1 = "";
                     String[] result_temp1;
@@ -507,5 +507,16 @@ public class ActivityDetailPaket extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.right_menu_detail_paket, menu);
         return true;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
 
 }

@@ -485,6 +485,7 @@
         android:textStyle="normal"
         android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
         android:background="@drawable/button_ripple_white"
+        android:drawablePadding="20dp"
         android:textAlignment="viewStart"
         android:text="Lihat Map" />
 

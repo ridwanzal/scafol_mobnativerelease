@@ -53,6 +53,12 @@ public class ActivityMapDashboard extends AppCompatActivity {
         dashmap = findViewById(R.id.dashmap);
         dashmap.setTileSource(TileSourceFactory.MAPNIK);
         dashmap.setMultiTouchControls(true);
+        dashmap.setFlingEnabled(true);
+        dashmap.setUseDataConnection(true);
+        dashmap.setZoomRounding(true);
+        dashmap.canZoomIn();
+        dashmap.canZoomOut();
+        dashmap.computeScroll();
 
         Call<DataResponsePaket> call_paket = apiInterface.getPaketPptk(user_id);
         call_paket.enqueue(new Callback<DataResponsePaket>() {
@@ -123,6 +129,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        dashmap.onResume();
     }
 
     @Override
@@ -133,5 +140,11 @@ public class ActivityMapDashboard extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        dashmap.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }
