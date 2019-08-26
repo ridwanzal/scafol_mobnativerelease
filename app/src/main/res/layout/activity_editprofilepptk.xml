@@ -165,6 +165,31 @@
                         android:textSize="16sp"
                         android:textStyle="normal" />
 
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:background="#eee"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_height="1dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Instansi"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:id="@+id/prof_dinas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        android:paddingBottom="10dp"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
                     <Button
                         android:id="@+id/btn_simpan"
                         android:layout_width="fill_parent"

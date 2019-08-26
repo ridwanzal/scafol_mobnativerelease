@@ -439,12 +439,12 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 startActivity(intent);
                 return true;
 //            case R.id.nav_kurvasrencana :
-//                Intent intent = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
-//                intent.putExtra("position", 0);
-//                intent.putExtra("pa_id", id_paket);
-//                intent.putExtra("pa_nama", nama_paket);
-//                intent.putExtra("ke_id", ke_id);
-//                startActivity(intent);
+//                Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+//                intent6.putExtra("position", 0);
+//                intent6.putExtra("pa_id", id_paket);
+//                intent6.putExtra("pa_nama", nama_paket);
+//                intent6.putExtra("ke_id", ke_id);
+//                startActivity(intent6);
 //                return true;
             case R.id.nav_editkontrak :
                 Intent intent2 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);

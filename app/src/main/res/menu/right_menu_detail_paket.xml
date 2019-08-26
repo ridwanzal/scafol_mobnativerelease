@@ -8,10 +8,11 @@
         android:visible="true"
         android:iconTint="@color/colorwhite"
         android:title="Progres" />
-    <!--<item-->
-        <!--android:enabled="false"-->
-        <!--android:id="@+id/nav_kurvasrencana"-->
-        <!--android:title="Kurva S Rencana" />-->
+    <item
+        android:enabled="false"
+        android:visible="false"
+        android:id="@+id/nav_kurvasrencana"
+        android:title="Kurva S Rencana" />
     <item
         android:id="@+id/nav_upload"
         app:showAsAction="always"

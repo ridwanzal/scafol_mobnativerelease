@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import com.release.fragment.FragmentEditKontrak;
 import com.release.R;
 import com.release.fragment.FragmentEditLokasi;
+import com.release.fragment.FragmentKurvaS;
 import com.release.fragment.FragmentPenyediaJasa;
 import com.release.fragment.FragmentProgress;
 
@@ -45,14 +46,14 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position){
             case 0 :
+//                return new FragmentKurvaS();
                 return new FragmentEditKontrak();
-//            return new FragmentKurvaS();
             case 1 :
                 return new FragmentEditLokasi();
             case 2 :
                 return new FragmentProgress();
-//            case 3 :
-//                return new FragmentPenyediaJasa();
+            case 3 :
+//            return new FragmentPenyediaJasa();
 //                return new FragmentUploadData(); // upload
             default:
                 return null;

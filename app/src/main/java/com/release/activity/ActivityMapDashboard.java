@@ -68,13 +68,17 @@ public class ActivityMapDashboard extends AppCompatActivity {
                         Double longitude = Double.valueOf(response.body().getData().get(i).getPaLongitude());
                         GeoPoint point = new GeoPoint(latitude, longitude);
                         Marker marker = new Marker(dashmap);
+                        final String pa_id = response.body().getData().get(i).getPaId();
+                        final String pa_nama = response.body().getData().get(i).getPaJudul();
+                        final String ke_id = response.body().getData().get(i).getKeId();
+
                         marker.setPosition(point);
                         marker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
                         marker.setTextLabelFontSize(14);
                         marker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
                         marker.setIcon(getResources().getDrawable(R.drawable.ic_locations_on_black_60dp));
                         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                        marker.setTitle(response.body().getData().get(i).getPaLokasi());
+                        marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
                         marker.setVisible(true);
                         marker.setPanToView(true);
                         IMapController mapController = dashmap.getController();
@@ -83,13 +87,17 @@ public class ActivityMapDashboard extends AppCompatActivity {
                         mapController.setCenter(point);
                         // set marker
                         dashmap.getOverlays().add(marker);
-//                        marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-//                            @Override
-//                            public boolean onMarkerClick(Marker marker, MapView mapView) {
-//                                Toasty.success(getApplicationContext(), "Ak ngeklik kamu", Toasty.LENGTH_SHORT).show();
-//                                return true;
-//                            }
-//                        });
+                        marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
+                                intent.putExtra("pa_id", pa_id);
+                                intent.putExtra("pa_nama", pa_nama);
+                                intent.putExtra("ke_id", ke_id);
+                                startActivity(intent);
+                                return true;
+                            }
+                        });
 
                     }
                 }
@@ -112,4 +120,18 @@ public class ActivityMapDashboard extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

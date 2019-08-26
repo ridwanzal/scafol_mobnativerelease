@@ -3,6 +3,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -64,6 +65,8 @@ public class ActivityMapDetail extends AppCompatActivity {
             }
             Double latitude = Double.valueOf(object.get(i).getPaLocLatitude());
             Double longitude = Double.valueOf(object.get(i).getPaLongitude());
+            String concat = "Lat : " + object.get(i).getPaLocLatitude()+ ", Long : "  + object.get(i).getPaLongitude() + "";
+            getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + concat + "</small>"));
 
             startPoint = new GeoPoint(latitude, longitude);
             startMarker = new Marker(map);

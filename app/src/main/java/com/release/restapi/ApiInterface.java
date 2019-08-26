@@ -3,6 +3,7 @@ package com.release.restapi;
 import com.release.model.DataResponse;
 import com.release.model.DataResponseBidang;
 import com.release.model.DataResponseCatatan;
+import com.release.model.DataResponseDinas;
 import com.release.model.DataResponsePA;
 import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
@@ -18,6 +19,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
+    // dinas by user
+    @GET("dinas/user")
+    Call<DataResponseDinas> getDinas(@Query("user_id") String user_id);
+
     // bidang
     @GET("bidang/bidang")
     Call<DataResponseBidang> getBidang(@Query("ke_id") String ke_id);
