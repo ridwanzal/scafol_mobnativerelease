@@ -131,6 +131,11 @@
             android:name="com.release.activity.ActivityMapDashboard"
             android:label="@string/title_map_dash">
         </activity>
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name="com.release.activity.ActivityCalendar"
+            android:label="Calendar">
+        </activity>
         <service android:name="com.release.service.ServiceReminder" />
     </application>
 </manifest>

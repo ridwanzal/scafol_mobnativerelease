@@ -77,6 +77,8 @@ public class ActivityDashboard extends AppCompatActivity {
     private String user_fullname;
     private String user_name;
 
+    private LinearLayout linear_calendar;
+
     public ActivityDashboard(){}
 
     @Override
@@ -113,6 +115,7 @@ public class ActivityDashboard extends AppCompatActivity {
         tx_dashbelum = findViewById(R.id.tx_dashpaketbelum);
         tx_dashselesai = findViewById(R.id.tx_dashpaketselesai);
         btn_mapdash = findViewById(R.id.btn_mapdash);
+        linear_calendar = findViewById(R.id.linear_calendar);
 
         container_dashboards = findViewById(R.id.container_dashboards);
         container_dashboards.setVisibility(View.GONE);
@@ -235,7 +238,7 @@ public class ActivityDashboard extends AppCompatActivity {
                         });
             }else if(role.toLowerCase().equals("admin")){
                 // admin page goes heres
-                show_list.setVisibility(View.GONE);
+                show_list.setVisibility(View.VISIBLE);
                 // call total pagu
                     Call<DataResponsePA> calltotalpagu = apiInterface.countPaguAdmin(dinas_id);
                     Log.d(TAG, "paket datas " + user_id);
@@ -385,6 +388,14 @@ public class ActivityDashboard extends AppCompatActivity {
                 //            progress.hide();
         }
 
+
+        linear_calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCalendarDialog();
+            }
+        });
+
     }
 
     public void startServiceReminder(){
@@ -480,6 +491,13 @@ public class ActivityDashboard extends AppCompatActivity {
 
     public void openBottomDialog(){
         View view = getLayoutInflater().inflate(R.layout.dialog_bottom, null);
+        Dialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
+    public void openCalendarDialog(){
+        View view = getLayoutInflater().inflate(R.layout.activity_calendar, null);
         Dialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(view);
         dialog.show();

@@ -47,6 +47,9 @@ public interface ApiInterface {
     @GET("paket/pptk")
     Call<DataResponsePaket> getPaketPptk(@Query("pptk_id") String pptk_id);
 
+    @GET("paket/dinas")
+    Call<DataResponsePaket> getPaketDinas(@Query("dinas_id") String dinas_id);
+
     @GET("paket/catatan")
     Call<DataResponseCatatan> getCatatan(@Query("pa_id") String pa_id);
 

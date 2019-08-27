@@ -86,7 +86,7 @@ public class ActivityMain extends AppCompatActivity{
                 setContentView(R.layout.recycle_listpaket);
                 progress_listpaket = findViewById(R.id.progress_listpaket);
                 Snackbar.make(findViewById(R.id.activity_paketlist), "Selamat Datang", Snackbar.LENGTH_LONG);
-                Call<DataResponsePaket> call_paket2 = apiInterface.getPaketPptk(user_id);
+                Call<DataResponsePaket> call_paket2 = apiInterface.getPaketDinas(dinas_id);
                 call_paket2.enqueue(new Callback<DataResponsePaket>() {
                     @Override
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {

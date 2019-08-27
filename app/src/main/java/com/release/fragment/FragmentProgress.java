@@ -147,12 +147,7 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
         pa_id = intent.getStringExtra("pa_id");
         pa_judul = intent.getStringExtra("pa_nama");
         pa_pagu = intent.getStringExtra("pa_pagu");
-
-//        String result_pagu_send = pa_pagu.equals("") ? "0" : pa_pagu;
-//        keu_pagu.setText(formatMoneyIDR.convertIDR(result_pagu_send));
-
         ke_id = intent.getStringExtra("ke_id");
-
 
         /******************************************************************Progres Keuangan Submission********************************************************************************/
 
