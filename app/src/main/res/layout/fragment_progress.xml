@@ -29,6 +29,7 @@
             <TextView
                 android:id="@+id/pr_fisik_detail"
                 android:layout_width="wrap_content"
+                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Lihat Daftar Progres"
@@ -212,10 +213,10 @@
 
         </androidx.cardview.widget.CardView>
         <RelativeLayout
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:layout_below="@id/card1x"
             android:layout_width="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/relx1"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -236,7 +237,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Lihat Daftar Progres"
+                    android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                    android:text="Lihat Daftar Progres Keuangan"
                     android:padding="5dp"
                     android:textAlignment="textEnd"
                     android:textColor="#4a9ed6" />
@@ -245,8 +247,7 @@
 
         </RelativeLayout>
         <androidx.cardview.widget.CardView
-            android:layout_margin="7dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:id="@+id/card2x"
             android:layout_below="@+id/relx1"
             android:layout_width="match_parent"
@@ -264,6 +265,31 @@
                 android:paddingBottom="10dp">
 
                 <LinearLayout
+                    android:id="@+id/lin_keu1"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/text_infokontrak"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"
+                        android:text="Nomor kontrak sudah diisi, anda sudah dapat mengupdate data progres"
+                        android:drawableLeft="@drawable/ic_info_outline_white_24dp"
+                        android:drawableTint="@color/colorAccent"
+                        android:background="@drawable/button_ripple_info"
+                        android:padding="10dp"
+                        android:drawablePadding="7dp"
+                        android:textColor="#888" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lin_keu2"
+                    android:layout_below="@id/lin_keu1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -277,14 +303,17 @@
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/prog_dayaserap"
+                        android:id="@+id/keu_serap"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginTop="4dp"
                         android:text=""
+                        android:drawableLeft="@drawable/money_icon"
+                        android:drawablePadding="10dp"
                         android:textSize="16sp"
                         android:textColor="#000"
+                        android:inputType="numberDecimal"
                         android:padding="10dp"
                         android:background="@drawable/edittextborder_generic"
                         android:textStyle="" />
@@ -297,14 +326,19 @@
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/prog_pagu"
+                        android:id="@+id/keu_pagu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/money_icon"
+                        android:editable="false"
+                        android:drawablePadding="10dp"
+                        android:enabled="false"
                         android:layout_weight="1"
                         android:layout_marginTop="4dp"
                         android:text=""
                         android:textSize="16sp"
                         android:padding="10dp"
+                        android:inputType="numberDecimal"
                         android:background="@drawable/edittextborder_generic"
                         android:textColor="#000"
                         android:textStyle="" />
@@ -318,13 +352,18 @@
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/prog_kontrak"
+                        android:id="@+id/keu_kontrak"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:editable="false"
+                        android:enabled="false"
+                        android:drawableLeft="@drawable/money_icon"
+                        android:drawablePadding="10dp"
                         android:layout_marginTop="4dp"
                         android:text=""
                         android:textSize="16sp"
+                        android:inputType="numberDecimal"
                         android:padding="10dp"
                         android:background="@drawable/edittextborder_generic"
                         android:textColor="#000"
@@ -338,14 +377,19 @@
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/prog_sisa"
+                        android:id="@+id/keu_sisa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:enabled="false"
                         android:layout_weight="1"
                         android:text=""
+                        android:inputType="numberDecimal"
                         android:padding="10dp"
                         android:background="@drawable/edittextborder_generic"
                         android:textSize="16sp"
+                        android:drawableLeft="@drawable/money_icon"
+                        android:drawablePadding="10dp"
                         android:layout_marginTop="4dp"
                         android:textColor="#000"
                         />
@@ -358,11 +402,16 @@
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/prog_sisang"
+                        android:id="@+id/keu_sisang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:editable="false"
+                        android:enabled="false"
+                        android:inputType="numberDecimal"
                         android:layout_weight="1"
                         android:padding="10dp"
+                        android:drawableLeft="@drawable/money_icon"
+                        android:drawablePadding="10dp"
                         android:background="@drawable/edittextborder_generic"
                         android:text=""
                         android:textSize="16sp"
@@ -391,7 +440,7 @@
                                 />
 
                             <EditText
-                                android:id="@+id/text_akhirkontrak"
+                                android:id="@+id/tx_tanggal_keuangan"
                                 android:layout_marginTop="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -404,7 +453,7 @@
                         </LinearLayout>
 
                         <ImageView
-                            android:id="@+id/btn_date_akhir"
+                            android:id="@+id/btn_date_prog_keuangan"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/button_date_ripple"
@@ -423,24 +472,28 @@
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/prog_keterangans"
+                        android:id="@+id/keu_ket"
                         android:layout_width="match_parent"
                         android:padding="10dp"
                         android:background="@drawable/edittextborder_generic"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:minLines="3"
+                        android:inputType="textMultiLine"
+                        android:gravity="top|left"
                         android:text=""
                         android:textSize="16sp"
+                        android:maxLines="10"
                         android:layout_marginTop="4dp"
                         android:textColor="#000"
                         />
 
                     <Button
-                        android:id="@+id/btns"
+                        android:id="@+id/keu_submit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
-                        android:background="@drawable/button_ripple"
+                        android:background="@drawable/button_ripple_generals"
                         android:text="Tambah Progres Keuangan"/>
                 </LinearLayout>
 
@@ -448,6 +501,7 @@
 
         </androidx.cardview.widget.CardView>
         <LinearLayout
+            android:layout_marginTop="15dp"
             android:layout_below="@id/card2x"
             android:id="@+id/labelisx"
             android:visibility="visible"
@@ -472,6 +526,7 @@
                 android:text="Lihat Daftar Catatan"
                 android:paddingLeft="5dp"
                 android:paddingRight="10dp"
+                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:textAlignment="textEnd"
@@ -513,6 +568,7 @@
                     android:text=""
                     android:gravity="top|left"
                     android:maxLines="10"
+                    android:hint=""
                     android:lines="5"
                     android:minLines="3"
                     android:inputType="textMultiLine"

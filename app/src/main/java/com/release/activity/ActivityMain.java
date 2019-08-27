@@ -182,22 +182,28 @@ public class ActivityMain extends AppCompatActivity{
                 final TextView get_id;
                 final TextView get_nama;
                 final TextView get_keid;
+                final TextView get_pagu;
                 String getid_paket = "";
                 String get_nama_paket = "";
                 String get_kegiatan = "";
+                String get_totalpagu = "";
+
                 get_id = view.findViewById(R.id.txt_idpaket);
                 get_nama = view.findViewById(R.id.txt_nama_paket);
                 get_keid = view.findViewById(R.id.kegiatan_id);
-
+                get_pagu = view.findViewById(R.id.txt_pagu_dummy);
 
                 getid_paket = (String) get_id.getText().toString().trim();
                 get_nama_paket = (String) get_nama.getText().toString().trim();
                 get_kegiatan = (String) get_keid.getText().toString().trim();
+                get_totalpagu = (String) get_pagu.getText().toString().trim();
 
                 Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
+                intent.putExtra("pa_pagu", get_totalpagu);
                 intent.putExtra("pa_id", getid_paket);
                 intent.putExtra("pa_nama", get_nama_paket);
                 intent.putExtra("ke_id", get_kegiatan);
+                intent.putExtra("request", "main");
                 startActivity(intent);
             }
 

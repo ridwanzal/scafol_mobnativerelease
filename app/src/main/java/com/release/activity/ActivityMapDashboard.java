@@ -38,6 +38,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
     SessionManager sessionManager;
     String user_id;
     String dians_id;
+
     MapView dashmap = null;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     @Override
@@ -100,6 +101,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                 intent.putExtra("pa_id", pa_id);
                                 intent.putExtra("pa_nama", pa_nama);
                                 intent.putExtra("ke_id", ke_id);
+                                intent.putExtra("request", "map_dash");
                                 startActivity(intent);
                                 return true;
                             }

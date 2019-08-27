@@ -64,6 +64,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView text_jenis;
     private TextView text_tahun;
     private TextView text_pagu;
+    private TextView text_pagu_dummy;
 
     private TextView text_satuan;
     private TextView text_volume;
@@ -419,6 +420,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
         Intent intents = getIntent();
         String id_paket = intents.getStringExtra("pa_id");
         String nama_paket = intents.getStringExtra("pa_nama");
+        String pa_pagu = intents.getStringExtra("pa_pagu");
         String ke_id = intents.getStringExtra("ke_id");
         sessionManager = new SessionManager(getApplicationContext());
         HashMap<String, String> user = sessionManager.getUserDetails();
@@ -448,6 +450,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
 //                return true;
             case R.id.nav_editkontrak :
                 Intent intent2 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+                intent2.putExtra("pa_pagu", pa_pagu);
                 intent2.putExtra("position", 0);
                 intent2.putExtra("pa_id", id_paket);
                 intent2.putExtra("pa_nama", nama_paket);
@@ -460,6 +463,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 path_todropbox = "/files/gov/"+dinas_id+"/pa-"+id_paket+"/documents";
 //                startActivity(FilesActivity.getIntent(ActivityDetailPaket.this, path_todropbox));
                 Intent intent5 = new Intent(ActivityDetailPaket.this, UserActivity.class);
+                intent5.putExtra("pa_pagu", pa_pagu);
                 intent5.putExtra("path_dropbox", path_todropbox);
                 intent5.putExtra("pa_judul", nama_paket);
                 intent5.putExtra("upload_type", "2");
@@ -467,6 +471,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 return true;
             case R.id.nav_editlokasi :
                 Intent intent3 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+                intent3.putExtra("pa_pagu", pa_pagu);
                 intent3.putExtra("position", 1);
                 intent3.putExtra("pa_id", id_paket);
                 intent3.putExtra("pa_nama", nama_paket);
@@ -475,6 +480,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 return true;
             case R.id.nav_progress :
                 Intent intent4 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+                intent4.putExtra("pa_pagu", pa_pagu);
                 intent4.putExtra("position", 2);
                 intent4.putExtra("pa_id", id_paket);
                 intent4.putExtra("pa_nama", nama_paket);
@@ -505,6 +511,32 @@ public class ActivityDetailPaket extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.right_menu_detail_paket, menu);
+        Intent intents = getIntent();
+        String request = intents.getStringExtra("request");
+        Boolean check = request.equals("map_dash");
+        if(check){
+            MenuItem prog = menu.findItem(R.id.nav_progress);
+            MenuItem up = menu.findItem(R.id.nav_upload);
+            MenuItem up2 = menu.findItem(R.id.nav_uploadoc);
+            MenuItem kont = menu.findItem(R.id.nav_editkontrak);
+            MenuItem lok = menu.findItem(R.id.nav_editlokasi);
+            prog.setVisible(false);
+            kont.setVisible(false);
+            lok.setVisible(false);
+            up2.setVisible(false);
+            up.setVisible(false);
+        }else{
+            MenuItem prog = menu.findItem(R.id.nav_progress);
+            MenuItem up = menu.findItem(R.id.nav_upload);
+            MenuItem up2 = menu.findItem(R.id.nav_uploadoc);
+            MenuItem kont = menu.findItem(R.id.nav_editkontrak);
+            MenuItem lok = menu.findItem(R.id.nav_editlokasi);
+            prog.setVisible(true);
+            kont.setVisible(true);
+            lok.setVisible(true);
+            up2.setVisible(true);
+            up.setVisible(true);
+        }
         return true;
     }
 

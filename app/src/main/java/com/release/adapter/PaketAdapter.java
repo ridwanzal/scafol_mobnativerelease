@@ -53,6 +53,7 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.PaketViewHol
             paketList.get(position).setPaJenis("Umum");
         }
         holder.paket_jenis.setText(paketList.get(position).getPaJenis());
+        holder.paket_pagu_dummy.setText(paketList.get(position).getPaPagu());
     }
 
     @NonNull
@@ -119,6 +120,7 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.PaketViewHol
         TextView paket_jenis;
         TextView paket_id;
         TextView kegiatan_id;
+        TextView paket_pagu_dummy;
         RelativeLayout layout_paketid;
 
         PaketViewHolder(View itemView){
@@ -129,6 +131,7 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.PaketViewHol
             paket_id = itemView.findViewById(R.id.txt_idpaket);
             kegiatan_id = itemView.findViewById(R.id.kegiatan_id);
             layout_paketid = itemView.findViewById(R.id.layout_paketid);
+            paket_pagu_dummy = itemView.findViewById(R.id.txt_pagu_dummy);
         }
     }
 

@@ -63,7 +63,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:inputType="number"
+                        android:drawableLeft="@drawable/money_icon"
+                        android:drawablePadding="10dp"
+                        android:inputType="numberDecimal"
                         android:padding="10dp"
                         android:background="@drawable/edittextborder_generic"
 

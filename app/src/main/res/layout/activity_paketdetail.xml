@@ -142,15 +142,15 @@
                         android:text="Pagu Total"
                         android:textColor="#aaa" />
 
-                    <TextView
-                        android:id="@+id/text_pagu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        android:text="TextView"
-                        android:textColor="#000"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/text_pagu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:text="TextView"
+                            android:textColor="#000"
+                            android:textSize="16sp" />
 
                     <View
                         android:layout_width="match_parent"
