@@ -140,17 +140,17 @@ public class ActivityMain extends AppCompatActivity{
                 if(bi_id.equals("") || bi_id == null){
                     sessionManager.checkLogin();
                 }
-                Call<DataResponseKegiatan> call_kegiatan_bidang = apiInterface.getKegiatanBidang(bi_id);
-                call_kegiatan_bidang.enqueue(new Callback<DataResponseKegiatan>() {
+                Call<DataResponsePaket> call_kegiatan_bidang = apiInterface.getPaketBidang(user_id);
+                call_kegiatan_bidang.enqueue(new Callback<DataResponsePaket>() {
                         @Override
-                        public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
-                            ArrayList<Kegiatan> data = response.body().getData();
+                        public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                            ArrayList<Paket> data = response.body().getData();
                             Log.w(TAG, "kegiatan data " + new Gson().toJson(data));
-                            generateKegiatanList(response.body().getData());
+                            generatePaketList(response.body().getData());
                         }
 
                         @Override
-                        public void onFailure(Call<DataResponseKegiatan> call, Throwable t) {
+                        public void onFailure(Call<DataResponsePaket> call, Throwable t) {
                             Log.e(TAG, t.toString());
                         }
                     });

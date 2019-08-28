@@ -50,6 +50,9 @@ public interface ApiInterface {
     @GET("paket/dinas")
     Call<DataResponsePaket> getPaketDinas(@Query("dinas_id") String dinas_id);
 
+    @GET("paket/bidang")
+    Call<DataResponsePaket> getPaketBidang(@Query("bidang") String bidang);
+
     @GET("paket/catatan")
     Call<DataResponseCatatan> getCatatan(@Query("pa_id") String pa_id);
 

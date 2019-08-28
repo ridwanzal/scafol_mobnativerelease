@@ -104,7 +104,7 @@ public class ActivityMyLocation extends AppCompatActivity {
                                     new Thread(new Runnable() {
                                         public void run() {
                                             try {
-                                                Thread.sleep(10);
+                                                Thread.sleep(300);
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
