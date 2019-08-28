@@ -81,6 +81,7 @@ public class ActivityMyLocation extends AppCompatActivity {
                         mymap.setUseDataConnection(true);
                         mymap.setFlingEnabled(true);
                         mymap.setZoomRounding(true);
+                        mymap.setTilesScaledToDpi(true);
                         mymap.setMultiTouchControls(true);
                         startPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
                         startMarker = new Marker(mymap);
@@ -124,6 +125,16 @@ public class ActivityMyLocation extends AppCompatActivity {
                         mapController.setCenter(startPoint);
                         // set marker
                         mymap.getOverlays().add(startMarker);
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    Thread.sleep(10);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                mHandler.sendMessage(Message.obtain(mHandler, 1));
+                            }
+                        }).start();
                     }
                 }
             });
