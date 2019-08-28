@@ -1,5 +1,6 @@
 package com.release.sharedexternalmodule;
 
+import android.icu.text.NumberFormat;
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
@@ -20,6 +21,7 @@ public class formatMoneyIDR {
         String convert = kursIndonesia.format(uang);
         return convert;
     }
+
 
     public static String convertString(String money){
         money = money.replaceAll("^0*([0-9]+).*", "$1");

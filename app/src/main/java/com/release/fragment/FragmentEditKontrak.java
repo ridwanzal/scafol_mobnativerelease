@@ -4,11 +4,14 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.icu.text.NumberFormat;
 import android.icu.util.Currency;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -62,6 +65,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
     final int DRAWABLE_TOP = 1;
     final int DRAWABLE_RIGHT = 2;
     final int DRAWABLE_BOTTOM = 3;
+    private String current = "";
 
     public static int isDateEdit1;
     Handler mHandler;
@@ -96,7 +100,6 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
         });
 
         t_nilaikontrak.setOnTouchListener(new View.OnTouchListener() {
-
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
@@ -108,6 +111,23 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                 }
 
                 return false;
+            }
+        });
+
+
+        t_nilaikontrak.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 

@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import com.github.mikephil.charting.charts.LineChart;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.release.R;
@@ -106,6 +108,10 @@ public class ActivityDashboard extends AppCompatActivity {
         show_list2 = findViewById(R.id.btn_tolist2);
         progress = new ProgressDialog(this);
         final View parentLayout = findViewById(android.R.id.content);
+
+        LineChart chart = findViewById(R.id.dashchart);
+        chart.setVisibility(View.GONE);
+
 
 //        Toast.makeText(ActivityDashboard.this, "Masuk pak eko", Toast.LENGTH_SHORT).show();
         tx_dashtotalpaket = findViewById(R.id.tx_dashtotalpaket);

@@ -13,6 +13,7 @@ import android.text.Html;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -43,6 +44,7 @@ import com.release.sharedexternalmodule.DateInfo;
 import com.release.sharedexternalmodule.DatePickerFragment;
 import com.google.gson.Gson;
 import com.release.sharedexternalmodule.formatMoneyIDR;
+import com.release.sharedexternalmodule.clearEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -98,6 +100,11 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
     String pagu_value;
     String kontrak_value;
 
+    final int DRAWABLE_LEFT = 0;
+    final int DRAWABLE_TOP = 1;
+    final int DRAWABLE_RIGHT = 2;
+    final int DRAWABLE_BOTTOM = 3;
+
     private ProgressBar loading_progress_submit;
 
     @Override
@@ -150,6 +157,22 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
         ke_id = intent.getStringExtra("ke_id");
 
         /******************************************************************Progres Keuangan Submission********************************************************************************/
+
+        keu_serap.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    if(motionEvent.getRawX() >= (keu_serap.getRight() - keu_serap.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        keu_serap.getText().clear();
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
 
         Call<DataResponsePaket> call_paket = apiInterface.getPaketId(pa_id);
         call_paket.enqueue(new Callback<DataResponsePaket>() {

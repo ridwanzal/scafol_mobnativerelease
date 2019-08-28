@@ -473,6 +473,7 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_marginTop="10dp"
+    android:id="@+id/rel_bottomdash"
     android:layout_height="wrap_content"
     android:orientation="vertical" >
     <Button
@@ -519,6 +520,12 @@
         android:textStyle="bold"
         android:background="@drawable/button_ripple_generals"
         android:text="Lihat Semua Anggaran" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/dashchart"
+        android:layout_below="@id/btn_tolist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 </RelativeLayout>
