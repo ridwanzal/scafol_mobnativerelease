@@ -1,7 +1,11 @@
 package com.release.activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.MenuItem;
@@ -27,7 +31,10 @@ public class ActivityMapDetail extends AppCompatActivity {
     Context context;
     GeoPoint startPoint;
     Marker startMarker;
+    Handler mHandler;
+    ProgressDialog progressDialog;
     private static String TAG = "ActivityMapDetail";
+
 
     public ActivityMapDetail(){
         // simple constructor
@@ -46,15 +53,20 @@ public class ActivityMapDetail extends AppCompatActivity {
         setContentView(R.layout.activity_mapdetailpaket);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        progressDialog = new ProgressDialog(ActivityMapDetail.this);
+
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         ArrayList<Paket> object = (ArrayList<Paket>) args.getSerializable("ARRAYLIST");
+        progressDialog.show();
+        progressDialog.setMessage("Loading");
         map = findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
         IMapController mapController = map.getController();
         mapController.setZoom(9);
+
         for(int i = 0; i < object.size(); i++){
             String location_name = "";
 
@@ -86,8 +98,32 @@ public class ActivityMapDetail extends AppCompatActivity {
 
         // set marker
         map.getOverlays().add(startMarker);
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mHandler.sendMessage(Message.obtain(mHandler, 1));
+            }
+        }).start();
 
+
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        progressDialog.dismiss();
+                        break;
+                }
+            }
+        };
     }
+
+
 
     @Override
     protected void onPostResume() {

@@ -1,8 +1,12 @@
 package com.release.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
@@ -42,6 +46,8 @@ public class ActivityMyLocation extends AppCompatActivity {
     Context context;
     GeoPoint startPoint;
     Marker startMarker;
+    Handler mHandler;
+    ProgressDialog progressDialog;
     ApiInterfaceCustom apiInterfaceCustom = ApiClientCustom.getClientCustom().create(ApiInterfaceCustom.class);
 
     @Override
@@ -51,6 +57,10 @@ public class ActivityMyLocation extends AppCompatActivity {
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_mapmylocation);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        progressDialog = new ProgressDialog(ActivityMyLocation.this);
+        progressDialog.show();
+        progressDialog.setMessage("Loading");
 
         FusedLocationProviderClient mFusedLocation = LocationServices.getFusedLocationProviderClient(ActivityMyLocation.this);
         try{
@@ -67,6 +77,10 @@ public class ActivityMyLocation extends AppCompatActivity {
                         mymap = findViewById(R.id.mymap);
                         mymap.setTileSource(TileSourceFactory.MAPNIK);
                         mymap.setBuiltInZoomControls(true);
+                        mymap.setAccessibilityPaneTitle("Tes");
+                        mymap.setUseDataConnection(true);
+                        mymap.setFlingEnabled(true);
+                        mymap.setZoomRounding(true);
                         mymap.setMultiTouchControls(true);
                         startPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
                         startMarker = new Marker(mymap);
@@ -86,6 +100,16 @@ public class ActivityMyLocation extends AppCompatActivity {
                                     startMarker.setTitle(response.body().getDisplay_name());
                                     startMarker.showInfoWindow();
                                     startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                    new Thread(new Runnable() {
+                                        public void run() {
+                                            try {
+                                                Thread.sleep(10);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            mHandler.sendMessage(Message.obtain(mHandler, 1));
+                                        }
+                                    }).start();
                                 }
                             }
                             @Override
@@ -95,7 +119,7 @@ public class ActivityMyLocation extends AppCompatActivity {
                         });
 
                         IMapController mapController = mymap.getController();
-                        mapController.setZoom(12);
+                        mapController.setZoom(17);
                         mapController.stopPanning();
                         mapController.setCenter(startPoint);
                         // set marker
@@ -108,6 +132,17 @@ public class ActivityMyLocation extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        progressDialog.dismiss();
+                        break;
+                }
+            }
+        };
 
     }
 

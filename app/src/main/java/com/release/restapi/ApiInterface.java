@@ -63,6 +63,9 @@ public interface ApiInterface {
     @GET("progress/fisik")
     Call<DataResponseProgress> getProgressByPaket(@Query("pa_id") String pa_id);
 
+    @GET("progress/keuangan")
+    Call<DataResponseProgress> getProgressByPaketKeuangan(@Query("pa_id") String pa_id);
+
     @GET("kegiatan/bidang/")
     Call<DataResponseKegiatan> getKegiatanBidang(@Query("bi_id") String bi_id);
 

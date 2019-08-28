@@ -3,6 +3,9 @@ package com.release.activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
@@ -36,6 +39,8 @@ import retrofit2.Response;
 
 public class ActivityMapDashboard extends AppCompatActivity {
     SessionManager sessionManager;
+    ProgressDialog progressDialog;
+    Handler mHandler;
     String user_id;
     String dinas_id;
 
@@ -46,8 +51,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapdashboard);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        final ProgressDialog progressDialog = new ProgressDialog(getApplicationContext());
-
         Intent intent = getIntent();
         final String user_id = intent.getStringExtra("user_id");
 
@@ -61,6 +64,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
         dashmap.canZoomOut();
         dashmap.computeScroll();
 
+        progressDialog = new ProgressDialog(ActivityMapDashboard.this);
 
         String role;
         sessionManager = new SessionManager(getApplicationContext());
@@ -70,7 +74,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
         dinas_id =  user.get(SessionManager.KEY_DINASID);
 
         switch (role){
-
             case  "Admin" :
                 Call<DataResponsePaket> call_dinas = apiInterface.getPaketDinas(dinas_id);
                 call_dinas.enqueue(new Callback<DataResponsePaket>() {
@@ -128,6 +131,8 @@ public class ActivityMapDashboard extends AppCompatActivity {
                 });
             break;
             default:
+                    progressDialog.show();
+                    progressDialog.setMessage("Loading");
                     Call<DataResponsePaket> call_paket = apiInterface.getPaketPptk(user_id);
                     call_paket.enqueue(new Callback<DataResponsePaket>() {
                         @Override
@@ -161,6 +166,17 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                     mapController.setCenter(point);
                                     // set marker
                                     dashmap.getOverlays().add(marker);
+                                    new Thread(new Runnable() {
+                                        public void run() {
+                                            try {
+                                                Thread.sleep(10);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            mHandler.sendMessage(Message.obtain(mHandler, 1));
+                                        }
+                                    }).start();
+
                                     marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
                                         @Override
                                         public boolean onMarkerClick(Marker marker, MapView mapView) {
@@ -184,6 +200,18 @@ public class ActivityMapDashboard extends AppCompatActivity {
                     });
                 break;
         }
+
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        progressDialog.dismiss();
+                        break;
+                }
+            }
+        };
 
 
     }
