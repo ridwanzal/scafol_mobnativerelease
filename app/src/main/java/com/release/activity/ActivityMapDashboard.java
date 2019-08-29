@@ -10,6 +10,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -85,42 +86,57 @@ public class ActivityMapDashboard extends AppCompatActivity {
                             getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
 
                             for(int i = 0; i < response.body().getData().size(); i++){
-                                Double latitude = Double.valueOf(response.body().getData().get(i).getPaLocLatitude());
-                                Double longitude = Double.valueOf(response.body().getData().get(i).getPaLongitude());
-                                GeoPoint point = new GeoPoint(latitude, longitude);
-                                Marker marker = new Marker(dashmap);
-                                final String pa_id = response.body().getData().get(i).getPaId();
-                                final String pa_nama = response.body().getData().get(i).getPaJudul();
-                                final String ke_id = response.body().getData().get(i).getKeId();
+                                    Double latitude;
+                                    Double longitude;
 
-                                marker.setPosition(point);
-                                marker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
-                                marker.setTextLabelFontSize(9);
-                                marker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
-                                marker.setIcon(getResources().getDrawable(R.drawable.ic_locations_on_black_60dp));
-                                marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                                marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
-                                marker.setVisible(true);
-                                marker.setPanToView(true);
-                                IMapController mapController = dashmap.getController();
-                                mapController.setZoom(14);
-                                mapController.stopPanning();
-                                mapController.setCenter(point);
-                                // set marker
-                                dashmap.getOverlays().add(marker);
-                                marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-                                    @Override
-                                    public boolean onMarkerClick(Marker marker, MapView mapView) {
-                                        Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
-                                        intent.putExtra("pa_id", pa_id);
-                                        intent.putExtra("pa_nama", pa_nama);
-                                        intent.putExtra("ke_id", ke_id);
-                                        intent.putExtra("request", "map_dash");
-                                        startActivity(intent);
-                                        return true;
+                                    Boolean check3 = response.body().getData().get(i).getPaLocLatitude().equals("0");
+                                    Boolean check4 = response.body().getData().get(i).getPaLongitude().equals("0");
+
+                                    if(check3){
+                                        latitude = 	-2.990934;
+                                    }else{
+                                        latitude = Double.valueOf(response.body().getData().get(i).getPaLocLatitude());
                                     }
-                                });
 
+                                    if(check4){
+                                        longitude = 104.756554;
+                                    }else{
+                                        longitude = Double.valueOf(response.body().getData().get(i).getPaLongitude());
+                                    }
+
+                                    GeoPoint point = new GeoPoint(latitude, longitude);
+                                    Marker marker = new Marker(dashmap);
+                                    final String pa_id = response.body().getData().get(i).getPaId();
+                                    final String pa_nama = response.body().getData().get(i).getPaJudul();
+                                    final String ke_id = response.body().getData().get(i).getKeId();
+
+                                    marker.setPosition(point);
+                                    marker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
+                                    marker.setTextLabelFontSize(2);
+                                    marker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
+                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_locations_on_black_60dp));
+                                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                    marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
+                                    marker.setVisible(true);
+                                    marker.setPanToView(true);
+                                    IMapController mapController = dashmap.getController();
+                                    mapController.setZoom(7);
+                                    mapController.stopPanning();
+                                    mapController.setCenter(point);
+                                    // set marker
+                                    dashmap.getOverlays().add(marker);
+                                    marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                                        @Override
+                                        public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                            Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
+                                            intent.putExtra("pa_id", pa_id);
+                                            intent.putExtra("pa_nama", pa_nama);
+                                            intent.putExtra("ke_id", ke_id);
+                                            intent.putExtra("request", "map_dash");
+                                            startActivity(intent);
+                                            return true;
+                                        }
+                                    });
                             }
                         }
                     }
@@ -143,52 +159,69 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                 getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
 
                                 for(int i = 0; i < response.body().getData().size(); i++){
-                                    Double latitude = Double.valueOf(response.body().getData().get(i).getPaLocLatitude());
-                                    Double longitude = Double.valueOf(response.body().getData().get(i).getPaLongitude());
-                                    GeoPoint point = new GeoPoint(latitude, longitude);
-                                    Marker marker = new Marker(dashmap);
-                                    final String pa_id = response.body().getData().get(i).getPaId();
-                                    final String pa_nama = response.body().getData().get(i).getPaJudul();
-                                    final String ke_id = response.body().getData().get(i).getKeId();
+                                        Double latitude;
+                                        Double longitude;
 
-                                    marker.setPosition(point);
-                                    marker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
-                                    marker.setTextLabelFontSize(14);
-                                    marker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
-                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_locations_on_black_60dp));
-                                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                                    marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
-                                    marker.setVisible(true);
-                                    marker.setPanToView(true);
-                                    IMapController mapController = dashmap.getController();
-                                    mapController.setZoom(14);
-                                    mapController.stopPanning();
-                                    mapController.setCenter(point);
-                                    // set marker
-                                    dashmap.getOverlays().add(marker);
-                                    new Thread(new Runnable() {
-                                        public void run() {
-                                            try {
-                                                Thread.sleep(10);
-                                            } catch (Exception e) {
-                                                e.printStackTrace();
+                                        Boolean check3 = response.body().getData().get(i).getPaLocLatitude().equals("0");
+                                        Boolean check4 = response.body().getData().get(i).getPaLongitude().equals("0");
+
+                                        if(check3){
+                                            latitude = 	-2.990934;
+                                        }else{
+                                            latitude = Double.valueOf(response.body().getData().get(i).getPaLocLatitude());
+                                        }
+
+                                        if(check4){
+                                            longitude = 104.756554;
+                                        }else{
+                                            longitude = Double.valueOf(response.body().getData().get(i).getPaLongitude());
+                                        }
+
+                                        Toast.makeText(ActivityMapDashboard.this, "" + response.body().getData().get(i).getPaLongitude(), Toast.LENGTH_SHORT).show();
+                                        GeoPoint point = new GeoPoint(latitude, longitude);
+                                        Marker marker = new Marker(dashmap);
+                                        final String pa_id = response.body().getData().get(i).getPaId();
+                                        final String pa_nama = response.body().getData().get(i).getPaJudul();
+                                        final String ke_id = response.body().getData().get(i).getKeId();
+
+                                        marker.setPosition(point);
+                                        marker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
+                                        marker.setTextLabelFontSize(14);
+                                        marker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
+                                        marker.setIcon(getResources().getDrawable(R.drawable.ic_locations_on_black_60dp));
+                                        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                        marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
+                                        marker.setVisible(true);
+                                        marker.setPanToView(true);
+                                        IMapController mapController = dashmap.getController();
+                                        mapController.setZoom(14);
+                                        mapController.stopPanning();
+                                        mapController.setCenter(point);
+                                        // set marker
+                                        dashmap.getOverlays().add(marker);
+                                        new Thread(new Runnable() {
+                                            public void run() {
+                                                try {
+                                                    Thread.sleep(10);
+                                                } catch (Exception e) {
+                                                    e.printStackTrace();
+                                                }
+                                                mHandler.sendMessage(Message.obtain(mHandler, 1));
                                             }
-                                            mHandler.sendMessage(Message.obtain(mHandler, 1));
-                                        }
-                                    }).start();
+                                        }).start();
 
-                                    marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-                                        @Override
-                                        public boolean onMarkerClick(Marker marker, MapView mapView) {
-                                            Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
-                                            intent.putExtra("pa_id", pa_id);
-                                            intent.putExtra("pa_nama", pa_nama);
-                                            intent.putExtra("ke_id", ke_id);
-                                            intent.putExtra("request", "map_dash");
-                                            startActivity(intent);
-                                            return true;
-                                        }
-                                    });
+                                        marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                                            @Override
+                                            public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                                Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
+                                                intent.putExtra("pa_id", pa_id);
+                                                intent.putExtra("pa_nama", pa_nama);
+                                                intent.putExtra("ke_id", ke_id);
+                                                intent.putExtra("request", "map_dash");
+                                                startActivity(intent);
+                                                return true;
+                                            }
+                                        });
 
                                 }
                             }
