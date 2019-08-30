@@ -106,6 +106,7 @@ public class FilesActivity extends DropboxActivity {
 //        setSupportActionBar(toolbar);
         Button fab = (Button)findViewById(R.id.fab);
         Button fab2 = (Button)findViewById(R.id.fab2);
+        Button fab3 = (Button)findViewById(R.id.fab3);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +115,12 @@ public class FilesActivity extends DropboxActivity {
         });
 
         fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                performWithPermissions(FileAction.CAMERA);
+            }
+        });
+        fab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 performWithPermissions(FileAction.CAMERA);
@@ -216,7 +223,25 @@ public class FilesActivity extends DropboxActivity {
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            startActivityForResult(takePictureIntent, PICKFILE_CAMERA_REQUEST_CODE);
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+                Log.d(TAG, "photoFile: " +photoFile);
+            } catch (IOException ex) {
+                // Error occurred while creating the
+                Log.e(TAG, ex.toString());
+                ex.printStackTrace();
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.release.fileprovider",
+                        photoFile);
+                Log.d(TAG, "photoURI" + photoURI);
+                Log.d(TAG, photoURI.toString());
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, PICKFILE_CAMERA_REQUEST_CODE);
+            }
         }
     }
 
@@ -244,8 +269,14 @@ public class FilesActivity extends DropboxActivity {
         }else if(requestCode == PICKFILE_CAMERA_REQUEST_CODE){
             if(resultCode == RESULT_OK){
                 dump_image = findViewById(R.id.dump_image);
-                Bundle extras = data.getExtras();
-                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                File file = new File(mCurrentPhotoPath);
+                Bitmap imageBitmap = null;
+                try {
+                    imageBitmap = MediaStore.Images.Media
+                            .getBitmap(getApplicationContext().getContentResolver(), Uri.fromFile(file));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 dump_image.setImageBitmap(imageBitmap);
                 Uri result_uri = getImageUri(getApplicationContext(), imageBitmap);
                 uploadFile(result_uri.toString());

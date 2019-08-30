@@ -32,7 +32,7 @@
         android:theme="@style/AppTheme">
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="${applicationId}.provider"
+            android:authorities="com.release.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="android:authorities"
