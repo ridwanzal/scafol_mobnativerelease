@@ -138,7 +138,7 @@
         </activity>
         <activity
             android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityTag"
+            android:name="com.release.dropbox.ActivityTag"
             android:label="">
         </activity>
         <service android:name="com.release.service.ServiceReminder" />

@@ -1,6 +1,8 @@
-package com.release.activity;
+package com.release.dropbox;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -11,8 +13,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -27,18 +27,21 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.FileProvider;
 
 import com.dropbox.core.v2.files.FileMetadata;
+import com.dropbox.core.v2.files.ListFolderResult;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.release.R;
-import com.release.dropbox.FilesActivity;
-import com.release.dropbox.FilesAdapter;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import es.dmoral.toasty.Toasty;
 
 public class ActivityTag extends AppCompatActivity {
 
@@ -52,6 +55,10 @@ public class ActivityTag extends AppCompatActivity {
     Button camera;
     Button cme;
     String currentPhotoPath;
+
+    private FilesAdapter mFilesAdapter;
+    private FileMetadata mSelectedFile;
+    private String mPath;
     private URI mImageUri;
 
     @Override
@@ -61,6 +68,8 @@ public class ActivityTag extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         imageView = findViewById(R.id.img);
         textView = findViewById(R.id.latlang);
+        String path = getIntent().getStringExtra("path");
+        mPath = path == null ? "" : path;
         camera = findViewById(R.id.camera);
         cme = findViewById(R.id.cme);
         relativeLayout = findViewById(R.id.main);
@@ -79,12 +88,19 @@ public class ActivityTag extends AppCompatActivity {
         cme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                camera.setVisibility(View.GONE);
-                cme.setVisibility(View.GONE);
-                Bitmap b = takescreenshot(relativeLayout);
-                imageView.setImageBitmap(b);
-                camera.setVisibility(View.VISIBLE);
-                cme.setVisibility(View.VISIBLE);
+                try {
+                    camera.setVisibility(View.GONE);
+                    cme.setVisibility(View.GONE);
+                    Bitmap b = takescreenshot(relativeLayout);
+                    imageView.setImageBitmap(b);
+                    Uri result_uri = getImageUri(getApplicationContext(), b);
+                    Toast.makeText(ActivityTag.this, "uri :" + result_uri, Toast.LENGTH_SHORT).show();
+                    uploadFile(result_uri.toString());
+                    camera.setVisibility(View.VISIBLE);
+                    cme.setVisibility(View.VISIBLE);
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
 //                finish();
 //                Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
 //                startActivity(intent);
@@ -130,6 +146,73 @@ public class ActivityTag extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    private void uploadFile(String fileUri) {
+//        final ProgressDialog dialog = new ProgressDialog(this);
+//        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//        dialog.setCancelable(false);
+//        dialog.setMessage("Uploading");
+//        dialog.show();
+
+        new UploadFileTask(this, DropboxClientFactory.getClient(), new UploadFileTask.Callback() {
+            @Override
+            public void onUploadComplete(FileMetadata result) {
+//                dialog.dismiss();
+
+                String message = result.getName() + " size " + result.getSize() + " modified " +
+                        DateFormat.getDateTimeInstance().format(result.getClientModified());
+                Toast.makeText(ActivityTag.this, message, Toast.LENGTH_SHORT)
+                        .show();
+
+                // Reload the folder
+//                final TextView notfoundfile = findViewById(R.id.notfoundfile);
+//                final ProgressDialog dialog = new ProgressDialog(getApplicationContext());
+//                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//                dialog.setCancelable(false);
+//                dialog.setMessage("Loading");
+//                dialog.show();
+                new ListFolderTask(DropboxClientFactory.getClient(), new ListFolderTask.Callback() {
+                    @Override
+                    public void onDataLoaded(ListFolderResult result) {
+//                        dialog.dismiss();
+                        finish();
+                        startActivity(FilesActivity.getIntent(ActivityTag.this, mPath));
+//                        notfoundfile.setVisibility(View.GONE);
+//                        mFilesAdapter.setFiles(result.getEntries());
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+//                        dialog.dismiss();
+//                        notfoundfile.setVisibility(View.VISIBLE);
+                        Log.e(TAG, "Gagal mengambil file", e);
+                        Toasty.normal(ActivityTag.this,
+                                "Tidak ada item, silahkan upload",
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                }).execute(mPath);
+            }
+
+            @Override
+            public void onError(Exception e) {
+//                dialog.dismiss();
+
+                Log.e(TAG, "Failed to upload file.", e);
+                Toasty.error(ActivityTag.this,
+                        "An error has occurred",
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }).execute(fileUri, mPath);
     }
 
     public static Bitmap takescreenshot(View v){

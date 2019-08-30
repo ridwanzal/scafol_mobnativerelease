@@ -3,45 +3,34 @@ package com.release.dropbox;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.FolderMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.release.activity.ActivityTag;
-import com.release.dropbox.DropboxActivity;
-import com.release.dropbox.FilesAdapter;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -49,7 +38,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
+
 import com.release.R;
 import com.release.service.ServiceReminder;
 
@@ -125,6 +114,9 @@ public class FilesActivity extends DropboxActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(FilesActivity.this, ActivityTag.class);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                String path = getIntent().getStringExtra(EXTRA_PATH);
+                i.putExtra("path", path);
                 startActivity(i);
 //                performWithPermissions(FileAction.CAMERA);
             }
