@@ -53,7 +53,7 @@ public class ActivityProgressKeuangan extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         textnofound.setVisibility(View.GONE);
         // Toast.makeText(this, "paket id : "  + id_paket, Toast.LENGTH_SHORT).show();
-        Call<DataResponseProgress> callprogress = apiInterface.getProgressByPaket(id_paket);
+        Call<DataResponseProgress> callprogress = apiInterface.getProgressByPaketKeuangan(id_paket);
         callprogress.enqueue(new Callback<DataResponseProgress>() {
             @Override
             public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {

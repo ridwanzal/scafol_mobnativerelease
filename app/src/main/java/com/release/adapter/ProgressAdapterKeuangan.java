@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.release.R;
 import com.release.interfacemodule.ItemClickListener;
 import com.release.model.Progress;
+import com.release.sharedexternalmodule.formatMoneyIDR;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +50,9 @@ public class ProgressAdapterKeuangan extends RecyclerView.Adapter<ProgressAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ProgressViewHolder holder, int position) {
-        holder.progkeu_serapan.setText(progressArrayList.get(position).getPr_daya_serap_kontrak());
-        holder.progkeu_sisakontrak.setText(progressArrayList.get(position).getPr_sisa_kontrak());
-        holder.progkeu_sisaanggaran.setText(progressArrayList.get(position).getPr_sisa_anggaran());
+        holder.progkeu_serapan.setText(formatMoneyIDR.convertIDR(progressArrayList.get(position).getPr_daya_serap_kontrak()));
+        holder.progkeu_sisakontrak.setText(formatMoneyIDR.convertIDR(progressArrayList.get(position).getPr_sisa_kontrak()));
+        holder.progkeu_sisaanggaran.setText(formatMoneyIDR.convertIDR(progressArrayList.get(position).getPr_sisa_anggaran()));
         holder.progkeu_tanggal.setText(progressArrayList.get(position).getPr_tanggal());
         holder.progkeu_keterangan.setText(progressArrayList.get(position).getPr_keterangan());
     }

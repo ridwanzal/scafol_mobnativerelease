@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,6 +85,8 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
     EditText prog_deviasi_fisik;
     EditText textcatatans;
 
+    LinearLayout lin_keu2;
+
     ImageView get_deviasi;
     Handler mHandler;
 
@@ -147,6 +150,8 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
 
         text_infokontrak = view.findViewById(R.id.text_infokontrak);
 
+        lin_keu2 = view.findViewById(R.id.lin_keu2);
+
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
@@ -186,6 +191,7 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                         if(paketlist.get(i).getPaNilaiKontrak() == null || paketlist.get(i).getPaNilaiKontrak().toString().equals("0")){
                             text_infokontrak.setText("Nomor kontrak belum diisi, harap isi terlebih dahulu di halaman Edit Kontrak");
                             text_infokontrak.setTextColor(Color.parseColor("#ff0000"));
+                            lin_keu2.setVisibility(View.GONE);
                             keu_kontrak.setEnabled(false);
                             keu_serap.setEnabled(false);
                             keu_sisa.setEnabled(false);
