@@ -136,6 +136,11 @@
             android:name="com.release.activity.ActivityCalendar"
             android:label="Calendar">
         </activity>
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name="com.release.activity.ActivityTag"
+            android:label="">
+        </activity>
         <service android:name="com.release.service.ServiceReminder" />
     </application>
 </manifest>

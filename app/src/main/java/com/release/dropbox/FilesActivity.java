@@ -39,6 +39,7 @@ import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.FolderMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.release.activity.ActivityTag;
 import com.release.dropbox.DropboxActivity;
 import com.release.dropbox.FilesAdapter;
 
@@ -123,7 +124,9 @@ public class FilesActivity extends DropboxActivity {
         fab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performWithPermissions(FileAction.CAMERA);
+                Intent i = new Intent(FilesActivity.this, ActivityTag.class);
+                startActivity(i);
+//                performWithPermissions(FileAction.CAMERA);
             }
         });
 
