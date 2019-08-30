@@ -1,8 +1,10 @@
 package com.release.activity;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -52,6 +54,7 @@ public class ActivityMyLocation extends AppCompatActivity {
     Marker startMarker;
     Handler mHandler;
     ProgressDialog progressDialog;
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     ApiInterfaceCustom apiInterfaceCustom = ApiClientCustom.getClientCustom().create(ApiInterfaceCustom.class);
 
     @Override
@@ -61,19 +64,76 @@ public class ActivityMyLocation extends AppCompatActivity {
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_mapmylocation);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // reuqest for permission
-        } else {
-            // already permission granted
-        }
+        checkLocationPermission();
         progressDialog = new ProgressDialog(ActivityMyLocation.this);
         progressDialog.show();
         progressDialog.setMessage("Loading");
+        setMyLocation();
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        progressDialog.dismiss();
+                        break;
+                }
+            }
+        };
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            switch (requestCode) {
+                case MY_PERMISSIONS_REQUEST_LOCATION: {
+                    // If request is cancelled, the result arrays are empty.
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                        // permission was granted, yay! Do the
+                        // location-related task you need to do.
+                        //Request location updates:
+                        setMyLocation();
+                        if (ContextCompat.checkSelfPermission(this,
+                                Manifest.permission.ACCESS_FINE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED) {
+
+                        }
+
+
+
+                    } else {
+                        // permission denied, boo! Disable the
+                        // functionality that depends on this permission.
+                    }
+                    return;
+                }
+
+            }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home :
+                finish();
+            default :
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    public void setMyLocation(){
         FusedLocationProviderClient mFusedLocation = LocationServices.getFusedLocationProviderClient(ActivityMyLocation.this);
         try{
-              mFusedLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            mFusedLocation.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
                     if (location != null){
@@ -151,49 +211,46 @@ public class ActivityMyLocation extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
 
-        mHandler = new Handler(Looper.myLooper()){
-            @Override
-            public void handleMessage(@NonNull Message msg) {
-                super.handleMessage(msg);
-                switch (msg.what){
-                    case 1 :
-                        progressDialog.dismiss();
-                        break;
-                }
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission")
+                        .setMessage("Allow to get your current location")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(ActivityMyLocation.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
             }
-        };
-
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mymap.onResume();
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        finish();
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case android.R.id.home :
-                finish();
-            default :
-                return super.onOptionsItemSelected(item);
+            return false;
+        } else {
+            return true;
         }
     }
-
-
 
 }
