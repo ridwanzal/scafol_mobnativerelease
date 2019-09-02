@@ -380,6 +380,7 @@ public class ActivityDashboard extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
+                intent.putExtra("flag_list", "1");
                 startActivity(intent);
             }
         });
@@ -388,7 +389,9 @@ public class ActivityDashboard extends AppCompatActivity {
         show_list2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //
+                Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
+                intent.putExtra("flag_list", "2");
+                startActivity(intent);
             }
         });
 

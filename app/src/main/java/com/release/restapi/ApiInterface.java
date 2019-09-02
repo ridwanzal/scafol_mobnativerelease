@@ -1,6 +1,7 @@
 package com.release.restapi;
 
 import com.release.model.DataResponse;
+import com.release.model.DataResponseAnggaran;
 import com.release.model.DataResponseBidang;
 import com.release.model.DataResponseCatatan;
 import com.release.model.DataResponseDinas;
@@ -55,6 +56,10 @@ public interface ApiInterface {
 
     @GET("paket/catatan")
     Call<DataResponseCatatan> getCatatan(@Query("pa_id") String pa_id);
+
+    @GET("anggaran/pptk")
+    Call<DataResponseAnggaran> getAnggaranPPTK(@Query("pptk_id") String pptk_id);
+
 
     @FormUrlEncoded
     @POST("paket/submit_catatan")
