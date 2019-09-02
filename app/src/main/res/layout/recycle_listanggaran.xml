@@ -24,6 +24,14 @@
                 android:textColor="#fff"
                 android:layout_height="wrap_content" />
     </LinearLayout>
+    <TextView
+        android:id="@+id/text_notfound"
+        android:textAlignment="center"
+        android:padding="20dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:text="Belum ada Daftar Anggaran"
+        android:layout_height="wrap_content" />
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

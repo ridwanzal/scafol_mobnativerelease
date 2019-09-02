@@ -30,6 +30,14 @@
         android:id="@+id/progress_listpaket"
         android:visibility="visible"
         />
+    <TextView
+        android:id="@+id/text_notfound"
+        android:textAlignment="center"
+        android:padding="20dp"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:text="Belum ada Daftar Paket"
+        android:layout_height="wrap_content" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_listpaket"
         android:clipToPadding="true"
