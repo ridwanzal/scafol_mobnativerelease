@@ -85,7 +85,6 @@ public class ActivityMain extends AppCompatActivity{
         bi_id = "";
         user_fullname = user.get(SessionManager.KEY_NAME);
         user_name = user.get(SessionManager.KEY_USERNAME);
-//        progressBar =  (ProgressBar) findViewById(R.id.progress_bar_paketlist);
         switch (role){
             case "Admin" :
                 // user admin
@@ -341,7 +340,12 @@ public class ActivityMain extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String s) {
-                paketAdapter.getFilter().filter(s);
+                String flag_list = getIntent().getStringExtra("flag_list");
+                if(flag_list == "1"){
+                    paketAdapter.getFilter().filter(s);
+                }else{
+                    anggaranAdapter.getFilter().filter(s);
+                }
                 return false;
             }
         });
