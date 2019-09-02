@@ -177,7 +177,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                             longitude = Double.valueOf(response.body().getData().get(i).getPaLongitude());
                                         }
 
-                                        Toast.makeText(ActivityMapDashboard.this, "" + response.body().getData().get(i).getPaLongitude(), Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(ActivityMapDashboard.this, "" + response.body().getData().get(i).getPaLongitude(), Toast.LENGTH_SHORT).show();
                                         GeoPoint point = new GeoPoint(latitude, longitude);
                                         Marker marker = new Marker(dashmap);
                                         final String pa_id = response.body().getData().get(i).getPaId();

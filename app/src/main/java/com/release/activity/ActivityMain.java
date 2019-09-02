@@ -55,6 +55,7 @@ public class ActivityMain extends AppCompatActivity{
     private PaketAdapter paketAdapter;
     private AnggaranAdapter anggaranAdapter;
     private TextView total_paket_info;
+    private TextView text_notfound;
     private ProgressBar progressBar;
     private String user_id;
     private String role;
@@ -67,6 +68,7 @@ public class ActivityMain extends AppCompatActivity{
     private ProgressBar progress_listanggaran;
 
     private SearchView searchView;
+    private String flag_list;
 
     // Service
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -85,57 +87,27 @@ public class ActivityMain extends AppCompatActivity{
         bi_id = "";
         user_fullname = user.get(SessionManager.KEY_NAME);
         user_name = user.get(SessionManager.KEY_USERNAME);
+        flag_list = getIntent().getStringExtra("flag_list");
         switch (role){
             case "Admin" :
                 // user admin
-                setContentView(R.layout.recycle_listpaket);
-                progress_listpaket = findViewById(R.id.progress_listpaket);
-                Snackbar.make(findViewById(R.id.activity_paketlist), "Selamat Datang", Snackbar.LENGTH_LONG);
-                Call<DataResponsePaket> call_paket2 = apiInterface.getPaketDinas(dinas_id);
-                call_paket2.enqueue(new Callback<DataResponsePaket>() {
-                    @Override
-                    public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                        String response_code = new Gson().toJson(response.code()).toString();
-                        if(response_code.equals("200")){
-                            ArrayList<Paket> data = response.body().getData();
-                            Log.w(TAG, "paket data " + new Gson().toJson(data));
-                            generatePaketList(response.body().getData());
-                            progress_listpaket.setVisibility(View.GONE);
-                            recyclerView = findViewById(R.id.recycle_listpaket);
-                            recyclerView.setVisibility(View.VISIBLE);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<DataResponsePaket> call, Throwable t) {
-                        Log.e(TAG, t.toString());
-                    }
-                });
-                break;
-            case "Pptk" :
-                // user pptk
-                String flag_list = getIntent().getStringExtra("flag_list");
                 if(flag_list.equals("1")){
                     setContentView(R.layout.recycle_listpaket);
+                    text_notfound = findViewById(R.id.text_notfound);
                     progress_listpaket = findViewById(R.id.progress_listpaket);
-                    getSupportActionBar().setTitle("Paket");
-                    Snackbar.make(findViewById(R.id.activity_paketlist), "Selamat Datang", Snackbar.LENGTH_LONG);
-                    Call<DataResponsePaket> call_paket = apiInterface.getPaketPptk(user_id);
-                    call_paket.enqueue(new Callback<DataResponsePaket>() {
+                    Call<DataResponsePaket> call_paket2 = apiInterface.getPaketDinas(dinas_id);
+                    call_paket2.enqueue(new Callback<DataResponsePaket>() {
                         @Override
                         public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
                             String response_code = new Gson().toJson(response.code()).toString();
                             if(response_code.equals("200")){
                                 ArrayList<Paket> data = response.body().getData();
-                                if(data.size() == 0){
-                                    progress_listpaket.setVisibility(View.GONE);
-                                    recyclerView.setVisibility(View.GONE);
-                                }
                                 Log.w(TAG, "paket data " + new Gson().toJson(data));
                                 generatePaketList(response.body().getData());
                                 progress_listpaket.setVisibility(View.GONE);
                                 recyclerView = findViewById(R.id.recycle_listpaket);
                                 recyclerView.setVisibility(View.VISIBLE);
+                                text_notfound.setVisibility(View.GONE);
                             }
                         }
 
@@ -146,9 +118,67 @@ public class ActivityMain extends AppCompatActivity{
                     });
                 }else if(flag_list.equals("2")){
                     setContentView(R.layout.recycle_listanggaran);
+                    text_notfound = findViewById(R.id.text_notfound);
                     progress_listanggaran = findViewById(R.id.progress_listpaket);
                     getSupportActionBar().setTitle("Anggaran");
-                    Snackbar.make(findViewById(R.id.activity_paketlist), "Selamat Datang", Snackbar.LENGTH_LONG);
+                    Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaranAdmin(user_id);
+                    call_anggaran.enqueue(new Callback<DataResponseAnggaran>() {
+                        @Override
+                        public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
+                            String response_code = new Gson().toJson(response.code()).toString();
+                            if(response_code.equals("200")){
+                                ArrayList<Anggaran> data = response.body().getData();
+                                Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                generateAnggaranList(response.body().getData());
+                                progress_listanggaran.setVisibility(View.GONE);
+                                recyclerView_ang = findViewById(R.id.recycle_listanggaran);
+                                recyclerView_ang.setVisibility(View.VISIBLE);
+                                text_notfound.setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponseAnggaran> call, Throwable t) {
+                            Log.e(TAG, t.toString());
+                        }
+                    });
+                }
+                break;
+            case "Pptk" :
+                // user pptk
+                if(flag_list.equals("1")){
+                    setContentView(R.layout.recycle_listpaket);
+                    text_notfound = findViewById(R.id.text_notfound);
+                    progress_listpaket = findViewById(R.id.progress_listpaket);
+                    getSupportActionBar().setTitle("Paket");
+                    Call<DataResponsePaket> call_paket = apiInterface.getPaketPptk(user_id);
+                    call_paket.enqueue(new Callback<DataResponsePaket>() {
+                        @Override
+                        public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                            String response_code = new Gson().toJson(response.code()).toString();
+                            if(response_code.equals("200")){
+                                ArrayList<Paket> data = response.body().getData();
+                                    Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                    generatePaketList(response.body().getData());
+                                    progress_listpaket.setVisibility(View.GONE);
+                                    recyclerView = findViewById(R.id.recycle_listpaket);
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                    text_notfound.setVisibility(View.GONE);
+                            }else{
+                                progress_listpaket.setVisibility(View.GONE);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponsePaket> call, Throwable t) {
+                            Log.e(TAG, t.toString());
+                        }
+                    });
+                }else if(flag_list.equals("2")){
+                    setContentView(R.layout.recycle_listanggaran);
+                    text_notfound = findViewById(R.id.text_notfound);
+                    progress_listanggaran = findViewById(R.id.progress_listpaket);
+                    getSupportActionBar().setTitle("Anggaran");
                     Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaranPPTK(user_id);
                     call_anggaran.enqueue(new Callback<DataResponseAnggaran>() {
                         @Override
@@ -156,15 +186,14 @@ public class ActivityMain extends AppCompatActivity{
                             String response_code = new Gson().toJson(response.code()).toString();
                             if(response_code.equals("200")){
                                 ArrayList<Anggaran> data = response.body().getData();
-                                if(data.size() == 0){
-                                    progress_listpaket.setVisibility(View.GONE);
-                                    recyclerView.setVisibility(View.GONE);
-                                }
-                                Log.w(TAG, "paket data " + new Gson().toJson(data));
-                                generateAnggaranList(response.body().getData());
+                                    Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                    generateAnggaranList(response.body().getData());
+                                    progress_listanggaran.setVisibility(View.GONE);
+                                    recyclerView_ang = findViewById(R.id.recycle_listanggaran);
+                                    recyclerView_ang.setVisibility(View.VISIBLE);
+                                    text_notfound.setVisibility(View.GONE);
+                            }else{
                                 progress_listanggaran.setVisibility(View.GONE);
-                                recyclerView_ang = findViewById(R.id.recycle_listanggaran);
-                                recyclerView_ang.setVisibility(View.VISIBLE);
                             }
                         }
 

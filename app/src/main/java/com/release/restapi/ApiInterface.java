@@ -60,6 +60,8 @@ public interface ApiInterface {
     @GET("anggaran/pptk")
     Call<DataResponseAnggaran> getAnggaranPPTK(@Query("pptk_id") String pptk_id);
 
+    @GET("anggaran/admin")
+    Call<DataResponseAnggaran> getAnggaranAdmin(@Query("dinas_id") String dinas_id);
 
     @FormUrlEncoded
     @POST("paket/submit_catatan")
