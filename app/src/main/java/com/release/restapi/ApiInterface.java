@@ -63,6 +63,9 @@ public interface ApiInterface {
     @GET("anggaran/admin")
     Call<DataResponseAnggaran> getAnggaranAdmin(@Query("dinas_id") String dinas_id);
 
+    @GET("anggaran/anggaran")
+    Call<DataResponseAnggaran> getAnggaran(@Query("an_id") String an_id);
+
     @FormUrlEncoded
     @POST("paket/submit_catatan")
     Call<DataResponseCatatan> addCatatan(@Field("pa_id") String pa_id,  @Field("ca_catatan") String ca_catatan, @Field("date_created") String date_created, @Field("date_updated") String date_updated);

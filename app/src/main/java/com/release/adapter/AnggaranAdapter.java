@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.release.R;
 import com.release.interfacemodule.ItemClickListener;
 import com.release.model.Anggaran;
-import com.release.model.Paket;
 import com.release.sharedexternalmodule.formatMoneyIDR;
 
 import java.util.ArrayList;
@@ -26,7 +25,7 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.Anggar
     private ArrayList<Anggaran> anggaranListFull;
     Context mContext;
     ItemClickListener listener;
-    private List<Paket> anggaranList2;
+    private List<Anggaran> anggaranList2;
 
     public AnggaranAdapter(Context mContext, ArrayList<Anggaran> anggaranList, ItemClickListener listener){
         this.anggaranList = anggaranList;
@@ -35,11 +34,11 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.Anggar
         this.listener = listener;
     }
 
-    public AnggaranAdapter(ArrayList<Paket> paketList){
+    public AnggaranAdapter(ArrayList<Anggaran> paketList){
         this.anggaranList2 = paketList;
     }
 
-    public AnggaranAdapter(List<Paket> paketList2){
+    public AnggaranAdapter(List<Anggaran> paketList2){
         this.anggaranList2 = paketList2;
     }
 
@@ -67,7 +66,7 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.Anggar
     @Override
     public void onBindViewHolder(@NonNull AnggaranViewHolder holder, int position) {
         String paket_pagu = formatMoneyIDR.convertIDR(anggaranList.get(position).getAnpPagu());
-        holder.paket_nama.setText(anggaranList.get(position).getAnNama());
+        holder.paket_nama.setText(anggaranList.get(position).getAnNama().trim());
         holder.paket_pagu.setText("Rp. " + paket_pagu);
         holder.paket_id.setText(anggaranList.get(position).getAnId());
         holder.kegiatan_id.setText(anggaranList.get(position).getKeId());
@@ -83,11 +82,11 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.Anggar
     public AnggaranViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.listanggaran, parent, false);
-        final AnggaranAdapter.AnggaranViewHolder paketViewHolder = new AnggaranAdapter.AnggaranViewHolder(view);
+        final AnggaranAdapter.AnggaranViewHolder anggaranViewHolder = new AnggaranAdapter.AnggaranViewHolder(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClick(view, paketViewHolder.getAdapterPosition());
+                listener.onItemClick(view, anggaranViewHolder.getAdapterPosition());
             }
         });
         return new AnggaranAdapter.AnggaranViewHolder(view);

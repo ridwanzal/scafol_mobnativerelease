@@ -108,6 +108,9 @@ public class ActivityMain extends AppCompatActivity{
                                 recyclerView = findViewById(R.id.recycle_listpaket);
                                 recyclerView.setVisibility(View.VISIBLE);
                                 text_notfound.setVisibility(View.GONE);
+                            }else{
+                                progress_listpaket.setVisibility(View.GONE);
+                                text_notfound.setVisibility(View.VISIBLE);
                             }
                         }
 
@@ -134,6 +137,9 @@ public class ActivityMain extends AppCompatActivity{
                                 recyclerView_ang = findViewById(R.id.recycle_listanggaran);
                                 recyclerView_ang.setVisibility(View.VISIBLE);
                                 text_notfound.setVisibility(View.GONE);
+                            }else{
+                                progress_listanggaran.setVisibility(View.GONE);
+                                text_notfound.setVisibility(View.VISIBLE);
                             }
                         }
 
@@ -166,6 +172,7 @@ public class ActivityMain extends AppCompatActivity{
                                     text_notfound.setVisibility(View.GONE);
                             }else{
                                 progress_listpaket.setVisibility(View.GONE);
+                                text_notfound.setVisibility(View.VISIBLE);
                             }
                         }
 
@@ -194,6 +201,7 @@ public class ActivityMain extends AppCompatActivity{
                                     text_notfound.setVisibility(View.GONE);
                             }else{
                                 progress_listanggaran.setVisibility(View.GONE);
+                                text_notfound.setVisibility(View.VISIBLE);
                             }
                         }
 
@@ -245,7 +253,6 @@ public class ActivityMain extends AppCompatActivity{
 
     private void generatePaketList(ArrayList<Paket> paketList){
         recyclerView = findViewById(R.id.recycle_listpaket);
-
         paketAdapter = new PaketAdapter(getApplicationContext(), paketList, new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -307,8 +314,8 @@ public class ActivityMain extends AppCompatActivity{
                 final TextView get_nama;
                 final TextView get_keid;
                 final TextView get_pagu;
-                String getid_paket = "";
-                String get_nama_paket = "";
+                String getid_anggaran= "";
+                String get_nama_anggaran = "";
                 String get_kegiatan = "";
                 String get_totalpagu = "";
 
@@ -317,15 +324,15 @@ public class ActivityMain extends AppCompatActivity{
                 get_keid = view.findViewById(R.id.kegiatan_id);
                 get_pagu = view.findViewById(R.id.txt_pagu_dummy);
 
-                getid_paket = (String) get_id.getText().toString().trim();
-                get_nama_paket = (String) get_nama.getText().toString().trim();
+                getid_anggaran = (String) get_id.getText().toString().trim();
+                get_nama_anggaran = (String) get_nama.getText().toString().trim();
                 get_kegiatan = (String) get_keid.getText().toString().trim();
                 get_totalpagu = (String) get_pagu.getText().toString().trim();
 
-                Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
+                Intent intent = new Intent(getApplicationContext(), ActivityDetailAnggaran.class);
                 intent.putExtra("pa_pagu", get_totalpagu);
-                intent.putExtra("pa_id", getid_paket);
-                intent.putExtra("pa_nama", get_nama_paket);
+                intent.putExtra("an_id", getid_anggaran);
+                intent.putExtra("pa_nama", get_nama_anggaran);
                 intent.putExtra("ke_id", get_kegiatan);
                 intent.putExtra("request", "main");
                 startActivity(intent);
@@ -342,8 +349,6 @@ public class ActivityMain extends AppCompatActivity{
             }
         });
 
-        total_paket_info = findViewById(R.id.total_paket_caption);
-//        total_paket_info.setText("Total Paket  : "   + paketAdapter.getItemCount());
         String title = "Total Anggaran ("   + anggaranAdapter.getItemCount() + ")";
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityMain.this);

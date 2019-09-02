@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -108,6 +109,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paketdetail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + "Informasi Detail Paket Fisik" + "</small>"));
         sessionManager = new SessionManager(getApplicationContext());
         HashMap<String, String> user = sessionManager.getUserDetails();
         String role = user.get(SessionManager.KEY_ROLE);

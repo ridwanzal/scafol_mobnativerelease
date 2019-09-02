@@ -40,6 +40,7 @@
         <TextView
             android:id="@+id/txt_pajenis"
             android:layout_toRightOf="@id/txt_pagu"
+            android:visibility="gone"
             android:layout_below="@id/txt_nama_paket"
             android:layout_width="wrap_content"
             android:layout_marginTop="12dp"
@@ -57,6 +58,7 @@
             android:layout_below="@id/txt_nama_paket"
             android:layout_width="wrap_content"
             android:layout_marginTop="12dp"
+            android:visibility="gone"
             android:layout_marginBottom="5dp"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"

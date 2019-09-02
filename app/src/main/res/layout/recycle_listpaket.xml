@@ -34,6 +34,7 @@
         android:id="@+id/text_notfound"
         android:textAlignment="center"
         android:padding="20dp"
+        android:visibility="gone"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:text="Belum ada Daftar Paket"

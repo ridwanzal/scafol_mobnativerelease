@@ -123,6 +123,11 @@
         </activity>
         <activity
             android:windowSoftInputMode="adjustResize"
+            android:name="com.release.activity.ActivityDetailAnggaran"
+            android:label="@string/title_detail_paket">
+        </activity>
+        <activity
+            android:windowSoftInputMode="adjustResize"
             android:name="com.release.activity.ActivityCatatan"
             android:label="@string/title_detail_paket">
         </activity>
