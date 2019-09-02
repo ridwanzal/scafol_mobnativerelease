@@ -248,6 +248,39 @@ public class ActivityDashboard extends AppCompatActivity {
             }else if(role.toLowerCase().equals("admin")){
                 // admin page goes heres
                 show_list.setVisibility(View.VISIBLE);
+
+                // call info pakte
+                Call<DataResponsePA> callinfopaketpptk = apiInterface.infoPaketAdmin(dinas_id);
+                callinfopaketpptk.enqueue(new Callback<DataResponsePA>() {
+                    @Override
+                    public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                        if(response.code() == 200){
+                            ArrayList<PaketDashboard> result = response.body().getData();
+                            String paket_all = "";
+                            String paket_progress = "";
+                            String paket_belum = "";
+                            String paket_selesai = "";
+                            for(int i = 0; i < result.size(); i++){
+                                paket_all = result.get(i).getPaketAll();
+                                paket_progress = result.get(i).getPaketProgress();
+                                paket_belum = result.get(i).getPaketBelumMulai();
+                                paket_selesai = result.get(i).getPaketSelesai();
+
+                                tx_dashtotalpaket.setText(paket_all + "");
+                                tx_dashongoing.setText(paket_progress + "");
+                                tx_dashbelum.setText(paket_belum + "");
+                                tx_dashselesai.setText(paket_selesai + "");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                    }
+                });
+
+
                 // call total pagu
                     Call<DataResponsePA> calltotalpagu = apiInterface.countPaguAdmin(dinas_id);
                     Log.d(TAG, "paket datas " + user_id);

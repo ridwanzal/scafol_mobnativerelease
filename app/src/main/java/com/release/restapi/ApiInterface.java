@@ -81,6 +81,9 @@ public interface ApiInterface {
     Call<DataResponse> checkLogin(@Query("username") String username, @Query("password") String password);
 
     // role pptk
+    @GET("dashboardadmin")
+    Call<DataResponsePA> infoPaketAdmin(@Query("dinas_id") String dinas_id);
+
 
     @GET("dashboardpptk")
     Call<DataResponsePA> infoPaketPPTK(@Query("pptk_id") String pptk_id);
