@@ -4,32 +4,30 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:background="#eee"
         android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/imagelogo"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="0dp"
-            android:layout_marginLeft="0dp"
-            android:src="@drawable/employeers" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:id="@+id/submit_profile"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:paddingRight="10dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:paddingLeft="10dp"
+                android:text="Simpan"
+                ></TextView>
         <LinearLayout
             android:id="@+id/linarz"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:layout_centerInParent="true"
-            android:layout_below="@id/imagelogo"
             android:layout_width="match_parent"
+            android:orientation="vertical"
             android:gravity="center"
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/prof_namas"
+                android:id="@+id/prof_namas_edited"
                 android:layout_below="@id/imagelogo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,14 +57,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="10dp"
             >
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:padding="10dp"
                 >
 
@@ -74,29 +69,29 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:paddingLeft="10dp"
                     >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Username"
+                        android:text="FullName"
                         android:textColor="#aaa" />
 
-                    <TextView
-                        android:id="@+id/prof_username"
+                    <EditText
+                        android:id="@+id/prof_namas"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
+                        android:padding="5dp"
                         android:layout_weight="1"
+                        android:background="@drawable/edittext_generic"
                         android:textSize="16sp"
-                        android:paddingBottom="10dp"
                         android:textStyle="normal" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:background="#eee"
+                        android:background="#fff"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_height="1dp"/>
@@ -108,19 +103,20 @@
                         android:text="Email"
                         android:textColor="#aaa" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/prof_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:paddingBottom="10dp"
+                        android:background="@drawable/edittext_generic"
                         android:textSize="16sp"
+                        android:padding="5dp"
                         android:textStyle="normal" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:background="#eee"
+                        android:background="#fff"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_height="1dp"/>
@@ -132,19 +128,21 @@
                         android:text="Telepon"
                         android:textColor="#aaa" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/prof_telepon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:paddingBottom="10dp"
+                        android:background="@drawable/edittext_generic"
                         android:textSize="16sp"
+                        android:padding="5dp"
                         android:textStyle="normal" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:background="#eee"
+                        android:background="#fff"
+                        android:visibility="gone"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_height="1dp"/>
@@ -153,24 +151,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:visibility="gone"
                         android:text="Role"
                         android:textColor="#aaa" />
 
-                    <TextView
+                    <EditText
                         android:id="@+id/prof_role"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:paddingBottom="10dp"
+                        android:background="@drawable/edittext_generic"
                         android:textSize="16sp"
+                        android:padding="5dp"
                         android:textStyle="normal" />
 
 
                     <View
                         android:layout_width="match_parent"
-                        android:background="#eee"
+                        android:background="#fff"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:layout_marginBottom="10dp"
                         android:layout_height="1dp"/>
 
@@ -179,6 +181,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Instansi"
+                        android:visibility="gone"
                         android:textColor="#aaa" />
 
                     <TextView
@@ -188,6 +191,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
                         android:paddingBottom="10dp"
+                        android:visibility="gone"
                         android:textSize="16sp"
                         android:textStyle="normal" />
 

@@ -53,12 +53,12 @@
             android:text="" />
 
         <TextView
-            android:id="@+id/txt_pajenis"
+            android:id="@+id/tx_tanggalupdate"
             android:layout_toRightOf="@id/txt_pagu"
             android:layout_below="@id/txt_nama_paket"
             android:layout_width="wrap_content"
             android:layout_marginTop="12dp"
-            android:visibility="gone"
+            android:visibility="visible"
             android:layout_marginBottom="5dp"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
@@ -81,10 +81,11 @@
             android:text="" />
 
         <TextView
-            android:id="@+id/tx_jenispaket"
-            android:layout_width="match_parent"
+            android:id="@+id/tx_tanggal_keu_update"
+            android:layout_width="wrap_content"
             android:layout_toRightOf="@+id/txt_nama_paket"
             android:textColor="#bbb"
+            android:visibility="visible"
             android:layout_alignParentRight="true"
             android:textAlignment="viewEnd"
             android:gravity="end"

@@ -3,6 +3,7 @@ package com.release.activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
     private TextView text_kontrak_anggaran;
     private TextView text_nomorkontrak_anggaran;
     private TextView text_akhirkontrak_anggaran;
+    private TextView text_anggaran_pagu;
+    private TextView tx_tanggalupdate;
     // Service
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     @Override
@@ -43,6 +46,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
         text_kontrak_anggaran = findViewById(R.id.text_kontrak_anggaran);
         text_nomorkontrak_anggaran = findViewById(R.id.text_kontrak_anggaran);
         text_akhirkontrak_anggaran = findViewById(R.id.text_akhirkontrak_anggaran);
+        text_anggaran_pagu = findViewById(R.id.text_anggaran_pagu);
 
         String anggaran_id = getIntent().getStringExtra("an_id");
         Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaran(anggaran_id);
@@ -57,6 +61,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                         text_kontrak_anggaran.setText(formatMoneyIDR.convertIDR(data.get(i).getAnNilaikontrak()));
                         text_nomorkontrak_anggaran.setText(data.get(i).getAnNomorkontrak());
                         text_akhirkontrak_anggaran.setText(data.get(i).getAnAkhirkontrak());
+                        text_anggaran_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(data.get(i).getAnpPagu()));
                     }
                 }else{
                 }
@@ -77,5 +82,11 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.right_menu_detail_anggaran, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

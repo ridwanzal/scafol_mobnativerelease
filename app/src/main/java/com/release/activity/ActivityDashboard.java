@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -25,8 +23,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.release.R;
 import com.release.dropbox.UserActivity;
-import com.release.model.DataResponseDinas;
-import com.release.model.Dinas;
 import com.release.model.PaketDashboard;
 import com.release.model.DataResponsePA;
 import com.release.restapi.ApiClient;
@@ -458,7 +454,7 @@ public class ActivityDashboard extends AppCompatActivity {
                 startActivity(dropbox_act);
                 break;
             case R.id.nav_profile :
-                Intent intent2 = new Intent(ActivityDashboard.this, ActivityEditProfilPPTK.class);
+                Intent intent2 = new Intent(ActivityDashboard.this, ActivityEditProfil.class);
                 intent2.putExtra("user_id", user_id);
                 startActivity(intent2);
                 break;

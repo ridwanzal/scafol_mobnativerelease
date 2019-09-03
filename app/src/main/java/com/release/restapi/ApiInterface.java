@@ -36,6 +36,10 @@ public interface ApiInterface {
     @GET("users/kontraktorall")
     Call<DataResponseUsers> getKontrak();
 
+    @FormUrlEncoded
+    @POST("users/updateprofile/")
+    Call<DataResponseUsers> updateProfile(@Field("user_id") String user_id,  @Field("nama") String nama, @Field("telephone") String telephone);
+
     @GET("kegiatan")
     Call<DataResponseKegiatan> getKegiatan(@Query("ke_id") String ke_id);
 
@@ -88,7 +92,6 @@ public interface ApiInterface {
     // role pptk
     @GET("dashboardadmin")
     Call<DataResponsePA> infoPaketAdmin(@Query("dinas_id") String dinas_id);
-
 
     @GET("dashboardpptk")
     Call<DataResponsePA> infoPaketPPTK(@Query("pptk_id") String pptk_id);

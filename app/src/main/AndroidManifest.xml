@@ -78,7 +78,7 @@
             android:label="Progres Keuangan">
         </activity>
         <activity
-            android:name="com.release.activity.ActivityEditProfilPPTK"
+            android:name="com.release.activity.ActivityEditProfil"
             android:label="Profil">
         </activity>
         <activity

@@ -49,7 +49,9 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.Anggar
         TextView paket_id;
         TextView kegiatan_id;
         TextView paket_pagu_dummy;
+        TextView tx_tanggal_keu_update;
         RelativeLayout layout_paketid;
+
 
         AnggaranViewHolder(View itemView){
             super(itemView);
@@ -60,6 +62,7 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.Anggar
             kegiatan_id = itemView.findViewById(R.id.kegiatan_id);
             layout_paketid = itemView.findViewById(R.id.layout_paketid);
             paket_pagu_dummy = itemView.findViewById(R.id.txt_pagu_dummy);
+            tx_tanggal_keu_update = itemView.findViewById(R.id.tx_tanggalupdate);
         }
     }
 
@@ -70,6 +73,7 @@ public class AnggaranAdapter extends RecyclerView.Adapter<AnggaranAdapter.Anggar
         holder.paket_pagu.setText("Rp. " + paket_pagu);
         holder.paket_id.setText(anggaranList.get(position).getAnId());
         holder.kegiatan_id.setText(anggaranList.get(position).getKeId());
+        holder.tx_tanggal_keu_update.setText(anggaranList.get(position).getDateUpdated().trim());
         if(anggaranList.get(position).getStatus() == ""){
             anggaranList.get(position).setStatus("Umum");
         }

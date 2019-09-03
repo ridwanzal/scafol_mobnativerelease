@@ -116,9 +116,9 @@ public class UserActivity extends DropboxActivity {
                 if(result.getEmail().equals("scafoltk@gmail.com")){
 
                 }
-//                ((TextView) findViewById(R.id.email_text)).setText(result.getEmail());
-//                ((TextView) findViewById(R.id.name_text)).setText(result.getName().getDisplayName());
-//                ((TextView) findViewById(R.id.type_text)).setText(result.getAccountType().name());
+//               ((TextView) findViewById(R.id.email_text)).setText(result.getEmail());
+//               ((TextView) findViewById(R.id.name_text)).setText(result.getName().getDisplayName());
+//               ((TextView) findViewById(R.id.type_text)).setText(result.getAccountType().name());
 
                 ((TextView) findViewById(R.id.sync_status_condc)).setVisibility(View.GONE);
                 ((TextView) findViewById(R.id.sync_status_con)).setVisibility(View.VISIBLE);

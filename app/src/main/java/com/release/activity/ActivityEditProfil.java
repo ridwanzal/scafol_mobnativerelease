@@ -1,34 +1,44 @@
 package com.release.activity;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.release.R;
 import com.release.model.DataResponse;
 import com.release.model.DataResponseDinas;
+import com.release.model.DataResponseUsers;
 import com.release.model.Dinas;
 import com.release.model.User;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.sharedpreferences.SessionManager;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ActivityEditProfilPPTK extends AppCompatActivity {
+public class ActivityEditProfil extends AppCompatActivity {
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-    private static String TAG = "ActivityEditProfilPPTK";
+    private static String TAG = "ActivityEditProfil";
     private TextView prof_username;
     private TextView prof_email;
     private TextView prof_telepon;
@@ -37,6 +47,8 @@ public class ActivityEditProfilPPTK extends AppCompatActivity {
     private TextView prof_dinas;
     SessionManager sessionManager;
     String user_id;
+    Dialog dialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +66,7 @@ public class ActivityEditProfilPPTK extends AppCompatActivity {
         sessionManager.checkLogin();
         HashMap<String, String> user = sessionManager.getUserDetails();
         user_id =  user.get(SessionManager.KEY_USERID);
+
 
         Call<DataResponse> call_user = apiInterface.getUserById(user_id);
         call_user.enqueue(new Callback<DataResponse>() {
@@ -96,14 +109,86 @@ public class ActivityEditProfilPPTK extends AppCompatActivity {
       });
     }
 
+    public void openBottomDialog(){
+        View view = getLayoutInflater().inflate(R.layout.dialog_editprofile, null);
+        dialog = new BottomSheetDialog(this);
+        final EditText prof_email_edit = view.findViewById(R.id.prof_email);
+        final EditText prof_telepon_edit = view.findViewById(R.id.prof_telepon);
+        final EditText prof_nama_edit = view.findViewById(R.id.prof_namas);
+        final TextView submit_profile_edit= view.findViewById(R.id.submit_profile);
+
+        prof_bagian.setVisibility(View.GONE);
+        final ImageView imagelogo = view.findViewById(R.id.imagelogo);
+        Call<DataResponse> call_user = apiInterface.getUserById(user_id);
+        call_user.enqueue(new Callback<DataResponse>() {
+            @Override
+            public void onResponse(Call<DataResponse> call, Response<DataResponse> response) {
+                if(response.code() == 200){
+                    ArrayList<User> list = response.body().getData();
+                    for(int i = 0; i < list.size(); i++){
+                        prof_telepon_edit.setText(checkData(list.get(i).getTelephone()));
+                        prof_email_edit.setText(checkData(list.get(i).getTelephone()));
+                        prof_nama_edit.setText(checkData(list.get(i).getNama()));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataResponse> call, Throwable t) {
+
+            }
+        });
+
+
+        submit_profile_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final String get_nama = prof_nama_edit.getText().toString().trim();
+                String get_telepon = prof_telepon_edit.getText().toString().trim();
+                String get_email = prof_email_edit.getText().toString().trim();
+                Call<DataResponseUsers> update_user = apiInterface.updateProfile(user_id, get_nama, get_telepon);
+                update_user.enqueue(new Callback<DataResponseUsers>() {
+                    @Override
+                    public void onResponse(Call<DataResponseUsers> call, Response<DataResponseUsers> response) {
+                        if(response.code() == 200){
+                            dialog.dismiss();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataResponseUsers> call, Throwable t) {
+                        dialog.dismiss();
+                        prof_nama.setText(get_nama.toString().trim());
+                        HashMap<String, String> user_update = sessionManager.getUserDetails();
+                        user_update.put(sessionManager.KEY_NAME, "");
+                        user_update.put(sessionManager.KEY_NAME, get_nama.toString().trim());
+                    }
+                });
+            }
+        });
+
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
+                return true;
+            case R.id.nav_editprofil :
+                openBottomDialog();
+                return true;
             default :
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.right_menu_editprofil, menu);
+        return true;
     }
 
     public static String checkData(String data){
@@ -113,6 +198,8 @@ public class ActivityEditProfilPPTK extends AppCompatActivity {
             return data;
         }
     }
+
+
 
     @Override
     protected void onResume() {

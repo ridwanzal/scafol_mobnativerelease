@@ -21,13 +21,11 @@ import com.release.adapter.PaketAdapter;
 import com.release.interfacemodule.ItemClickListener;
 import com.release.model.Anggaran;
 import com.release.model.DataResponseAnggaran;
-import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
 import com.release.model.Kegiatan;
 import com.release.model.Paket;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
@@ -41,7 +39,6 @@ import com.release.sharedpreferences.SessionManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -362,10 +359,15 @@ public class ActivityMain extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.right_menu_paket, menu);
         MenuItem searMenuItem = menu.findItem(R.id.nav_search);
+        final String flag_list = getIntent().getStringExtra("flag_list");
         searchView = (SearchView) MenuItemCompat.getActionView(searMenuItem);
         searchView.setMaxWidth(2147483647);
         searchView.setMinimumHeight(Integer.MAX_VALUE);
-        searchView.setQueryHint("Cari Paket");
+        if(flag_list.equals("1")){
+            searchView.setQueryHint("Cari Paket");
+        }else{
+            searchView.setQueryHint("Cari Anggaran");
+        }
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -374,8 +376,7 @@ public class ActivityMain extends AppCompatActivity{
 
             @Override
             public boolean onQueryTextChange(String s) {
-                String flag_list = getIntent().getStringExtra("flag_list");
-                if(flag_list == "1"){
+                if(flag_list.equals("1")){
                     paketAdapter.getFilter().filter(s);
                 }else{
                     anggaranAdapter.getFilter().filter(s);
@@ -411,7 +412,7 @@ public class ActivityMain extends AppCompatActivity{
             case R.id.nav_search :
                 break;
             case R.id.nav_profile :
-                Intent intent2 = new Intent(ActivityMain.this, ActivityEditProfilPPTK.class);
+                Intent intent2 = new Intent(ActivityMain.this, ActivityEditProfil.class);
                 intent2.putExtra("user_id", user_id);
                 startActivity(intent2);
                 break;
