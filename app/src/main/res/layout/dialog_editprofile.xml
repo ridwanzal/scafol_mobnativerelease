@@ -93,6 +93,7 @@
                         android:layout_width="match_parent"
                         android:background="#fff"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         android:layout_marginBottom="10dp"
                         android:layout_height="1dp"/>
 
@@ -101,14 +102,16 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="Email"
+                        android:visibility="gone"
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/prof_email"
+                        android:id="@+id/prof_email_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
+                        android:visibility="gone"
                         android:background="@drawable/edittext_generic"
                         android:textSize="16sp"
                         android:padding="5dp"
@@ -129,7 +132,7 @@
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/prof_telepon"
+                        android:id="@+id/prof_telepon_edit"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
