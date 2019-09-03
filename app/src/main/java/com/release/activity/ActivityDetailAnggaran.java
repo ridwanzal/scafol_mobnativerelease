@@ -58,7 +58,11 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                     ArrayList<Anggaran> data = response.body().getData();
                     for(int i=0; i < data.size(); i++){
                         text_nama_anggaran.setText(data.get(i).getAnNama());
-                        text_kontrak_anggaran.setText(formatMoneyIDR.convertIDR(data.get(i).getAnNilaikontrak()));
+                        if(data.get(i).getAnNilaikontrak().equals("")){
+                            text_kontrak_anggaran.setText("-");
+                        }else {
+                            text_kontrak_anggaran.setText(formatMoneyIDR.convertIDR(data.get(i).getAnNilaikontrak()));
+                        }
                         text_nomorkontrak_anggaran.setText(data.get(i).getAnNomorkontrak());
                         text_akhirkontrak_anggaran.setText(data.get(i).getAnAkhirkontrak());
                         text_anggaran_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(data.get(i).getAnpPagu()));

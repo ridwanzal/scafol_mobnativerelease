@@ -11,9 +11,6 @@ import java.text.DecimalFormatSymbols;
 public class formatMoneyIDR {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static String convertIDR(String money){
-        if(money.equals("") || money.equals("-")){
-            return  "0";
-        }else{
             Double uang = Double.valueOf(money);
             DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();
             DecimalFormatSymbols formatRp = new DecimalFormatSymbols();
@@ -23,7 +20,6 @@ public class formatMoneyIDR {
             kursIndonesia.setDecimalFormatSymbols(formatRp);
             String convert = kursIndonesia.format(uang);
             return convert;
-        }
     }
 
     public static String convertString(String money){

@@ -78,7 +78,6 @@ public class ActivityEditProfil extends AppCompatActivity {
                         prof_username.setText(list.get(i).getUsername());
                         prof_bagian.setText(list.get(i).getRole().toUpperCase());
                         prof_telepon.setText(checkData(list.get(i).getTelephone()));
-                        prof_email.setText(checkData(list.get(i).getTelephone()));
                         prof_nama.setText(checkData(list.get(i).getNama()));
                     }
                 }
@@ -113,11 +112,9 @@ public class ActivityEditProfil extends AppCompatActivity {
         View view = getLayoutInflater().inflate(R.layout.dialog_editprofile, null);
         dialog = new BottomSheetDialog(this);
         final EditText prof_email_edit = view.findViewById(R.id.prof_email);
-        final EditText prof_telepon_edit = view.findViewById(R.id.prof_telepon);
+        final EditText prof_telepon_edit = view.findViewById(R.id.prof_telepon_edit);
         final EditText prof_nama_edit = view.findViewById(R.id.prof_namas);
         final TextView submit_profile_edit= view.findViewById(R.id.submit_profile);
-
-        prof_bagian.setVisibility(View.GONE);
         final ImageView imagelogo = view.findViewById(R.id.imagelogo);
         Call<DataResponse> call_user = apiInterface.getUserById(user_id);
         call_user.enqueue(new Callback<DataResponse>() {
@@ -127,7 +124,6 @@ public class ActivityEditProfil extends AppCompatActivity {
                     ArrayList<User> list = response.body().getData();
                     for(int i = 0; i < list.size(); i++){
                         prof_telepon_edit.setText(checkData(list.get(i).getTelephone()));
-                        prof_email_edit.setText(checkData(list.get(i).getTelephone()));
                         prof_nama_edit.setText(checkData(list.get(i).getNama()));
                     }
                 }
@@ -144,8 +140,7 @@ public class ActivityEditProfil extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final String get_nama = prof_nama_edit.getText().toString().trim();
-                String get_telepon = prof_telepon_edit.getText().toString().trim();
-                String get_email = prof_email_edit.getText().toString().trim();
+                final String get_telepon = prof_telepon_edit.getText().toString().trim();
                 Call<DataResponseUsers> update_user = apiInterface.updateProfile(user_id, get_nama, get_telepon);
                 update_user.enqueue(new Callback<DataResponseUsers>() {
                     @Override
@@ -159,6 +154,7 @@ public class ActivityEditProfil extends AppCompatActivity {
                     public void onFailure(Call<DataResponseUsers> call, Throwable t) {
                         dialog.dismiss();
                         prof_nama.setText(get_nama.toString().trim());
+                        prof_telepon.setText(get_telepon.toString().trim());
                         HashMap<String, String> user_update = sessionManager.getUserDetails();
                         user_update.put(sessionManager.KEY_NAME, "");
                         user_update.put(sessionManager.KEY_NAME, get_nama.toString().trim());
