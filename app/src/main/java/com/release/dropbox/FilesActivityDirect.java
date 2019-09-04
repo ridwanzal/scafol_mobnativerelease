@@ -350,7 +350,7 @@ public class FilesActivityDirect extends DropboxActivity {
                 //            Toasty.success(getApplicationContext(), "ini photo", Toast.LENGTH_LONG).show();
                 fab2.setVisibility(View.VISIBLE);
                 fab3.setVisibility(View.VISIBLE);
-                fab.setVisibility(View.GONE);
+                fab.setVisibility(View.VISIBLE);
             }
             recyclerView.setAdapter(mFilesAdapter);
             paket_name = findViewById(R.id.paket_name_oflistfiles);
