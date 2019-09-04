@@ -39,7 +39,7 @@
             >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"
+                android:resource="@xml/provider_paths2"
                 tools:replace="android:resource"/>
         </provider>
         <activity
@@ -65,6 +65,11 @@
         <activity
             android:windowSoftInputMode="adjustResize"
             android:name="com.release.dropbox.FilesActivity"
+            android:label="Cloud Storage Scafol">
+        </activity>
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name="com.release.dropbox.FilesActivityDirect"
             android:label="Cloud Storage Scafol">
         </activity>
         <activity
