@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="0dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nomor Kontrak"
+                        android:textColor="#aaa" />
+
+                    <EditText
+                        android:id="@+id/text_nomorkontrak"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginTop="4dp"
+                        android:text="TextView"
+                        android:drawableRight="@drawable/ic_close_black_24dp"
+                        android:padding="10dp"
+                        android:background="@drawable/edittextborder_generic"
+                        android:textSize="16sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Nilai Kontrak"
+                        android:textColor="#aaa" />
+
+                    <EditText
+                        android:id="@+id/text_nilaikontrak"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/money_icon"
+                        android:drawablePadding="10dp"
+                        android:inputType="numberDecimal"
+                        android:padding="10dp"
+                        android:background="@drawable/edittextborder_generic"
+
+                        android:drawableRight="@drawable/ic_close_black_24dp"
+                        android:textSize="16sp"
+                        android:text="TextView"
+                        android:layout_marginTop="4dp"
+                        android:textStyle="normal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:id="@+id/tv_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Awal Kontrak"
+                                android:layout_marginTop="8dp"
+                                />
+
+                            <EditText
+                                android:id="@+id/text_awalkontrak"
+                                android:layout_marginTop="7dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/edittextborder_generic"
+                                android:text="@string/date"
+                                android:padding="10dp"
+                                android:layout_marginRight="5dp"
+                                android:textSize="15sp"/>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/btn_date_awal"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/button_date_ripple"
+                            android:tint="@color/colorwhite"
+                            android:padding="10dp"
+                            android:layout_gravity="bottom"
+                            android:src="@drawable/baseline_date_range_black_24dp"
+                            android:contentDescription="@string/date_range" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:orientation="vertical" >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Akhir Kontrak"
+                                android:layout_marginTop="8dp"
+                                />
+
+                            <EditText
+                                android:id="@+id/text_akhirkontrak"
+                                android:layout_marginTop="7dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/edittextborder_generic"
+                                android:text="@string/date"
+                                android:padding="10dp"
+                                android:layout_marginRight="5dp"
+                                android:textSize="15sp"/>
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/btn_date_akhir"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/button_date_ripple"
+                            android:tint="@color/colorwhite"
+                            android:padding="10dp"
+                            android:layout_gravity="bottom"
+                            android:src="@drawable/baseline_date_range_black_24dp"
+                            android:contentDescription="@string/date_range" />
+
+                    </LinearLayout>
+
+                    <Button
+                        android:id="@+id/btn_simpan"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:textColor="#000000"
+                        android:clickable="true"
+                        android:background="@drawable/button_ripple_generals"
+                        android:text="Simpan" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- detail -->
+
+    </RelativeLayout>
+</ScrollView>
+

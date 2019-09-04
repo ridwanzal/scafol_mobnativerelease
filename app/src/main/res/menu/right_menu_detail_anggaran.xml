@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/nav_progress"
+        android:id="@+id/nav_progress_anggaran"
         android:icon="@drawable/ic_show_chart2_black_24dp"
         app:showAsAction="always"
         android:visible="true"
@@ -23,7 +23,15 @@
         android:visible="true"
         android:iconTint="@color/colorwhite"
         android:iconTintMode="add"
-        android:title="Upload" />
+        android:title="Upload Dokumen" />
+    <item
+        android:id="@+id/nav_editkontrak_anggarn"
+        app:showAsAction="never"
+        android:icon="@drawable/ic_attach_file_black_24dp"
+        android:visible="true"
+        android:iconTint="@color/colorwhite"
+        android:iconTintMode="add"
+        android:title="Edit Kontrak Anggaran" />
     <!--<item-->
         <!--android:id="@+id/nav_penyediajasa"-->
         <!--android:title="Penyedia Jasa" />-->
