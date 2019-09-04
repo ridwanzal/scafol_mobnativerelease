@@ -21,6 +21,7 @@ import androidx.cardview.widget.CardView;
 
 import com.release.R;
 import com.release.dropbox.FilesActivity;
+import com.release.dropbox.FilesActivityDirect;
 import com.release.dropbox.UserActivity;
 import com.release.model.Bidang;
 import com.release.model.DataResponseBidang;
@@ -440,7 +441,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent.putExtra("path_dropbox", path_todropbox);
                 intent.putExtra("pa_judul", nama_paket);
                 intent.putExtra("upload_type", "1");
-                startActivity(intent);
+                startActivity(FilesActivityDirect.getIntent(ActivityDetailPaket.this, path_todropbox));
+//                startActivity(intent);
                 return true;
 //            case R.id.nav_kurvasrencana :
 //                Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
@@ -469,7 +471,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent5.putExtra("path_dropbox", path_todropbox);
                 intent5.putExtra("pa_judul", nama_paket);
                 intent5.putExtra("upload_type", "2");
-                startActivity(intent5);
+                startActivity(FilesActivityDirect.getIntent(ActivityDetailPaket.this, path_todropbox));
+//                startActivity(intent5);
                 return true;
             case R.id.nav_editlokasi :
                 Intent intent3 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
