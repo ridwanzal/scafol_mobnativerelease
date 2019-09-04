@@ -91,6 +91,7 @@ public class ActivityMain extends AppCompatActivity{
                 if(flag_list.equals("1")){
                     setContentView(R.layout.recycle_listpaket);
                     text_notfound = findViewById(R.id.text_notfound);
+                    getSupportActionBar().setTitle("Paket");
                     progress_listpaket = findViewById(R.id.progress_listpaket);
                     Call<DataResponsePaket> call_paket2 = apiInterface.getPaketDinas(dinas_id);
                     call_paket2.enqueue(new Callback<DataResponsePaket>() {

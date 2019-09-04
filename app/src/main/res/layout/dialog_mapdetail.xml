@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/nama_lokasi_edited"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextborder_generic"
+            android:textSize="14dp"
+            android:padding="10dp"
+            android:hint="Nama Lokasi"
+            android:editable="false"
+            android:layout_marginBottom="5dp"
+            />
+
+        <EditText
+            android:id="@+id/latitude_edited"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/edittextborder_generic"
+            android:hint="Latitude"
+            android:textSize="14dp"
+            android:editable="false"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/longitude_edited"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edittextborder_generic"
+            android:textSize="14dp"
+            android:padding="10dp"
+            android:editable="false"
+            android:hint="Longitude"
+            android:layout_marginBottom="5dp"
+            />
+
+        <Button
+            android:id="@+id/btn_location_edited"
+            android:visibility="visible"
+            android:layout_marginTop="3dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:padding="8dp"
+            android:clickable="true"
+            android:background="@drawable/button_ripple_generals"
+            android:text="Ubah Lokasi" />
+    </LinearLayout>
+</LinearLayout>
