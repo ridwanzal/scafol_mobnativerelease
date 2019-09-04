@@ -18,6 +18,7 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,6 +93,16 @@ public class FilesActivityDirect extends DropboxActivity {
         super.onResume();
         if(hasToken()){
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 
     @Override
@@ -301,25 +312,38 @@ public class FilesActivityDirect extends DropboxActivity {
 
         if(hasToken()){
 //            Toasty.success(getApplicationContext(), "Anda berhasil masuk folder", Toasty.LENGTH_LONG).show();
-            new ListFolderTask(DropboxClientFactory.getClient(), new ListFolderTask.Callback() {
+            new GetCurrentAccountTask(DropboxClientFactory.getClient(), new GetCurrentAccountTask.Callback() {
                 @Override
-                public void onDataLoaded(ListFolderResult result) {
-                    dialog.dismiss();
-                    notfoundfile.setVisibility(View.GONE);
-                    mFilesAdapter.setFiles(result.getEntries());
+                public void onComplete(FullAccount result) {
+                    if(result.getEmail().equals("scafoltk@gmail.com")){
+                        new ListFolderTask(DropboxClientFactory.getClient(), new ListFolderTask.Callback() {
+                            @Override
+                            public void onDataLoaded(ListFolderResult result) {
+                                dialog.dismiss();
+                                notfoundfile.setVisibility(View.GONE);
+                                mFilesAdapter.setFiles(result.getEntries());
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                dialog.dismiss();
+                                notfoundfile.setVisibility(View.VISIBLE);
+                                Log.e(TAG, "Gagal mengambil file", e);
+                                Toasty.normal(FilesActivityDirect.this,
+                                        "Tidak ada item, silahkan upload",
+                                        Toast.LENGTH_SHORT)
+                                        .show();
+                            }
+                        }).execute(mPath);
+                    }
+//
                 }
 
                 @Override
                 public void onError(Exception e) {
-                    dialog.dismiss();
-                    notfoundfile.setVisibility(View.VISIBLE);
-                    Log.e(TAG, "Gagal mengambil file", e);
-                    Toasty.normal(FilesActivityDirect.this,
-                            "Tidak ada item, silahkan upload",
-                            Toast.LENGTH_SHORT)
-                            .show();
+
                 }
-            }).execute(mPath);
+            }).execute();
 
             //init picaso client
             PicassoClient.init(getApplicationContext(),DropboxClientFactory.getClient());
@@ -337,21 +361,20 @@ public class FilesActivityDirect extends DropboxActivity {
                 }
             });
 
-            Intent intents = getIntent();
-            String id_upload = intents.getStringExtra("upload_type");
+//            Intent intents = getIntent();
+//            String id_upload = intents.getStringExtra("upload_type");
             Boolean contains = mPath.contains("documents");
-            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
             if(contains){
                 //            Toasty.success(getApplicationContext(), "ini dokumen", Toast.LENGTH_LONG).show();
                 fab2.setVisibility(View.GONE);
                 fab3.setVisibility(View.GONE);
-                fab.setVisibility(View.VISIBLE);
             }else{
                 //            Toasty.success(getApplicationContext(), "ini photo", Toast.LENGTH_LONG).show();
                 fab2.setVisibility(View.VISIBLE);
                 fab3.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.VISIBLE);
             }
+            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
             recyclerView.setAdapter(mFilesAdapter);
             paket_name = findViewById(R.id.paket_name_oflistfiles);
             paket_name.setText(mDetail.toString());

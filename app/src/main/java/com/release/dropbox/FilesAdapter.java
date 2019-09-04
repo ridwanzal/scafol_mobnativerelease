@@ -100,7 +100,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MetadataView
                 MimeTypeMap mime = MimeTypeMap.getSingleton();
                 String ext = item.getName().substring(item.getName().indexOf(".") + 1);
                 String type = mime.getMimeTypeFromExtension(ext);
-                if (type != null && type.startsWith("image/")) {
+                if (type != null && type.startsWith("*/")) {
                     mPicasso.load(FileThumbnailRequestHandler.buildPicassoUri((FileMetadata)item))
                             .placeholder(R.drawable.ic_photo_grey_600_36dp)
                             .error(R.drawable.ic_photo_grey_600_36dp)

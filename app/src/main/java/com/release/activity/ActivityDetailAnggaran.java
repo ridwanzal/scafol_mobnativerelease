@@ -40,6 +40,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
     private TextView text_anggaran_pagu;
     private TextView tx_tanggalupdate;
     String path_todropbox = "";
+    String path_todropbox2 = "";
     SessionManager sessionManager;
     // Service
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -114,6 +115,24 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                 intent2.putExtra("pa_judul", nama_paket);
                 intent2.putExtra("upload_type", "2");
                 startActivity(FilesActivityDirect.getIntent(ActivityDetailAnggaran.this, path_todropbox));
+                return true;
+            case R.id.nav_editkontrak_anggarn :
+                Intent intent3 = new Intent(ActivityDetailAnggaran.this, ActivityUpdateDataAnggaran.class);
+                intent3.putExtra("pa_pagu", pa_pagu);
+                intent3.putExtra("an_id", id_anggaran);
+                intent3.putExtra("position", 0);
+                intent3.putExtra("pa_nama", nama_paket);
+                intent3.putExtra("ke_id", ke_id);
+                startActivity(intent3);
+                return true;
+            case R.id.nav_progress_anggaran :
+                Intent intent4 = new Intent(ActivityDetailAnggaran.this, ActivityUpdateDataAnggaran.class);
+                intent4.putExtra("pa_pagu", pa_pagu);
+                intent4.putExtra("an_id", id_anggaran);
+                intent4.putExtra("position", 0);
+                intent4.putExtra("pa_nama", nama_paket);
+                intent4.putExtra("ke_id", ke_id);
+                startActivity(intent4);
                 return true;
         }
         return true;

@@ -66,6 +66,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
     final int DRAWABLE_RIGHT = 2;
     final int DRAWABLE_BOTTOM = 3;
     private String current = "";
+    Context ctx;
 
     public static int isDateEdit1;
     Handler mHandler;
@@ -79,7 +80,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_editkontrak, container, false);
-        final Context ctx = getActivity();
+        ctx = getActivity();
         t_nomorkontrak = view.findViewById(R.id.text_nomorkontrak);
         t_nilaikontrak = view.findViewById(R.id.text_nilaikontrak);
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
