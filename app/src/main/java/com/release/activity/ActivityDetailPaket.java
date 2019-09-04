@@ -310,10 +310,6 @@ public class ActivityDetailPaket extends AppCompatActivity {
                         String result_sisa_kontrak = "";
                         String result_sisa_anggaran = "";
 
-                        String result_lin_textreal = "";
-                        String result_lin_texttarget = "";
-                        String result_lin_textdeviasi = "";
-
                         result_daya_serap  = progressList.get(i).getPr_daya_serap_kontrak() == null ? "-" : "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_daya_serap_kontrak());
                         result_sisa_kontrak = progressList.get(i).getPr_sisa_kontrak() == null ? "-" :  "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_kontrak());
                         result_sisa_anggaran = progressList.get(i).getPr_sisa_anggaran() == null ? "-" :  "Rp. " +  formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_anggaran());
@@ -348,19 +344,6 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
                         Log.w(TAG, "Paket data" + new Gson().toJson(response.body().getData()));
                         ArrayList<Paket> paketlist = response.body().getData();
-//                        for(int i = 0; i < paketlist.size(); i++){
-//                            String name = paketlist.get(i).getPaJudul();
-//                            String jenis = paketlist.get(i).getPaJenis();
-//                            String tahun = paketlist.get(i).getPaTahun();
-//                            String pagu = paketlist.get(i).getPaPagu();
-//                            String satuan = paketlist.get(i).getPaSatuan();
-//                            String volume = paketlist.get(i).getPaVolume();
-//                            String status = paketlist.get(i).getStatus();
-//                            String tanggal_awal = paketlist.get(i).getDateCreated();
-//                            String tanggal_akhir = paketlist.get(i).getDateUpdated();
-//                            String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
-//                        }
-//                        Toast.makeText(ActivityDetailPaket.this, "Show map", Toast.LENGTH_SHORT).show();
                         Intent mapIntent = new Intent(ActivityDetailPaket.this, ActivityMapDetail.class);
                         Bundle args = new Bundle();
                         args.putSerializable("ARRAYLIST", paketlist);
