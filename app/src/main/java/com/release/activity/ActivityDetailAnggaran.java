@@ -1,5 +1,6 @@
 package com.release.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
@@ -14,13 +15,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 import com.release.R;
+import com.release.dropbox.FilesActivityDirect;
+import com.release.dropbox.UserActivity;
 import com.release.model.Anggaran;
 import com.release.model.DataResponseAnggaran;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.sharedexternalmodule.formatMoneyIDR;
+import com.release.sharedpreferences.SessionManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,6 +39,8 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
     private TextView text_akhirkontrak_anggaran;
     private TextView text_anggaran_pagu;
     private TextView tx_tanggalupdate;
+    String path_todropbox = "";
+    SessionManager sessionManager;
     // Service
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     @Override
@@ -80,11 +87,34 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent intents = getIntent();
+        String id_anggaran = intents.getStringExtra("an_id");
+        String nama_paket = intents.getStringExtra("pa_nama");
+        String pa_pagu = intents.getStringExtra("pa_pagu");
+        String ke_id = intents.getStringExtra("ke_id");
+        sessionManager = new SessionManager(getApplicationContext());
+        HashMap<String, String> user = sessionManager.getUserDetails();
+        String dinas_id =  user.get(SessionManager.KEY_DINASID);
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
-
-                break;
+                return true;
+            case R.id.nav_uploadphoto_anggaran :
+                path_todropbox = "/files/gov/"+dinas_id+"/an-"+id_anggaran+"/photos";
+                Intent intent = new Intent(ActivityDetailAnggaran.this, UserActivity.class);
+                intent.putExtra("path_dropbox", path_todropbox);
+                intent.putExtra("pa_judul", nama_paket);
+                intent.putExtra("upload_type", "1");
+                startActivity(FilesActivityDirect.getIntent(ActivityDetailAnggaran.this, path_todropbox));
+                return true;
+            case R.id.nav_uploaddoc_anggaran :
+                path_todropbox = "/files/gov/"+dinas_id+"/an-"+id_anggaran+"/documents";
+                Intent intent2 = new Intent(ActivityDetailAnggaran.this, UserActivity.class);
+                intent2.putExtra("path_dropbox", path_todropbox);
+                intent2.putExtra("pa_judul", nama_paket);
+                intent2.putExtra("upload_type", "2");
+                startActivity(FilesActivityDirect.getIntent(ActivityDetailAnggaran.this, path_todropbox));
+                return true;
         }
         return true;
     }

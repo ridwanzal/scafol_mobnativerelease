@@ -29,11 +29,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.dropbox.core.android.Auth;
+import com.dropbox.core.android.DbxOfficialAppConnector;
 import com.dropbox.core.v2.files.FileMetadata;
 import com.dropbox.core.v2.files.FolderMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.dropbox.core.v2.users.FullAccount;
 import com.release.R;
+import com.release.dropbox.internal.OpenWithActivity;
 import com.release.service.ServiceReminder;
 
 import java.io.ByteArrayOutputStream;
@@ -89,7 +91,6 @@ public class FilesActivityDirect extends DropboxActivity {
     protected void onResume() {
         super.onResume();
         if(hasToken()){
-
         }
     }
 
@@ -101,11 +102,7 @@ public class FilesActivityDirect extends DropboxActivity {
         String pa_judul = getIntent().getStringExtra(EXTRA_DETAIL);
         mPath = path == null ? "" : path;
         mDetail = pa_judul == null ? "" : pa_judul;
-//        mPath = "/files/gov/16731/pa-483/photos";
         setContentView(R.layout.activity_files);
-        Auth.startOAuth2Authentication(FilesActivityDirect.this, getString(R.string.app_key, null));
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-//        setSupportActionBar(toolbar);
          fab = (Button)findViewById(R.id.fab);
          fab2 = (Button)findViewById(R.id.fab2);
          fab3 = (Button)findViewById(R.id.fab3);
@@ -160,7 +157,6 @@ public class FilesActivityDirect extends DropboxActivity {
     private Uri imageUri;
     private static int TAKE_PICTURE = 1;
     private void launchCamera(){
-
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             File photoFile = null;
@@ -304,7 +300,7 @@ public class FilesActivityDirect extends DropboxActivity {
         dialog.show();
 
         if(hasToken()){
-            Toasty.success(getApplicationContext(), "Anda berhasil masuk folder", Toasty.LENGTH_LONG).show();
+//            Toasty.success(getApplicationContext(), "Anda berhasil masuk folder", Toasty.LENGTH_LONG).show();
             new ListFolderTask(DropboxClientFactory.getClient(), new ListFolderTask.Callback() {
                 @Override
                 public void onDataLoaded(ListFolderResult result) {
@@ -348,8 +344,13 @@ public class FilesActivityDirect extends DropboxActivity {
             if(contains){
                 //            Toasty.success(getApplicationContext(), "ini dokumen", Toast.LENGTH_LONG).show();
                 fab2.setVisibility(View.GONE);
+                fab3.setVisibility(View.GONE);
+                fab.setVisibility(View.VISIBLE);
             }else{
                 //            Toasty.success(getApplicationContext(), "ini photo", Toast.LENGTH_LONG).show();
+                fab2.setVisibility(View.VISIBLE);
+                fab3.setVisibility(View.VISIBLE);
+                fab.setVisibility(View.GONE);
             }
             recyclerView.setAdapter(mFilesAdapter);
             paket_name = findViewById(R.id.paket_name_oflistfiles);
