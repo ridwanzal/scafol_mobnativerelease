@@ -32,6 +32,7 @@
     <item
         android:id="@+id/nav_mylocation"
         app:showAsAction="always"
+        android:visible="false"
         android:icon="@drawable/ic_my_location_black_24dp"
         />
     <item

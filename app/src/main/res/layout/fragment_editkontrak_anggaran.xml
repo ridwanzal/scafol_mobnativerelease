@@ -38,7 +38,7 @@
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/text_nomorkontrak"
+                        android:id="@+id/text_nomorkontrak_anggaran"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -59,7 +59,7 @@
                         android:textColor="#aaa" />
 
                     <EditText
-                        android:id="@+id/text_nilaikontrak"
+                        android:id="@+id/text_nilaikontrak_anggaran"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -96,7 +96,7 @@
                                 />
 
                             <EditText
-                                android:id="@+id/text_awalkontrak"
+                                android:id="@+id/text_awalkontrak_anggaran"
                                 android:layout_marginTop="7dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                                 />
 
                             <EditText
-                                android:id="@+id/text_akhirkontrak"
+                                android:id="@+id/text_akhirkontrak_anggaran"
                                 android:layout_marginTop="7dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
                     </LinearLayout>
 
                     <Button
-                        android:id="@+id/btn_simpan"
+                        android:id="@+id/btn_simpan_editkontrakang"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"

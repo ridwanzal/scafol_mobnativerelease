@@ -791,7 +791,7 @@
                             android:layout_gravity="left"
                             android:layout_marginLeft="20dp"
                             android:layout_weight="1"
-                            android:text="Location Not Set"
+                            android:text="Lokasi belum di set"
                             android:textSize="16sp"
                             android:textColor="#000" />
 
