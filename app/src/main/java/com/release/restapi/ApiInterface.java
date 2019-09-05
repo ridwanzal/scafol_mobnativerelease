@@ -74,8 +74,6 @@ public interface ApiInterface {
     @POST("anggaran/anggaran_kontrak")
     Call<DataResponseAnggaran> editAnggaran(@Field("an_id") String an_id,  @Field("an_nomor_kontrak") String an_nomor_kontrak, @Field("an_nilai_kontrak") String an_nilai_kontrak, @Field("an_awal_kontrak") String an_awal_kontrak, @Field("an_akhir_kontrak") String an_akhir_kontrak);
 
-
-
     @FormUrlEncoded
     @POST("paket/submit_catatan")
     Call<DataResponseCatatan> addCatatan(@Field("pa_id") String pa_id,  @Field("ca_catatan") String ca_catatan, @Field("date_created") String date_created, @Field("date_updated") String date_updated);

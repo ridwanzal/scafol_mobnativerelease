@@ -220,18 +220,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                                 mHandler.sendMessage(Message.obtain(mHandler, 1));
                             }
                         }).start();
-                        mHandler = new Handler(Looper.myLooper()){
-                            @Override
-                            public void handleMessage(@NonNull Message msg) {
-                                super.handleMessage(msg);
-                                switch (msg.what){
-                                    case 1 :
-                                        Toasty.success(getActivity(), "Kontrak berhasil diubah", Toasty.LENGTH_LONG).show();
-                                        btn_simpan.setVisibility(View.GONE);
-                                        break;
-                                }
-                            }
-                        };
+
                     }
                 });
             }
@@ -239,6 +228,19 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
         Log.d(TAG, "GET ID PAKET " + id_paket);
         btn_date_awal.setOnClickListener(this);
         btn_date_akhir.setOnClickListener(this);
+
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        Toasty.success(getActivity(), "Kontrak berhasil diubah", Toasty.LENGTH_LONG).show();
+                        btn_simpan.setVisibility(View.GONE);
+                        break;
+                }
+            }
+        };
 
         return view;
     }

@@ -5,6 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,16 +18,22 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
 import com.release.R;
 import com.release.model.Anggaran;
+import com.release.model.Bidang;
 import com.release.model.DataResponseAnggaran;
+import com.release.model.DataResponseBidang;
+import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
+import com.release.model.Kegiatan;
 import com.release.model.Paket;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
@@ -36,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -50,6 +60,10 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
     private EditText t_nilaikontrak_ang;
     private ImageView btn_date_awal_ang;
     private ImageView btn_date_akhir_ang;
+
+    private TextView text_kegjudul_ang;
+    private TextView textbidangs_ang;
+
     Button btn_simpan_editkontrak_ang;
 
     final int DRAWABLE_LEFT = 0;
@@ -58,13 +72,17 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
     final int DRAWABLE_BOTTOM = 3;
     private String current = "";
     public static int isDateEdit1;
+    private String an_id;
+    private String ke_id;
+
+    Handler mHandler;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_editkontrak_anggaran, container, false);
         ctx = getActivity();
-        ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
+        final ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         t_nomorkontrak_ang = view.findViewById(R.id.text_nomorkontrak_anggaran);
         t_nilaikontrak_ang = view.findViewById(R.id.text_nilaikontrak_anggaran);
 
@@ -72,7 +90,10 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
         btn_date_akhir_ang = view.findViewById(R.id.btn_date_akhir);
         t_awalkontrak_ang = view.findViewById(R.id.text_awalkontrak_anggaran);
         t_akhirkontrak_ang = view.findViewById(R.id.text_akhirkontrak_anggaran);
-        btn_simpan_editkontrak_ang = view.findViewById(R.id.btn_simpan);
+        btn_simpan_editkontrak_ang = view.findViewById(R.id.btn_simpan_editkontrakang);
+
+        text_kegjudul_ang = view.findViewById(R.id.text_kegjudul_ang);
+        textbidangs_ang = view.findViewById(R.id.textbidangs_ang);
 
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading");
@@ -111,8 +132,10 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Intent intent = getActivity().getIntent();
-        final String id_anggaran = intent.getStringExtra("an_id");
-        Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaran(id_anggaran);
+        an_id = intent.getStringExtra("an_id");
+        ke_id = intent.getStringExtra("ke_id");
+
+        Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaran(an_id);
         call_anggaran.enqueue(new Callback<DataResponseAnggaran>() {
             @Override
             public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
@@ -123,20 +146,90 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
                             String nilai_kontrak = ang_list.get(i).getAnNilaikontrak();
                             String awal_kontrak = ang_list.get(i).getAnAwalkontrak();
                             String akhir_kontrak = ang_list.get(i).getAnAkhirkontrak();
-
+                            String ke_id = ang_list.get(i).getKeId();
                             t_nomorkontrak_ang.setText(checkData(nomor_kontrak));
                             t_nilaikontrak_ang.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
                             t_awalkontrak_ang.setText(checkData(awal_kontrak));
                             t_akhirkontrak_ang.setText(checkData(akhir_kontrak));
+
                         }
                     }
             }
+
 
             @Override
             public void onFailure(Call<DataResponseAnggaran> call, Throwable t) {
 
             }
         });
+
+
+        btn_simpan_editkontrak_ang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // submit data to update contract.
+                progressDialog.show();
+                String get_nomorkontrak = t_nomorkontrak_ang.getText().toString();
+                String get_nilai_kontrak = t_nilaikontrak_ang.getText().toString().replaceAll("[.]","");
+                String get_awalkontrak = t_awalkontrak_ang.getText().toString();
+                String get_akhirkontrak = t_akhirkontrak_ang.getText().toString();
+
+//                Toasty.success(getActivity(), "Data : " + get_nomorkontrak + " | " + get_nilai_kontrak + " | " + get_awalkontrak + " | " + get_akhirkontrak + " ", Toasty.LENGTH_LONG).show();
+                Call<DataResponseAnggaran> call_update = apiInterface.editAnggaran(an_id, get_nomorkontrak, get_nilai_kontrak, get_awalkontrak, get_akhirkontrak);
+                call_update.enqueue(new Callback<DataResponseAnggaran>() {
+                    @Override
+                    public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
+                        if(response.code() == 200){
+                            Toasty.success(ctx, "Data berhasil di update", Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toasty.warning(ctx, "Tidak ada data yang diubah", Toast.LENGTH_SHORT).show();
+                            new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try{
+                                        Thread.sleep(100);
+                                    }catch (Exception e){
+                                        e.printStackTrace();
+                                    }
+                                    progressDialog.dismiss();
+                                }
+                            }).start();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataResponseAnggaran> call, Throwable t) {
+                        Toasty.success(ctx, "Data berhasil di update", Toast.LENGTH_SHORT).show();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    Thread.sleep(500);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                progressDialog.dismiss();
+                                mHandler.sendMessage(Message.obtain(mHandler, 1));
+                            }
+                        }).start();
+                    }
+                });
+
+            }
+        });
+
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        Toasty.success(getActivity(), "Kontrak berhasil diubah", Toasty.LENGTH_LONG).show();
+                        btn_simpan_editkontrak_ang.setVisibility(View.GONE);
+                        break;
+                }
+            }
+        };
 
         return view;
     }

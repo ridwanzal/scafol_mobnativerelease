@@ -18,7 +18,11 @@ import com.release.R;
 import com.release.dropbox.FilesActivityDirect;
 import com.release.dropbox.UserActivity;
 import com.release.model.Anggaran;
+import com.release.model.Bidang;
 import com.release.model.DataResponseAnggaran;
+import com.release.model.DataResponseBidang;
+import com.release.model.DataResponseKegiatan;
+import com.release.model.Kegiatan;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.sharedexternalmodule.formatMoneyIDR;
@@ -39,6 +43,8 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
     private TextView text_akhirkontrak_anggaran;
     private TextView text_anggaran_pagu;
     private TextView tx_tanggalupdate;
+    private TextView text_kegjudul_ang;
+    private TextView textbidangs_ang;
     String path_todropbox = "";
     String path_todropbox2 = "";
     SessionManager sessionManager;
@@ -55,6 +61,8 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
         text_nomorkontrak_anggaran = findViewById(R.id.text_kontrak_anggaran);
         text_akhirkontrak_anggaran = findViewById(R.id.text_akhirkontrak_anggaran);
         text_anggaran_pagu = findViewById(R.id.text_anggaran_pagu);
+        text_kegjudul_ang = findViewById(R.id.text_kegjudul_ang);
+        textbidangs_ang = findViewById(R.id.textbidangs_ang);
 
         String anggaran_id = getIntent().getStringExtra("an_id");
         Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaran(anggaran_id);
@@ -65,6 +73,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                 if(response_code.equals("200")){
                     ArrayList<Anggaran> data = response.body().getData();
                     for(int i=0; i < data.size(); i++){
+                        String ke_id = data.get(i).getKeId();
                         text_nama_anggaran.setText(data.get(i).getAnNama());
                         if(data.get(i).getAnNilaikontrak().equals("")){
                             text_kontrak_anggaran.setText("-");
@@ -74,6 +83,49 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                         text_nomorkontrak_anggaran.setText(data.get(i).getAnNomorkontrak());
                         text_akhirkontrak_anggaran.setText(data.get(i).getAnAkhirkontrak());
                         text_anggaran_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(data.get(i).getAnpPagu()));
+
+
+                        // get bidang
+                        Call<DataResponseBidang> call_bidanginfo = apiInterface.getBidang(ke_id);
+                        call_bidanginfo.enqueue(new Callback<DataResponseBidang>() {
+                            @Override
+                            public void onResponse(Call<DataResponseBidang> call, Response<DataResponseBidang> response) {
+                                Log.d(TAG, "BIDANG response : " + new Gson().toJson(response));
+                                if(response.code() == 200){
+                                    ArrayList<Bidang> bidangList = response.body().getData();
+                                    Log.d(TAG, "BIDANG NAME : " + new Gson().toJson(bidangList));
+                                    for(int i = 0; i < bidangList.size(); i++){
+                                        textbidangs_ang.setText(bidangList.get(i).getBiNama());
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<DataResponseBidang> call, Throwable t) {
+                                Log.e(TAG, " " + call);
+                                Log.e(TAG, " " + t.getMessage());
+                            }
+                        });
+
+                        // get kegitan
+                        Call<DataResponseKegiatan> call_kegiataninfo = apiInterface.getKegiatan(ke_id);
+                        call_kegiataninfo.enqueue(new Callback<DataResponseKegiatan>() {
+                            @Override
+                            public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
+                                if(response.code() == 200){
+                                    ArrayList<Kegiatan> keglist = response.body().getData();
+                                    Log.d(TAG, "BIDANG NAME : " + new Gson().toJson(keglist));
+                                    for(int i = 0; i < keglist.size(); i++){
+                                        text_kegjudul_ang.setText(keglist.get(i).getKeJudul());
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<DataResponseKegiatan> call, Throwable t) {
+
+                            }
+                        });
                     }
                 }else{
                 }
