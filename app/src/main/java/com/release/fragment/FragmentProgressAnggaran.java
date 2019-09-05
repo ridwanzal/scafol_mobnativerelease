@@ -55,7 +55,6 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
         pr_serapan_anggaran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toasty.success(ctx, "Contoh :  ", Toasty.LENGTH_LONG).show();
                 Intent intent = new Intent(getActivity(), ActivityProgressSerapan.class);
                 intent.putExtra("pa_id", pa_id);
                 intent.putExtra("pa_nama", pa_judul);
