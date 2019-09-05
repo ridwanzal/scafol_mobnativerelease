@@ -103,6 +103,11 @@
         </activity>
         <activity
             android:windowSoftInputMode="adjustResize"
+            android:name="com.release.activity.ActivityUpdateDataAnggaran"
+            android:label="Update Data Anggaran">
+        </activity>
+        <activity
+            android:windowSoftInputMode="adjustResize"
             android:name="com.release.activity.ActivityMyLocation"
             android:label="Lokasi Saya">
         </activity>
