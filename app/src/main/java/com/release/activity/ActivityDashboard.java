@@ -1,6 +1,9 @@
 package com.release.activity;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
@@ -25,6 +29,7 @@ import com.release.R;
 import com.release.dropbox.UserActivity;
 import com.release.model.PaketDashboard;
 import com.release.model.DataResponsePA;
+import com.release.receiver.NotificationPublisher;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.service.ServiceReminder;
@@ -35,6 +40,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import retrofit2.Call;
 import com.release.sharedexternalmodule.formatMoneyIDR;
@@ -42,6 +48,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ActivityDashboard extends AppCompatActivity {
+    public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
+    private final static String default_notification_channel_id = "default" ;
+
     private Button show_list; // button paket fisik
     private Button show_list2; // button anggaran
     private Button btn_mapdash;
@@ -81,6 +90,8 @@ public class ActivityDashboard extends AppCompatActivity {
     private LinearLayout linear_calendar;
 
     public ActivityDashboard(){}
+    final Calendar myCalendar = Calendar. getInstance () ;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +144,7 @@ public class ActivityDashboard extends AppCompatActivity {
         tx_datecalendar.setText(date_result);
         tx_namauser.setText("" + user_fullname);
 
-        startServiceReminder();
+//        startServiceReminder();
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
@@ -409,13 +420,34 @@ public class ActivityDashboard extends AppCompatActivity {
                 openCalendarDialog();
             }
         });
-
+        Date date = myCalendar.getTime();
+        scheduleNotification(getNotification("Jangan lupa update progres anda"), date.getTime());
     }
 
     public void startServiceReminder(){
         Intent serviceIntent = new Intent(this, ServiceReminder.class);
         serviceIntent.putExtra("inputExtra", "Let's update our progress");
         ContextCompat.startForegroundService(this, serviceIntent);
+    }
+
+    private void scheduleNotification (Notification notification , long delay) {
+        Intent notificationIntent = new Intent( this, NotificationPublisher. class ) ;
+        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION_ID , 1 ) ;
+        notificationIntent.putExtra(NotificationPublisher. NOTIFICATION , notification) ;
+        PendingIntent pendingIntent = PendingIntent. getBroadcast ( this, 0 , notificationIntent , PendingIntent. FLAG_UPDATE_CURRENT ) ;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(getApplication(). ALARM_SERVICE ) ;
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager. ELAPSED_REALTIME_WAKEUP , delay , pendingIntent) ;
+    }
+
+    private Notification getNotification (String content) {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder( this, default_notification_channel_id ) ;
+        builder.setContentTitle( "Scheduled Notification" ) ;
+        builder.setContentText(content) ;
+        builder.setSmallIcon(R.drawable. ic_launcher_foreground ) ;
+        builder.setAutoCancel( true ) ;
+        builder.setChannelId( NOTIFICATION_CHANNEL_ID ) ;
+        return builder.build() ;
     }
 
     @Override
@@ -486,6 +518,7 @@ public class ActivityDashboard extends AppCompatActivity {
         super.onBackPressed();
         sessionManager.checkLogin();
     }
+
 
     @Override
     protected void onDestroy() {
