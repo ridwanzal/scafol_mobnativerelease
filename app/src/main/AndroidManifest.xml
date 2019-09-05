@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-feature android:name="android.hardware.camera"
         android:required="true" />
+    <uses-permission android:name = "android.permission.VIBRATE" />
 
     <application
         android:name="com.release.app.App"
@@ -162,5 +163,6 @@
             android:label="">
         </activity>
         <service android:name="com.release.service.ServiceReminder" />
+        <receiver android:name= ".receiver.NotificationPublisher" />
     </application>
 </manifest>
