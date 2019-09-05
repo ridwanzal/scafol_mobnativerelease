@@ -153,6 +153,11 @@
         </activity>
         <activity
             android:windowSoftInputMode="adjustResize"
+            android:name="com.release.activity.ActivityProgressSerapan"
+            android:label="Calendar">
+        </activity>
+        <activity
+            android:windowSoftInputMode="adjustResize"
             android:name="com.release.dropbox.ActivityTag"
             android:label="">
         </activity>

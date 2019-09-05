@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- START*** Root Container *** -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="#f6f6f6"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_paketid"
+        android:clickable="true"
+        android:background="#fff"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:id="@+id/containers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="30dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            >
+            <TextView
+                android:layout_weight="1"
+                android:text="Jumlah"
+                android:textAlignment="textStart"
+                android:layout_width="50dp"
+                android:textColor="#aaa"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:text="Sisa Kontrak"
+                android:textColor="#aaa"
+                android:textAlignment="textStart"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="1"
+                android:text="Sisa Anggaran"
+                android:textAlignment="textStart"
+                android:textColor="#aaa"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containers2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/containers"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:id="@+id/progkeu_serap"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:text="-" />
+
+            <TextView
+                android:id="@+id/progkeu_sisakontrak"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:layout_weight="1"
+                android:text="-" />
+            <TextView
+                android:id="@+id/progkeu_sisaanggaran"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:layout_weight="1"
+                android:text="-" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/containers3"
+            android:layout_below="@id/containers2"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_weight="1"
+                android:text="Pembaruan"
+                android:textColor="#aaa"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="2"
+                android:text="Keterangan"
+                android:textColor="#aaa"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/containers4"
+            android:layout_below="@id/containers3"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:paddingBottom="30dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_weight="1"
+                android:id="@+id/progkeu_tanggal"
+                android:text="-"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:layout_weight="2"
+                android:text="-"
+                android:id="@+id/progkeu_keterangan"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <!-- TextView Employee Name -->
+
+        <View android:background="#ccc"
+            android:layout_below="@+id/containers4"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+
+    <!-- END*** Root Container *** -->
+</ScrollView>

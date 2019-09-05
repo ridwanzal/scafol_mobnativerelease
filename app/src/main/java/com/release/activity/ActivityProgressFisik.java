@@ -45,7 +45,7 @@ public class ActivityProgressFisik extends AppCompatActivity {
         Intent intent = getIntent();
         String nama_paket = intent.getStringExtra("pa_nama");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Daftar Progres");
+        setTitle("Progres Fisik");
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + nama_paket + "</small>"));
         setContentView(R.layout.recycle_progress);
         final String id_paket = intent.getStringExtra("pa_id");

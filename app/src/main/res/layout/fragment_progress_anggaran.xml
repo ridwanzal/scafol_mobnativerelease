@@ -32,7 +32,7 @@
                     android:textColor="#aaa" />
 
                 <TextView
-                    android:id="@+id/pr_keuangan_detail"
+                    android:id="@+id/pr_serapan_anggaran"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

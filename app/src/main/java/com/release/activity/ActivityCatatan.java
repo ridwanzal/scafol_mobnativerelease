@@ -44,7 +44,7 @@ public class ActivityCatatan extends AppCompatActivity {
         Intent intent = getIntent();
         final String nama_paket = intent.getStringExtra("pa_nama");
         final String id_paket = intent.getStringExtra("pa_id");
-        setTitle("Daftar Catatan");
+        setTitle("Catatan");
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + nama_paket + "</small>"));
         progressBar = findViewById(R.id.progress_listprogress_catatan);
         textnofound = findViewById(R.id.text_notfound_catatan);

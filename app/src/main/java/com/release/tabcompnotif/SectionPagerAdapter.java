@@ -8,6 +8,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import com.release.R;
+import com.release.fragment.FragmentEditKontrak;
+import com.release.fragment.FragmentEditLokasi;
+import com.release.fragment.FragmentNotif;
+import com.release.fragment.FragmentNotifTagihan;
+import com.release.fragment.FragmentProgress;
 
 public class SectionPagerAdapter extends FragmentPagerAdapter {
     @StringRes
@@ -21,9 +26,14 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        return PlaceHolderFragment.newInstance(position + 1);
+        switch (position){
+            case 0 :
+                return new FragmentNotif();
+            case 1 :
+                return new FragmentNotifTagihan();
+            default:
+                return null;
+        }
     }
 
     @Nullable
