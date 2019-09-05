@@ -54,7 +54,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         final String user_id = intent.getStringExtra("user_id");
-
         dashmap = findViewById(R.id.dashmap);
         dashmap.setTileSource(TileSourceFactory.MAPNIK);
         dashmap.setMultiTouchControls(true);
@@ -161,7 +160,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                 for(int i = 0; i < response.body().getData().size(); i++){
                                         Double latitude;
                                         Double longitude;
-
                                         Boolean check3 = response.body().getData().get(i).getPaLocLatitude().equals("0");
                                         Boolean check4 = response.body().getData().get(i).getPaLongitude().equals("0");
 
@@ -202,7 +200,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                         new Thread(new Runnable() {
                                             public void run() {
                                                 try {
-                                                    Thread.sleep(10);
+                                                    Thread.sleep(2000);
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
                                                 }
@@ -222,7 +220,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                                 return true;
                                             }
                                         });
-
                                 }
                             }
                         }
@@ -245,8 +242,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
                 }
             }
         };
-
-
     }
 
     @Override

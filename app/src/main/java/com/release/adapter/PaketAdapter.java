@@ -54,6 +54,11 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.PaketViewHol
         }
         holder.paket_jenis.setText(paketList.get(position).getPaJenis());
         holder.paket_pagu_dummy.setText(paketList.get(position).getPaPagu());
+        if(paketList.get(position).getDateCreated().toString().trim().equals("")){
+            holder.tx_tanggal_update.setText(paketList.get(position).getDateCreated().toString().trim());
+        }else{
+            holder.tx_tanggal_update.setText(paketList.get(position).getDateUpdated().toString().trim());
+        }
     }
 
     @NonNull
@@ -120,6 +125,7 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.PaketViewHol
         TextView paket_jenis;
         TextView paket_id;
         TextView kegiatan_id;
+        TextView tx_tanggal_update;
         TextView paket_pagu_dummy;
         RelativeLayout layout_paketid;
 
@@ -132,6 +138,7 @@ public class PaketAdapter extends RecyclerView.Adapter<PaketAdapter.PaketViewHol
             kegiatan_id = itemView.findViewById(R.id.kegiatan_id);
             layout_paketid = itemView.findViewById(R.id.layout_paketid);
             paket_pagu_dummy = itemView.findViewById(R.id.txt_pagu_dummy);
+            tx_tanggal_update = itemView.findViewById(R.id.tx_tanggal_update);
         }
     }
 
