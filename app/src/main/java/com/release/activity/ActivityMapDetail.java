@@ -135,7 +135,7 @@ public class ActivityMapDetail extends AppCompatActivity {
         for(int i = 0; i < object.size(); i++){
             String location_name = "";
             if(object.get(i).getPaLokasi() == ""){
-                location_name = "Location not set";
+                location_name = "Lokasi belum di set";
             }else{
                 location_name = object.get(i).getPaLokasi();
             }

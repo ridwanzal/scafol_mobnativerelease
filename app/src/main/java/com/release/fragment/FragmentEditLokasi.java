@@ -103,7 +103,7 @@ public class FragmentEditLokasi extends Fragment {
                 for(int i = 0; i < paketlist.size(); i++){
                     String location_name = "";
                     if(paketlist.get(i).getPaLokasi() == ""){
-                        location_name = "Location not set";
+                        location_name = "Lokasi belum di set";
                     }else{
                         location_name = paketlist.get(i).getPaLokasi();
                     }

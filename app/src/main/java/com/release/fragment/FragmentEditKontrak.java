@@ -90,7 +90,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if(motionEvent.getRawX() >= (t_nilaikontrak.getRight() - t_nilaikontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    if(motionEvent.getRawX() >= (t_nomorkontrak.getRight() - t_nomorkontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         t_nomorkontrak.getText().clear();
                         return true;
@@ -148,18 +148,20 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
         call_paket.enqueue(new Callback<DataResponsePaket>() {
             public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
                 Log.w(TAG, "Paket data" + new Gson().toJson(response.body().getData()));
-                ArrayList<Paket> paketlist = response.body().getData();
-                for(int i = 0; i < paketlist.size(); i++){
-                    String nomor_kontrak = paketlist.get(i).getPaNomorKontrak();
-                    String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
-                    String awal_kontrak = paketlist.get(i).getPaAwalKontrak();
-                    String akhir_kontrak = paketlist.get(i).getPaAkhirKontrak();
+                if(response.code() == 200){
+                    ArrayList<Paket> paketlist = response.body().getData();
+                    for(int i = 0; i < paketlist.size(); i++){
+                        String nomor_kontrak = paketlist.get(i).getPaNomorKontrak();
+                        String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
+                        String awal_kontrak = paketlist.get(i).getPaAwalKontrak();
+                        String akhir_kontrak = paketlist.get(i).getPaAkhirKontrak();
 
-                    t_nomorkontrak.setText(checkData(nomor_kontrak));
-                    t_nilaikontrak.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
-                    t_awalkontrak.setText(checkData(awal_kontrak));
-                    t_akhirkontrak.setText(checkData(akhir_kontrak));
+                        t_nomorkontrak.setText(checkData(nomor_kontrak));
+                        t_nilaikontrak.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
+                        t_awalkontrak.setText(checkData(awal_kontrak));
+                        t_akhirkontrak.setText(checkData(akhir_kontrak));
 
+                    }
                 }
             }
 
