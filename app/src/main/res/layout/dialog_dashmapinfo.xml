@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/info0"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_map_belum_mulai"
+            android:drawablePadding="20dp"
+            android:text="Belum Mulai" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@id/info0"
+            android:background="#eee"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/info1"
+            android:padding="20dp"
+            android:layout_below="@id/info0"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_map_baik"
+            android:drawablePadding="20dp"
+            android:text="Baik" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@id/info1"
+            android:background="#eee"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_below="@id/info1"
+            android:id="@+id/info2"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_map_wajar"
+            android:drawablePadding="20dp"
+            android:text="Wajar" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@id/info2"
+            android:background="#eee"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_below="@id/info2"
+            android:id="@+id/info3"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_map_lambat"
+            android:drawablePadding="20dp"
+            android:text="Terlambat" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@id/info3"
+            android:background="#eee"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_below="@id/info3"
+            android:id="@+id/info4"
+            android:padding="20dp"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_map_kritis"
+            android:drawablePadding="20dp"
+            android:text="Terlambat" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_below="@id/info4"
+            android:background="#eee"/>
+
+
+    </RelativeLayout>
+
+</LinearLayout>
