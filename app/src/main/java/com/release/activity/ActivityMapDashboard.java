@@ -97,7 +97,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
                     public void onResponse(Call<DataResponseDinas> call, Response<DataResponseDinas> response) {
                         if(response.code() == 200){
                             for(int i = 0; i < response.body().getData().size(); i++){
-
                                 final Double latitude;
                                 final Double longitude;
                                 latitude =Double.valueOf(response.body().getData().get(i).getLatitude());
