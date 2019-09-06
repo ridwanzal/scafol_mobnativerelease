@@ -54,6 +54,8 @@ public class ActivityMapDashboard extends AppCompatActivity {
     IMapController mapController;
     MapView dashmap = null;
     ImageView center_to_map;
+    Dialog dialoginfo;
+
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -369,8 +371,8 @@ public class ActivityMapDashboard extends AppCompatActivity {
 
     public void openBottomDialog(){
         View view = getLayoutInflater().inflate(R.layout.dialog_dashmapinfo, null);
-        Dialog dialog = new BottomSheetDialog(this);
-        dialog.setContentView(view);
-        dialog.show();
+        dialoginfo = new BottomSheetDialog(this);
+        dialoginfo.setContentView(view);
+        dialoginfo.show();
     }
 }
