@@ -24,6 +24,10 @@ public interface ApiInterface {
     @GET("dinas/user")
     Call<DataResponseDinas> getDinas(@Query("user_id") String user_id);
 
+    // get dinas detail by dinas
+    @GET("dinas/dinas")
+    Call<DataResponseDinas> getDinasDetail(@Query("dinas_id") String dinas_id);
+
     // bidang
     @GET("bidang/bidang")
     Call<DataResponseBidang> getBidang(@Query("ke_id") String ke_id);

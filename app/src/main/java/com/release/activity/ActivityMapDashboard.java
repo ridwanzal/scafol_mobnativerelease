@@ -27,6 +27,7 @@ import org.osmdroid.views.overlay.Marker;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.release.R;
+import com.release.model.DataResponseDinas;
 import com.release.model.DataResponsePaket;
 import com.release.model.Paket;
 import com.release.restapi.ApiClient;
@@ -55,6 +56,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
     MapView dashmap = null;
     ImageView center_to_map;
     Dialog dialoginfo;
+
 
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     @Override
@@ -85,6 +87,36 @@ public class ActivityMapDashboard extends AppCompatActivity {
         role = user.get(SessionManager.KEY_ROLE);
         dinas_id =  user.get(SessionManager.KEY_DINASID);
         Configuration.getInstance().setUserAgentValue(getPackageName());
+
+        center_to_map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Call<DataResponseDinas> call_dinas = apiInterface.getDinasDetail(dinas_id);
+                call_dinas.enqueue(new Callback<DataResponseDinas>() {
+                    @Override
+                    public void onResponse(Call<DataResponseDinas> call, Response<DataResponseDinas> response) {
+                        if(response.code() == 200){
+                            for(int i = 0; i < response.body().getData().size(); i++){
+
+                                final Double latitude;
+                                final Double longitude;
+                                latitude =Double.valueOf(response.body().getData().get(i).getLatitude());
+                                longitude =Double.valueOf(response.body().getData().get(i).getLongitude());
+                                final GeoPoint point = new GeoPoint(latitude, longitude);
+                                mapController.setCenter(point);
+                                mapController.zoomOut();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataResponseDinas> call, Throwable t) {
+
+                    }
+                });
+            }
+        });
+
 
         switch (role){
             case  "Admin" :
