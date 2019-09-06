@@ -31,7 +31,7 @@
             android:padding="20dp"
             android:layout_below="@id/infox"
             android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/ic_map_belum_mulai"
+            android:drawableLeft="@drawable/ic_map_belum"
             android:drawablePadding="20dp"
             android:text="Belum Mulai" />
 

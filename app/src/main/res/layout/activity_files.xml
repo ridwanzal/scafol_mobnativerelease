@@ -39,7 +39,7 @@
             android:visibility="visible"
             android:textColor="#fff"
             android:gravity="center"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             />
     </LinearLayout>
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
