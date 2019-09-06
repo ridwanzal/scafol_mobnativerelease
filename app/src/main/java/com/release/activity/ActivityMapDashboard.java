@@ -1,5 +1,6 @@
 package com.release.activity;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.Html;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +23,8 @@ import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.Marker;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.release.R;
 import com.release.model.DataResponsePaket;
@@ -327,9 +331,18 @@ public class ActivityMapDashboard extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
+            case R.id.nav_mapdashinfo :
+                openBottomDialog();
+                return true;
             default :
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.right_menu_mapinfo, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -352,5 +365,12 @@ public class ActivityMapDashboard extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+    }
+
+    public void openBottomDialog(){
+        View view = getLayoutInflater().inflate(R.layout.dialog_dashmapinfo, null);
+        Dialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(view);
+        dialog.show();
     }
 }
