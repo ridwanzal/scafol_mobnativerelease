@@ -52,6 +52,12 @@ public interface ApiInterface {
     @GET("paket/pptk")
     Call<DataResponsePaket> getPaketPptk(@Query("pptk_id") String pptk_id);
 
+    @GET("paket/mapprogmaxpptk")
+    Call<DataResponsePaket> getMapPPTK(@Query("pptk_id") String pptk_id);
+
+    @GET("paket/mapprogmax")
+    Call<DataResponsePaket> getMapDinas(@Query("dinas_id") String dinas_id);
+
     @GET("paket/dinas")
     Call<DataResponsePaket> getPaketDinas(@Query("dinas_id") String dinas_id);
 

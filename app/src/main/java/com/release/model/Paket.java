@@ -36,6 +36,26 @@ public class Paket implements Serializable {
     @SerializedName("pa_nomor_kontrak")
     private String paNomorKontrak;
 
+    @SerializedName("pr_real")
+    private String prReal;
+
+    @SerializedName("pr_deviasi")
+    private String prDeviasi;
+
+    @SerializedName("pr_tanggal")
+    private String prTanggal;
+
+    @SerializedName("pr_target")
+    private String prTarget;
+
+    public String getPrTarget() {
+        return prTarget;
+    }
+
+    public void setPrTarget(String prTarget) {
+        this.prTarget = prTarget;
+    }
+
     @SerializedName("pa_nilai_kontrak")
     private String paNilaiKontrak;
     @SerializedName("pa_rencana_kontrak")
@@ -50,7 +70,8 @@ public class Paket implements Serializable {
     private String dateCreated;
     @SerializedName("date_updated")
     private String dateUpdated;
-    public Paket(String paId, String keId, String pekerjaId, String pptkId, String paJudul, String paJenis, String paVolume, String paSatuan, String paTahun, String paPagu, String paLokasi, String paLocLatitude, String paNomorKontrak, String paNilaiKontrak, String paRencanKonrak, String paAwalKontrak, String paAkhirKontrak, String status, String dateCreated, String dateUpdated) {
+
+    public Paket(String paId, String keId, String pekerjaId, String pptkId, String paJudul, String paJenis, String paVolume, String paSatuan, String paTahun, String paPagu, String paLokasi, String paLocLatitude, String paLongitude, String paNomorKontrak, String prReal, String prDeviasi, String prTanggal, String prTarget, String paNilaiKontrak, String paRencanKonrak, String paAwalKontrak, String paAkhirKontrak, String status, String dateCreated, String dateUpdated) {
         this.paId = paId;
         this.keId = keId;
         this.pekerjaId = pekerjaId;
@@ -63,8 +84,12 @@ public class Paket implements Serializable {
         this.paPagu = paPagu;
         this.paLokasi = paLokasi;
         this.paLocLatitude = paLocLatitude;
-        this.paLocLatitude = paLocLatitude;
+        this.paLongitude = paLongitude;
         this.paNomorKontrak = paNomorKontrak;
+        this.prReal = prReal;
+        this.prDeviasi = prDeviasi;
+        this.prTanggal = prTanggal;
+        this.prTarget = prTarget;
         this.paNilaiKontrak = paNilaiKontrak;
         this.paRencanKonrak = paRencanKonrak;
         this.paAwalKontrak = paAwalKontrak;
@@ -72,6 +97,30 @@ public class Paket implements Serializable {
         this.status = status;
         this.dateCreated = dateCreated;
         this.dateUpdated = dateUpdated;
+    }
+
+    public String getPrReal() {
+        return prReal;
+    }
+
+    public void setPrReal(String prReal) {
+        this.prReal = prReal;
+    }
+
+    public String getPrDeviasi() {
+        return prDeviasi;
+    }
+
+    public void setPrDeviasi(String prDeviasi) {
+        this.prDeviasi = prDeviasi;
+    }
+
+    public String getPrTanggal() {
+        return prTanggal;
+    }
+
+    public void setPrTanggal(String prTanggal) {
+        this.prTanggal = prTanggal;
     }
 
     public String getPaLongitude() {

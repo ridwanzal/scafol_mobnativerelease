@@ -2,7 +2,7 @@ package com.release.sharedexternalmodule;
 
 public class Kriteria {
 
-    public static String get_kriteria(String date,String real, String target ){
+    public static String get_kriteria(String date, String real, String target ){
         String kriteria = "undefined";
         double r = Double.parseDouble(real);
         double t = Double.parseDouble(target);

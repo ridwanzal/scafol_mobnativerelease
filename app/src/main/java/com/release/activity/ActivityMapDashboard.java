@@ -25,6 +25,7 @@ import com.release.model.DataResponsePaket;
 import com.release.model.Paket;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
+import com.release.sharedexternalmodule.Kriteria;
 import com.release.sharedpreferences.SessionManager;
 
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -75,11 +76,10 @@ public class ActivityMapDashboard extends AppCompatActivity {
 
         switch (role){
             case  "Admin" :
-                Call<DataResponsePaket> call_dinas = apiInterface.getPaketDinas(dinas_id);
+                Call<DataResponsePaket> call_dinas = apiInterface.getMapDinas(dinas_id);
                 call_dinas.enqueue(new Callback<DataResponsePaket>() {
                     @Override
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                        String response_code = new Gson().toJson(response.code()).toString();
                         String title = "Total Paket (" + String.valueOf(response.body().getData().size()) + ")";
                         if(response.code() == 200){
                             getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
@@ -108,12 +108,41 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                     final String pa_id = response.body().getData().get(i).getPaId();
                                     final String pa_nama = response.body().getData().get(i).getPaJudul();
                                     final String ke_id = response.body().getData().get(i).getKeId();
+                                    final String pr_tanggal = response.body().getData().get(i).getPrTanggal();
+                                    final String pr_real = response.body().getData().get(i).getPrReal();
+                                    final String pr_target = response.body().getData().get(i).getPrTarget();
 
                                     marker.setPosition(point);
                                     marker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
                                     marker.setTextLabelFontSize(2);
                                     marker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
-                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_locations_on_black_60dp));
+
+                                    if(pr_tanggal != null && pr_real != null && pr_target != null){
+                                        String kriteria = Kriteria.get_kriteria(pr_tanggal, pr_real, pr_target);
+                                        switch (kriteria.toLowerCase()){
+                                            case "kritis" :
+                                                marker.setIcon(getResources().getDrawable(R.drawable.ic_map_kritis));
+                                                break;
+                                            case "terlambat" :
+                                                marker.setIcon(getResources().getDrawable(R.drawable.ic_map_lambat));
+                                                break;
+                                            case "wajar" :
+                                                marker.setIcon(getResources().getDrawable(R.drawable.ic_map_wajar));
+                                                break;
+                                            case "baik" :
+                                                marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
+                                                break;
+                                            case "selesai" :
+                                                marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
+                                                break;
+                                            case "belum mulai" :
+                                                marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum_mulai));
+                                                break;
+                                        }
+                                    }else{
+                                        marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum_mulai));
+                                    }
+
                                     marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                                     marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
                                     marker.setVisible(true);
@@ -148,11 +177,11 @@ public class ActivityMapDashboard extends AppCompatActivity {
             default:
                     progressDialog.show();
                     progressDialog.setMessage("Loading");
-                    Call<DataResponsePaket> call_paket = apiInterface.getPaketPptk(user_id);
+                    Call<DataResponsePaket> call_paket = apiInterface.getMapPPTK(user_id);
                     call_paket.enqueue(new Callback<DataResponsePaket>() {
                         @Override
                         public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                            String response_code = new Gson().toJson(response.code()).toString();
+                            Toasty.success(getApplicationContext(), "Size of array : "  + response.body().getData().size(), Toasty.LENGTH_LONG).show();
                             String title = "Total Paket (" + String.valueOf(response.body().getData().size()) + ")";
                             if(response.code() == 200){
                                 getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
@@ -181,12 +210,41 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                         final String pa_id = response.body().getData().get(i).getPaId();
                                         final String pa_nama = response.body().getData().get(i).getPaJudul();
                                         final String ke_id = response.body().getData().get(i).getKeId();
+                                        final String pr_tanggal = response.body().getData().get(i).getPrTanggal();
+                                        final String pr_real = response.body().getData().get(i).getPrReal();
+                                        final String pr_target = response.body().getData().get(i).getPrTarget();
 
                                         marker.setPosition(point);
                                         marker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
                                         marker.setTextLabelFontSize(14);
                                         marker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
-                                        marker.setIcon(getResources().getDrawable(R.drawable.ic_locations_on_black_60dp));
+
+                                        if(pr_tanggal != null && pr_real != null && pr_real != null){
+                                            String kriteria = Kriteria.get_kriteria(pr_tanggal, pr_real, pr_real);
+                                            switch (kriteria.toLowerCase()){
+                                                case "kritis" :
+                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_kritis));
+                                                    break;
+                                                case "terlambat" :
+                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_lambat));
+                                                    break;
+                                                case "wajar" :
+                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_wajar));
+                                                    break;
+                                                case "baik" :
+                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
+                                                    break;
+                                                case "selesai" :
+                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
+                                                    break;
+                                                case "belum mulai" :
+                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum_mulai));
+                                                    break;
+                                            }
+                                        }else{
+                                            marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum_mulai));
+                                        }
+
                                         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                                         marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
                                         marker.setVisible(true);
