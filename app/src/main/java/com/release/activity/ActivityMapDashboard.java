@@ -98,8 +98,8 @@ public class ActivityMapDashboard extends AppCompatActivity {
                         if(response.code() == 200){
                             getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
                             for(int i = 0; i < response.body().getData().size(); i++){
-                                    Double latitude;
-                                    Double longitude;
+                                    final Double latitude;
+                                    final Double longitude;
 
                                     Boolean check3 = response.body().getData().get(i).getPaLocLatitude().equals("0");
                                     Boolean check4 = response.body().getData().get(i).getPaLongitude().equals("0");
@@ -169,6 +169,8 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                     marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
                                         @Override
                                         public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                            marker.setSnippet(latitude + ", " + longitude);
+                                            marker.showInfoWindow();
                                             Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
                                             intent.putExtra("pa_id", pa_id);
                                             intent.putExtra("pa_nama", pa_nama);
@@ -292,6 +294,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                         marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
                                             @Override
                                             public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                                marker.showInfoWindow();
                                                 Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
                                                 intent.putExtra("pa_id", pa_id);
                                                 intent.putExtra("pa_nama", pa_nama);
