@@ -484,7 +484,7 @@
         android:clickable="true"
         android:paddingRight="10dp"
         android:paddingLeft="15dp"
-        android:drawableLeft="@drawable/ic_location_on_black_24dp"
+        android:drawableLeft="@drawable/ic_map_menu_dash"
         android:textStyle="normal"
         android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
         android:background="@drawable/button_ripple_white"
