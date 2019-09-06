@@ -180,11 +180,11 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                                 marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
                                                 break;
                                             case "belum mulai" :
-                                                marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum_mulai));
+                                                marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum));
                                                 break;
                                         }
                                     }else{
-                                        marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum_mulai));
+                                        marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum));
                                     }
 
                                     marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -294,11 +294,11 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                                     marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
                                                     break;
                                                 case "belum mulai" :
-                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum_mulai));
+                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum));
                                                     break;
                                             }
                                         }else{
-                                            marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum_mulai));
+                                            marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum));
                                         }
 
                                         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);

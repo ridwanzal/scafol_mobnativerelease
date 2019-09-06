@@ -328,6 +328,7 @@ public class FilesActivityDirect extends DropboxActivity {
                             public void onError(Exception e) {
                                 dialog.dismiss();
                                 notfoundfile.setVisibility(View.VISIBLE);
+                                findViewById(R.id.files_list).setVisibility(View.GONE);
                                 Log.e(TAG, "Gagal mengambil file", e);
                                 Toasty.normal(FilesActivityDirect.this,
                                         "Tidak ada item, silahkan upload",
