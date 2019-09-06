@@ -10,6 +10,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.config.Configuration;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.overlay.Marker;
 import com.google.gson.Gson;
@@ -45,8 +47,9 @@ public class ActivityMapDashboard extends AppCompatActivity {
     Handler mHandler;
     String user_id;
     String dinas_id;
-
+    IMapController mapController;
     MapView dashmap = null;
+    ImageView center_to_map;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,8 +67,10 @@ public class ActivityMapDashboard extends AppCompatActivity {
         dashmap.canZoomIn();
         dashmap.canZoomOut();
         dashmap.computeScroll();
-
+        center_to_map = findViewById(R.id.center_to_map);
+        mapController = dashmap.getController();
         progressDialog = new ProgressDialog(ActivityMapDashboard.this);
+//
 
         String role;
         sessionManager = new SessionManager(getApplicationContext());
@@ -73,9 +78,12 @@ public class ActivityMapDashboard extends AppCompatActivity {
         HashMap<String, String> user = sessionManager.getUserDetails();
         role = user.get(SessionManager.KEY_ROLE);
         dinas_id =  user.get(SessionManager.KEY_DINASID);
+        Configuration.getInstance().setUserAgentValue(getPackageName());
 
         switch (role){
             case  "Admin" :
+                progressDialog.show();
+                progressDialog.setMessage("Loading");
                 Call<DataResponsePaket> call_dinas = apiInterface.getMapDinas(dinas_id);
                 call_dinas.enqueue(new Callback<DataResponsePaket>() {
                     @Override
@@ -83,7 +91,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
                         String title = "Total Paket (" + String.valueOf(response.body().getData().size()) + ")";
                         if(response.code() == 200){
                             getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
-
                             for(int i = 0; i < response.body().getData().size(); i++){
                                     Double latitude;
                                     Double longitude;
@@ -147,8 +154,8 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                     marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
                                     marker.setVisible(true);
                                     marker.setPanToView(true);
-                                    IMapController mapController = dashmap.getController();
-                                    mapController.setZoom(7);
+                                    mapController = dashmap.getController();
+                                    mapController.setZoom(11);
                                     mapController.stopPanning();
                                     mapController.setCenter(point);
                                     // set marker
@@ -165,6 +172,16 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                             return true;
                                         }
                                     });
+                                    new Thread(new Runnable() {
+                                        public void run() {
+                                            try {
+                                                Thread.sleep(2000);
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            mHandler.sendMessage(Message.obtain(mHandler, 2));
+                                        }
+                                    }).start();
                             }
                         }
                     }
@@ -249,7 +266,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                         marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
                                         marker.setVisible(true);
                                         marker.setPanToView(true);
-                                        IMapController mapController = dashmap.getController();
+                                        mapController = dashmap.getController();
                                         mapController.setZoom(14);
                                         mapController.stopPanning();
                                         mapController.setCenter(point);
@@ -295,6 +312,9 @@ public class ActivityMapDashboard extends AppCompatActivity {
                 super.handleMessage(msg);
                 switch (msg.what){
                     case 1 :
+                        progressDialog.dismiss();
+                        break;
+                    case 2 :
                         progressDialog.dismiss();
                         break;
                 }

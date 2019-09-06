@@ -39,6 +39,7 @@ import com.release.sharedpreferences.SessionManager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -122,7 +123,7 @@ public class ActivityMain extends AppCompatActivity{
                     text_notfound = findViewById(R.id.text_notfound);
                     progress_listanggaran = findViewById(R.id.progress_listpaket);
                     getSupportActionBar().setTitle("Anggaran");
-                    Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaranAdmin(user_id);
+                    Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaranAdmin(dinas_id);
                     call_anggaran.enqueue(new Callback<DataResponseAnggaran>() {
                         @Override
                         public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
@@ -348,6 +349,7 @@ public class ActivityMain extends AppCompatActivity{
         });
 
         String title = "Total Anggaran ("   + anggaranAdapter.getItemCount() + ")";
+//        Toasty.success(getApplicationContext(), "Total Anggaran : " + anggaranAdapter.getItemCount(), Toasty.LENGTH_LONG).show();
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityMain.this);
         recyclerView_ang.setLayoutManager(layoutManager);

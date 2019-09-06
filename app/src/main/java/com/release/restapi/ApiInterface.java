@@ -70,7 +70,7 @@ public interface ApiInterface {
     @GET("anggaran/pptk")
     Call<DataResponseAnggaran> getAnggaranPPTK(@Query("pptk_id") String pptk_id);
 
-    @GET("anggaran/admin")
+    @GET("anggaran/dinas")
     Call<DataResponseAnggaran> getAnggaranAdmin(@Query("dinas_id") String dinas_id);
 
     @GET("anggaran/anggaran")

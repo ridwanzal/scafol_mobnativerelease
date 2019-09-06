@@ -148,7 +148,7 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
                             String akhir_kontrak = ang_list.get(i).getAnAkhirkontrak();
                             String ke_id = ang_list.get(i).getKeId();
                             t_nomorkontrak_ang.setText(checkData(nomor_kontrak));
-                            t_nilaikontrak_ang.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
+//                            t_nilaikontrak_ang.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
                             t_awalkontrak_ang.setText(checkData(awal_kontrak));
                             t_akhirkontrak_ang.setText(checkData(akhir_kontrak));
 

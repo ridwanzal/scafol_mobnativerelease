@@ -4,6 +4,9 @@ public class Kriteria {
 
     public static String get_kriteria(String date, String real, String target ){
         String kriteria = "undefined";
+        real = real.replace(",",".");
+        target = target.replace(",",".");
+
         double r = Double.parseDouble(real);
         double t = Double.parseDouble(target);
         double defisit = r - t;
