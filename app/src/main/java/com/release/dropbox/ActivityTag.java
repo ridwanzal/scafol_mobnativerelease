@@ -50,7 +50,8 @@ public class ActivityTag extends AppCompatActivity {
     private static final int PICKFILE_CAMERA_REQUEST_CODE = 2;
 
     ImageView imageView;
-    TextView textView;
+    TextView latitude;
+    TextView longitude;
     RelativeLayout relativeLayout;
     Button camera;
     Button cme;
@@ -67,7 +68,8 @@ public class ActivityTag extends AppCompatActivity {
         setContentView(R.layout.activity_tag);
         Toolbar toolbar = findViewById(R.id.toolbar);
         imageView = findViewById(R.id.img);
-        textView = findViewById(R.id.latlang);
+        longitude = findViewById(R.id.latlang);
+        latitude = findViewById(R.id.latlang2);
         String path = getIntent().getStringExtra("path");
         mPath = path == null ? "" : path;
         camera = findViewById(R.id.camera);
@@ -134,7 +136,10 @@ public class ActivityTag extends AppCompatActivity {
                     @Override
                     public void onSuccess(Location location) {
                         if (location != null) {
-                            textView.setText("Lat : " + location.getLatitude() + " Long : " + location.getLongitude());
+                            latitude.setVisibility(View.VISIBLE);
+                            longitude.setVisibility(View.VISIBLE);
+                            latitude.setText("Latitude : " + location.getLatitude());
+                            longitude.setText("Longitude : " + location.getLongitude());
                         }
                     }
                 });
