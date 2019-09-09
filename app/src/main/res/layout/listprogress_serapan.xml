@@ -31,7 +31,7 @@
             >
             <TextView
                 android:layout_weight="1"
-                android:text="Jumlah"
+                android:text="Daya Serap"
                 android:textAlignment="textStart"
                 android:layout_width="50dp"
                 android:textColor="#aaa"
@@ -41,13 +41,6 @@
                 android:text="Sisa Kontrak"
                 android:textColor="#aaa"
                 android:textAlignment="textStart"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_weight="1"
-                android:text="Sisa Anggaran"
-                android:textAlignment="textStart"
-                android:textColor="#aaa"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
@@ -64,7 +57,7 @@
             android:paddingBottom="15dp">
 
             <TextView
-                android:id="@+id/progkeu_serap"
+                android:id="@+id/serap_daya_serap"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -73,15 +66,7 @@
                 android:text="-" />
 
             <TextView
-                android:id="@+id/progkeu_sisakontrak"
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textSize="17sp"
-                android:layout_weight="1"
-                android:text="-" />
-            <TextView
-                android:id="@+id/progkeu_sisaanggaran"
+                android:id="@+id/serap_sisa"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
@@ -101,7 +86,7 @@
             >
             <TextView
                 android:layout_weight="1"
-                android:text="Pembaruan"
+                android:text="Tanggal"
                 android:textColor="#aaa"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content" />
@@ -125,14 +110,14 @@
             >
             <TextView
                 android:layout_weight="1"
-                android:id="@+id/progkeu_tanggal"
+                android:id="@+id/serap_tanggal"
                 android:text="-"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content" />
             <TextView
                 android:layout_weight="2"
                 android:text="-"
-                android:id="@+id/progkeu_keterangan"
+                android:id="@+id/serap_keterangan"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
