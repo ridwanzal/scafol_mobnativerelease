@@ -9,6 +9,7 @@ import com.release.model.DataResponsePA;
 import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
+import com.release.model.DataResponseSerapan;
 import com.release.model.DataResponseUsers;
 
 import retrofit2.Call;
@@ -79,6 +80,9 @@ public interface ApiInterface {
 
     @GET("anggaran/anggaran")
     Call<DataResponseAnggaran> getAnggaran(@Query("an_id") String an_id);
+
+    @GET("anggaran/serapan")
+    Call<DataResponseSerapan> getSerapan(@Query("an_id") String an_id);
 
     @FormUrlEncoded
     @POST("anggaran/anggaran_kontrak")

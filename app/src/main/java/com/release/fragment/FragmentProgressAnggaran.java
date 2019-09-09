@@ -26,7 +26,7 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
     TextView pr_serapan_anggaran;
 
     private static String ke_id = "";
-    private static String pa_id = "";
+    private static String an_id = "";
     private static String pa_judul = "";
     private static String pa_pagu = "";
     @Override
@@ -46,7 +46,7 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
         ctx = getActivity();
 
         Intent intent = getActivity().getIntent();
-        pa_id = intent.getStringExtra("pa_id");
+        an_id = intent.getStringExtra("an_id");
         pa_judul = intent.getStringExtra("pa_nama");
         pa_pagu = intent.getStringExtra("pa_pagu");
         ke_id = intent.getStringExtra("ke_id");
@@ -56,7 +56,7 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ActivityProgressSerapan.class);
-                intent.putExtra("pa_id", pa_id);
+                intent.putExtra("an_id", an_id);
                 intent.putExtra("pa_nama", pa_judul);
                 startActivity(intent);
             }

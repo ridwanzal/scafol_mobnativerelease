@@ -69,7 +69,6 @@ public class ProgressAdapterKeuangan extends RecyclerView.Adapter<ProgressAdapte
         TextView progkeu_tanggal;
         TextView progkeu_keterangan;
 
-
         ProgressViewHolder(View itemView){
             super(itemView);
             progkeu_serapan = itemView.findViewById(R.id.progkeu_serap);

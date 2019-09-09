@@ -4,7 +4,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static final String BASE_URL = "http://apiext.scafol.id/api/";
+    public static final String BASE_URL = "http://apiextest.scafol.com/api/";
     public static final String BASE_URL_CUSTOM = "http://nominatim.openstreetmap.org/";
     private static Retrofit retrofit = null;
 

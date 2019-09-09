@@ -32,6 +32,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.release.R;
+import com.release.sharedexternalmodule.DateInfo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,6 +52,7 @@ public class ActivityTag extends AppCompatActivity {
 
     ImageView imageView;
     TextView latitude;
+    TextView times;
     TextView longitude;
     RelativeLayout relativeLayout;
     Button camera;
@@ -61,6 +63,7 @@ public class ActivityTag extends AppCompatActivity {
     private FileMetadata mSelectedFile;
     private String mPath;
     private URI mImageUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +76,10 @@ public class ActivityTag extends AppCompatActivity {
         String path = getIntent().getStringExtra("path");
         mPath = path == null ? "" : path;
         camera = findViewById(R.id.camera);
+        times = findViewById(R.id.times);
         cme = findViewById(R.id.cme);
         relativeLayout = findViewById(R.id.main);
+        times.setVisibility(View.GONE);
 //        setSupportActionBar(toolbar);
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
@@ -138,8 +143,10 @@ public class ActivityTag extends AppCompatActivity {
                         if (location != null) {
                             latitude.setVisibility(View.VISIBLE);
                             longitude.setVisibility(View.VISIBLE);
+                            times.setVisibility(View.VISIBLE);
                             latitude.setText("Latitude : " + location.getLatitude());
                             longitude.setText("Longitude : " + location.getLongitude());
+                            times.setText(DateInfo.dateTime());
                         }
                     }
                 });
@@ -147,6 +154,7 @@ public class ActivityTag extends AppCompatActivity {
                     Toast.makeText(this, "Berhasil", Toast.LENGTH_SHORT).show();
                 }
                 imageView.setImageBitmap(bitmap);
+
             }catch (Exception e){
                 e.printStackTrace();
             }
