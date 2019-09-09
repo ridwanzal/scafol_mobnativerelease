@@ -237,7 +237,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                     call_paket.enqueue(new Callback<DataResponsePaket>() {
                         @Override
                         public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                            Toasty.success(getApplicationContext(), "Size of array : "  + response.body().getData().size(), Toasty.LENGTH_LONG).show();
+//                            Toasty.success(getApplicationContext(), "Size of array : "  + response.body().getData().size(), Toasty.LENGTH_LONG).show();
                             String title = "Total Paket (" + String.valueOf(response.body().getData().size()) + ")";
                             if(response.code() == 200){
                                 getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
