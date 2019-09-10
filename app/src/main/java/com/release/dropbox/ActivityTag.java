@@ -1,8 +1,10 @@
 package com.release.dropbox;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -20,10 +22,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.dropbox.core.v2.files.FileMetadata;
@@ -32,6 +37,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.release.R;
+import com.release.activity.ActivityMyLocation;
 import com.release.sharedexternalmodule.DateInfo;
 
 import java.io.ByteArrayOutputStream;
@@ -49,6 +55,9 @@ public class ActivityTag extends AppCompatActivity {
     private static final String TAG = ActivityTag.class.getName();
     private static final String AUTHORITY="com.release.dropbox.FilesActivity.provider";
     private static final int PICKFILE_CAMERA_REQUEST_CODE = 2;
+    private static final int MY_PERMISSION_OPEN_CAMERA = 3;
+    private static final int MY_PERMISSION_WRITE_STORAGE = 4;
+    private static final int MY_PERMISSION_READ_STORAGE = 5;
 
     ImageView imageView;
     TextView latitude;
@@ -88,7 +97,10 @@ public class ActivityTag extends AppCompatActivity {
             public void onClick(View view) {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
-                dispatchTakePictureIntent();
+//                dispatchTakePictureIntent();
+                checkCameraPermission();
+                checkWriteStorage();
+                checkReadStorage();
             }
         });
 
@@ -114,6 +126,106 @@ public class ActivityTag extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private boolean checkCameraPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.CAMERA)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission")
+                        .setMessage("Allow to get your current location")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(ActivityTag.this,
+                                        new String[]{Manifest.permission.CAMERA},
+                                        MY_PERMISSION_OPEN_CAMERA);
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(ActivityTag.this,
+                        new String[]{Manifest.permission.CAMERA},
+                        MY_PERMISSION_OPEN_CAMERA);
+            }
+            return false;
+        } else {
+            dispatchTakePictureIntent();
+            return true;
+        }
+    }
+
+    private boolean checkWriteStorage(){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission")
+                        .setMessage("Allow to get your current location")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(ActivityTag.this,
+                                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        MY_PERMISSION_WRITE_STORAGE);
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        MY_PERMISSION_WRITE_STORAGE);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean checkReadStorage(){
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission")
+                        .setMessage("Allow to get your current location")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(ActivityTag.this,
+                                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                        MY_PERMISSION_READ_STORAGE);
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSION_READ_STORAGE);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -143,7 +255,7 @@ public class ActivityTag extends AppCompatActivity {
                         if (location != null) {
                             latitude.setVisibility(View.VISIBLE);
                             longitude.setVisibility(View.VISIBLE);
-                            times.setVisibility(View.VISIBLE);
+                            times.setVisibility(View.GONE);
                             latitude.setText("Latitude : " + location.getLatitude());
                             longitude.setText("Longitude : " + location.getLongitude());
                             times.setText(DateInfo.dateTime());
@@ -169,12 +281,6 @@ public class ActivityTag extends AppCompatActivity {
     }
 
     private void uploadFile(String fileUri) {
-//        final ProgressDialog dialog = new ProgressDialog(this);
-//        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        dialog.setCancelable(false);
-//        dialog.setMessage("Uploading");
-//        dialog.show();
-
         new UploadFileTask(this, DropboxClientFactory.getClient(), new UploadFileTask.Callback() {
             @Override
             public void onUploadComplete(FileMetadata result) {
@@ -184,14 +290,6 @@ public class ActivityTag extends AppCompatActivity {
                         DateFormat.getDateTimeInstance().format(result.getClientModified());
                 Toast.makeText(ActivityTag.this, message, Toast.LENGTH_SHORT)
                         .show();
-
-                // Reload the folder
-//                final TextView notfoundfile = findViewById(R.id.notfoundfile);
-//                final ProgressDialog dialog = new ProgressDialog(getApplicationContext());
-//                dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//                dialog.setCancelable(false);
-//                dialog.setMessage("Loading");
-//                dialog.show();
                 new ListFolderTask(DropboxClientFactory.getClient(), new ListFolderTask.Callback() {
                     @Override
                     public void onDataLoaded(ListFolderResult result) {

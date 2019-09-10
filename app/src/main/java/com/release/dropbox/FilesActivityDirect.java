@@ -375,7 +375,7 @@ public class FilesActivityDirect extends DropboxActivity {
                 fab3.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.VISIBLE);
             }
-            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 4));
             recyclerView.setAdapter(mFilesAdapter);
             paket_name = findViewById(R.id.paket_name_oflistfiles);
             paket_name.setText(mDetail.toString());
