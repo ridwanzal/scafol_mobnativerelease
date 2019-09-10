@@ -33,6 +33,7 @@ import com.release.receiver.NotificationPublisher;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.service.ServiceReminder;
+import com.release.sharedexternalmodule.ReminderCore;
 import com.release.sharedpreferences.SessionManager;
 
 import java.text.SimpleDateFormat;
@@ -92,6 +93,8 @@ public class ActivityDashboard extends AppCompatActivity {
     public ActivityDashboard(){}
     final Calendar myCalendar = Calendar. getInstance () ;
 
+    ReminderCore reminderCore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +148,9 @@ public class ActivityDashboard extends AppCompatActivity {
         tx_namauser.setText("" + user_fullname);
 
 //        startServiceReminder();
+
+        reminderCore = new ReminderCore(getApplicationContext(), ServiceReminder.class, "Gua mw update");
+        reminderCore.run();
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
