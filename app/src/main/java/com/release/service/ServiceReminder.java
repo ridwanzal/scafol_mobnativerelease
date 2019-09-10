@@ -25,6 +25,10 @@ public class ServiceReminder extends Service {
                 .setContentText(input)
                 .setSmallIcon(R.drawable.ic_logo_notification)
                 .setContentIntent(pendingIntent)
+                .setAutoCancel(true)
+                .setOngoing(false)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setOnlyAlertOnce(true)
                 .build();
 
         startForeground(1, notification);
