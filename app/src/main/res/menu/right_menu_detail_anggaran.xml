@@ -31,7 +31,7 @@
         android:visible="true"
         android:iconTint="@color/colorwhite"
         android:iconTintMode="add"
-        android:title="Edit Kontrak Anggaran" />
+        android:title="Edit Kontrak Paket Non-Fisik" />
     <!--<item-->
         <!--android:id="@+id/nav_penyediajasa"-->
         <!--android:title="Penyedia Jasa" />-->

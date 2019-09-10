@@ -92,7 +92,7 @@ public class ActivityMain extends AppCompatActivity{
                 if(flag_list.equals("1")){
                     setContentView(R.layout.recycle_listpaket);
                     text_notfound = findViewById(R.id.text_notfound);
-                    getSupportActionBar().setTitle("Paket");
+                    getSupportActionBar().setTitle("Paket Fisik");
                     progress_listpaket = findViewById(R.id.progress_listpaket);
                     Call<DataResponsePaket> call_paket2 = apiInterface.getPaketDinas(dinas_id);
                     call_paket2.enqueue(new Callback<DataResponsePaket>() {
@@ -122,7 +122,7 @@ public class ActivityMain extends AppCompatActivity{
                     setContentView(R.layout.recycle_listanggaran);
                     text_notfound = findViewById(R.id.text_notfound);
                     progress_listanggaran = findViewById(R.id.progress_listpaket);
-                    getSupportActionBar().setTitle("Anggaran");
+                    getSupportActionBar().setTitle("Paket Non-Fisik");
                     Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaranAdmin(dinas_id);
                     call_anggaran.enqueue(new Callback<DataResponseAnggaran>() {
                         @Override
@@ -155,7 +155,7 @@ public class ActivityMain extends AppCompatActivity{
                     setContentView(R.layout.recycle_listpaket);
                     text_notfound = findViewById(R.id.text_notfound);
                     progress_listpaket = findViewById(R.id.progress_listpaket);
-                    getSupportActionBar().setTitle("Paket");
+                    getSupportActionBar().setTitle("Paket Fisik");
                     Call<DataResponsePaket> call_paket = apiInterface.getPaketPptk(user_id);
                     call_paket.enqueue(new Callback<DataResponsePaket>() {
                         @Override
@@ -184,7 +184,7 @@ public class ActivityMain extends AppCompatActivity{
                     setContentView(R.layout.recycle_listanggaran);
                     text_notfound = findViewById(R.id.text_notfound);
                     progress_listanggaran = findViewById(R.id.progress_listpaket);
-                    getSupportActionBar().setTitle("Anggaran");
+                    getSupportActionBar().setTitle("Paket Non-Fisik");
                     Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaranPPTK(user_id);
                     call_anggaran.enqueue(new Callback<DataResponseAnggaran>() {
                         @Override

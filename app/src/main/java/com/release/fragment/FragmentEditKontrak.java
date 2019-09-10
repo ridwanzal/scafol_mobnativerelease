@@ -44,7 +44,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
-import me.abhinay.input.CurrencyEditText;
+import faranjit.currency.edittext.CurrencyEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,7 +56,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
     private TextView t_awalkontrak;
     private TextView t_akhirkontrak;
 
-    private EditText t_nilaikontrak;
+    private CurrencyEditText t_nilaikontrak;
     private ImageView btn_date_awal;
     private ImageView btn_date_akhir;
     Button btn_simpan;
@@ -82,7 +82,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_editkontrak, container, false);
         ctx = getActivity();
         t_nomorkontrak = view.findViewById(R.id.text_nomorkontrak);
-        t_nilaikontrak = view.findViewById(R.id.text_nilaikontrak);
+        t_nilaikontrak = (CurrencyEditText) view.findViewById(R.id.text_nilaikontrak);
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading");
 
@@ -115,22 +115,6 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
             }
         });
 
-
-        t_nilaikontrak.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
 
         t_awalkontrak = view.findViewById(R.id.text_awalkontrak);
         t_akhirkontrak = view.findViewById(R.id.text_akhirkontrak);
@@ -176,12 +160,19 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                 // submit data to update contract.
                 progressDialog.show();
                 String get_nomorkontrak = t_nomorkontrak.getText().toString();
-                String get_nilai_kontrak = t_nilaikontrak.getText().toString().replaceAll("[.]","");
+//                String get_nilai_kontrak = t_nilaikontrak.getText().toString().replaceAll("[.]","");
+                String get_nilai_kontrak = "";
+                try{
+                    get_nilai_kontrak = String.valueOf(t_nilaikontrak.getCurrencyDouble());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 String get_awalkontrak = t_awalkontrak.getText().toString();
                 String get_akhirkontrak = t_akhirkontrak.getText().toString();
                 String pa_id = id_paket;
                 Log.d(TAG, "No Kontrak : " + get_nomorkontrak + " Nilai Kontrak : " + get_nilai_kontrak + " | " + id_paket);
-//                Toasty.success(ctx, "Nilai kontrak  + " + get_nilai_kontrak, Toast.LENGTH_SHORT).show();
+                Toasty.success(ctx, "Jumlah nominal : " + get_nilai_kontrak, Toast.LENGTH_SHORT).show();
+                Toasty.success(ctx, "Nilai kontrak  + " + get_nilai_kontrak, Toast.LENGTH_SHORT).show();
                 Call<DataResponsePaket> call_update = apiInterface.updateKontrak(pa_id, get_nomorkontrak, get_nilai_kontrak, get_awalkontrak, get_akhirkontrak);
                 call_update.enqueue(new Callback<DataResponsePaket>() {
                     @Override

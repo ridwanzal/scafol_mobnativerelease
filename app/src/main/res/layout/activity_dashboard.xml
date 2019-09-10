@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container_dashboards"
@@ -521,7 +526,7 @@
         android:textAlignment="viewStart"
         android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
         android:background="@drawable/button_ripple_generals"
-        android:text="Lihat Semua Anggaran" />
+        android:text="Lihat Semua Paket Non-Fisik" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/dashchart"
@@ -532,3 +537,4 @@
 
 </RelativeLayout>
 </LinearLayout>
+</ScrollView>

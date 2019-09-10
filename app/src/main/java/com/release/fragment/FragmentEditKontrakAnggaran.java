@@ -40,12 +40,14 @@ import com.release.restapi.ApiInterface;
 import com.release.sharedexternalmodule.DatePickerFragment;
 import com.release.sharedexternalmodule.formatMoneyIDR;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
+import faranjit.currency.edittext.CurrencyEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -57,7 +59,7 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
     private TextView t_awalkontrak_ang;
     private TextView t_akhirkontrak_ang;
 
-    private EditText t_nilaikontrak_ang;
+    private CurrencyEditText t_nilaikontrak_ang;
     private ImageView btn_date_awal_ang;
     private ImageView btn_date_akhir_ang;
 
@@ -170,7 +172,12 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
                 // submit data to update contract.
                 progressDialog.show();
                 String get_nomorkontrak = t_nomorkontrak_ang.getText().toString();
-                String get_nilai_kontrak = t_nilaikontrak_ang.getText().toString().replaceAll("[.]","");
+                String get_nilai_kontrak = "";
+                try{
+                    get_nilai_kontrak = t_nilaikontrak_ang.getCurrencyText();
+                }catch (ParseException e){
+                    e.printStackTrace();
+                }
                 String get_awalkontrak = t_awalkontrak_ang.getText().toString();
                 String get_akhirkontrak = t_akhirkontrak_ang.getText().toString();
 

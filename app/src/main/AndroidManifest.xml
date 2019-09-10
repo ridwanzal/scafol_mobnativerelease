@@ -105,7 +105,7 @@
         <activity
             android:windowSoftInputMode="adjustResize"
             android:name="com.release.activity.ActivityUpdateDataAnggaran"
-            android:label="Update Data Anggaran">
+            android:label="Update Data Paket Non-Fisik">
         </activity>
         <activity
             android:windowSoftInputMode="adjustResize"

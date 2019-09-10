@@ -58,22 +58,39 @@
                         android:text="Nilai Kontrak"
                         android:textColor="#aaa" />
 
-                    <EditText
+<!--                    <EditText-->
+<!--                        android:id="@+id/text_nilaikontrak_anggaran"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:drawableLeft="@drawable/money_icon"-->
+<!--                        android:drawablePadding="10dp"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:background="@drawable/edittextborder_generic"-->
+
+<!--                        android:drawableRight="@drawable/ic_close_black_24dp"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:text="TextView"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:textStyle="normal" />-->
+
+                    <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/text_nilaikontrak_anggaran"
+                        app:monetaryDivider=","
+                        app:groupDivider="."
+                        android:background="@drawable/edittextborder_generic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:drawableLeft="@drawable/money_icon"
-                        android:drawablePadding="10dp"
                         android:inputType="numberDecimal"
-                        android:padding="10dp"
-                        android:background="@drawable/edittextborder_generic"
-
-                        android:drawableRight="@drawable/ic_close_black_24dp"
-                        android:textSize="16sp"
-                        android:text="TextView"
                         android:layout_marginTop="4dp"
-                        android:textStyle="normal" />
+                        android:textStyle="normal"
+                        android:drawableRight="@drawable/ic_close_black_24dp"
+                        android:padding="10dp"
+                        android:drawablePadding="10dp"
+                        android:drawableLeft="@drawable/money_icon"
+                        android:textColor="@android:color/black"
+                        app:locale="en_US" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

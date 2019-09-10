@@ -58,7 +58,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + "Informasi Detail Anggaran/ Non Fisik" + "</small>"));
         text_nama_anggaran = findViewById(R.id.text_nama_anggaran);
         text_kontrak_anggaran = findViewById(R.id.text_kontrak_anggaran);
-        text_nomorkontrak_anggaran = findViewById(R.id.text_kontrak_anggaran);
+        text_nomorkontrak_anggaran = findViewById(R.id.text_nomorkontrak_anggaran);
         text_akhirkontrak_anggaran = findViewById(R.id.text_akhirkontrak_anggaran);
         text_anggaran_pagu = findViewById(R.id.text_anggaran_pagu);
         text_kegjudul_ang = findViewById(R.id.text_kegjudul_ang);

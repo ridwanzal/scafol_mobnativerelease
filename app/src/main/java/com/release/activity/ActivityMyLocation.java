@@ -98,7 +98,7 @@ public class ActivityMyLocation extends AppCompatActivity {
                         setMyLocation();
                         if (ContextCompat.checkSelfPermission(this,
                                 Manifest.permission.ACCESS_FINE_LOCATION)
-                                == PackageManager.PERMISSION_GRANTED) {
+                                == PackageManager.PERMISSION_GRANTED) { 
 
                         }
 
