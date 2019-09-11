@@ -35,6 +35,7 @@ public class ServiceReminder extends Service {
                 .build();
 
         startForeground(1, notification);
+        stopForeground(false);
 
         //do heavy work on a background thread
         //stopSelf();

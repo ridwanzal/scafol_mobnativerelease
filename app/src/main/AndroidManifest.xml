@@ -165,6 +165,10 @@
         <receiver android:name=".receiver.NotificationReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.POWER_CONNECTED" />
+                <action android:name="android.intent.action.POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BATTERY_OKAY" />
             </intent-filter>
         </receiver>
         <service android:name="com.release.service.ServiceReminder" />
