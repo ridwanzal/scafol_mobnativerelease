@@ -19,15 +19,18 @@ public class ServiceReminder extends Service {
         Intent notificationIntent = new Intent(this, ActivityDashboard.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 0, notificationIntent, 0);
-        String input = "Jangan lupa untuk update progres pekerjaan";
+//        String input = "Jangan lupa untuk update progres pekerjaan";
+        String message = intent.getStringExtra("inputExtra");
         Notification notification = new NotificationCompat.Builder(this, App.CHANNEL_ID)
                 .setContentTitle("Reminder")
-                .setContentText(input)
+                .setContentText(message)
                 .setSmallIcon(R.drawable.ic_logo_notification)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
                 .setOngoing(false)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(message))
                 .setOnlyAlertOnce(true)
                 .build();
 

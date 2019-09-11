@@ -54,8 +54,13 @@ public class ReminderCore {
             final Date d = new Date();
             final String dayOfTheWeek = sdf.format(d);
             int day = Integer.parseInt(dayOfTheWeek);
-            if (day == 2 || day == 5 || day == 20 || day == 25 || day == 30){
-                this.message = this.message.equals("") ? "Jangan lupa update progres ya" : this.message;
+            if (day == 1 || day == 11){
+                this.message = this.message.equals("") ? "Jangan lupa update progres ya" : "Anda sudah memasuki awal bulan, silahkan update progress";
+                Intent serviceIntent = new Intent(context, service);
+                serviceIntent.putExtra("inputExtra", this.message);
+                ContextCompat.startForegroundService(context, serviceIntent);
+            }else if(day == 21 || day == 25 || day == 30){
+                this.message = this.message.equals("") ? "Jangan lupa update progres ya" : "Anda sudah mendekati akhir bulan, silahkan update progress";
                 Intent serviceIntent = new Intent(context, service);
                 serviceIntent.putExtra("inputExtra", this.message);
                 ContextCompat.startForegroundService(context, serviceIntent);

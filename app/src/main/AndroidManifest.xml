@@ -6,6 +6,7 @@
     >
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.
@@ -161,6 +162,11 @@
             android:name="com.release.dropbox.ActivityTag"
             android:label="">
         </activity>
+        <receiver android:name=".receiver.NotificationReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
         <service android:name="com.release.service.ServiceReminder" />
         <receiver android:name= ".receiver.NotificationPublisher" />
     </application>

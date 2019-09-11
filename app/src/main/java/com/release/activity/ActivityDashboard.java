@@ -149,8 +149,8 @@ public class ActivityDashboard extends AppCompatActivity {
 
 //        startServiceReminder();
 
-        reminderCore = new ReminderCore(getApplicationContext(), ServiceReminder.class, "Gua mw update");
-        reminderCore.run();
+//        reminderCore = new ReminderCore(getApplicationContext(), ServiceReminder.class, "Silahkan Update Progress");
+//        reminderCore.run();
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
