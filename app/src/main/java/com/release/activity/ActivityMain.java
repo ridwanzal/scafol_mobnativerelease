@@ -294,8 +294,8 @@ public class ActivityMain extends AppCompatActivity{
             }
 
             @Override
-            public void onItemLongClick(View view, int position) {
-                Toasty.success(getApplicationContext(), "Item number : " + position, Toasty.LENGTH_SHORT).show();
+            public boolean onItemLongClick(View view, int position) {
+                return false;
             }
         });
 
@@ -353,8 +353,8 @@ public class ActivityMain extends AppCompatActivity{
             }
 
             @Override
-            public void onItemLongClick(View view, int position) {
-
+            public boolean onItemLongClick(View view, int position) {
+                return false;
             }
         });
 

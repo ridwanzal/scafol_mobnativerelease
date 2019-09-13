@@ -3,6 +3,7 @@ package com.release.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ActionMode;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -41,6 +43,7 @@ public class ActivityCatatan extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView textnofound;
     private Toolbar toolbar;
+    private androidx.appcompat.view.ActionMode actionMode;
 
     ArrayList<Catatan> mData = new ArrayList<>();
 
@@ -89,12 +92,45 @@ public class ActivityCatatan extends AppCompatActivity {
         catatanAdapter = new CatatanAdapter(getApplicationContext(), catatanArrayList, new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Toasty.success(getApplicationContext(), "Deleted icon clicked : " + position, Toasty.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onItemLongClick(View view, int position) {
-                Toasty.success(getApplicationContext(), "Item number : " + position, Toasty.LENGTH_SHORT).show();
+            public boolean onItemLongClick(View view, final int position) {
+                if(actionMode != null){
+                    return false;
+                }
+//                isInActionMode = true;
+                actionMode = startSupportActionMode(new ActionMode.Callback(){
+                    @Override
+                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                        mode.getMenuInflater().inflate(R.menu.right_menu_delete, menu);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                        mode.setTitle("Delete item catatan");
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.nav_delete :
+                                Toasty.success(getApplicationContext(), "Deleted icon clicked : " + position, Toasty.LENGTH_SHORT).show();
+                                break;
+                        }
+                        return false;
+                    }
+
+                    @Override
+                    public void onDestroyActionMode(ActionMode mode) {
+                        actionMode = null;
+                    }
+                });
+                // prepareSelection(position);
+                return true;
             }
 
             @Override
@@ -169,12 +205,17 @@ public class ActivityCatatan extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (isInActionMode) {
-            clearActionMode();
-            catatanAdapter.notifyDataSetChanged();
-        } else {
-            super.onBackPressed();
+        super.onBackPressed();
+    }
+
+    public int getCheckedLastPosition() {
+        ArrayList<Catatan> dataSet = catatanAdapter.getDataSet();
+        for (int i = 0; i < dataSet.size(); i++) {
+            if (dataSet.get(i).equals(selectionList.get(0))) {
+                return i;
+            }
         }
+        return 0;
     }
 
     @Override
