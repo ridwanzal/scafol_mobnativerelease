@@ -17,7 +17,7 @@ import java.io.InputStream;
 /**
  * Async task to upload a file to a directory
  */
-class UploadFileTask extends AsyncTask<String, Void, FileMetadata> {
+public class UploadFileTask extends AsyncTask<String, Void, FileMetadata> {
 
     private final Context mContext;
     private final DbxClientV2 mDbxClient;

@@ -150,6 +150,8 @@ public class FilesActivityDirect extends DropboxActivity {
         intent.setType("*/*");
         startActivityForResult(intent, PICKFILE_REQUEST_CODE);
     }
+
+
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
