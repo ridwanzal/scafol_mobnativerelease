@@ -11,12 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.release.R;
 import com.release.adapter.CatatanAdapter;
 import com.release.adapter.ProgressAdapter;
+import com.release.interfacemodule.ItemClickListener;
 import com.release.model.Catatan;
 import com.release.model.DataResponse;
 import com.release.model.DataResponseCatatan;
@@ -26,6 +28,8 @@ import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 
 import java.util.ArrayList;
+
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +40,14 @@ public class ActivityCatatan extends AppCompatActivity {
     private CatatanAdapter catatanAdapter;
     private ProgressBar progressBar;
     private TextView textnofound;
+    private Toolbar toolbar;
+
+    ArrayList<Catatan> mData = new ArrayList<>();
+
+    // action mode
+    public static boolean isInActionMode = false;
+    public static ArrayList<Catatan> selectionList = new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +86,27 @@ public class ActivityCatatan extends AppCompatActivity {
 
     private void generateProgressList(ArrayList<Catatan> catatanArrayList){
         recyclerView = findViewById(R.id.recycle_catatan);
-        catatanAdapter = new CatatanAdapter(getApplicationContext(), catatanArrayList);
+        catatanAdapter = new CatatanAdapter(getApplicationContext(), catatanArrayList, new ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toasty.success(getApplicationContext(), "Item number : " + position, Toasty.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemDoubleCLick(View view, int position) {
+
+            }
+
+            @Override
+            public void onDoubleClick(View view, int position) {
+
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityCatatan.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(catatanAdapter);
@@ -85,10 +117,64 @@ public class ActivityCatatan extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home :
+                catatanAdapter.notifyDataSetChanged();
                 finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void prepareToolbar(int position){
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.right_menu_delete);
+        isInActionMode = true;
+        catatanAdapter.notifyDataSetChanged();
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    public void prepareSelection(int position) {
+        if (!selectionList.contains(mData.get(position))) {
+            selectionList.add(mData.get(position));
+        } else {
+            selectionList.remove(mData.get(position));
+        }
+
+        updateViewCounter();
+    }
+
+    private void updateViewCounter() {
+        int counter = selectionList.size();
+        if (counter == 1) {
+            // edit
+            toolbar.getMenu().getItem(0).setVisible(true);
+        } else {
+            toolbar.getMenu().getItem(0).setVisible(false);
+        }
+
+        toolbar.setTitle(counter + " item(s) selected");
+    }
+
+    public void clearActionMode() {
+        isInActionMode = false;
+        toolbar.getMenu().clear();
+        toolbar.inflateMenu(R.menu.right_menu_delete);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        }
+        toolbar.setTitle(R.string.app_name);
+        selectionList.clear();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isInActionMode) {
+            clearActionMode();
+            catatanAdapter.notifyDataSetChanged();
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -105,4 +191,5 @@ public class ActivityCatatan extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
     }
+
 }

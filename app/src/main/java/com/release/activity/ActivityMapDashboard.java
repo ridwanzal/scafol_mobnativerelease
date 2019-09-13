@@ -103,6 +103,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                 longitude =Double.valueOf(response.body().getData().get(i).getLongitude());
                                 final GeoPoint point = new GeoPoint(latitude, longitude);
                                 mapController.setCenter(point);
+                                mapController.setZoom(11);
                                 mapController.zoomOut();
                             }
                         }

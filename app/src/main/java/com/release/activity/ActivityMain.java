@@ -292,6 +292,11 @@ public class ActivityMain extends AppCompatActivity{
             public void onDoubleClick(View view, int position) {
                 // do nothing here
             }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toasty.success(getApplicationContext(), "Item number : " + position, Toasty.LENGTH_SHORT).show();
+            }
         });
 
         total_paket_info = findViewById(R.id.total_paket_caption);
@@ -345,6 +350,11 @@ public class ActivityMain extends AppCompatActivity{
             @Override
             public void onDoubleClick(View view, int position) {
                 // do nothing here
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
             }
         });
 

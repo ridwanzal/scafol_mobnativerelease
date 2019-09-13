@@ -10,15 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.release.R;
+import com.release.interfacemodule.ItemClickListener;
 import com.release.model.Catatan;
 import com.release.model.Progress;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
+
 public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanViewHolder> {
     private ArrayList<Catatan> catatanArrayList;
     Context mContext;
+    ItemClickListener listener;
     public CatatanAdapter(){
         this.catatanArrayList = catatanArrayList;
     }
@@ -28,11 +32,26 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanV
         this.catatanArrayList = catatanArrayList;
         this.mContext = mContext;
     }
+
+    public CatatanAdapter(Context mContext, ArrayList<Catatan> catatanArrayList, ItemClickListener listener){
+        this.mContext = mContext;
+        this.catatanArrayList = catatanArrayList;
+        this.listener = listener;
+    }
+
     @NonNull
     @Override
     public CatatanViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.listcatatan, parent, false);
+        final CatatanAdapter.CatatanViewHolder catatanViewHolder = new CatatanAdapter.CatatanViewHolder(view);
+        view.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                listener.onItemLongClick(view, catatanViewHolder.getAdapterPosition());
+                return true;
+            }
+        });
         return new CatatanAdapter.CatatanViewHolder(view);
     }
 
@@ -62,5 +81,17 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanV
     @Override
     public int getItemCount() {
         return catatanArrayList.size();
+    }
+
+    public void removeData(ArrayList<Catatan> catatanArrayList){
+        for(Catatan catatan : catatanArrayList){
+            catatanArrayList.remove(catatan);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void changeDataItem(int position, Catatan catatan){
+        catatanArrayList.set(position, catatan);
+        notifyDataSetChanged();
     }
 }

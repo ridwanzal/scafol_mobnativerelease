@@ -47,6 +47,7 @@ public class ActivityEditProfil extends AppCompatActivity {
     private TextView prof_dinas;
     SessionManager sessionManager;
     String user_id;
+    String role;
     Dialog dialog;
 
     @Override
@@ -66,7 +67,11 @@ public class ActivityEditProfil extends AppCompatActivity {
         sessionManager.checkLogin();
         HashMap<String, String> user = sessionManager.getUserDetails();
         user_id =  user.get(SessionManager.KEY_USERID);
+        role = user.get(SessionManager.KEY_ROLE);
 
+        if(role.toLowerCase().equals("pptk")){
+
+        }
 
         Call<DataResponse> call_user = apiInterface.getUserById(user_id);
         call_user.enqueue(new Callback<DataResponse>() {
