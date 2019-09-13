@@ -10,7 +10,7 @@
     >
 
     <RelativeLayout
-        android:id="@+id/cont_paket"
+        android:id="@+id/container_catatan"
         android:background="?android:attr/selectableItemBackground"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"

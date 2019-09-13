@@ -2,8 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/nav_editprofil"
-        app:showAsAction="ifRoom"
+        android:id="@+id/nav_delete"
+        android:icon="@drawable/ic_delete_white"
+        app:showAsAction="always"
         android:visible="true"
-        android:title="Delete" />
+        android:iconTint="@color/colorwhite"
+        android:title="Progres" />
 </menu>
