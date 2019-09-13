@@ -94,7 +94,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
 
     public static Boolean check_duplicate = false;
 
-
     private static String ke_id = "";
     private static String pa_id = "";
     private static String pa_judul = "";
@@ -211,7 +210,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
             }
         });
 
-
         keu_serap.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -300,8 +298,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
         });
 
 
-
-
         /******************************************************************Catatan Submission********************************************************************************/
 
         pr_catatan_fisik.setOnClickListener(new View.OnClickListener() {
@@ -383,9 +379,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                 startActivity(intent2);
             }
         });
-
-        date_progresfisik.setOnClickListener(this);
-        btn_date_prog_keuangan.setOnClickListener(this);
 
 
         /******************************************************************Progress Fisik Submission********************************************************************************/
@@ -568,6 +561,8 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
             }
         });
 
+        date_progresfisik.setOnClickListener(this);
+        btn_date_prog_keuangan.setOnClickListener(this);
         return view;
     }
 
