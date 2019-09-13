@@ -87,12 +87,11 @@ public class ActivityCatatan extends AppCompatActivity {
         });
     }
 
-    private void generateProgressList(ArrayList<Catatan> catatanArrayList){
+    private void generateProgressList(final ArrayList<Catatan> catatanArrayList){
         recyclerView = findViewById(R.id.recycle_catatan);
         catatanAdapter = new CatatanAdapter(getApplicationContext(), catatanArrayList, new ItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Toasty.success(getApplicationContext(), "Deleted icon clicked : " + position, Toasty.LENGTH_SHORT).show();
             }
 
             @Override
@@ -110,7 +109,6 @@ public class ActivityCatatan extends AppCompatActivity {
 
                     @Override
                     public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                        mode.setTitle("Delete item catatan");
                         return true;
                     }
 
@@ -118,7 +116,8 @@ public class ActivityCatatan extends AppCompatActivity {
                     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.nav_delete :
-                                Toasty.success(getApplicationContext(), "Deleted icon clicked : " + position, Toasty.LENGTH_SHORT).show();
+                                catatanArrayList.remove(position);
+                                catatanAdapter.notifyItemRemoved(position);
                                 break;
                         }
                         return false;
@@ -226,6 +225,7 @@ public class ActivityCatatan extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        catatanAdapter = null;
     }
 
     @Override

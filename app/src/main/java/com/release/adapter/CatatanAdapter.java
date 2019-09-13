@@ -26,6 +26,7 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanV
     private ArrayList<Catatan> catatanArrayList;
     Context mContext;
     ItemClickListener listener;
+    public static Boolean is_clicked = true;
 
     public CatatanAdapter(Context mContext, ArrayList<Catatan> catatanArrayList){
         this.catatanArrayList = catatanArrayList;
@@ -44,14 +45,18 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanV
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.listcatatan, parent, false);
         final CatatanViewHolder catatanViewHolder = new CatatanViewHolder(view);
-        view.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                listener.onItemLongClick(view, catatanViewHolder.getAdapterPosition());
-                return true;
-            }
-        });
-        return new CatatanAdapter.CatatanViewHolder(view);
+//        view.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View view) {
+//                final int position = catatanViewHolder.getAdapterPosition();
+//                listener.onItemLongClick(view, position);
+//                notifyItemChanged(position);
+//                return true;
+//            }
+//        });
+
+
+        return new CatatanViewHolder(view);
     }
 
 
@@ -74,9 +79,25 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CatatanViewHolder holder, int position) {
+    public void onBindViewHolder(final CatatanViewHolder holder, final int position) {
         holder.ca_catatan.setText(catatanArrayList.get(position).getCaCatatan());
         holder.date_created.setText(catatanArrayList.get(position).getDateCreated());
+        holder.container_catatan.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                listener.onItemLongClick(view, position);
+                if(is_clicked){
+                    holder.container_catatan.setBackgroundColor(Color.parseColor("#eeeeee"));
+                    is_clicked = false;
+                }else{
+                    holder.container_catatan.setBackgroundColor(Color.parseColor("#ffffff"));
+                    is_clicked = true;
+                }
+
+                return true;
+            }
+        });
+
 //        holder.container_catatan.setBackgroundColor(Color.parseColor("#eeeeee"));
     }
 
