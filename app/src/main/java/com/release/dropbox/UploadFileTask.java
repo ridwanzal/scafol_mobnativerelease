@@ -29,7 +29,7 @@ public class UploadFileTask extends AsyncTask<String, Void, FileMetadata> {
         void onError(Exception e);
     }
 
-    UploadFileTask(Context context, DbxClientV2 dbxClient, Callback callback) {
+    public UploadFileTask(Context context, DbxClientV2 dbxClient, Callback callback) {
         mContext = context;
         mDbxClient = dbxClient;
         mCallback = callback;
