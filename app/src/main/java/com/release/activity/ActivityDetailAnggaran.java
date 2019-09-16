@@ -1,12 +1,17 @@
 package com.release.activity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -45,9 +50,13 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
     private TextView tx_tanggalupdate;
     private TextView text_kegjudul_ang;
     private TextView textbidangs_ang;
+    private ScrollView main_detailanggaran_container;
+
     String path_todropbox = "";
+    private Handler mHandler;
     String path_todropbox2 = "";
     SessionManager sessionManager;
+    ProgressDialog progressDialog;
     // Service
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     @Override
@@ -63,6 +72,11 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
         text_anggaran_pagu = findViewById(R.id.text_anggaran_pagu);
         text_kegjudul_ang = findViewById(R.id.text_kegjudul_ang);
         textbidangs_ang = findViewById(R.id.textbidangs_ang);
+        main_detailanggaran_container = findViewById(R.id.main_detailanggaran_container);
+        progressDialog = new ProgressDialog(ActivityDetailAnggaran.this);
+        main_detailanggaran_container.setVisibility(View.GONE);
+        progressDialog.show();
+        progressDialog.setMessage("Loading");
 
         String anggaran_id = getIntent().getStringExtra("an_id");
         Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaran(anggaran_id);
@@ -126,6 +140,17 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
 
                             }
                         });
+
+                        new Thread(new Runnable() {
+                            public void run() {
+                                try {
+                                    Thread.sleep(200);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                                mHandler.sendMessage(Message.obtain(mHandler, 1));
+                            }
+                        }).start();
                     }
                 }else{
                 }
@@ -136,6 +161,18 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                 Log.e(TAG, t.toString());
             }
         });
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        progressDialog.dismiss();
+                        main_detailanggaran_container.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        };
     }
 
     @Override

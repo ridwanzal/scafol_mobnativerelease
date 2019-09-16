@@ -82,7 +82,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
         mapController = dashmap.getController();
         main_mapdash_container.setVisibility(View.GONE);
         progressDialog = new ProgressDialog(ActivityMapDashboard.this);
-//
 
         String role;
         sessionManager = new SessionManager(getApplicationContext());
