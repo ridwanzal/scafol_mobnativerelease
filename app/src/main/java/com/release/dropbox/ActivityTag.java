@@ -56,6 +56,7 @@ public class ActivityTag extends AppCompatActivity {
     private static final String AUTHORITY="com.release.dropbox.FilesActivity.provider";
     private static final int PICKFILE_CAMERA_REQUEST_CODE = 2;
     private static final int MY_PERMISSION_OPEN_CAMERA = 3;
+    private static final int MY_PERMISSION_LOCATION = 3;
     private static final int MY_PERMISSION_WRITE_STORAGE = 4;
     private static final int MY_PERMISSION_READ_STORAGE = 5;
 
@@ -97,9 +98,31 @@ public class ActivityTag extends AppCompatActivity {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
 //                dispatchTakePictureIntent();
-                checkCameraPermission();
-                checkWriteStorage();
-                checkReadStorage();
+//                if(checkCameraPermission()){
+//                    if(checkLocationPermission()){
+//                        if(checkWriteStorage()){
+//                            if(checkReadStorage()){
+//                                dispatchTakePictureIntent();
+//                            }
+//                        }
+//                    }
+//                }
+                int PERMISSION_ALL = 1;
+                String[] PERMISSIONS = {
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.CAMERA
+                };
+                if(!checkAllPermission(this, PERMISSIONS)){
+                    ActivityCompat.requestPermissions(ActivityTag.this, PERMISSIONS, PERMISSION_ALL);
+                    dispatchTakePictureIntent();
+                }else{
+                    dispatchTakePictureIntent();
+                }
+
+//                checkCameraPermission();
+//                checkLocationPermission();
             }
         });
 
@@ -107,6 +130,8 @@ public class ActivityTag extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+//                    checkWriteStorage();
+//                    checkReadStorage();
                     camera.setVisibility(View.GONE);
                     cme.setVisibility(View.GONE);
                     Bitmap b = takescreenshot(relativeLayout);
@@ -131,6 +156,17 @@ public class ActivityTag extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
+    private boolean checkAllPermission(View.OnClickListener listener, String... permissions){
+        if (listener != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     private boolean checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.CAMERA)
@@ -139,8 +175,8 @@ public class ActivityTag extends AppCompatActivity {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.CAMERA)) {
                 new AlertDialog.Builder(this)
-                        .setTitle("Location Permission")
-                        .setMessage("Allow to get your current location")
+                        .setTitle("Camera Permission")
+                        .setMessage("Allow to use device camera")
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -158,7 +194,36 @@ public class ActivityTag extends AppCompatActivity {
             }
             return false;
         } else {
-            dispatchTakePictureIntent();
+            return true;
+        }
+    }
+    private boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Location Permission")
+                        .setMessage("Allow to get your current location")
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                ActivityCompat.requestPermissions(ActivityTag.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSION_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+            } else {
+                ActivityCompat.requestPermissions(ActivityTag.this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSION_LOCATION);
+            }
+            return false;
+        } else {
             return true;
         }
     }
@@ -294,7 +359,7 @@ public class ActivityTag extends AppCompatActivity {
                     public void onDataLoaded(ListFolderResult result) {
 //                        dialog.dismiss();
                         finish();
-                        startActivity(FilesActivity.getIntent(ActivityTag.this, mPath));
+                        startActivity(FilesActivityDirect.getIntent(ActivityTag.this, mPath));
 //                        notfoundfile.setVisibility(View.GONE);
 //                        mFilesAdapter.setFiles(result.getEntries());
                     }
