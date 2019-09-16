@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
     MapView dashmap = null;
     ImageView center_to_map;
     Dialog dialoginfo;
+    FrameLayout main_mapdash_container;
 
 
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
@@ -67,6 +69,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
         Intent intent = getIntent();
         final String user_id = intent.getStringExtra("user_id");
         dashmap = findViewById(R.id.dashmap);
+        main_mapdash_container = findViewById(R.id.main_mapdash_container);
         dashmap.setTileSource(TileSourceFactory.MAPNIK);
         dashmap.setMultiTouchControls(true);
         dashmap.setFlingEnabled(true);
@@ -77,6 +80,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
         dashmap.computeScroll();
         center_to_map = findViewById(R.id.center_to_map);
         mapController = dashmap.getController();
+        main_mapdash_container.setVisibility(View.GONE);
         progressDialog = new ProgressDialog(ActivityMapDashboard.this);
 //
 
@@ -354,9 +358,11 @@ public class ActivityMapDashboard extends AppCompatActivity {
                 switch (msg.what){
                     case 1 :
                         progressDialog.dismiss();
+                        main_mapdash_container.setVisibility(View.VISIBLE);
                         break;
                     case 2 :
                         progressDialog.dismiss();
+                        main_mapdash_container.setVisibility(View.VISIBLE);
                         break;
                 }
             }

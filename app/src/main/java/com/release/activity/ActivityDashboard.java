@@ -8,6 +8,9 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,8 +18,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
@@ -43,6 +48,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import com.release.sharedexternalmodule.formatMoneyIDR;
 import retrofit2.Callback;
@@ -87,6 +93,9 @@ public class ActivityDashboard extends AppCompatActivity {
     private String bi_id;
     private String user_fullname;
     private String user_name;
+    private Handler mHandler;
+    private  ProgressDialog progressDialog;
+    private ScrollView main_container_dashbaord;
 
     private LinearLayout linear_calendar;
 
@@ -116,6 +125,7 @@ public class ActivityDashboard extends AppCompatActivity {
         String user_name = user.get(SessionManager.KEY_USERNAME);
         show_list = findViewById(R.id.btn_tolist);
         show_list2 = findViewById(R.id.btn_tolist2);
+        main_container_dashbaord = findViewById(R.id.main_container_dashbaord);
         progress = new ProgressDialog(this);
         final View parentLayout = findViewById(android.R.id.content);
 
@@ -155,6 +165,24 @@ public class ActivityDashboard extends AppCompatActivity {
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
         dialog.setMessage("Loading");
+
+        main_container_dashbaord.setVisibility(View.GONE);
+        progressDialog = new ProgressDialog(ActivityDashboard.this);
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        progressDialog.dismiss();
+                        main_container_dashbaord.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        };
 
         if(sessionManager.isLoggedIn()){
 //            Snackbar.make(parentLayout, "Selamat Datang", Snackbar.LENGTH_LONG).show();
@@ -258,6 +286,18 @@ public class ActivityDashboard extends AppCompatActivity {
 
                             }
                         });
+
+                // set marker
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        mHandler.sendMessage(Message.obtain(mHandler, 1));
+                    }
+                }).start();
             }else if(role.toLowerCase().equals("admin")){
                 // admin page goes heres
                 show_list.setVisibility(View.VISIBLE);
@@ -376,6 +416,17 @@ public class ActivityDashboard extends AppCompatActivity {
 
                         }
                     });
+                    // set marker
+                    new Thread(new Runnable() {
+                        public void run() {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            mHandler.sendMessage(Message.obtain(mHandler, 1));
+                        }
+                    }).start();
             }
 
             btn_mapdash.setOnClickListener(new View.OnClickListener() {
