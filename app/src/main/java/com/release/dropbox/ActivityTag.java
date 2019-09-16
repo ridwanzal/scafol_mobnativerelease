@@ -85,7 +85,6 @@ public class ActivityTag extends AppCompatActivity {
         String path = getIntent().getStringExtra("path");
         mPath = path == null ? "" : path;
         camera = findViewById(R.id.camera);
-        times = findViewById(R.id.times);
         cme = findViewById(R.id.cme);
         relativeLayout = findViewById(R.id.main);
         times.setVisibility(View.GONE);
