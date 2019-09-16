@@ -88,7 +88,6 @@ public class ActivityTag extends AppCompatActivity {
         camera = findViewById(R.id.camera);
         cme = findViewById(R.id.cme);
         relativeLayout = findViewById(R.id.main);
-        times.setVisibility(View.GONE);
 //        setSupportActionBar(toolbar);
 
 //        FloatingActionButton fab = findViewById(R.id.fab);
