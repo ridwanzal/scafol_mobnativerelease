@@ -49,22 +49,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/latlang2"
                 />
-
-            <TextView
-                android:layout_below="@+id/latlang"
-                android:text="2012/08/18"
-                android:layout_marginTop="5dp"
-                android:textColor="#ffc92a"
-                android:layout_marginRight="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginLeft="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/times"
-                android:visibility="gone"
-                android:drawableLeft="@drawable/ic_date_range_black_24dp"
-                android:drawablePadding="10dp"
-                />
         </RelativeLayout>
 
     </FrameLayout>
