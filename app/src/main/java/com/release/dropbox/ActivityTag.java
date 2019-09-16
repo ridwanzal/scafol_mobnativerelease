@@ -318,10 +318,8 @@ public class ActivityTag extends AppCompatActivity {
                         if (location != null) {
                             latitude.setVisibility(View.VISIBLE);
                             longitude.setVisibility(View.VISIBLE);
-                            times.setVisibility(View.GONE);
                             latitude.setText("Latitude : " + location.getLatitude());
                             longitude.setText("Longitude : " + location.getLongitude());
-                            times.setText(DateInfo.dateTime());
                         }
                     }
                 });
