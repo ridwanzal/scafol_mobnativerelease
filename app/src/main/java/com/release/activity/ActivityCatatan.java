@@ -152,7 +152,6 @@ public class ActivityCatatan extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home :
-                catatanAdapter.notifyDataSetChanged();
                 finish();
                 return true;
         }

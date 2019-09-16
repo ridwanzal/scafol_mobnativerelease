@@ -8,30 +8,34 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.release.fragment.FragmentCatatan;
 import com.release.fragment.FragmentEditKontrak;
 import com.release.R;
 import com.release.fragment.FragmentEditLokasi;
 import com.release.fragment.FragmentKurvaS;
 import com.release.fragment.FragmentPenyediaJasa;
 import com.release.fragment.FragmentProgress;
+import com.release.fragment.FragmentProgressKeuangan;
 
 public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
     @StringRes
     private static final int[] TAB_TITLES = new int[]
-//            {R.string.update_kurvas,
-//            R.string.update_editkontrak,
-//            R.string.update_editlokasi,
-//            R.string.update_progress,
-//            R.string.update_penyediajasa,
-//            R.string.update_upload,
-//            };
+//           {R.string.update_kurvas,
+//           R.string.update_editkontrak,
+//           R.string.update_editlokasi,
+//           R.string.update_progress,
+//           R.string.update_penyediajasa,
+//           R.string.update_upload,
+//           };
             {
 //          R.string.update_kurvas,
-            R.string.update_editkontrak,
-            R.string.update_editlokasi,
-            R.string.update_progress,
-//            R.string.update_penyediajasa,
-//            R.string.update_upload,
+                R.string.update_editkontrak,
+                R.string.update_editlokasi,
+                R.string.update_progress,
+                R.string.update_progress_keu,
+                R.string.catatan
+//          R.string.update_penyediajasa,
+//          R.string.update_upload,
             };
     private final Context mContext;
 
@@ -53,6 +57,9 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
             case 2 :
                 return new FragmentProgress();
             case 3 :
+                return new FragmentProgressKeuangan();
+            case 4 :
+                return new FragmentCatatan();
 //            return new FragmentPenyediaJasa();
 //                return new FragmentUploadData(); // upload
             default:
@@ -69,6 +76,6 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 3;
+        return 5;
     }
 }
