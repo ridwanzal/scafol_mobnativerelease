@@ -45,17 +45,6 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanV
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.listcatatan, parent, false);
         final CatatanViewHolder catatanViewHolder = new CatatanViewHolder(view);
-//        view.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                final int position = catatanViewHolder.getAdapterPosition();
-//                listener.onItemLongClick(view, position);
-//                notifyItemChanged(position);
-//                return true;
-//            }
-//        });
-
-
         return new CatatanViewHolder(view);
     }
 
@@ -86,19 +75,9 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanV
             @Override
             public boolean onLongClick(View view) {
                 listener.onItemLongClick(view, position, catatanArrayList.get(position).getCaId());
-                if(is_clicked){
-                    holder.container_catatan.setBackgroundColor(Color.parseColor("#eeeeee"));
-                    is_clicked = false;
-                }else{
-                    holder.container_catatan.setBackgroundColor(Color.parseColor("#ffffff"));
-                    is_clicked = true;
-                }
-
                 return true;
             }
         });
-
-//        holder.container_catatan.setBackgroundColor(Color.parseColor("#eeeeee"));
     }
 
     @Override
