@@ -751,7 +751,6 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/map_cards"
-            android:clickable="true"
             android:layout_below="@id/card5"
             android:padding="15dp"
             android:layout_width="match_parent"
@@ -761,6 +760,7 @@
             <LinearLayout
                 android:layout_gravity="center"
                 android:layout_width="match_parent"
+                android:background="@drawable/button_ripple_white"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:paddingLeft="8dp"
