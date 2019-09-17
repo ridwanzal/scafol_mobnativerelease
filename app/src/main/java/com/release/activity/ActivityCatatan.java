@@ -1,8 +1,11 @@
 package com.release.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +48,9 @@ public class ActivityCatatan extends AppCompatActivity {
     private Toolbar toolbar;
     private androidx.appcompat.view.ActionMode actionMode;
 
+    String id_paket;
+    String nama_paket;
+
     ArrayList<Catatan> mData = new ArrayList<>();
 
     // action mode
@@ -57,8 +63,8 @@ public class ActivityCatatan extends AppCompatActivity {
         setContentView(R.layout.recycle_catatan);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
-        final String nama_paket = intent.getStringExtra("pa_nama");
-        final String id_paket = intent.getStringExtra("pa_id");
+        nama_paket = intent.getStringExtra("pa_nama");
+        id_paket = intent.getStringExtra("pa_id");
         setTitle("Catatan");
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + nama_paket + "</small>"));
         progressBar = findViewById(R.id.progress_listprogress_catatan);
@@ -95,40 +101,45 @@ public class ActivityCatatan extends AppCompatActivity {
             }
 
             @Override
-            public boolean onItemLongClick(View view, final int position) {
+            public boolean onItemLongClick(View view, final int position, final String list_id) {
+                Toasty.success(getApplicationContext(), "List id : " + list_id, Toasty.LENGTH_SHORT).show();
                 if(actionMode != null){
                     return false;
                 }
-//                isInActionMode = true;
-                actionMode = startSupportActionMode(new ActionMode.Callback(){
-                    @Override
-                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                        mode.getMenuInflater().inflate(R.menu.right_menu_delete, menu);
-                        return true;
-                    }
 
-                    @Override
-                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                        return true;
-                    }
+                new AlertDialog.Builder(ActivityCatatan.this)
+                        .setTitle("Hapus Catatan")
+                        .setMessage("Anda yakin ingin menghapus item ini ?")
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                        switch (item.getItemId()){
-                            case R.id.nav_delete :
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //your deleting code
+                                Call<DataResponseCatatan> removeCatatan = apiInterface.removeCatatan(list_id);
+                                removeCatatan.enqueue(new Callback<DataResponseCatatan>() {
+                                    @Override
+                                    public void onResponse(Call<DataResponseCatatan> call, Response<DataResponseCatatan> response) {
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<DataResponseCatatan> call, Throwable t) {
+
+                                    }
+                                });
                                 catatanArrayList.remove(position);
                                 catatanAdapter.notifyItemRemoved(position);
-                                break;
-                        }
-                        return false;
-                    }
+                                dialog.dismiss();
+                            }
 
-                    @Override
-                    public void onDestroyActionMode(ActionMode mode) {
-                        actionMode = null;
-                    }
-                });
-                // prepareSelection(position);
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .create().show();
                 return true;
             }
 

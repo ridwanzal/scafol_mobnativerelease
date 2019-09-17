@@ -72,6 +72,10 @@ public interface ApiInterface {
     @GET("paket/catatan")
     Call<DataResponseCatatan> getCatatan(@Query("pa_id") String pa_id);
 
+    @FormUrlEncoded
+    @POST("paket/catatan_delete")
+    Call<DataResponseCatatan> removeCatatan(@Field("ca_id") String ca_id);
+
     @GET("anggaran/pptk")
     Call<DataResponseAnggaran> getAnggaranPPTK(@Query("pptk_id") String pptk_id);
 

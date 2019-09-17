@@ -294,7 +294,7 @@ public class ActivityMain extends AppCompatActivity{
             }
 
             @Override
-            public boolean onItemLongClick(View view, int position) {
+            public boolean onItemLongClick(View view, int position, String id_list) {
                 return false;
             }
         });
@@ -353,7 +353,7 @@ public class ActivityMain extends AppCompatActivity{
             }
 
             @Override
-            public boolean onItemLongClick(View view, int position) {
+            public boolean onItemLongClick(View view, int position, String id_list) {
                 return false;
             }
         });
