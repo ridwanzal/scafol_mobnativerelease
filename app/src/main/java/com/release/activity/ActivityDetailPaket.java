@@ -520,29 +520,29 @@ public class ActivityDetailPaket extends AppCompatActivity {
         Intent intents = getIntent();
         String request = intents.getStringExtra("request");
         Boolean check = request.equals("map_dash");
-        if(check){
-            MenuItem prog = menu.findItem(R.id.nav_progress);
-            MenuItem up = menu.findItem(R.id.nav_upload);
-            MenuItem up2 = menu.findItem(R.id.nav_uploadoc);
-            MenuItem kont = menu.findItem(R.id.nav_editkontrak);
-            MenuItem lok = menu.findItem(R.id.nav_editlokasi);
-            prog.setVisible(false);
-            kont.setVisible(false);
-            lok.setVisible(false);
-            up2.setVisible(false);
-            up.setVisible(false);
-        }else{
-            MenuItem prog = menu.findItem(R.id.nav_progress);
-            MenuItem up = menu.findItem(R.id.nav_upload);
-            MenuItem up2 = menu.findItem(R.id.nav_uploadoc);
-            MenuItem kont = menu.findItem(R.id.nav_editkontrak);
-            MenuItem lok = menu.findItem(R.id.nav_editlokasi);
-            prog.setVisible(true);
-            kont.setVisible(true);
-            lok.setVisible(true);
-            up2.setVisible(true);
-            up.setVisible(true);
-        }
+//        if(check){
+//            MenuItem prog = menu.findItem(R.id.nav_progress);
+//            MenuItem up = menu.findItem(R.id.nav_upload);
+//            MenuItem up2 = menu.findItem(R.id.nav_uploadoc);
+//            MenuItem kont = menu.findItem(R.id.nav_editkontrak);
+//            MenuItem lok = menu.findItem(R.id.nav_editlokasi);
+//            prog.setVisible(false);
+//            kont.setVisible(false);
+//            lok.setVisible(false);
+//            up2.setVisible(false);
+//            up.setVisible(false);
+//        }else{
+//            MenuItem prog = menu.findItem(R.id.nav_progress);
+//            MenuItem up = menu.findItem(R.id.nav_upload);
+//            MenuItem up2 = menu.findItem(R.id.nav_uploadoc);
+//            MenuItem kont = menu.findItem(R.id.nav_editkontrak);
+//            MenuItem lok = menu.findItem(R.id.nav_editlokasi);
+//            prog.setVisible(true);
+//            kont.setVisible(true);
+//            lok.setVisible(true);
+//            up2.setVisible(true);
+//            up.setVisible(true);
+//        }
         return true;
     }
 
