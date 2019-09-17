@@ -42,8 +42,8 @@ public interface ApiInterface {
     Call<DataResponseUsers> getKontrak();
 
     @FormUrlEncoded
-    @POST("users/updateprofile/")
-    Call<DataResponseUsers> updateProfile(@Field("user_id") String user_id,  @Field("nama") String nama, @Field("telephone") String telephone);
+    @POST("users/updateprofile")
+    Call<DataResponseUsers> updateProfile(@Field("user_id") String user_id,  @Field("nama") String nama, @Field("email") String email, @Field("telephone") String telephone);
 
     @GET("kegiatan")
     Call<DataResponseKegiatan> getKegiatan(@Query("ke_id") String ke_id);

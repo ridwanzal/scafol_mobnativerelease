@@ -23,6 +23,8 @@ public class User implements Serializable {
     private String role;
     @SerializedName("isactive")
     private String isactive;
+    @SerializedName("email")
+    private String email;
 
     public User(String userId, String dinasId, String biId, String nama, String username, String telephone,
                     String bagian, String role, String isactive){
@@ -38,19 +40,19 @@ public class User implements Serializable {
         this.isactive = isactive;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId='" + userId + '\'' +
-                ", dinasId='" + dinasId + '\'' +
-                ", biId='" + biId + '\'' +
-                ", nama='" + nama + '\'' +
-                ", username='" + username + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", bagian='" + bagian + '\'' +
-                ", role='" + role + '\'' +
-                ", isactive='" + isactive + '\'' +
-                '}';
+    public User(String userId, String dinasId, String biId, String nama, String username, String telephone,
+                String bagian, String role, String isactive, String email){
+        this.userId = userId;
+        this.dinasId = dinasId;
+        this.biId = biId;
+        this.userId = userId;
+        this.nama = nama;
+        this.username = username;
+        this.telephone = telephone;
+        this.bagian = bagian;
+        this.role = role;
+        this.isactive = isactive;
+        this.email = email;
     }
 
     public String getUserId() {
@@ -59,6 +61,14 @@ public class User implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getDinasId() {

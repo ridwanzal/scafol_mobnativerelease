@@ -107,6 +107,7 @@ public class ActivityEditProfil extends AppCompatActivity {
                         prof_bagian.setText(list.get(i).getRole().toUpperCase());
                         prof_telepon.setText(checkData(list.get(i).getTelephone()));
                         prof_nama.setText(checkData(list.get(i).getNama()));
+                        prof_email.setText(checkData(list.get(i).getEmail()));
                     }
                 }
             }
@@ -271,7 +272,7 @@ public class ActivityEditProfil extends AppCompatActivity {
     public void openBottomDialog(){
         View view = getLayoutInflater().inflate(R.layout.dialog_editprofile, null);
         dialog = new BottomSheetDialog(this);
-        final EditText prof_email_edit = view.findViewById(R.id.prof_email);
+        final EditText prof_email_edit = view.findViewById(R.id.prof_email_edit);
         final EditText prof_telepon_edit = view.findViewById(R.id.prof_telepon_edit);
         final EditText prof_nama_edit = view.findViewById(R.id.prof_namas);
         final TextView submit_profile_edit= view.findViewById(R.id.submit_profile);
@@ -285,6 +286,7 @@ public class ActivityEditProfil extends AppCompatActivity {
                     for(int i = 0; i < list.size(); i++){
                         prof_telepon_edit.setText(checkData(list.get(i).getTelephone()));
                         prof_nama_edit.setText(checkData(list.get(i).getNama()));
+                        prof_email_edit.setText(checkData(list.get(i).getEmail()));
                     }
                 }
             }
@@ -301,10 +303,12 @@ public class ActivityEditProfil extends AppCompatActivity {
             public void onClick(View view) {
                 final String get_nama = prof_nama_edit.getText().toString().trim();
                 final String get_telepon = prof_telepon_edit.getText().toString().trim();
-                Call<DataResponseUsers> update_user = apiInterface.updateProfile(user_id, get_nama, get_telepon);
+                final String get_email = prof_email_edit.getText().toString().trim();
+                Call<DataResponseUsers> update_user = apiInterface.updateProfile(user_id, get_nama, get_email, get_telepon);
                 update_user.enqueue(new Callback<DataResponseUsers>() {
                     @Override
                     public void onResponse(Call<DataResponseUsers> call, Response<DataResponseUsers> response) {
+                        Log.d(TAG, "Response : " + new Gson().toJson(response));
                         if(response.code() == 200){
                             dialog.dismiss();
                         }
@@ -315,6 +319,7 @@ public class ActivityEditProfil extends AppCompatActivity {
                         dialog.dismiss();
                         prof_nama.setText(get_nama.toString().trim());
                         prof_telepon.setText(get_telepon.toString().trim());
+                        prof_email.setText(get_email.toString().trim());
                         HashMap<String, String> user_update = sessionManager.getUserDetails();
                         user_update.put(sessionManager.KEY_NAME, "");
                         user_update.put(sessionManager.KEY_NAME, get_nama.toString().trim());

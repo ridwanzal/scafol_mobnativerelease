@@ -216,7 +216,7 @@
             android:layout_marginTop="15dp"
             android:layout_below="@id/card1x"
             android:layout_width="wrap_content"
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/relx1"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -242,19 +242,17 @@
                     android:padding="5dp"
                     android:textAlignment="textEnd"
                     android:textColor="#4a9ed6" />
-
             </LinearLayout>
 
         </RelativeLayout>
         <androidx.cardview.widget.CardView
-            android:visibility="visible"
+            android:visibility="gone"
             android:id="@+id/card2x"
             android:layout_below="@+id/relx1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
-            android:paddingLeft="10dp"
-            >
+            android:paddingLeft="10dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -505,7 +503,7 @@
             android:layout_marginTop="15dp"
             android:layout_below="@id/card2x"
             android:id="@+id/labelisx"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
@@ -535,6 +533,7 @@
 
         </LinearLayout>
         <androidx.cardview.widget.CardView
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/labelisx"

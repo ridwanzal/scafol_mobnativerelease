@@ -19,7 +19,9 @@
     <string name="update_kurvas">Kurva S Rencana</string>
     <string name="update_editkontrak">Edit Kontrak</string>
     <string name="update_editlokasi">Edit Lokasi</string>
-    <string name="update_progress">Update Progres</string>
+    <string name="update_progress">Progres Fisik</string>
+    <string name="update_progress_keu">Progres Keuangan</string>
+    <string name="catatan">Catatan</string>
     <string name="update_penyediajasa">Penyedia Jasa</string>
     <string name="update_upload">Upload Data</string>
     <string name="kurva_s">Kurva S Rencana</string>
