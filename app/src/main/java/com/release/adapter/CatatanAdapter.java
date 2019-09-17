@@ -86,13 +86,13 @@ public class CatatanAdapter extends RecyclerView.Adapter<CatatanAdapter.CatatanV
             @Override
             public boolean onLongClick(View view) {
                 listener.onItemLongClick(view, position, catatanArrayList.get(position).getCaId());
-                if(is_clicked){
-                    holder.container_catatan.setBackgroundColor(Color.parseColor("#eeeeee"));
-                    is_clicked = false;
-                }else{
-                    holder.container_catatan.setBackgroundColor(Color.parseColor("#ffffff"));
-                    is_clicked = true;
-                }
+//                if(is_clicked){
+//                    holder.container_catatan.setBackgroundColor(Color.parseColor("#eeeeee"));
+//                    is_clicked = false;
+//                }else{
+//                    holder.container_catatan.setBackgroundColor(Color.parseColor("#ffffff"));
+//                    is_clicked = true;
+//                }
 
                 return true;
             }
