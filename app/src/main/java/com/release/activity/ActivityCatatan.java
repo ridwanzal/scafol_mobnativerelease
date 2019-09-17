@@ -102,7 +102,6 @@ public class ActivityCatatan extends AppCompatActivity {
 
             @Override
             public boolean onItemLongClick(View view, final int position, final String list_id) {
-                Toasty.success(getApplicationContext(), "List id : " + list_id, Toasty.LENGTH_SHORT).show();
                 if(actionMode != null){
                     return false;
                 }
