@@ -292,7 +292,35 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
 
                 next = true;
                 if(next){
-                    Toasty.success(getActivity(), "Yey kamu bisa", Toasty.LENGTH_SHORT).show();
+                    final String s = keu_serap.getText().toString();
+                    final String k = keu_ket.getText().toString();
+                    final String dt = tx_tanggal_keuangan.getText().toString();
+                    Call<DataResponseProgress> call_addnewprog_keu = apiInterface.addNewProgressKeuangan(pa_id, s, k, dt, ke_id);
+                    call_addnewprog_keu.enqueue(new Callback<DataResponseProgress>() {
+                        @Override
+                        public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {
+                            Log.d(TAG,"RESULT=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + new Gson().toJson(response));
+                            try{
+                                Log.d(TAG, "Result SUCCESS" + new Gson().toJson(response));
+                                loading_progress_submit.setVisibility(View.GONE);
+                                keu_submit.setEnabled(true);
+                            }catch (Exception e){
+                                Log.d(TAG, e.toString());
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponseProgress> call, Throwable t) {
+                            Log.d(TAG, "throwable ->>>>>>>>>>>>>>>>>>>>>> " + t);
+                            Toast.makeText(getActivity(), "Ditambahkan", Toast.LENGTH_SHORT).show();
+                            loading_progress_submit.setVisibility(View.GONE);
+                            keu_submit.setEnabled(true);
+                            keu_serap.setText("");
+                            tx_tanggal_keuangan.setText("");
+                            prog_deviasi_fisik.setText("");
+                            keu_ket.setText("");
+                        }
+                    });
                 }
             }
         });

@@ -45,6 +45,9 @@ public class Progress {
     @SerializedName("date_updated")
     private String date_updated;
 
+    @SerializedName("jumlah")
+    private String jumlah;
+
     @Override
     public String toString() {
         return "Progress{" +
@@ -175,5 +178,13 @@ public class Progress {
 
     public void setDate_updated(String date_updated) {
         this.date_updated = date_updated;
+    }
+
+    public String getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(String jumlah) {
+        this.jumlah = jumlah;
     }
 }

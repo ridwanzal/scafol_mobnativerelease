@@ -172,4 +172,11 @@ public interface ApiInterface {
 
     @GET("progress/getlastprogressall")
     Call<DataResponseProgress> getlastProgressallPPTK(@Query("pa_id") String pa_id);
+
+    @GET("progress/prog_daya_serap")
+    Call<DataResponseProgress> getProgressByPaketKeuanganSerap(@Query("pa_id") String pa_id);
+
+    @FormUrlEncoded
+    @POST("progress/progressk/")
+    Call<DataResponseProgress> addNewProgressKeuangan(@Field("pa_id") String pa_id,  @Field("pr_daya_serap_kontrak") String pr_daya_serap_kontrak, @Field("pr_keterangan") String pr_keterangan, @Field("pr_tanggal") String pr_tanggal,  @Field("ke_id") String ke_id);
 }
