@@ -28,7 +28,7 @@ public class SectionPagerAdapterUpdateAnggaran extends FragmentPagerAdapter {
             {
 //          R.string.update_kurvas,
             R.string.update_editkontrak,
-            R.string.update_progress,
+            R.string.update_progress_nonfisik,
 //            R.string.update_penyediajasa,
 //            R.string.update_upload,
             };
