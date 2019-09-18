@@ -154,6 +154,9 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                     Log.d(TAG, "Data Terkait: " + response.body().getData());
                     for(int i = 0; i < response.body().getData().size(); i++){
                        serap = response.body().getData().get(i).getJumlah();
+                        if(serap == null){
+                            serap = "0";
+                        }
                     }
                     Log.d(TAG, "Serapan :" + serap);
                 }

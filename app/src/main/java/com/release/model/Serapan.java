@@ -30,6 +30,9 @@ public class Serapan {
     @SerializedName("status")
     private String status;
 
+    @SerializedName("jumlah")
+    private String jumlah;
+
     public String getSeId() {
         return seId;
     }
@@ -100,5 +103,13 @@ public class Serapan {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getJumlah() {
+        return jumlah;
+    }
+
+    public void setJumlah(String jumlah) {
+        this.jumlah = jumlah;
     }
 }

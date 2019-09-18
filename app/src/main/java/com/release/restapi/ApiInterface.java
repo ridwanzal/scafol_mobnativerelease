@@ -88,6 +88,13 @@ public interface ApiInterface {
     @GET("anggaran/serapan")
     Call<DataResponseSerapan> getSerapan(@Query("an_id") String an_id);
 
+    @GET("anggaran/serapan_sum")
+    Call<DataResponseSerapan> getSerapanSum(@Query("an_id") String an_id);
+
+    @FormUrlEncoded
+    @POST("anggaran/serapan/")
+    Call<DataResponseSerapan> addSerapan(@Field("an_id") String an_id,  @Field("se_daya_serap") String se_daya_serap, @Field("se_sisa") String se_sisa, @Field("se_tanggal") String se_tanggal,  @Field("se_keterangan") String se_keterangan);
+
     @FormUrlEncoded
     @POST("anggaran/anggaran_kontrak")
     Call<DataResponseAnggaran> editAnggaran(@Field("an_id") String an_id,  @Field("an_nomor_kontrak") String an_nomor_kontrak, @Field("an_nilai_kontrak") String an_nilai_kontrak, @Field("an_awal_kontrak") String an_awal_kontrak, @Field("an_akhir_kontrak") String an_akhir_kontrak);
