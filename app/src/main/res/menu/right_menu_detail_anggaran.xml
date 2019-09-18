@@ -3,11 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/nav_progress_anggaran"
-        android:icon="@drawable/ic_show_chart2_black_24dp"
-        app:showAsAction="always"
-        android:visible="true"
         android:iconTint="@color/colorwhite"
-        android:title="Progres" />
+        android:title="Progres Non-Fisik" />
     <item
         android:id="@+id/nav_uploadphoto_anggaran"
         app:showAsAction="always"
@@ -31,7 +28,7 @@
         android:visible="true"
         android:iconTint="@color/colorwhite"
         android:iconTintMode="add"
-        android:title="Edit Kontrak Paket Non-Fisik" />
+        android:title="Edit Kontrak" />
     <!--<item-->
         <!--android:id="@+id/nav_penyediajasa"-->
         <!--android:title="Penyedia Jasa" />-->
