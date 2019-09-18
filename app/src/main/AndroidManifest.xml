@@ -166,6 +166,7 @@
         <receiver android:name=".receiver.NotificationReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.intent.action.POWER_CONNECTED" />
                 <action android:name="android.intent.action.POWER_DISCONNECTED" />
                 <action android:name="android.intent.action.BATTERY_LOW" />

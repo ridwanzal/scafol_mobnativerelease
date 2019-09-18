@@ -218,7 +218,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                 Intent intent4 = new Intent(ActivityDetailAnggaran.this, ActivityUpdateDataAnggaran.class);
                 intent4.putExtra("pa_pagu", pa_pagu);
                 intent4.putExtra("an_id", id_anggaran);
-                intent4.putExtra("position", 0);
+                intent4.putExtra("position", 1);
                 intent4.putExtra("pa_nama", nama_paket);
                 intent4.putExtra("ke_id", ke_id);
                 startActivity(intent4);
