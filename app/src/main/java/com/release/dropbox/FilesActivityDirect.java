@@ -151,6 +151,14 @@ public class FilesActivityDirect extends DropboxActivity {
         startActivityForResult(intent, PICKFILE_REQUEST_CODE);
     }
 
+    private void launchFilePickerImage() {
+        // Launch intent to pick file for upload
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        startActivityForResult(intent, PICKFILE_REQUEST_CODE);
+    }
+
 
     private File createImageFile() throws IOException {
         // Create an image file name
@@ -286,7 +294,12 @@ public class FilesActivityDirect extends DropboxActivity {
     private void performAction(FileAction action) {
         switch(action) {
             case UPLOAD:
-                launchFilePicker();
+                Boolean contains = mPath.contains("documents");
+                if(contains){
+                    launchFilePicker();
+                }else{
+                    launchFilePickerImage();
+                }
                 break;
             case DOWNLOAD:
                 if (mSelectedFile != null) {
