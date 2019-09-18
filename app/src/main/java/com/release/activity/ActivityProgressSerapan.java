@@ -45,7 +45,7 @@ public class ActivityProgressSerapan extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.recycle_progress_serapan);
         Intent intent = getIntent();
-        nama_paket = intent.getStringExtra("pa_nama");
+        nama_paket = intent.getStringExtra("an_nama");
         id_anggaran = intent.getStringExtra("an_id");
         textnofound = findViewById(R.id.text_notfoundkeu);
         progressBar = findViewById(R.id.progress_listprogressserapan);

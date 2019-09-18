@@ -27,7 +27,7 @@ public class ActivityUpdateDataAnggaran extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionPagerAdapterUpdateAnggaran);
         Integer get_fromdetail = getIntent().getIntExtra("position", 0);
-        String  get_namafromdetail = getIntent().getStringExtra("pa_nama");
+        String  get_namafromdetail = getIntent().getStringExtra("an_nama");
 //        Toast.makeText(this, "get from detail " + get_fromdetail, Toast.LENGTH_SHORT).show();
         viewPager.setCurrentItem(get_fromdetail);
 

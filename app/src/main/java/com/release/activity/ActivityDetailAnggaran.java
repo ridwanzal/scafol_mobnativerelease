@@ -179,7 +179,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent intents = getIntent();
         String id_anggaran = intents.getStringExtra("an_id");
-        String nama_paket = intents.getStringExtra("pa_nama");
+        String nama_paket = intents.getStringExtra("an_nama");
         String pa_pagu = intents.getStringExtra("pa_pagu");
         String ke_id = intents.getStringExtra("ke_id");
         sessionManager = new SessionManager(getApplicationContext());
@@ -207,19 +207,19 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                 return true;
             case R.id.nav_editkontrak_anggarn :
                 Intent intent3 = new Intent(ActivityDetailAnggaran.this, ActivityUpdateDataAnggaran.class);
-                intent3.putExtra("pa_pagu", pa_pagu);
+                intent3.putExtra("anp_pagu", pa_pagu);
                 intent3.putExtra("an_id", id_anggaran);
                 intent3.putExtra("position", 0);
-                intent3.putExtra("pa_nama", nama_paket);
+                intent3.putExtra("an_nama", nama_paket);
                 intent3.putExtra("ke_id", ke_id);
                 startActivity(intent3);
                 return true;
             case R.id.nav_progress_anggaran :
                 Intent intent4 = new Intent(ActivityDetailAnggaran.this, ActivityUpdateDataAnggaran.class);
-                intent4.putExtra("pa_pagu", pa_pagu);
+                intent4.putExtra("anp_pagu", pa_pagu);
                 intent4.putExtra("an_id", id_anggaran);
                 intent4.putExtra("position", 1);
-                intent4.putExtra("pa_nama", nama_paket);
+                intent4.putExtra("an_nama", nama_paket);
                 intent4.putExtra("ke_id", ke_id);
                 startActivity(intent4);
                 return true;

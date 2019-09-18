@@ -334,9 +334,9 @@ public class ActivityMain extends AppCompatActivity{
                 get_totalpagu = (String) get_pagu.getText().toString().trim();
 
                 Intent intent = new Intent(getApplicationContext(), ActivityDetailAnggaran.class);
-                intent.putExtra("pa_pagu", get_totalpagu);
+                intent.putExtra("anp_pagu", get_totalpagu);
                 intent.putExtra("an_id", getid_anggaran);
-                intent.putExtra("pa_nama", get_nama_anggaran);
+                intent.putExtra("an_nama", get_nama_anggaran);
                 intent.putExtra("ke_id", get_kegiatan);
                 intent.putExtra("request", "main");
                 startActivity(intent);
