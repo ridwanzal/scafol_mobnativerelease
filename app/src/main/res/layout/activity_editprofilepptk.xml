@@ -206,6 +206,7 @@
                         </LinearLayout>
 
                         <ImageView
+                            android:visibility="gone"
                             android:id="@+id/prof_logo_dinas"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
