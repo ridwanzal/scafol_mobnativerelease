@@ -145,7 +145,7 @@ public class FilesActivityDirect extends DropboxActivity {
 
     private void launchFilePicker() {
         // Launch intent to pick file for upload
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
         startActivityForResult(intent, PICKFILE_REQUEST_CODE);
@@ -451,7 +451,7 @@ public class FilesActivityDirect extends DropboxActivity {
         }
     }
 
-    private void uploadFile(String fileUri) {
+    private void uploadFile(final String fileUri) {
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
@@ -476,7 +476,7 @@ public class FilesActivityDirect extends DropboxActivity {
             public void onError(Exception e) {
                 dialog.dismiss();
 
-                Log.e(TAG, "Failed to upload file.", e);
+                Log.e(TAG, "Failed to upload file.  :  " + e, e);
                 Toasty.error(FilesActivityDirect.this,
                         "An error has occurred",
                         Toast.LENGTH_SHORT)

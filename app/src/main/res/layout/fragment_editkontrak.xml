@@ -91,7 +91,7 @@
                         android:drawablePadding="10dp"
                         android:drawableLeft="@drawable/money_icon"
                         android:textColor="@android:color/black"
-                        app:locale="en_US" />
+                        app:locale="pt_BR" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
