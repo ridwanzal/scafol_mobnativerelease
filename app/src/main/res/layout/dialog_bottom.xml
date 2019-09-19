@@ -6,7 +6,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Scafol Gov version 1.1.5"
+        android:text="Scafol Gov version 1.1.6"
         android:drawableLeft="@drawable/ic_logo_scafol"
         android:drawablePadding="20dp"
         />
