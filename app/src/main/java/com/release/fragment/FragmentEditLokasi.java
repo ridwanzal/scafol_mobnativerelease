@@ -107,10 +107,6 @@ public class FragmentEditLokasi extends Fragment {
                     }else{
                         location_name = paketlist.get(i).getPaLokasi();
                     }
-                    String nomor_kontrak = paketlist.get(i).getPaNomorKontrak();
-                    String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
-                    String awal_kontrak = paketlist.get(i).getPaAwalKontrak();
-                    String akhir_kontrak = paketlist.get(i).getPaAkhirKontrak();
                     Double latitude = Double.valueOf(paketlist.get(i).getPaLocLatitude());
                     Double longitude = Double.valueOf(paketlist.get(i).getPaLongitude());
                     tx_locname.setText(paketlist.get(i).getPaLokasi());

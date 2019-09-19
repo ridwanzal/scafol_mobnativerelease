@@ -121,8 +121,10 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                     ArrayList<Paket> paketlist = response.body().getData();
                     for(int i = 0; i < paketlist.size(); i++){
                         keu_pagu.setText(paketlist.get(i).getPaPagu());
-                        keu_kontrak.setText(paketlist.get(i).getPaNilaiKontrak());
-                        if(paketlist.get(i).getPaNilaiKontrak() == null || paketlist.get(i).getPaNilaiKontrak().toString().equals("0")){
+                        keu_kontrak.setText(paketlist.get(i).getPaNilaiKontrak().trim());
+                        pagu_value = paketlist.get(i).getPaPagu().trim();
+                        kontrak_value = paketlist.get(i).getPaNilaiKontrak().trim();
+                        if(paketlist.get(i).getPaNilaiKontrak().toString().equals("0")){
                             text_infokontrak.setText("Nomor kontrak belum diisi, harap isi terlebih dahulu di halaman Edit Kontrak");
                             text_infokontrak.setTextColor(Color.parseColor("#ff0000"));
                             lin_keu2.setVisibility(View.GONE);
@@ -133,8 +135,6 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                             tx_tanggal_keuangan.setEnabled(false);
                             keu_ket.setEnabled(false);
                         }
-                        pagu_value = paketlist.get(i).getPaPagu();
-                        kontrak_value = paketlist.get(i).getPaNilaiKontrak();
                     }
                 }
             }

@@ -21,8 +21,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp"
-                >
+                android:padding="10dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -41,19 +40,19 @@
                         android:id="@+id/text_nomorkontrak"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginTop="4dp"
-                        android:text="TextView"
+                        android:layout_weight="1"
+                        android:background="@drawable/edittextborder_generic"
                         android:drawableRight="@drawable/ic_close_black_24dp"
                         android:padding="10dp"
-                        android:background="@drawable/edittextborder_generic"
+                        android:text="TextView"
                         android:textSize="16sp"
                         android:textStyle="normal" />
 
                     <TextView
-                        android:layout_marginTop="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:text="Nilai Kontrak"
                         android:textColor="#aaa" />
@@ -62,67 +61,63 @@
                         android:id="@+id/text_nilaikontrak_salah"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
                         android:layout_weight="1"
+                        android:background="@drawable/edittextborder_generic"
                         android:drawableLeft="@drawable/money_icon"
+                        android:drawableRight="@drawable/ic_close_black_24dp"
                         android:drawablePadding="10dp"
                         android:inputType="numberDecimal"
                         android:padding="10dp"
-                        android:background="@drawable/edittextborder_generic"
-                        android:visibility="gone"
-                        android:drawableRight="@drawable/ic_close_black_24dp"
-                        android:textSize="16sp"
                         android:text=""
-                        android:layout_marginTop="4dp"
+                        android:textSize="16sp"
                         android:textStyle="normal"
-                        />
+                        android:visibility="gone" />
 
                     <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/text_nilaikontrak"
-                        app:monetaryDivider=","
-                        app:groupDivider="."
-                        android:background="@drawable/edittextborder_generic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
                         android:layout_marginTop="4dp"
-                        android:textStyle="normal"
-                        android:drawableRight="@drawable/ic_close_black_24dp"
-                        android:padding="10dp"
-                        android:drawablePadding="10dp"
+                        android:background="@drawable/edittextborder_generic"
                         android:drawableLeft="@drawable/money_icon"
+                        android:drawableRight="@drawable/ic_close_black_24dp"
+                        android:drawablePadding="10dp"
+                        android:inputType="numberDecimal"
+                        android:padding="10dp"
                         android:textColor="@android:color/black"
-                        app:locale="pt_BR" />
+                        android:textStyle="normal"
+                        app:groupDivider="."
+                        app:monetaryDivider="," />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <TextView
                                 android:id="@+id/tv_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Awal Kontrak"
                                 android:layout_marginTop="8dp"
-                                />
+                                android:text="Awal Kontrak" />
 
                             <EditText
                                 android:id="@+id/text_awalkontrak"
-                                android:layout_marginTop="7dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/edittextborder_generic"
-                                android:text="@string/date"
-                                android:padding="10dp"
+                                android:layout_marginTop="7dp"
                                 android:layout_marginRight="5dp"
-                                android:textSize="15sp"/>
+                                android:background="@drawable/edittextborder_generic"
+                                android:padding="10dp"
+                                android:text="@string/date"
+                                android:textSize="15sp" />
 
                         </LinearLayout>
 
@@ -130,44 +125,42 @@
                             android:id="@+id/btn_date_awal"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:background="@drawable/button_date_ripple"
-                            android:tint="@color/colorwhite"
-                            android:padding="10dp"
                             android:layout_gravity="bottom"
+                            android:background="@drawable/button_date_ripple"
+                            android:contentDescription="@string/date_range"
+                            android:padding="10dp"
                             android:src="@drawable/baseline_date_range_black_24dp"
-                            android:contentDescription="@string/date_range" />
+                            android:tint="@color/colorwhite" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="2"
-                            android:orientation="vertical" >
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Akhir Kontrak"
                                 android:layout_marginTop="8dp"
-                                />
+                                android:text="Akhir Kontrak" />
 
                             <EditText
                                 android:id="@+id/text_akhirkontrak"
-                                android:layout_marginTop="7dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:background="@drawable/edittextborder_generic"
-                                android:text="@string/date"
-                                android:padding="10dp"
+                                android:layout_marginTop="7dp"
                                 android:layout_marginRight="5dp"
-                                android:textSize="15sp"/>
+                                android:background="@drawable/edittextborder_generic"
+                                android:padding="10dp"
+                                android:text="@string/date"
+                                android:textSize="15sp" />
 
                         </LinearLayout>
 
@@ -175,12 +168,12 @@
                             android:id="@+id/btn_date_akhir"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:background="@drawable/button_date_ripple"
-                            android:tint="@color/colorwhite"
-                            android:padding="10dp"
                             android:layout_gravity="bottom"
+                            android:background="@drawable/button_date_ripple"
+                            android:contentDescription="@string/date_range"
+                            android:padding="10dp"
                             android:src="@drawable/baseline_date_range_black_24dp"
-                            android:contentDescription="@string/date_range" />
+                            android:tint="@color/colorwhite" />
 
                     </LinearLayout>
 
@@ -189,10 +182,10 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="14dp"
-                        android:textColor="#000000"
-                        android:clickable="true"
                         android:background="@drawable/button_ripple_generals"
-                        android:text="Simpan" />
+                        android:clickable="true"
+                        android:text="Simpan"
+                        android:textColor="#000000" />
 
                 </LinearLayout>
 

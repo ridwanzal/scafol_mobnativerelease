@@ -166,19 +166,19 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 Log.w(TAG, "Paket data" + new Gson().toJson(response.body().getData()));
                 ArrayList<Paket> paketlist = response.body().getData();
                 for(int i = 0; i < paketlist.size(); i++){
-                    String name = paketlist.get(i).getPaJudul();
-                    String jenis = paketlist.get(i).getPaJenis();
-                    String tahun = paketlist.get(i).getPaTahun();
-                    String pagu = paketlist.get(i).getPaPagu();
-                    String satuan = paketlist.get(i).getPaSatuan();
-                    String volume = paketlist.get(i).getPaVolume();
-                    String ke_id = paketlist.get(i).getKeId();
-                    String status = paketlist.get(i).getStatus();
-                    String tanggal_awal = paketlist.get(i).getPaAwalKontrak();
-                    String tanggal_akhir = paketlist.get(i).getPaAkhirKontrak();
-                    String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
-                    String lokasi_name = paketlist.get(i).getPaLokasi();
-                    String nokontrak = paketlist.get(i).getPaNomorKontrak();
+                    String name = paketlist.get(i).getPaJudul().trim();
+                    String jenis = paketlist.get(i).getPaJenis().trim();
+                    String tahun = paketlist.get(i).getPaTahun().trim();
+                    String pagu = paketlist.get(i).getPaPagu().trim();
+                    String satuan = paketlist.get(i).getPaSatuan().trim();
+                    String volume = paketlist.get(i).getPaVolume().trim();
+                    String ke_id = paketlist.get(i).getKeId().trim();
+                    String status = paketlist.get(i).getStatus().trim();
+                    String tanggal_awal = paketlist.get(i).getPaAwalKontrak().trim();
+                    String tanggal_akhir = paketlist.get(i).getPaAkhirKontrak().trim();
+                    String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak().trim();
+                    String lokasi_name = paketlist.get(i).getPaLokasi().trim();
+                    String nokontrak = paketlist.get(i).getPaNomorKontrak().trim();
 
                     text_judul.setText(checkData(name));
                     text_jenis.setText(checkData(jenis));

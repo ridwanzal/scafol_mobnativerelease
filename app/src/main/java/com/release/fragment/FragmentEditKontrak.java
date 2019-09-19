@@ -135,10 +135,10 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                 if(response.code() == 200){
                     ArrayList<Paket> paketlist = response.body().getData();
                     for(int i = 0; i < paketlist.size(); i++){
-                        String nomor_kontrak = paketlist.get(i).getPaNomorKontrak();
-                        String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
-                        String awal_kontrak = paketlist.get(i).getPaAwalKontrak();
-                        String akhir_kontrak = paketlist.get(i).getPaAkhirKontrak();
+                        String nomor_kontrak = paketlist.get(i).getPaNomorKontrak().trim();
+                        String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak().trim();
+                        String awal_kontrak = paketlist.get(i).getPaAwalKontrak().trim();
+                        String akhir_kontrak = paketlist.get(i).getPaAkhirKontrak().trim();
 
                         t_nomorkontrak.setText(checkData(nomor_kontrak));
                         t_nilaikontrak.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
@@ -163,7 +163,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
 //                String get_nilai_kontrak = t_nilaikontrak.getText().toString().replaceAll("[.]","");
                 String get_nilai_kontrak = "";
                 try{
-                    get_nilai_kontrak = String.valueOf(t_nilaikontrak.getCurrencyDouble());
+                    get_nilai_kontrak = String.valueOf(t_nilaikontrak.getCurrencyDouble()).split(",")[0];
                 }catch (Exception e){
                     e.printStackTrace();
                 }
