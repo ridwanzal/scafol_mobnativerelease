@@ -147,6 +147,7 @@ public class FilesActivityDirect extends DropboxActivity {
         // Launch intent to pick file for upload
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
         intent.setType("*/*");
         startActivityForResult(intent, PICKFILE_REQUEST_CODE);
     }
