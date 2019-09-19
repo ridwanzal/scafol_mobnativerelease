@@ -49,7 +49,7 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Progre
 
     @Override
     public void onBindViewHolder(@NonNull ProgressViewHolder holder, int position) {
-        String[] date_only = progressArrayList.get(position).getDate_created().split(" ");
+        String[] date_only = progressArrayList.get(position).getPr_tanggal().split(" ");
         String[] date_only2 = progressArrayList.get(position).getDate_updated().split(" ");
         holder.prog_target.setText(progressArrayList.get(position).getPr_target());
         holder.prog_real.setText(progressArrayList.get(position).getPr_real());
