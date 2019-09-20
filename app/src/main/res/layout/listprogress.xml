@@ -9,10 +9,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+
         android:layout_height="match_parent"
-        android:id="@+id/layout_paketid"
+        android:id="@+id/layout_progress_list"
         android:clickable="true"
-        android:background="#fff"
+        android:background="@drawable/button_ripple_white"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"

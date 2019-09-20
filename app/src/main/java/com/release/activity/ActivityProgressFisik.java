@@ -1,5 +1,7 @@
 package com.release.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -18,6 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.release.R;
 
 import com.release.adapter.ProgressAdapter;
+import com.release.interfacemodule.ItemClickListener;
+import com.release.model.DataResponseCatatan;
 import com.release.model.DataResponseProgress;
 import com.release.model.Progress;
 import com.release.restapi.ApiClient;
@@ -87,7 +91,45 @@ public class ActivityProgressFisik extends AppCompatActivity {
 
     private void generateProgressList(ArrayList<Progress> progressArrayList){
         recyclerView = findViewById(R.id.recycle_listprogress2);
-        progressAdapter = new ProgressAdapter(getApplicationContext(), progressArrayList);
+        progressAdapter = new ProgressAdapter(getApplicationContext(), progressArrayList, new ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, int position, String id_list) {
+                new AlertDialog.Builder(ActivityProgressFisik.this)
+                        .setTitle("Hapus Catatan")
+                        .setMessage("Anda yakin ingin menghapus item ini ?")
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                            }
+
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .create().show();
+                return true;
+            }
+
+            @Override
+            public void onItemDoubleCLick(View view, int position) {
+
+            }
+
+            @Override
+            public void onDoubleClick(View view, int position) {
+
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityProgressFisik.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(progressAdapter);

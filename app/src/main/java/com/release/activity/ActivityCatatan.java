@@ -102,10 +102,6 @@ public class ActivityCatatan extends AppCompatActivity {
 
             @Override
             public boolean onItemLongClick(View view, final int position, final String list_id) {
-                if(actionMode != null){
-                    return false;
-                }
-
                 new AlertDialog.Builder(ActivityCatatan.this)
                         .setTitle("Hapus Catatan")
                         .setMessage("Anda yakin ingin menghapus item ini ?")

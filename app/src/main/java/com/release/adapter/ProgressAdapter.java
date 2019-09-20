@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,7 +31,6 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Progre
     public ProgressAdapter(Context mContext, ArrayList<Progress> progressArrayList, ItemClickListener listener){
         this.progressArrayList = progressArrayList;
         this.mContext = mContext;
-        progressArrayList2s = new ArrayList<>(progressArrayList2s);
         this.listener = listener;
     }
 
@@ -48,7 +48,7 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Progre
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProgressViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ProgressViewHolder holder, final int position) {
         String[] date_only = progressArrayList.get(position).getPr_tanggal().split(" ");
         String[] date_only2 = progressArrayList.get(position).getDate_updated().split(" ");
         holder.prog_target.setText(progressArrayList.get(position).getPr_target());
@@ -56,6 +56,13 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Progre
         holder.prog_deviasi.setText(progressArrayList.get(position).getPr_deviasi());
         holder.prog_tanggal.setText(date_only[0]);
         holder.prog_tanggal_update.setText(date_only2[0]);
+        holder.layout_progress_list.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                listener.onItemLongClick(view, position, progressArrayList.get(position).getPr_id());
+                return true;
+            }
+        });
     }
 
     @Override
@@ -64,6 +71,7 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Progre
     }
 
     class ProgressViewHolder extends RecyclerView.ViewHolder{
+        RelativeLayout layout_progress_list;
         TextView prog_target;
         TextView prog_real;
         TextView prog_deviasi;
@@ -72,6 +80,7 @@ public class ProgressAdapter extends RecyclerView.Adapter<ProgressAdapter.Progre
 
         ProgressViewHolder(View itemView){
             super(itemView);
+            layout_progress_list = itemView.findViewById(R.id.layout_progress_list);
             prog_target = itemView.findViewById(R.id.prog_target_list);
             prog_real = itemView.findViewById(R.id.prog_real_list);
             prog_deviasi = itemView.findViewById(R.id.prog_deviasi_list);
