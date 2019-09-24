@@ -174,11 +174,11 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     String volume = paketlist.get(i).getPaVolume().trim();
                     String ke_id = paketlist.get(i).getKeId().trim();
                     String status = paketlist.get(i).getStatus().trim();
-                    String tanggal_awal = paketlist.get(i).getPaAwalKontrak().trim();
-                    String tanggal_akhir = paketlist.get(i).getPaAkhirKontrak().trim();
-                    String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak().trim();
-                    String lokasi_name = paketlist.get(i).getPaLokasi().trim();
-                    String nokontrak = paketlist.get(i).getPaNomorKontrak().trim();
+                    String tanggal_awal = checkData(paketlist.get(i).getPaAwalKontrak());
+                    String tanggal_akhir = paketlist.get(i).getPaAkhirKontrak();
+                    String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
+                    String lokasi_name = paketlist.get(i).getPaLokasi();
+                    String nokontrak = paketlist.get(i).getPaNomorKontrak();
 
                     text_judul.setText(checkData(name));
                     text_jenis.setText(checkData(jenis));

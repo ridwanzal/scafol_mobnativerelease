@@ -427,6 +427,17 @@ public class ActivityDashboard extends AppCompatActivity {
                             mHandler.sendMessage(Message.obtain(mHandler, 1));
                         }
                     }).start();
+            }else if(role.toLowerCase().equals("bidang")){
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        mHandler.sendMessage(Message.obtain(mHandler, 1));
+                    }
+                }).start();
             }
 
             btn_mapdash.setOnClickListener(new View.OnClickListener() {

@@ -82,7 +82,7 @@ public class ActivityMain extends AppCompatActivity{
         role = user.get(SessionManager.KEY_ROLE);
         dinas_id =  user.get(SessionManager.KEY_DINASID);
         user_id =  user.get(SessionManager.KEY_USERID);
-        bi_id = "";
+        bi_id = user.get(SessionManager.KEY_BIDANG);
         user_fullname = user.get(SessionManager.KEY_NAME);
         user_name = user.get(SessionManager.KEY_USERNAME);
         flag_list = getIntent().getStringExtra("flag_list");
@@ -213,17 +213,27 @@ public class ActivityMain extends AppCompatActivity{
                 break;
             case "Bidang" :
                 // user bidang
-                setContentView(R.layout.recycle_listkegiatan);
-                if(bi_id.equals("") || bi_id == null){
-                    sessionManager.checkLogin();
-                }
-                Call<DataResponsePaket> call_kegiatan_bidang = apiInterface.getPaketBidang(user_id);
-                call_kegiatan_bidang.enqueue(new Callback<DataResponsePaket>() {
+                if(flag_list.equals("1")){
+                    setContentView(R.layout.recycle_listpaket);
+                    text_notfound = findViewById(R.id.text_notfound);
+                    progress_listpaket = findViewById(R.id.progress_listpaket);
+                    getSupportActionBar().setTitle("Paket Fisik");
+                    if(bi_id.equals("") || bi_id == null){
+                        sessionManager.checkLogin();
+                    }
+                    Call<DataResponsePaket> call_paketbidang = apiInterface.getPaketBidangId(bi_id.toString());
+                    call_paketbidang.enqueue(new Callback<DataResponsePaket>() {
                         @Override
                         public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
                             ArrayList<Paket> data = response.body().getData();
                             Log.w(TAG, "kegiatan data " + new Gson().toJson(data));
-                            generatePaketList(response.body().getData());
+                            if(response.code() == 200){
+                                generatePaketList(response.body().getData());
+                                progress_listpaket.setVisibility(View.GONE);
+                                recyclerView = findViewById(R.id.recycle_listpaket);
+                                recyclerView.setVisibility(View.VISIBLE);
+                                text_notfound.setVisibility(View.GONE);
+                            }
                         }
 
                         @Override
@@ -231,6 +241,36 @@ public class ActivityMain extends AppCompatActivity{
                             Log.e(TAG, t.toString());
                         }
                     });
+                }else if(flag_list.equals("2")){
+                    setContentView(R.layout.recycle_listanggaran);
+                    text_notfound = findViewById(R.id.text_notfound);
+                    progress_listanggaran = findViewById(R.id.progress_listpaket);
+                    getSupportActionBar().setTitle("Paket Non-Fisik");
+                    Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaranBidang(bi_id, dinas_id);
+                    call_anggaran.enqueue(new Callback<DataResponseAnggaran>() {
+                        @Override
+                        public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
+                            String response_code = new Gson().toJson(response.code()).toString();
+                            if(response_code.equals("200")){
+                                ArrayList<Anggaran> data = response.body().getData();
+                                Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                generateAnggaranList(response.body().getData());
+                                progress_listanggaran.setVisibility(View.GONE);
+                                recyclerView_ang = findViewById(R.id.recycle_listanggaran);
+                                recyclerView_ang.setVisibility(View.VISIBLE);
+                                text_notfound.setVisibility(View.GONE);
+                            }else{
+                                progress_listanggaran.setVisibility(View.GONE);
+                                text_notfound.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponseAnggaran> call, Throwable t) {
+                            Log.e(TAG, t.toString());
+                        }
+                    });
+                }
                 break;
             case "Keuangan" :
                 break;
