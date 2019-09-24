@@ -88,7 +88,7 @@ public class SessionManager {
         user.put(KEY_USERID, pref.getString(KEY_USERID, null));
         user.put(KEY_DINASID, pref.getString(KEY_DINASID, null));
         user.put(KEY_ROLE, pref.getString(KEY_ROLE, null));
-
+        user.put(KEY_BIDANG, pref.getString(KEY_BIDANG, null));
 
         // return user
         return user;
