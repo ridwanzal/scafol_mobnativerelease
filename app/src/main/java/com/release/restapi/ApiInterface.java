@@ -63,8 +63,14 @@ public interface ApiInterface {
     @GET("paket/mapprogmax")
     Call<DataResponsePaket> getMapDinas(@Query("dinas_id") String dinas_id);
 
+    @GET("paket/mapprogmaxbidang")
+    Call<DataResponsePaket> getMapBidang(@Query("bi_id") String bi_id);
+
     @GET("paket/dinas")
     Call<DataResponsePaket> getPaketDinas(@Query("dinas_id") String dinas_id);
+
+    @GET("dashboardbidang")
+    Call<DataResponsePA>infoPaketBidang(@Query("bi_id") String bi_id);
 
     @GET("paket/bidang")
     Call<DataResponsePaket>getPaketBidang(@Query("bi_id") String bi_id, @Query("dinas_id") String dinas_id);
@@ -82,7 +88,7 @@ public interface ApiInterface {
     @GET("anggaran/pptk")
     Call<DataResponseAnggaran> getAnggaranPPTK(@Query("pptk_id") String pptk_id);
 
-    @GET("anggaran/pptk")
+    @GET("anggaran/bidang")
     Call<DataResponseAnggaran> getAnggaranBidang(@Query("bi_id") String bi_id, @Query("dinas_id") String dinas_id);
 
     @GET("anggaran/dinas")
@@ -179,7 +185,16 @@ public interface ApiInterface {
     @GET("dashboardadmin/paketall/")
     Call<DataResponsePA> countTotalPaketAdmin(@Query("dinas_id") String dinas_id);
 
-    // http://apiext.scafol.id/api/progress/getlastprogresspptk?pptk_id=317
+    // role bidang
+    @GET("dashboardbidang/pagubidang/")
+    Call<DataResponsePA> countPaguBidang(@Query("bi_id") String bi_id);
+
+    @GET("dashboardbidang/realbidang/")
+    Call<DataResponsePA> countRealBidang(@Query("bi_id") String bi_id);
+
+    @GET("dashboardbidang/sisabidang/")
+    Call<DataResponsePA> countSisaBidang(@Query("bi_id") String bi_id);
+
     @GET("progress/getlastprogress")
     Call<DataResponseProgress> getlastProgressPPTK(@Query("pa_id") String pa_id);
 

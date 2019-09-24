@@ -120,7 +120,7 @@ public class ActivityDashboard extends AppCompatActivity {
         role = user.get(SessionManager.KEY_ROLE);
         dinas_id =  user.get(SessionManager.KEY_DINASID);
         user_id =  user.get(SessionManager.KEY_USERID);
-        bi_id = "";
+        bi_id = user.get(SessionManager.KEY_BIDANG);
         user_fullname = user.get(SessionManager.KEY_NAME);
         String user_name = user.get(SessionManager.KEY_USERNAME);
         show_list = findViewById(R.id.btn_tolist);
@@ -134,6 +134,7 @@ public class ActivityDashboard extends AppCompatActivity {
 
 
 //        Toast.makeText(ActivityDashboard.this, "Masuk pak eko", Toast.LENGTH_SHORT).show();
+        final String default_format_nomoney = "Rp. " +  formatMoneyIDR.convertIDR("0");
         tx_dashtotalpaket = findViewById(R.id.tx_dashtotalpaket);
         tx_dashongoing = findViewById(R.id.tx_dsahongoing);
         tx_dashpagu = findViewById(R.id.tx_dashpagu);
@@ -235,6 +236,8 @@ public class ActivityDashboard extends AppCompatActivity {
                                         String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguPPTK());
                                         tx_dashpagu.setText(reformat);
                                     }
+                                }else{
+                                    tx_dashpagu.setText(default_format_nomoney);
                                 }
                             }
                             @Override
@@ -258,6 +261,8 @@ public class ActivityDashboard extends AppCompatActivity {
                                         String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
                                         tx_dashreal.setText(reformat);
                                     }
+                                }else{
+                                    tx_dashreal.setText(default_format_nomoney);
                                 }
                             }
                             @Override
@@ -278,6 +283,8 @@ public class ActivityDashboard extends AppCompatActivity {
                                         String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalSisa());
                                         tx_dashsisa.setText(reformat);
                                     }
+                                }else{
+                                    tx_dashsisa.setText(default_format_nomoney);
                                 }
                             }
 
@@ -353,6 +360,8 @@ public class ActivityDashboard extends AppCompatActivity {
                                         tx_dashpagu.setText(reformat);
                                     }
                                 }
+                            }else{
+                                tx_dashpagu.setText(default_format_nomoney);
                             }
                         }
                         @Override
@@ -382,6 +391,8 @@ public class ActivityDashboard extends AppCompatActivity {
                                         tx_dashreal.setText(reformat);
                                     }
                                 }
+                            }else{
+                                tx_dashreal.setText(default_format_nomoney);
                             }
                         }
                         @Override
@@ -409,6 +420,8 @@ public class ActivityDashboard extends AppCompatActivity {
                                         tx_dashsisa.setText(reformat);
                                     }
                                 }
+                            }else{
+                                tx_dashsisa.setText(default_format_nomoney);
                             }
                         }
                         @Override
@@ -428,6 +441,112 @@ public class ActivityDashboard extends AppCompatActivity {
                         }
                     }).start();
             }else if(role.toLowerCase().equals("bidang")){
+                show_list.setVisibility(View.VISIBLE);
+
+                // call total pagu bidang
+                Call<DataResponsePA> calltotalpagu = apiInterface.countPaguBidang(bi_id);
+                calltotalpagu.enqueue(new Callback<DataResponsePA>() {
+                    @Override
+                    public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                        Log.d(TAG, "RESPONSE " + new Gson().toJson(response.code()));
+                        String response_code = new Gson().toJson(response.code()).toString();
+                        if(response_code.equals("200")){
+                            ArrayList<PaketDashboard> result = response.body().getData();
+                            if(result != null){
+                                for(int i = 0; i < result.size(); i++){
+                                    String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguPPTK());
+                                    tx_dashpagu.setText(reformat);
+                                }
+                            }
+                        }else{
+                            tx_dashpagu.setText(default_format_nomoney);
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                    }
+                });
+
+                // call total realisasi
+                Call<DataResponsePA> callreal = apiInterface.countRealBidang(bi_id);
+                callreal.enqueue(new Callback<DataResponsePA>() {
+                    @Override
+                    public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                        if(response.code() == 200){
+                            ArrayList<PaketDashboard> result = response.body().getData();
+                            for(int i = 0; i < result.size(); i++){
+                                Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
+                                //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
+                                String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
+                                tx_dashreal.setText(reformat);
+                            }
+                        }else{
+                            tx_dashreal.setText(default_format_nomoney);
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                    }
+                });
+
+                // call total sisa
+                Call<DataResponsePA> callsisa = apiInterface.countSisaBidang(bi_id);
+                callsisa.enqueue(new Callback<DataResponsePA>() {
+                    @Override
+                    public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                        if(response.code() == 200){
+                            ArrayList<PaketDashboard> result = response.body().getData();
+                            for(int i = 0; i < result.size(); i++){
+                                Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
+                                String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalSisa());
+                                tx_dashsisa.setText(reformat);
+                            }
+                        }else{
+                            tx_dashreal.setText(default_format_nomoney);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                    }
+                });
+
+
+                Call<DataResponsePA> callinfopaketbidang = apiInterface.infoPaketBidang(bi_id);
+                callinfopaketbidang.enqueue(new Callback<DataResponsePA>() {
+                    @Override
+                    public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                        if(response.code() == 200){
+                            Log.d(TAG, "RESPONSE BIDANG : " + new Gson().toJson(response.body().getData()));
+                            ArrayList<PaketDashboard> result = response.body().getData();
+                            String paket_all = "";
+                            String paket_progress = "";
+                            String paket_belum = "";
+                            String paket_selesai = "";
+                            for(int i = 0; i < result.size(); i++){
+                                paket_all = result.get(i).getPaketAll();
+                                paket_progress = result.get(i).getPaketProgress();
+                                paket_belum = result.get(i).getPaketBelumMulai();
+                                paket_selesai = result.get(i).getPaketSelesai();
+
+                                tx_dashtotalpaket.setText(paket_all + "");
+                                tx_dashongoing.setText(paket_progress + "");
+                                tx_dashbelum.setText(paket_belum + "");
+                                tx_dashselesai.setText(paket_selesai + "");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataResponsePA> call, Throwable t) {
+                        Log.d(TAG, "RESPONSE GAGAL : " + call);
+                    }
+                });
+
+
                 new Thread(new Runnable() {
                     public void run() {
                         try {
