@@ -67,7 +67,10 @@ public interface ApiInterface {
     Call<DataResponsePaket> getPaketDinas(@Query("dinas_id") String dinas_id);
 
     @GET("paket/bidang")
-    Call<DataResponsePaket> getPaketBidang(@Query("bidang") String bidang);
+    Call<DataResponsePaket>getPaketBidang(@Query("bi_id") String bi_id, @Query("dinas_id") String dinas_id);
+
+    @GET("paket/bidangpaket")
+    Call<DataResponsePaket>getPaketBidangId(@Query("bi_id") String bi_id);
 
     @GET("paket/catatan")
     Call<DataResponseCatatan> getCatatan(@Query("pa_id") String pa_id);
@@ -78,6 +81,9 @@ public interface ApiInterface {
 
     @GET("anggaran/pptk")
     Call<DataResponseAnggaran> getAnggaranPPTK(@Query("pptk_id") String pptk_id);
+
+    @GET("anggaran/pptk")
+    Call<DataResponseAnggaran> getAnggaranBidang(@Query("bi_id") String bi_id, @Query("dinas_id") String dinas_id);
 
     @GET("anggaran/dinas")
     Call<DataResponseAnggaran> getAnggaranAdmin(@Query("dinas_id") String dinas_id);
