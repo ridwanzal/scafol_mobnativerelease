@@ -427,18 +427,18 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 startActivity(FilesActivityDirect.getIntent(ActivityDetailPaket.this, path_todropbox));
 //                startActivity(intent);
                 return true;
-//            case R.id.nav_kurvasrencana :
-//                Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
-//                intent6.putExtra("position", 0);
-//                intent6.putExtra("pa_id", id_paket);
-//                intent6.putExtra("pa_nama", nama_paket);
-//                intent6.putExtra("ke_id", ke_id);
-//                startActivity(intent6);
-//                return true;
+            case R.id.nav_kurvasrencana :
+                Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+                intent6.putExtra("position", 0);
+                intent6.putExtra("pa_id", id_paket);
+                intent6.putExtra("pa_nama", nama_paket);
+                intent6.putExtra("ke_id", ke_id);
+                startActivity(intent6);
+                return true;
             case R.id.nav_editkontrak :
                 Intent intent2 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
                 intent2.putExtra("pa_pagu", pa_pagu);
-                intent2.putExtra("position", 0);
+                intent2.putExtra("position", 1);
                 intent2.putExtra("pa_id", id_paket);
                 intent2.putExtra("pa_nama", nama_paket);
                 intent2.putExtra("ke_id", ke_id);
@@ -460,7 +460,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
             case R.id.nav_editlokasi :
                 Intent intent3 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
                 intent3.putExtra("pa_pagu", pa_pagu);
-                intent3.putExtra("position", 1);
+                intent3.putExtra("position", 2);
                 intent3.putExtra("pa_id", id_paket);
                 intent3.putExtra("pa_nama", nama_paket);
                 intent3.putExtra("ke_id", ke_id);
@@ -469,25 +469,25 @@ public class ActivityDetailPaket extends AppCompatActivity {
             case R.id.nav_progress :
                 Intent intent4 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
                 intent4.putExtra("pa_pagu", pa_pagu);
-                intent4.putExtra("position", 2);
+                intent4.putExtra("position", 3);
                 intent4.putExtra("pa_id", id_paket);
                 intent4.putExtra("pa_nama", nama_paket);
                 intent4.putExtra("ke_id", ke_id);
                 startActivity(intent4);
                 return true;
             case R.id.nav_keu:
-                Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
-                intent6.putExtra("pa_pagu", pa_pagu);
-                intent6.putExtra("position", 3);
-                intent6.putExtra("pa_id", id_paket);
-                intent6.putExtra("pa_nama", nama_paket);
-                intent6.putExtra("ke_id", ke_id);
-                startActivity(intent6);
+                Intent intent8 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+                intent8.putExtra("pa_pagu", pa_pagu);
+                intent8.putExtra("position", 4);
+                intent8.putExtra("pa_id", id_paket);
+                intent8.putExtra("pa_nama", nama_paket);
+                intent8.putExtra("ke_id", ke_id);
+                startActivity(intent8);
                 return true;
             case R.id.nav_catatan :
                 Intent intent7 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
                 intent7.putExtra("pa_pagu", pa_pagu);
-                intent7.putExtra("position", 4);
+                intent7.putExtra("position", 5);
                 intent7.putExtra("pa_id", id_paket);
                 intent7.putExtra("pa_nama", nama_paket);
                 intent7.putExtra("ke_id", ke_id);

@@ -155,6 +155,11 @@
         </activity>
         <activity
             android:windowSoftInputMode="adjustResize"
+            android:name="com.release.activity.ActivityKurvaSRencana"
+            android:label="Kurva S Rencana">
+        </activity>
+        <activity
+            android:windowSoftInputMode="adjustResize"
             android:name="com.release.activity.ActivityProgressSerapan"
             android:label="Calendar">
         </activity>

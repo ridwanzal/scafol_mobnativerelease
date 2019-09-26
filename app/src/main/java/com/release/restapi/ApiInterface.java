@@ -9,6 +9,7 @@ import com.release.model.DataResponsePA;
 import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
+import com.release.model.DataResponseRencana;
 import com.release.model.DataResponseSerapan;
 import com.release.model.DataResponseUsers;
 
@@ -207,4 +208,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("progress/progressk/")
     Call<DataResponseProgress> addNewProgressKeuangan(@Field("pa_id") String pa_id,  @Field("pr_daya_serap_kontrak") String pr_daya_serap_kontrak, @Field("pr_keterangan") String pr_keterangan, @Field("pr_tanggal") String pr_tanggal,  @Field("ke_id") String ke_id);
+
+    // kurva s rencana
+    @GET("kurva_s")
+    Call<DataResponseRencana> getKurvaS(@Query("pa_id") String pa_id);
 }

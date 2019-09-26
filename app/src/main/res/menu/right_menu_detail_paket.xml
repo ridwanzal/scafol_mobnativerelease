@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/nav_kurvasrencana"
+        android:iconTint="@color/colorwhite"
+        android:title="Kurva S Rencana" />
+    <item
         android:id="@+id/nav_progress"
         android:iconTint="@color/colorwhite"
         android:title="Progres Fisik" />
@@ -9,11 +13,6 @@
         android:id="@+id/nav_keu"
         android:iconTint="@color/colorwhite"
         android:title="Progres Keuangan" />
-    <item
-        android:enabled="false"
-        android:visible="false"
-        android:id="@+id/nav_kurvasrencana"
-        android:title="Kurva S Rencana" />
     <item
         android:id="@+id/nav_upload"
         app:showAsAction="always"

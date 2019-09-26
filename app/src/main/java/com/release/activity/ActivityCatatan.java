@@ -60,14 +60,14 @@ public class ActivityCatatan extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recycle_catatan);
+        setContentView(R.layout.recycle_rencana);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
         nama_paket = intent.getStringExtra("pa_nama");
         id_paket = intent.getStringExtra("pa_id");
         setTitle("Catatan");
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + nama_paket + "</small>"));
-        progressBar = findViewById(R.id.progress_listprogress_catatan);
+        progressBar = findViewById(R.id.progress_listprogress);
         textnofound = findViewById(R.id.text_notfound_catatan);
         progressBar.setVisibility(View.VISIBLE);
         textnofound.setVisibility(View.GONE);

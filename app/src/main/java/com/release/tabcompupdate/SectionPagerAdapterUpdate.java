@@ -29,6 +29,7 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
 //           };
             {
 //          R.string.update_kurvas,
+                R.string.update_kurvas,
                 R.string.update_editkontrak,
                 R.string.update_editlokasi,
                 R.string.update_progress,
@@ -50,15 +51,17 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position){
             case 0 :
+                return new FragmentKurvaS();
+            case 1 :
 //                return new FragmentKurvaS();
                 return new FragmentEditKontrak();
-            case 1 :
-                return new FragmentEditLokasi();
             case 2 :
-                return new FragmentProgress();
+                return new FragmentEditLokasi();
             case 3 :
-                return new FragmentProgressKeuangan();
+                return new FragmentProgress();
             case 4 :
+                return new FragmentProgressKeuangan();
+            case 5 :
                 return new FragmentCatatan();
 //            return new FragmentPenyediaJasa();
 //                return new FragmentUploadData(); // upload
@@ -76,6 +79,6 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 5;
+        return 6;
     }
 }
