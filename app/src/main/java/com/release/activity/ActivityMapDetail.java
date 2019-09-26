@@ -131,7 +131,7 @@ public class ActivityMapDetail extends AppCompatActivity {
         map.setMultiTouchControls(true);
         IMapController mapController = map.getController();
         mapController.setZoom(9);
-
+        startMarker = new Marker(map);
         for(int i = 0; i < object.size(); i++){
             String location_name = "";
             if(object.get(i).getPaLokasi() == ""){
@@ -146,7 +146,6 @@ public class ActivityMapDetail extends AppCompatActivity {
             getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + concat + "</small>"));
 
             startPoint = new GeoPoint(latitude, longitude);
-            startMarker = new Marker(map);
             startMarker.setPosition(startPoint);
             startMarker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
             startMarker.setTextLabelFontSize(14);
@@ -251,7 +250,6 @@ public class ActivityMapDetail extends AppCompatActivity {
                         map.setTilesScaledToDpi(true);
                         map.setMultiTouchControls(true);
                         startPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
-                        startMarker = new Marker(map);
                         startMarker.setPosition(startPoint);
                         startMarker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
                         startMarker.setTextLabelFontSize(14);
@@ -267,7 +265,6 @@ public class ActivityMapDetail extends AppCompatActivity {
                                 if(response.code() == 200){
                                     LayoutInflater inflater = (LayoutInflater) getApplication().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                                     View views = inflater.inflate(R.layout.dialog_mapdetail, null);
-
                                     nama_lokasi_edited = views.findViewById(R.id.nama_lokasi_edited);
                                     latitude_edited = views.findViewById(R.id.latitude_edited);
                                     longitude_edited = views.findViewById(R.id.longitude_edited);
