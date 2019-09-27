@@ -78,6 +78,9 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
         View view = inflater.inflate(R.layout.fragment_progress_anggaran, container, false);
         ctx = getActivity();
 
+        Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
         Intent intent = getActivity().getIntent();
         an_id = intent.getStringExtra("an_id");
         an_nama = intent.getStringExtra("an_nama");
@@ -102,6 +105,8 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
                 startActivity(intent);
             }
         });
+
+        tx_tanggal_proganggaran.setText(dateFormat.format(calendar.getTime()));
 
         Call<DataResponseAnggaran> call_anggaran = apiInterface.getAnggaran(an_id);
         call_anggaran.enqueue(new Callback<DataResponseAnggaran>() {
