@@ -98,9 +98,11 @@ public class ActivityKurvaSRencana extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycle_listrencana);
         kurvaSRencanaAdapter = new KurvaSRencanaAdapter(getApplicationContext(), serapanArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityKurvaSRencana.this);
+        kurvaSRencanaAdapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(kurvaSRencanaAdapter);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

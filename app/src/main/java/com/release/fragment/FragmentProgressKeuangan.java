@@ -79,6 +79,9 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_progress_keuangan, container, false);
 
+        Calendar calendar = Calendar.getInstance();
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
         Intent intent = getActivity().getIntent();
         pa_id = intent.getStringExtra("pa_id");
         pa_judul = intent.getStringExtra("pa_nama");
@@ -112,6 +115,8 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
         });
 
         btn_date_prog_keuangan.setOnClickListener(this);
+
+        tx_tanggal_keuangan.setText(dateFormat.format(calendar.getTime()));
 
         Call<DataResponsePaket> call_paket = apiInterface.getPaketId(pa_id);
         call_paket.enqueue(new Callback<DataResponsePaket>() {

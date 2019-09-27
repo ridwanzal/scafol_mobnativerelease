@@ -212,4 +212,9 @@ public interface ApiInterface {
     // kurva s rencana
     @GET("kurva_s")
     Call<DataResponseRencana> getKurvaS(@Query("pa_id") String pa_id);
+
+    @FormUrlEncoded
+    @POST("kurva_s/submit_rencana/")
+    Call<DataResponseRencana> addNewRencana(@Field("pa_id") String pa_id,  @Field("re_tanggal") String re_tanggal,  @Field("re_progress") String re_progress);
+
 }

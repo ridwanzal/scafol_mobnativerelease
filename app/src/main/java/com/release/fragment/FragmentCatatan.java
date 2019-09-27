@@ -109,7 +109,6 @@ public class FragmentCatatan extends Fragment implements View.OnClickListener, D
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    progressDialog.dismiss();
                                     mHandler.sendMessage(Message.obtain(mHandler, 1));
                                 }
                             }).start();
@@ -119,6 +118,7 @@ public class FragmentCatatan extends Fragment implements View.OnClickListener, D
                                     super.handleMessage(msg);
                                     switch (msg.what){
                                         case 1 :
+                                            progressDialog.dismiss();
                                             Toasty.success(getActivity(), "Catatan berhasil ditambah", Toasty.LENGTH_LONG).show();
                                             break;
                                     }

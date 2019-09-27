@@ -154,6 +154,9 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
+        tx_tanggalprogress.setText(dateFormat.format(calendar.getTime()));
+
+
         Intent intent = getActivity().getIntent();
         pa_id = intent.getStringExtra("pa_id");
         pa_judul = intent.getStringExtra("pa_nama");
