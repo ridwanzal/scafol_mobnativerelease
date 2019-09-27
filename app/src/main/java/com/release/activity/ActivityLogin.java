@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -60,6 +61,11 @@ public class ActivityLogin extends AppCompatActivity{
 
     private Boolean check_conn;
 
+    final int DRAWABLE_LEFT = 0;
+    final int DRAWABLE_TOP = 1;
+    final int DRAWABLE_RIGHT = 2;
+    final int DRAWABLE_BOTTOM = 3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +109,21 @@ public class ActivityLogin extends AppCompatActivity{
                 }else{
                     txt_pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
+            }
+        });
+
+
+        txt_pass.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    if(motionEvent.getRawX() >= (txt_pass.getRight() - txt_pass.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        txt_pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                        return true;
+                    }
+                }
+                return false;
             }
         });
 
