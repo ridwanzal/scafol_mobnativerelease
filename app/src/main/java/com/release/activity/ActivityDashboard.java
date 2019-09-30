@@ -61,6 +61,7 @@ public class ActivityDashboard extends AppCompatActivity {
     private Button show_list; // button paket fisik
     private Button show_list2; // button anggaran
     private Button btn_mapdash;
+    private Button btn_chartdash;
     private static String TAG = "ActivityDashboard";
 
     SessionManager sessionManager;
@@ -145,6 +146,7 @@ public class ActivityDashboard extends AppCompatActivity {
         tx_dashbelum = findViewById(R.id.tx_dashpaketbelum);
         tx_dashselesai = findViewById(R.id.tx_dashpaketselesai);
         btn_mapdash = findViewById(R.id.btn_mapdash);
+        btn_chartdash = findViewById(R.id.btn_chartdash);
         linear_calendar = findViewById(R.id.linear_calendar);
 
         container_dashboards = findViewById(R.id.container_dashboards);
@@ -565,6 +567,15 @@ public class ActivityDashboard extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ActivityMapDashboard.class);
                     intent.putExtra("user_id", user_id);
                     startActivity(intent);
+                }
+            });
+
+            btn_chartdash.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent2 = new Intent(getApplicationContext(), LineChartActivity1.class);
+                    intent2.putExtra("user_id", user_id);
+                    startActivity(intent2);
                 }
             });
 

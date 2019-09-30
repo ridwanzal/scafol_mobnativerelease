@@ -498,10 +498,27 @@
         android:textAlignment="viewStart"
         android:text="Lihat Map" />
 
+    <Button
+        android:id="@+id/btn_chartdash"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_mapdash"
+        android:textColor="#555"
+        android:clickable="true"
+        android:paddingRight="10dp"
+        android:paddingLeft="15dp"
+        android:drawableLeft="@drawable/ic_show_chart_black_24dp"
+        android:textStyle="normal"
+        android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:background="@drawable/button_ripple_white"
+        android:drawablePadding="10dp"
+        android:textAlignment="viewStart"
+        android:text="Lihat Grafik Realisasi" />
+
 
     <Button
         android:id="@+id/btn_tolist"
-        android:layout_below="@id/btn_mapdash"
+        android:layout_below="@id/btn_chartdash"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textColor="#555"

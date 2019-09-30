@@ -168,6 +168,11 @@
             android:name="com.release.dropbox.ActivityTag"
             android:label="">
         </activity>
+        <activity
+            android:windowSoftInputMode="adjustResize"
+            android:name="com.release.activity.LineChartActivity1"
+            android:label="">
+        </activity>
         <receiver android:name=".receiver.NotificationReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
