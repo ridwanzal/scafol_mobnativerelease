@@ -15,10 +15,12 @@ import com.release.model.DataResponseUsers;
 
 import retrofit2.Call;
 
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -217,4 +219,8 @@ public interface ApiInterface {
     @POST("kurva_s/submit_rencana/")
     Call<DataResponseRencana> addNewRencana(@Field("pa_id") String pa_id,  @Field("re_tanggal") String re_tanggal,  @Field("re_progress") String re_progress);
 
+
+    @FormUrlEncoded
+    @POST("kurva_s/delete_rencana")
+    Call<DataResponseRencana> removeKurvaS(@Field("re_id") String re_id);
 }

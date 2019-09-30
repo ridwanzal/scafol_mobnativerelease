@@ -57,6 +57,7 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
 
     public static Boolean check_duplicate = false;
     public static Boolean check_limit = false;
+    public static Boolean check_if_zero_not_available = false;
 
     private static String ke_id = "";
     private static String pa_id = "";
@@ -117,20 +118,27 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
             @Override
             public void onClick(View view) {
                 Boolean check_progress = edtProgress.getText().toString().trim().equals("");
-                Double check_maxlimit = Double.valueOf(edtProgress.getText().toString());
                 Boolean next = false;
                 if(check_progress){
                     edtProgress.setError("Required");
                     edtProgress.setHint("Masukkan rencana target");
                     next = false;
                     return;
-                }else if(check_maxlimit > 100){
-                    edtProgress.setText("");
-                    edtProgress.setError("Required");
-                    edtProgress.setHint("Target tidak dapat lebih dari 100");
-                    next = false;
-                    return;
+                }else{
+                    try{
+                        Double check_maxlimit = Double.valueOf(edtProgress.getText().toString());
+                        if(check_maxlimit > 100){
+                            edtProgress.setText("");
+                            edtProgress.setError("Required");
+                            edtProgress.setHint("Target tidak dapat lebih dari 100");
+                            next = false;
+                            return;
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
+
 
                 next = true;
                 if(next){
@@ -140,12 +148,9 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
                     checkrencana.enqueue(new Callback<DataResponseRencana>() {
                         @Override
                         public void onResponse(Call<DataResponseRencana> call, Response<DataResponseRencana> response) {
-                            if(response.code() == 404){
-                                check_duplicate = false;
-                            }else {
+                            if(response.code() == 200){
                                 ArrayList<Rencana> loops = response.body().getData();
                                 for(int i = 0; i < loops.size(); i++){
-                                    Double check_maxlimit = Double.valueOf(loops.get(i).getReProgress().toString());
                                     if(loops.get(i).getReProgress().toString().equals(edtProgress.getText().toString())){
                                         check_duplicate = true;
                                     }
@@ -153,7 +158,7 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
                             }
 
                             if(check_duplicate == false){
-                                Toasty.success(getActivity(), "Progres " + get_progres + " | " + get_tanggal, Toasty.LENGTH_LONG).show();
+//                              Toasty.success(getActivity(), "Progres " + get_progres + " | " + get_tanggal, Toasty.LENGTH_LONG).show();
                                 Call<DataResponseRencana> submitrencana = apiInterface.addNewRencana(pa_id, edtProgress.getText().toString(), get_progres);
                                 submitrencana.enqueue(new Callback<DataResponseRencana>() {
                                     @Override
@@ -181,6 +186,7 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
                                 edtProgress.setText("");
                                 edtProgress.setError("Problem");
                                 edtProgress.setHint("Target progress sudah terdaftar");
+                                check_duplicate = false;
                             }
                         }
 

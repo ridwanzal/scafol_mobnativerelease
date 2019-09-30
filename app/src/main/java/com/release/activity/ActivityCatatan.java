@@ -119,15 +119,14 @@ public class ActivityCatatan extends AppCompatActivity {
                                 });
                                 catatanArrayList.remove(position);
                                 catatanAdapter.notifyItemRemoved(position);
+                                catatanAdapter.notifyDataSetChanged();
                                 dialog.dismiss();
                             }
 
                         })
                         .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-
                                 dialog.dismiss();
-
                             }
                         })
                         .create().show();

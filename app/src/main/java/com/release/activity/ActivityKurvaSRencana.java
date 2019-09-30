@@ -1,5 +1,7 @@
 package com.release.activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -19,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.release.R;
 import com.release.adapter.KurvaSRencanaAdapter;
 import com.release.adapter.ProgressAdapterSerapan;
+import com.release.interfacemodule.ItemClickListener;
+import com.release.model.DataResponseCatatan;
 import com.release.model.DataResponseRencana;
 import com.release.model.DataResponseSerapan;
 import com.release.model.Rencana;
@@ -94,9 +98,61 @@ public class ActivityKurvaSRencana extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void generateRencanaList(ArrayList<Rencana> serapanArrayList){
+    private void generateRencanaList(final ArrayList<Rencana> rencanaArrayList){
         recyclerView = findViewById(R.id.recycle_listrencana);
-        kurvaSRencanaAdapter = new KurvaSRencanaAdapter(getApplicationContext(), serapanArrayList);
+        kurvaSRencanaAdapter = new KurvaSRencanaAdapter(getApplicationContext(), rencanaArrayList, new ItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+
+            @Override
+            public boolean onItemLongClick(View view, final int position, final String id_list) {
+                new AlertDialog.Builder(ActivityKurvaSRencana.this)
+                        .setTitle("Hapus Rencana")
+                        .setMessage("Anda yakin ingin menghapus item ini ?")
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                //your deleting code
+                                Call<DataResponseRencana> removeCatatan = apiInterface.removeKurvaS(id_list);
+                                removeCatatan.enqueue(new Callback<DataResponseRencana>() {
+                                    @Override
+                                    public void onResponse(Call<DataResponseRencana> call, Response<DataResponseRencana> response) {
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<DataResponseRencana> call, Throwable t) {
+
+                                    }
+                                });
+                                rencanaArrayList.remove(position);
+                                kurvaSRencanaAdapter.notifyItemRemoved(position);
+                                kurvaSRencanaAdapter.notifyDataSetChanged();
+                                dialog.dismiss();
+                            }
+
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .create().show();
+                return true;
+            }
+
+            @Override
+            public void onItemDoubleCLick(View view, int position) {
+
+            }
+
+            @Override
+            public void onDoubleClick(View view, int position) {
+
+            }
+        });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityKurvaSRencana.this);
         kurvaSRencanaAdapter.notifyDataSetChanged();
         recyclerView.setLayoutManager(layoutManager);
