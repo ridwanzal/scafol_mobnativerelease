@@ -394,6 +394,7 @@ public class FilesActivityDirect extends DropboxActivity {
             }
             recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
             recyclerView.setAdapter(mFilesAdapter);
+//            getSupportActionBar().setSubtitle(mFilesAdapter.getItemCount() + " Total Images");
             paket_name = findViewById(R.id.paket_name_oflistfiles);
             paket_name.setText(mDetail.toString());
             mSelectedFile = null;

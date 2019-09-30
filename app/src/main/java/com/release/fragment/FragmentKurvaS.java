@@ -56,6 +56,7 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
     private KurvaSRencanaAdapter kurvaSRencanaAdapter;
 
     public static Boolean check_duplicate = false;
+    public static Boolean check_limit = false;
 
     private static String ke_id = "";
     private static String pa_id = "";
@@ -116,10 +117,17 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
             @Override
             public void onClick(View view) {
                 Boolean check_progress = edtProgress.getText().toString().trim().equals("");
+                Double check_maxlimit = Double.valueOf(edtProgress.getText().toString());
                 Boolean next = false;
                 if(check_progress){
                     edtProgress.setError("Required");
                     edtProgress.setHint("Masukkan rencana target");
+                    next = false;
+                    return;
+                }else if(check_maxlimit > 100){
+                    edtProgress.setText("");
+                    edtProgress.setError("Required");
+                    edtProgress.setHint("Target tidak dapat lebih dari 100");
                     next = false;
                     return;
                 }
@@ -137,6 +145,7 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
                             }else {
                                 ArrayList<Rencana> loops = response.body().getData();
                                 for(int i = 0; i < loops.size(); i++){
+                                    Double check_maxlimit = Double.valueOf(loops.get(i).getReProgress().toString());
                                     if(loops.get(i).getReProgress().toString().equals(edtProgress.getText().toString())){
                                         check_duplicate = true;
                                     }
@@ -193,7 +202,7 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
                 switch (msg.what){
                     case 1 :
                     progressDialog.dismiss();
-                    Toasty.success(getActivity(), "Catatan berhasil ditambah", Toasty.LENGTH_LONG).show();
+                    Toasty.success(getActivity(), "Target berhasil ditambah", Toasty.LENGTH_LONG).show();
                     break;
                 }
             }
