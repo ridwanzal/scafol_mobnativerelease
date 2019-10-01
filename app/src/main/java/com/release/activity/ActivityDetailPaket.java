@@ -290,10 +290,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
         });
 
 
-
-
         // call last progress
-        Call<DataResponseProgress> call_lastprogall = apiInterface.getlastProgressallPPTK(id_paket);
+        Call<DataResponseProgress> call_lastprogall = apiInterface.getProgressByPaketKeuangan(id_paket);
         call_lastprogall.enqueue(new Callback<DataResponseProgress>() {
             @Override
             public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {

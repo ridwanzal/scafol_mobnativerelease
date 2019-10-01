@@ -3,17 +3,23 @@ package com.release.fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -22,7 +28,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.release.R;
+import com.release.activity.ActivityMapDetail;
 import com.release.model.DataResponsePaket;
 import com.release.model.NominatimReverseMap;
 import com.release.model.Paket;
@@ -58,12 +69,15 @@ public class FragmentEditLokasi extends Fragment {
     Marker startMarker;
     EditText tx_latitude;
     EditText tx_longitude;
+    ImageView setmylocation;
     EditText tx_locname;
     Button btn_changelocation;
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     ApiInterfaceCustom apiInterfaceCustom = ApiClientCustom.getClientCustom().create(ApiInterfaceCustom.class);
     Retrofit retrofit_custom;
     Handler mHandler;
+    String id_paket;
+    IMapController mapController;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +94,7 @@ public class FragmentEditLokasi extends Fragment {
         tx_latitude = view.findViewById(R.id.edittext_lat);
         tx_longitude = view.findViewById(R.id.edittext_longitude);
         tx_locname = view.findViewById(R.id.edittext_namalokasi);
+        setmylocation = view.findViewById(R.id.setmylocation);
         btn_changelocation = view.findViewById(R.id.btn_changelocation);
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.GONE);
@@ -89,7 +104,7 @@ public class FragmentEditLokasi extends Fragment {
         map.setMultiTouchControls(true);
         map.setZoomRounding(true);
         map.setTilesScaledToDpi(true);
-        final IMapController mapController = map.getController();
+        mapController = map.getController();
         mapController.setZoom(11);
         startPoint = new GeoPoint(-2.9547949, 104.6929245);
         mapController.setCenter(startPoint);
@@ -172,7 +187,6 @@ public class FragmentEditLokasi extends Fragment {
                         }
                     });
                     mapController.setCenter(startPoint);
-                    // set marker
                     map.getOverlays().add(startMarker);
                 }
             }
@@ -183,25 +197,30 @@ public class FragmentEditLokasi extends Fragment {
             }
         });
 
+        setmylocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setMyLocation();
+            }
+        });
+
+
         btn_changelocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // submit data to update location.
                 progressDialog.show();
                 progressBar.setVisibility(View.VISIBLE);
                 String get_lat = tx_latitude.getText().toString();
                 String get_long = tx_longitude.getText().toString();
                 String get_name = tx_locname.getText().toString();
-                String pa_id = id_paket;
                 Log.d(TAG, "lATITUDE : " + get_lat + " LONGITUDE : " + get_long + " | " + id_paket);
-                Call<DataResponsePaket> call_update = apiInterface.updateMap(pa_id, get_name, get_lat, get_long);
+                Call<DataResponsePaket> call_update = apiInterface.updateMap(id_paket, get_name, get_lat, get_long);
                 call_update.enqueue(new Callback<DataResponsePaket>() {
                     @Override
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
                             Log.d(TAG, "Response Result Success------------------------> : " + response.body());
                             progressBar.setVisibility(View.GONE);
                             Log.d(TAG, "Response Result Success------------------------> : " + response.body());
-//                            Toast.makeText(ctx, "Fails", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -229,6 +248,14 @@ public class FragmentEditLokasi extends Fragment {
                                         Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
                                         btn_changelocation.setVisibility(View.GONE);
                                         break;
+                                    case 2 :
+                                        Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
+                                        btn_changelocation.setVisibility(View.GONE);
+                                        break;
+                                    case 3 :
+                                        Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
+                                        btn_changelocation.setVisibility(View.GONE);
+                                        break;
                                 }
                             }
                         };
@@ -236,9 +263,83 @@ public class FragmentEditLokasi extends Fragment {
                 });
             }
         });
-
-
         return view;
+    }
+
+
+    public void setMyLocation(){
+        FusedLocationProviderClient mFusedLocation = LocationServices.getFusedLocationProviderClient(getActivity());
+        try{
+            mFusedLocation.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(final Location location) {
+                    if (location != null){
+                        map.setTileSource(TileSourceFactory.MAPNIK);
+                        map.setBuiltInZoomControls(true);
+                        map.setUseDataConnection(true);
+                        map.setFlingEnabled(true);
+                        map.setZoomRounding(true);
+                        map.setTilesScaledToDpi(true);
+                        map.setMultiTouchControls(true);
+                        startPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
+                        startMarker.setPosition(startPoint);
+                        startMarker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
+                        startMarker.setTextLabelFontSize(14);
+                        startMarker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
+                        startMarker.setIcon(getResources().getDrawable(R.drawable.ic_locations_on_black_60dp));
+                        startMarker.setVisible(true);
+                        Call<NominatimReverseMap> call_reverselatlong = apiInterfaceCustom.reverseLatLang("json", String.valueOf(location.getLatitude()),  String.valueOf(location.getLongitude()), "18", "1");
+                        String concat = "Lat : " + location.getLatitude() + ", Long : "  + location.getLongitude() + "";
+                        call_reverselatlong.enqueue(new Callback<NominatimReverseMap>() {
+                            @Override
+                            public void onResponse(Call<NominatimReverseMap> call, Response<NominatimReverseMap> response) {
+                                if(response.code() == 200){
+                                    LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                                    View views = inflater.inflate(R.layout.dialog_mapdetail, null);
+                                    startMarker.setTitle(response.body().getDisplay_name());
+                                    tx_locname.setText(response.body().getDisplay_name().toString());
+                                    tx_longitude.setText(String.valueOf(location.getLongitude()));
+                                    tx_latitude.setText(String.valueOf(location.getLatitude()));
+                                    startMarker.showInfoWindow();
+                                    startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                    btn_changelocation.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<NominatimReverseMap> call, Throwable t) {
+
+                            }
+                        });
+
+                        mapController.setZoom(17);
+                        mapController.stopPanning();
+                        mapController.setCenter(startPoint);
+                        // set marker
+                        map.getOverlays().add(startMarker);
+                    }
+                }
+            });
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.right_menu_paketmap, menu);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        menu.findItem(R.id.nav_pinmylocation).setVisible(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
@@ -9,10 +10,15 @@
         android:layout_weight="1"
         android:layout_height="0dp">
 
-        <org.osmdroid.views.MapView android:id="@+id/map2"
+        <org.osmdroid.views.MapView
+            android:id="@+id/map2"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_height="match_parent" />
+            android:layout_marginTop="-2dp">
+
+        </org.osmdroid.views.MapView>
+
         <ProgressBar
             android:id="@+id/progress_bar"
             android:layout_width="match_parent"
@@ -20,6 +26,23 @@
             android:layout_height="50dp"
             android:padding="10dp"
             />
+
+        <ImageView
+            android:id="@+id/setmylocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/map2"
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/button_ripple_white"
+            android:foregroundGravity="right"
+            android:padding="6dp"
+            app:srcCompat="@drawable/ic_my_location_black_24dp" />
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

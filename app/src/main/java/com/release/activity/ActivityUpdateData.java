@@ -1,6 +1,7 @@
 package com.release.activity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -41,6 +42,12 @@ public class ActivityUpdateData extends AppCompatActivity {
         }else{
             titlebardatas.setText(get_namafromdetail);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.right_menu_paketmap, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

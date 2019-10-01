@@ -599,12 +599,12 @@
                     android:layout_marginBottom="8dp"
                     android:background="#eee" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Sisa Paket Non-Fisik"
-                    android:textColor="#aaa" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sisa Pagu"
+                        android:textColor="#aaa" />
 
                 <TextView
                     android:id="@+id/text_sisaanggaran"
