@@ -268,6 +268,7 @@ public class FragmentEditLokasi extends Fragment {
 
 
     public void setMyLocation(){
+        progressBar.setVisibility(View.VISIBLE);
         FusedLocationProviderClient mFusedLocation = LocationServices.getFusedLocationProviderClient(getActivity());
         try{
             mFusedLocation.getLastLocation().addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
@@ -303,6 +304,7 @@ public class FragmentEditLokasi extends Fragment {
                                     startMarker.showInfoWindow();
                                     startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                                     btn_changelocation.setVisibility(View.VISIBLE);
+                                    progressBar.setVisibility(View.GONE);
                                 }
                             }
                             @Override
