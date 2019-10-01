@@ -46,6 +46,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
     private TextView text_kontrak_anggaran;
     private TextView text_nomorkontrak_anggaran;
     private TextView text_akhirkontrak_anggaran;
+    private TextView text_awalkontrak_anggaran;
     private TextView text_anggaran_pagu;
     private TextView tx_tanggalupdate;
     private TextView text_kegjudul_ang;
@@ -69,6 +70,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
         text_kontrak_anggaran = findViewById(R.id.text_kontrak_anggaran);
         text_nomorkontrak_anggaran = findViewById(R.id.text_nomorkontrak_anggaran);
         text_akhirkontrak_anggaran = findViewById(R.id.text_akhirkontrak_anggaran);
+        text_awalkontrak_anggaran = findViewById(R.id.text_awalkontrak_anggaran);
         text_anggaran_pagu = findViewById(R.id.text_anggaran_pagu);
         text_kegjudul_ang = findViewById(R.id.text_kegjudul_ang);
         textbidangs_ang = findViewById(R.id.textbidangs_ang);
@@ -97,7 +99,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                         text_nomorkontrak_anggaran.setText(data.get(i).getAnNomorkontrak());
                         text_akhirkontrak_anggaran.setText(data.get(i).getAnAkhirkontrak());
                         text_anggaran_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(data.get(i).getAnpPagu()));
-
+                        text_awalkontrak_anggaran.setText(data.get(i).getAnAwalkontrak());
 
                         // get bidang
                         Call<DataResponseBidang> call_bidanginfo = apiInterface.getBidang(ke_id);
