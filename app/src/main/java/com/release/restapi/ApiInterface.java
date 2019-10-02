@@ -124,6 +124,9 @@ public interface ApiInterface {
     @GET("progress/fisik")
     Call<DataResponseProgress> getProgressByPaket(@Query("pa_id") String pa_id);
 
+    @GET("progress/progresslast")
+    Call<DataResponseProgress> getProgressFisikLast(@Query("pa_id") String pa_id);
+
     @GET("progress/keuangan")
     Call<DataResponseProgress> getProgressByPaketKeuangan(@Query("pa_id") String pa_id);
 

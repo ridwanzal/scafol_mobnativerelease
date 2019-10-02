@@ -34,6 +34,7 @@ import com.release.model.Progress;
 import com.release.model.User;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
+import com.release.sharedexternalmodule.Kriteria;
 import com.release.sharedexternalmodule.formatMoneyIDR;
 import com.release.sharedpreferences.SessionManager;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -291,6 +292,54 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
 
         // call last progress
+        Call<DataResponseProgress> call_last_progfisik = apiInterface.getProgressFisikLast(id_paket);
+        call_last_progfisik.enqueue(new Callback<DataResponseProgress>() {
+            @Override
+            public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {
+                if(response.code() == 200){
+                    String real_percent = "";
+                    String result = "";
+                    ArrayList<Progress> progressList = response.body().getData();
+                    for(int i = 0; i < progressList.size(); i++){
+                        if(progressList.get(i).getPr_tanggal() != null && progressList.get(i).getPr_real() != null && progressList.get(i).getPr_target() != null){
+                            String kriteria = Kriteria.get_kriteria(progressList.get(i).getPr_tanggal(), progressList.get(i).getPr_real(), progressList.get(i).getPr_target());
+                            switch (kriteria.toLowerCase()){
+                                case "kritis" :
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " kritis"));
+                                    break;
+                                case "terlambat" :
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " lambat"));
+                                    break;
+                                case "wajar" :
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " wajar"));
+                                    break;
+                                case "baik" :
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " baik"));
+                                    break;
+                                case "selesai" :
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " selesai"));
+                                    break;
+                                case "belum mulai" :
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " belum mulai"));
+                                    break;
+                            }
+                        }else{
+                            tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + ""));
+                        }
+                        lin_textreal.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %"));
+                        lin_texttarget.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_target() + " %"));
+                        lin_textdeviasi.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_deviasi() + " %"));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataResponseProgress> call, Throwable t) {
+
+            }
+        });
+
+
         Call<DataResponseProgress> call_lastprogall = apiInterface.getProgressByPaketKeuangan(id_paket);
         call_lastprogall.enqueue(new Callback<DataResponseProgress>() {
             @Override
@@ -302,7 +351,6 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     for(int i = 0; i < progressList.size(); i++){
                         real_percent = progressList.get(i).getPr_real().equals("") ||  progressList.get(i).getPr_real() == null ? "0" : progressList.get(i).getPr_real().toString();
                         result = real_percent + " %";
-                        tx_lasptprog.setText(result.toString());
 
                         String result_daya_serap = "";
                         String result_sisa_kontrak = "";
@@ -312,14 +360,9 @@ public class ActivityDetailPaket extends AppCompatActivity {
                         result_sisa_kontrak = progressList.get(i).getPr_sisa_kontrak() == null ? "-" :  "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_kontrak());
                         result_sisa_anggaran = progressList.get(i).getPr_sisa_anggaran() == null ? "-" :  "Rp. " +  formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_anggaran());
 
-
                         text_dayaserap.setText(result_daya_serap);
                         text_sisakontrak.setText(result_sisa_kontrak);
                         text_sisaanggaran.setText(result_sisa_anggaran);
-
-                        lin_textreal.setText(result);
-                        lin_texttarget.setText(progressList.get(i).getPr_target() + " %");
-                        lin_textdeviasi.setText(progressList.get(i).getPr_deviasi() + " %");
                     }
                 }
             }
@@ -359,8 +402,9 @@ public class ActivityDetailPaket extends AppCompatActivity {
         });
     }
 
+
     public static String idrFormat(String data){
-        if(data == null || data == "" || data.equals("")){
+        if(data == null || data.equals("null") || data == "" || data.equals("")){
             return "Rp. -";
         }else{
             return "Rp. " + data;
@@ -368,7 +412,15 @@ public class ActivityDetailPaket extends AppCompatActivity {
     }
 
     public static String checkData(String data){
-        if(data == null || data == "" || data.equals("")){
+        if(data == null || data.equals("null") || data == "" || data.equals("")){
+            return "-";
+        }else{
+            return data;
+        }
+    }
+
+    public static String checkData(String data_main, String data){
+        if(data_main == null || data_main.equals("null") || data_main == "" || data_main.equals("")){
             return "-";
         }else{
             return data;
@@ -376,7 +428,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
     }
 
     public static String checkStatus(String status){
-        if(status.equals('0')){
+        if(status.equals('0')) {
             return "-";
         }else{
             return status;

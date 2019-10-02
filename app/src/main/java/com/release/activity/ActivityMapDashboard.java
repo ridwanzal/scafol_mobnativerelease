@@ -517,11 +517,13 @@ public class ActivityMapDashboard extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         dashmap.onPause();
+        dialoginfo.dismiss();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        dialoginfo.dismiss();
     }
 
     public void openBottomDialog(){
