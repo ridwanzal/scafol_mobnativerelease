@@ -92,6 +92,7 @@ public class FilesActivityDirect extends DropboxActivity {
     protected void onResume() {
         super.onResume();
         if(hasToken()){
+//            Toasty.success(getApplicationContext(),"Yes it is "  + hasToken(), Toasty.LENGTH_LONG).show();
         }
     }
 

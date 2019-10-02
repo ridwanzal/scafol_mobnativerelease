@@ -205,7 +205,7 @@ public class ActivityEditProfil extends AppCompatActivity {
                 Toast.makeText(this, "Testing: " + data.toString(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "request code pick file gambar" +  data.toString());
                 Log.d(TAG, data.toString());
-                uploadFile(data.getData().toString());
+//                uploadFile(data.getData().toString());
             }
         }
     }
