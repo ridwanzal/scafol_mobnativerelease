@@ -9,7 +9,6 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
 public class formatMoneyIDR {
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public static String convertIDR(String money){
             Double uang = Double.valueOf(money);
             DecimalFormat kursIndonesia = (DecimalFormat) DecimalFormat.getCurrencyInstance();

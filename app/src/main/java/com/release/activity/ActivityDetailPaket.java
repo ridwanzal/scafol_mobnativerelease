@@ -470,7 +470,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
 //                mPath = "/files/gov/16731/pa-483/photos";
                 path_todropbox = "/files/gov/"+dinas_id+"/pa-"+id_paket+"/photos";
 //                startActivity(FilesActivity.getIntent(ActivityDetailPaket.this, path_todropbox));
-                Intent intent = new Intent(ActivityDetailPaket.this, UserActivity.class);
+                Intent intent = new Intent(ActivityDetailPaket.this, FilesActivityDirect.class);
                 intent.putExtra("path_dropbox", path_todropbox);
                 intent.putExtra("pa_judul", nama_paket);
                 intent.putExtra("upload_type", "1");
