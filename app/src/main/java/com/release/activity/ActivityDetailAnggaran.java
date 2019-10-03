@@ -96,10 +96,10 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
 //                        }else {
 //                            text_kontrak_anggaran.setText(formatMoneyIDR.convertIDR(data.get(i).getAnNilaikontrak()));
 //                        }
-                        text_nomorkontrak_anggaran.setText(data.get(i).getAnNomorkontrak());
-                        text_akhirkontrak_anggaran.setText(data.get(i).getAnAkhirkontrak());
+                        text_nomorkontrak_anggaran.setText(checkData(data.get(i).getAnNomorkontrak()));
+                        text_akhirkontrak_anggaran.setText(checkData(data.get(i).getAnAkhirkontrak()));
                         text_anggaran_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(data.get(i).getAnpPagu()));
-                        text_awalkontrak_anggaran.setText(data.get(i).getAnAwalkontrak());
+                        text_awalkontrak_anggaran.setText(checkData(data.get(i).getAnAwalkontrak()));
 
                         // get bidang
                         Call<DataResponseBidang> call_bidanginfo = apiInterface.getBidang(ke_id);
@@ -176,6 +176,15 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
             }
         };
     }
+
+    public static String checkData(String data){
+        if(data == null || data.equals("null") || data == "" || data.equals("")){
+            return "-";
+        }else{
+            return data;
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

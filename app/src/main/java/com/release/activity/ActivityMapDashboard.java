@@ -92,9 +92,8 @@ public class ActivityMapDashboard extends AppCompatActivity {
         role = user.get(SessionManager.KEY_ROLE);
         dinas_id =  user.get(SessionManager.KEY_DINASID);
         bi_id = user.get(SessionManager.KEY_BIDANG);
-        Configuration.getInstance().setUserAgentValue(getPackageName());
 
-
+        Configuration.getInstance().setUserAgentValue(getApplicationContext().getPackageName());
         org.osmdroid.config.IConfigurationProvider osmConf = org.osmdroid.config.Configuration.getInstance();
         File basePath = new File(getCacheDir().getAbsolutePath(), "osmdroid");
         osmConf.setOsmdroidBasePath(basePath);

@@ -318,12 +318,10 @@ public class ActivityEditProfil extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        dialog.dismiss();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dialog.dismiss();
     }
 }
