@@ -39,6 +39,7 @@ import com.release.sharedpreferences.SessionManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -92,6 +93,13 @@ public class ActivityMapDashboard extends AppCompatActivity {
         dinas_id =  user.get(SessionManager.KEY_DINASID);
         bi_id = user.get(SessionManager.KEY_BIDANG);
         Configuration.getInstance().setUserAgentValue(getPackageName());
+
+
+        org.osmdroid.config.IConfigurationProvider osmConf = org.osmdroid.config.Configuration.getInstance();
+        File basePath = new File(getCacheDir().getAbsolutePath(), "osmdroid");
+        osmConf.setOsmdroidBasePath(basePath);
+        File tileCache = new File(osmConf.getOsmdroidBasePath().getAbsolutePath(), "tile");
+        osmConf.setOsmdroidTileCache(tileCache);
 
         center_to_map.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -517,13 +525,11 @@ public class ActivityMapDashboard extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         dashmap.onPause();
-        dialoginfo.dismiss();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        dialoginfo.dismiss();
     }
 
     public void openBottomDialog(){
