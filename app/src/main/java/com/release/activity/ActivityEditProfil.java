@@ -205,7 +205,6 @@ public class ActivityEditProfil extends AppCompatActivity {
                 Toast.makeText(this, "Testing: " + data.toString(), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "request code pick file gambar" +  data.toString());
                 Log.d(TAG, data.toString());
-//                uploadFile(data.getData().toString());
             }
         }
     }
@@ -217,57 +216,6 @@ public class ActivityEditProfil extends AppCompatActivity {
         intent.setType("*/*");
         startActivityForResult(intent, PICKFILE_REQUEST_CODE);
     }
-
-    private void uploadFile(final String fileUri) {
-        Log.d(TAG, "FileURI: " +  fileUri);
-        final String mPath = "files/gov/1/logo";
-//        final ProgressDialog dialog = new ProgressDialog(this);
-//        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//        dialog.setCancelable(false);
-//        dialog.setMessage("Uploading");
-//        dialog.show();
-
-        SharedPreferences prefs = getSharedPreferences("dropbox-sample", MODE_PRIVATE);
-        String accessToken = "dS7WKoF3tJAAAAAAAAACgajSXM4QXFnHM04wHvK3bTx3xmRLtXU8mgc5EXu0W9ir";
-        if (accessToken != null) {
-            prefs.edit().putString("access-token", accessToken).apply();
-            DropboxClientFactory.init(accessToken);
-            PicassoClient.init(getApplicationContext(), DropboxClientFactory.getClient());
-        }
-        String uid = Auth.getUid();
-        String storedUid = prefs.getString("user-id", null);
-        if (uid != null && !uid.equals(storedUid)) {
-            prefs.edit().putString("user-id", uid).apply();
-        }
-        new UploadFileTask(this, DropboxClientFactory.getClient(), new UploadFileTask.Callback() {
-            @Override
-            public void onUploadComplete(FileMetadata result) {
-                Log.d(TAG, "FileTesting");
-
-                dialog.dismiss();
-
-                finish();
-                startActivity(FilesActivity.getIntent(ActivityEditProfil.this, mPath));
-                String message = result.getName() + " size " + result.getSize() + " modified " +
-                        DateFormat.getDateTimeInstance().format(result.getClientModified());
-                Toast.makeText(ActivityEditProfil.this, message, Toast.LENGTH_SHORT)
-                        .show();
-            }
-
-            @Override
-            public void onError(Exception e) {
-                dialog.dismiss();
-
-                Log.e(TAG, "Failed to upload file.", e);
-                Toasty.error(ActivityEditProfil.this,
-                        "An error has occurred",
-                        Toast.LENGTH_SHORT)
-                        .show();
-            }
-        }).execute(fileUri, mPath);
-
-    }
-
 
     public void openBottomDialog(){
         View view = getLayoutInflater().inflate(R.layout.dialog_editprofile, null);
