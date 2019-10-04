@@ -29,7 +29,7 @@
             <TextView
                 android:layout_weight="1"
                 android:text="Jumlah Serapan/ Realisasi"
-                android:textAlignment="textStart"
+                android:textAlignment="viewStart"
                 android:layout_width="wrap_content"
                 android:textColor="#aaa"
                 android:layout_height="wrap_content" />
@@ -38,7 +38,7 @@
                 android:paddingLeft="20dp"
                 android:id="@+id/progkeu_tanggal"
                 android:textAlignment="textEnd"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="-" />
