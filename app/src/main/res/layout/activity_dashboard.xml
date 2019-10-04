@@ -560,7 +560,7 @@
                         android:layout_gravity="left"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="1"
-                        android:text="Paket Berjalan"
+                        android:text="Paket yang dikerjakan"
                         android:textColor="#aaa" />
 
                     <TextView
@@ -603,7 +603,7 @@
                         android:layout_gravity="left"
                         android:layout_marginLeft="20dp"
                         android:layout_weight="1"
-                        android:text="Belum Mulai"
+                        android:text="Paket Belum Mulai"
                         android:textColor="#aaa" />
 
                     <TextView
