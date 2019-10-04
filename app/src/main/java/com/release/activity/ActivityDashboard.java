@@ -32,6 +32,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.release.R;
 import com.release.dropbox.UserActivity;
+import com.release.model.Anggaran;
 import com.release.model.DataResponseAnggaran;
 import com.release.model.PaketDashboard;
 import com.release.model.DataResponsePA;
@@ -82,6 +83,7 @@ public class ActivityDashboard extends AppCompatActivity {
     private TextView tx_dashreal_dummy;
     private TextView tx_datecalendar;
     private TextView tx_namauser;
+    private TextView tx_dashtotalpaket_nonfisik;
 
     private Date date;
 
@@ -150,7 +152,7 @@ public class ActivityDashboard extends AppCompatActivity {
         btn_mapdash = findViewById(R.id.btn_mapdash);
         btn_chartdash = findViewById(R.id.btn_chartdash);
         linear_calendar = findViewById(R.id.linear_calendar);
-        tx_dashtotalnonfisik = findViewById(R.id.tx_dashtotalpaket_nonfisik);
+        tx_dashtotalpaket_nonfisik = findViewById(R.id.tx_dashtotalpaket_nonfisik);
 
         container_dashboards = findViewById(R.id.container_dashboards);
         container_dashboards.setVisibility(View.GONE);
@@ -299,6 +301,27 @@ public class ActivityDashboard extends AppCompatActivity {
                             }
                         });
 
+                        // call count anggaran di pptk
+                        Call<DataResponseAnggaran> count_anggaran_bidang = apiInterface.getAnggaranPPTK(user_id);
+                        count_anggaran_bidang.enqueue(new Callback<DataResponseAnggaran>() {
+                            @Override
+                            public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
+                                Log.d(TAG, "RESPONSE " + new Gson().toJson(response.code()));
+                                String response_code = new Gson().toJson(response.code()).toString();
+                                if(response_code.equals("200")){
+                                    ArrayList<Anggaran> result = null;
+                                    result = (response.body().getData() == null) ?  null : response.body().getData();
+                                    if(result != null){
+                                        tx_dashtotalpaket_nonfisik.setText(String.valueOf(response.body().getData().size()));
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<DataResponseAnggaran> call, Throwable t) {
+
+                            }
+                        });
+
                 // set marker
                 new Thread(new Runnable() {
                     public void run() {
@@ -435,25 +458,23 @@ public class ActivityDashboard extends AppCompatActivity {
                         }
                     });
 
-                    // call to total
-                    Call<DataResponseAnggaran> call_nonfisik = apiInterface.getAnggaranAdmin(dinas_id);
-                    callsisa.enqueue(new Callback<DataResponsePA>() {
+                    // call count anggaran di admind
+                    Call<DataResponseAnggaran> count_anggaran_admin = apiInterface.getAnggaranAdmin(dinas_id);
+                    count_anggaran_admin.enqueue(new Callback<DataResponseAnggaran>() {
                         @Override
-                        public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                        public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
                             Log.d(TAG, "RESPONSE " + new Gson().toJson(response.code()));
                             String response_code = new Gson().toJson(response.code()).toString();
                             if(response_code.equals("200")){
-                                ArrayList<PaketDashboard> result = null;
+                                ArrayList<Anggaran> result = null;
                                 result = (response.body().getData() == null) ?  null : response.body().getData();
                                 if(result != null){
-                                    tx_dashtotalnonfisik.setText(String.valueOf(result.size()));
+                                   tx_dashtotalpaket_nonfisik.setText(String.valueOf(response.body().getData().size()));
                                 }
-                            }else{
-                                tx_dashsisa.setText(default_format_nomoney);
                             }
                         }
                         @Override
-                        public void onFailure(Call<DataResponsePA> call, Throwable t) {
+                        public void onFailure(Call<DataResponseAnggaran> call, Throwable t) {
 
                         }
                     });
@@ -573,6 +594,28 @@ public class ActivityDashboard extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<DataResponsePA> call, Throwable t) {
                         Log.d(TAG, "RESPONSE GAGAL : " + call);
+                    }
+                });
+
+
+                // call count anggaran di admind
+                Call<DataResponseAnggaran> count_anggaran_bidang = apiInterface.getAnggaranBidang(bi_id, dinas_id);
+                count_anggaran_bidang.enqueue(new Callback<DataResponseAnggaran>() {
+                    @Override
+                    public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
+                        Log.d(TAG, "RESPONSE " + new Gson().toJson(response.code()));
+                        String response_code = new Gson().toJson(response.code()).toString();
+                        if(response_code.equals("200")){
+                            ArrayList<Anggaran> result = null;
+                            result = (response.body().getData() == null) ?  null : response.body().getData();
+                            if(result != null){
+                                tx_dashtotalpaket_nonfisik.setText(String.valueOf(response.body().getData().size()));
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<DataResponseAnggaran> call, Throwable t) {
+
                     }
                 });
 
