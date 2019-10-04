@@ -1,16 +1,21 @@
 package com.release.activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -96,6 +101,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView text_nokontrak;
 
     private TextView sisa_waktukerja;
+
+    private ScrollView main_layout_detail_paket;
     private Context mContext;
     private GoogleMap mMap;
     private GoogleApiClient mGoogleApiClient;
@@ -103,7 +110,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
     private ProgressBar progressBar;
     private CardView cardView;
-
+    ProgressDialog progressDialog;
+    private Handler mHandler;
 
     SessionManager sessionManager;
     @Override
@@ -112,6 +120,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
         setContentView(R.layout.activity_paketdetail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + "Informasi Detail Paket Fisik" + "</small>"));
+
         sessionManager = new SessionManager(getApplicationContext());
         HashMap<String, String> user = sessionManager.getUserDetails();
         String role = user.get(SessionManager.KEY_ROLE);
@@ -157,6 +166,11 @@ public class ActivityDetailPaket extends AppCompatActivity {
         text_nokontrak = findViewById(R.id.text_nokontrak);
         sisa_waktukerja = findViewById(R.id.sisa_waktukerja);
 
+        main_layout_detail_paket = findViewById(R.id.main_layout_detail_paket);
+        main_layout_detail_paket.setVisibility(View.GONE);
+        progressDialog = new ProgressDialog(ActivityDetailPaket.this);
+        progressDialog.show();
+        progressDialog.setMessage("Loading");
 
         Intent intent = getIntent();
         String id_paket = intent.getStringExtra("pa_id");
@@ -400,6 +414,30 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
             }
         });
+
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mHandler.sendMessage(Message.obtain(mHandler, 1));
+            }
+        }).start();
+
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        progressDialog.dismiss();
+                        main_layout_detail_paket.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        };
     }
 
 

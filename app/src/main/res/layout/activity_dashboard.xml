@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_container_dashbaord"
+    android:background="@drawable/rectangle_black"
     >
 
 <LinearLayout
@@ -92,8 +93,9 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_gravity="left"
-            android:layout_marginBottom="5dp"
             app:cardCornerRadius="2dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_height="80dp">
 
             <LinearLayout
@@ -153,10 +155,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_gravity="left"
-
         app:cardCornerRadius="2dp"
+        android:layout_marginTop="-5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_height="80dp">
-
         <LinearLayout
             android:layout_gravity="center"
             android:layout_width="match_parent"
@@ -213,9 +216,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_gravity="left"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginTop="-5dp"
+        android:layout_marginBottom="8dp"
         app:cardCornerRadius="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_height="80dp">
 
         <LinearLayout
@@ -492,7 +497,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 >
                 <LinearLayout
@@ -721,6 +726,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/btn_mapdash"
         android:textColor="#555"
+        android:layout_marginTop="-2dp"
         android:clickable="true"
         android:paddingRight="10dp"
         android:paddingLeft="15dp"
@@ -742,6 +748,7 @@
         android:clickable="true"
         android:paddingRight="10dp"
         android:textAlignment="viewStart"
+        android:layout_marginTop="-2dp"
         android:paddingLeft="20dp"
         android:textStyle="normal"
         android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
@@ -758,6 +765,7 @@
         android:paddingRight="10dp"
         android:textColor="#555"
         android:paddingLeft="20dp"
+        android:layout_marginTop="-2dp"
         android:textAlignment="viewStart"
         android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
         android:background="@drawable/button_ripple_generals"
