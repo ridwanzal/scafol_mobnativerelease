@@ -7,4 +7,6 @@
     <color name="colorMain">#fff257</color>
     <color name="colorMainStroke">#E2D652</color>
     <color name="colorwhite">#ffffff</color>
+    <color name="colorRed">#F91F4A</color>
+    <color name="colorBlue">#0A7DC8</color>
 </resources>
