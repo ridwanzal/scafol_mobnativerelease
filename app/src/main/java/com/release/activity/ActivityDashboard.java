@@ -32,6 +32,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.release.R;
 import com.release.dropbox.UserActivity;
+import com.release.model.DataResponseAnggaran;
 import com.release.model.PaketDashboard;
 import com.release.model.DataResponsePA;
 import com.release.receiver.NotificationPublisher;
@@ -76,6 +77,7 @@ public class ActivityDashboard extends AppCompatActivity {
     private TextView tx_dashongoing;
     private TextView tx_dashbelum;
     private TextView tx_dashselesai;
+    private TextView tx_dashtotalnonfisik;
     private TextView tx_dashpagu_dummy;
     private TextView tx_dashreal_dummy;
     private TextView tx_datecalendar;
@@ -148,6 +150,7 @@ public class ActivityDashboard extends AppCompatActivity {
         btn_mapdash = findViewById(R.id.btn_mapdash);
         btn_chartdash = findViewById(R.id.btn_chartdash);
         linear_calendar = findViewById(R.id.linear_calendar);
+        tx_dashtotalnonfisik = findViewById(R.id.tx_dashtotalpaket_nonfisik);
 
         container_dashboards = findViewById(R.id.container_dashboards);
         container_dashboards.setVisibility(View.GONE);
@@ -431,6 +434,31 @@ public class ActivityDashboard extends AppCompatActivity {
 
                         }
                     });
+
+                    // call to total
+                    Call<DataResponseAnggaran> call_nonfisik = apiInterface.getAnggaranAdmin(dinas_id);
+                    callsisa.enqueue(new Callback<DataResponsePA>() {
+                        @Override
+                        public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
+                            Log.d(TAG, "RESPONSE " + new Gson().toJson(response.code()));
+                            String response_code = new Gson().toJson(response.code()).toString();
+                            if(response_code.equals("200")){
+                                ArrayList<PaketDashboard> result = null;
+                                result = (response.body().getData() == null) ?  null : response.body().getData();
+                                if(result != null){
+                                    tx_dashtotalnonfisik.setText(String.valueOf(result.size()));
+                                }
+                            }else{
+                                tx_dashsisa.setText(default_format_nomoney);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<DataResponsePA> call, Throwable t) {
+
+                        }
+                    });
+
+
                     // set marker
                     new Thread(new Runnable() {
                         public void run() {
