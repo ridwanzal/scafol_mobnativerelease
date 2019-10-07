@@ -227,7 +227,7 @@
         app:cardCornerRadius="2dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_height="84dp">
+        android:layout_height="89dp">
 
         <LinearLayout
             android:layout_gravity="center"
@@ -259,7 +259,7 @@
                     android:layout_gravity="left"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
-                    android:text="Sisa Anggaran"
+                    android:text="Sisa Pagu"
                     android:textColor="#aaa"
                     />
 
