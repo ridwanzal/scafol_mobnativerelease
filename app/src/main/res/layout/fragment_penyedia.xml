@@ -8,7 +8,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/button_ripple"
+        android:background="@drawable/button_ripple_radius"
         android:text="Tambah Kontraktor"
         />
 
@@ -147,7 +147,7 @@
             android:padding="8dp"
             android:clickable="true"
             android:visibility="gone"
-            android:background="@drawable/button_ripple"
+            android:background="@drawable/button_ripple_radius"
             android:text="Tambah Penyedia Jasa" />
     </LinearLayout>
     <LinearLayout

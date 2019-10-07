@@ -518,17 +518,26 @@ public class ActivityMapDashboard extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        if(dialoginfo != null){
+            dialoginfo.dismiss();
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         dashmap.onPause();
+        if(dialoginfo != null){
+            dialoginfo.dismiss();
+        }
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        if(dialoginfo != null){
+            dialoginfo.dismiss();
+        }
     }
 
     public void openBottomDialog(){

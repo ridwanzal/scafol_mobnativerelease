@@ -101,32 +101,6 @@ public class ActivityLogin extends AppCompatActivity{
         sessionManager = new SessionManager(getApplicationContext());
         final View parentLayout = findViewById(android.R.id.content);
 
-        check_pass.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    txt_pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                }else{
-                    txt_pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                }
-            }
-        });
-
-
-        txt_pass.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    if(motionEvent.getRawX() >= (txt_pass.getRight() - txt_pass.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // your action here
-                        txt_pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                        return true;
-                    }
-                }
-                return false;
-            }
-        });
-
         tx_helpslogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

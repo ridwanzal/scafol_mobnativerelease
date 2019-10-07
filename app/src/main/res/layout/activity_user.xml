@@ -60,7 +60,7 @@
             android:layout_marginTop="40dp"
             style="@style/ButtonStyle"
             android:layout_width="match_parent"
-            android:background="@drawable/button_ripple"
+            android:background="@drawable/button_ripple_radius"
             android:layout_height="wrap_content"
             android:textColor="#000"
             android:text="Lihat Berkas"/>

@@ -112,7 +112,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
-                    android:background="@drawable/button_ripple"
+                    android:background="@drawable/button_ripple_radius"
                     android:text="@string/submit"/>
 
             </LinearLayout>
