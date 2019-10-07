@@ -29,6 +29,7 @@ import com.release.dropbox.FilesActivity;
 import com.release.dropbox.FilesActivityDirect;
 import com.release.dropbox.UserActivity;
 import com.release.model.Bidang;
+import com.release.model.DataResponse;
 import com.release.model.DataResponseBidang;
 import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
@@ -101,6 +102,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView text_nokontrak;
 
     private TextView sisa_waktukerja;
+    private CardView card_info_pptk;
 
     private ScrollView main_layout_detail_paket;
     private Context mContext;
@@ -112,6 +114,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private CardView cardView;
     ProgressDialog progressDialog;
     private Handler mHandler;
+    private String role;
+    private String user_id;
 
     SessionManager sessionManager;
     @Override
@@ -123,15 +127,16 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
         sessionManager = new SessionManager(getApplicationContext());
         HashMap<String, String> user = sessionManager.getUserDetails();
-        String role = user.get(SessionManager.KEY_ROLE);
+        role = user.get(SessionManager.KEY_ROLE);
         String dinas_id =  user.get(SessionManager.KEY_DINASID);
-        String user_id =  user.get(SessionManager.KEY_USERID);
+        user_id =  user.get(SessionManager.KEY_USERID);
 
         String bi_id = user.get(SessionManager.KEY_BIDANG);
 
         final String user_fullname = user.get(SessionManager.KEY_NAME);
         String user_name = user.get(SessionManager.KEY_USERNAME);
 
+        card_info_pptk = findViewById(R.id.card3);
         text_namapptk = findViewById(R.id.text_namapptk);
 
         text_judul = findViewById(R.id.text_judul);
@@ -165,7 +170,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
         text_nokontrak = findViewById(R.id.text_nokontrak);
         sisa_waktukerja = findViewById(R.id.sisa_waktukerja);
-
+        text_emailpptk = findViewById(R.id.text_emailpptk);
+        text_telpptk = findViewById(R.id.text_telpptk);
         main_layout_detail_paket = findViewById(R.id.main_layout_detail_paket);
         main_layout_detail_paket.setVisibility(View.GONE);
         progressDialog = new ProgressDialog(ActivityDetailPaket.this);
@@ -187,6 +193,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     String pagu = paketlist.get(i).getPaPagu().trim();
                     String satuan = paketlist.get(i).getPaSatuan().trim();
                     String volume = paketlist.get(i).getPaVolume().trim();
+                    String pptk_id = paketlist.get(i).getPptkId();
                     String ke_id = paketlist.get(i).getKeId().trim();
                     String status = paketlist.get(i).getStatus().trim();
                     String tanggal_awal = checkData(paketlist.get(i).getPaAwalKontrak());
@@ -201,7 +208,6 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     text_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(pagu));
                     lokasi_name = lokasi_name.equals("")? "Lokasi tidak diset" : lokasi_name;
                     maps_caption.setText(lokasi_name + "");
-                    text_namapptk.setText(checkData(user_fullname));
                     text_satuan.setText(checkData(satuan));
                     text_volume.setText(checkData(volume));
                     text_nokontrak.setText(checkData(nokontrak));
@@ -273,6 +279,31 @@ public class ActivityDetailPaket extends AppCompatActivity {
                         }
                     });
 
+                    if(role.equals("Admin")){
+                        card_info_pptk.setVisibility(View.VISIBLE);
+                        Call<DataResponse> call_user = apiInterface.getUserById(pptk_id);
+                        call_user.enqueue(new Callback<DataResponse>() {
+                            @Override
+                            public void onResponse(Call<DataResponse> call, Response<DataResponse> response) {
+                                if(response.code() == 200){
+                                    ArrayList<User> list = response.body().getData();
+                                    for(int i = 0; i < list.size(); i++){
+                                        text_emailpptk.setText(checkData(list.get(i).getEmail()));
+                                        text_telpptk.setText(checkData(list.get(i).getTelephone()));
+                                        text_namapptk.setText(checkData(list.get(i).getNama()));
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<DataResponse> call, Throwable t) {
+
+                            }
+                        });
+                    }else{
+                        card_info_pptk.setVisibility(View.GONE);
+                    }
+
 
                     // get kegitan
                     Call<DataResponseKegiatan> call_kegiataninfo = apiInterface.getKegiatan(ke_id);
@@ -313,28 +344,37 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 if(response.code() == 200){
                     String real_percent = "";
                     String result = "";
+                    String html_format = "";
                     ArrayList<Progress> progressList = response.body().getData();
                     for(int i = 0; i < progressList.size(); i++){
                         if(progressList.get(i).getPr_tanggal() != null && progressList.get(i).getPr_real() != null && progressList.get(i).getPr_target() != null){
                             String kriteria = Kriteria.get_kriteria(progressList.get(i).getPr_tanggal(), progressList.get(i).getPr_real(), progressList.get(i).getPr_target());
                             switch (kriteria.toLowerCase()){
                                 case "kritis" :
-                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " kritis"));
+                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#cd4030"));
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "kritis"));
                                     break;
                                 case "terlambat" :
-                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " lambat"));
+                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#f0d65e"));
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + " terlambat"));
                                     break;
                                 case "wajar" :
-                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " wajar"));
+                                    tx_lasptprog.setTextColor(Color.parseColor("#ffffff"));
+                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#35b5c8"));
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " +" wajar" ));
                                     break;
                                 case "baik" :
-                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " baik"));
+                                    tx_lasptprog.setTextColor(Color.parseColor("#ffffff"));
+                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#2e8eb9"));
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "baik" ));
                                     break;
                                 case "selesai" :
-                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " selesai"));
+                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#237a47"));
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "selesai" ));
                                     break;
                                 case "belum mulai" :
-                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + " belum mulai"));
+                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#eeeeee"));
+                                    tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "belum mulai" ));
                                     break;
                             }
                         }else{
