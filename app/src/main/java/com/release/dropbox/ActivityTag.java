@@ -136,7 +136,7 @@ public class ActivityTag extends AppCompatActivity {
                     Bitmap b = takescreenshot(relativeLayout);
                     imageView.setImageBitmap(b);
                     Uri result_uri = getImageUri(getApplicationContext(), b);
-                    Toast.makeText(ActivityTag.this, "uri :" + result_uri, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ActivityTag.this, "uri :" + result_uri, Toast.LENGTH_SHORT).show();
                     uploadFile(result_uri.toString());
                     camera.setVisibility(View.VISIBLE);
                     cme.setVisibility(View.VISIBLE);

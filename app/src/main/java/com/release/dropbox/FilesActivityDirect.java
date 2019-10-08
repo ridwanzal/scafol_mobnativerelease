@@ -467,10 +467,10 @@ public class FilesActivityDirect extends DropboxActivity {
             public void onUploadComplete(FileMetadata result) {
                 dialog.dismiss();
 
-                String message = result.getName() + " size " + result.getSize() + " modified " +
-                        DateFormat.getDateTimeInstance().format(result.getClientModified());
-                Toast.makeText(FilesActivityDirect.this, message, Toast.LENGTH_SHORT)
-                        .show();
+//                String message = result.getName() + " size " + result.getSize() + " modified " +
+//                        DateFormat.getDateTimeInstance().format(result.getClientModified());
+//                Toast.makeText(FilesActivityDirect.this, message, Toast.LENGTH_SHORT)
+//                        .show();
 
                 // Reload the folder
                 loadData();

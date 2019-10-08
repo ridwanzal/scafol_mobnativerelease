@@ -90,21 +90,41 @@
             android:layout_height="wrap_content"
             android:text="22 Juni 2019" />
 
-        <TextView
-            android:id="@+id/tx_tanggal_update"
-            android:layout_width="match_parent"
+        <LinearLayout
             android:layout_below="@+id/txt_pajenis"
-            android:textColor="#bbb"
-            android:textAlignment="viewStart"
-            android:gravity="end"
-            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
-            android:drawableLeft="@drawable/ic_update_black_24dp"
-            android:backgroundTint="#000"
-            android:drawablePadding="7dp"
-            android:layout_marginTop="7dp"
-            android:paddingLeft="-2.1dp"
-            android:layout_height="wrap_content"
-            android:text="22 Juni 2019" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tx_tanggal_update"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_below="@+id/txt_pajenis"
+                android:textColor="#bbb"
+                android:textAlignment="viewStart"
+                android:gravity="end"
+                android:drawableLeft="@drawable/ic_update_black_24dp"
+                android:backgroundTint="#000"
+                android:drawablePadding="7dp"
+                android:layout_marginTop="7dp"
+                android:paddingLeft="-2.1dp"
+                android:layout_height="wrap_content"
+                android:text="22 Juni 2019" />
+            <TextView
+                android:id="@+id/tx_progress"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_below="@+id/txt_pajenis"
+                android:textColor="#bbb"
+                android:textAlignment="textEnd"
+                android:gravity="end"
+                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:backgroundTint="#000"
+                android:drawablePadding="7dp"
+                android:layout_marginTop="7dp"
+                android:paddingLeft="-2.1dp"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
 
 
     </RelativeLayout>
