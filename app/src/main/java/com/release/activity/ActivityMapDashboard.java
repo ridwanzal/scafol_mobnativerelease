@@ -66,6 +66,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         setContentView(R.layout.activity_mapdashboard);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
@@ -494,6 +495,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home :
+                overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
                 finish();
             case R.id.nav_mapdashinfo :
                 openBottomDialog();
@@ -521,6 +523,8 @@ public class ActivityMapDashboard extends AppCompatActivity {
         if(dialoginfo != null){
             dialoginfo.dismiss();
         }
+        finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 
     @Override

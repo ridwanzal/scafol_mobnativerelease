@@ -75,7 +75,7 @@ public class ActivityMain extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
         HashMap<String, String> user = sessionManager.getUserDetails();
@@ -480,6 +480,8 @@ public class ActivityMain extends AppCompatActivity{
     public void onBackPressed() {
         super.onBackPressed();
         sessionManager.checkLogin();
+        finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 
 }
