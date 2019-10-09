@@ -26,6 +26,10 @@
         android:icon="@drawable/ic_notifications_none_black_24dp"
         android:title="Notification" />
     <item
+        android:id="@+id/nav_fragment"
+        android:icon="@drawable/ic_info_outline_black_24dp"
+        android:title="Fragment Dashboard" />
+    <item
         android:id="@+id/nav_about"
         android:icon="@drawable/ic_info_outline_black_24dp"
         android:title="About App" />

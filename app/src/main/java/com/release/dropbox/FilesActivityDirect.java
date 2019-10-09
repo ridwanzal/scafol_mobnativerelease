@@ -73,6 +73,12 @@ public class FilesActivityDirect extends DropboxActivity {
     private Button fab;
     private Button fab3;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
+    }
 
     public static Intent getIntent(Context context, String path) {
         Intent filesIntent = new Intent(context, FilesActivityDirect.class);
@@ -109,6 +115,7 @@ public class FilesActivityDirect extends DropboxActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         String path = getIntent().getStringExtra(EXTRA_PATH);
         String pa_judul = getIntent().getStringExtra(EXTRA_DETAIL);

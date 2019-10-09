@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -109,10 +110,12 @@ public class ActivityDashboard extends AppCompatActivity {
 
     ReminderCore reminderCore;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        SharedPreferences prefs = getSharedPreferences("dropbox-sample", MODE_PRIVATE);
+//        String accessToken = prefs.getString("access-token", null);
+//        Toasty.success(getApplicationContext(), "Token : " + accessToken, Toasty.LENGTH_LONG).show();
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.ic_scafol_logo3);
@@ -749,6 +752,10 @@ public class ActivityDashboard extends AppCompatActivity {
                         .show();
                 break;
             case R.id.nav_search :
+                break;
+            case R.id.nav_fragment :
+                Intent dashfrag = new Intent(this, ActivityDashboardFragment.class);
+                startActivity(dashfrag);
                 break;
             case R.id.nav_uploaddropbox :
                 Intent dropbox_act = new Intent(this, UserActivity.class);

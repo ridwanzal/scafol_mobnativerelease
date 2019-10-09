@@ -125,6 +125,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name="com.release.activity.ActivityDashboardFragment"
+            android:label="Scafol">
+        </activity>
+        <activity
             android:name="com.release.activity.ActivityMain"
             android:label="@string/title_proyek">
         </activity>
