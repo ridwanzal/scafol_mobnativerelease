@@ -27,6 +27,7 @@
         android:title="Notification" />
     <item
         android:id="@+id/nav_fragment"
+        android:visible="false"
         android:icon="@drawable/ic_info_outline_black_24dp"
         android:title="Fragment Dashboard" />
     <item

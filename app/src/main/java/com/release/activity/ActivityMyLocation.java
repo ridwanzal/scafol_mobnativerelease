@@ -60,6 +60,7 @@ public class ActivityMyLocation extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         final Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_mapmylocation);
@@ -118,6 +119,7 @@ public class ActivityMyLocation extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 
     @Override
@@ -125,6 +127,7 @@ public class ActivityMyLocation extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
+                overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
             default :
                 return super.onOptionsItemSelected(item);
         }

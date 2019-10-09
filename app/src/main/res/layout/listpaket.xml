@@ -22,6 +22,8 @@
             android:id="@+id/txt_pagu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#387D7A"
+            android:textStyle="bold"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="5dp"
             android:layout_below="@id/txt_nama_paket"
@@ -47,21 +49,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
             android:textAlignment="viewEnd"
-            android:textColor="#bbb"
-            android:layout_height="wrap_content"
-            android:text="" />
-
-        <TextView
-            android:id="@+id/txt_pajenis"
-            android:layout_toRightOf="@id/txt_pagu"
-            android:layout_below="@id/txt_nama_paket"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="5dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="10dp"
-            android:textAlignment="viewEnd"
-            android:textColor="#bbb"
+            android:textColor="#CE4400"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="" />
 

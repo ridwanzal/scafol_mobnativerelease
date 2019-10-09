@@ -69,6 +69,7 @@ public class ActivityLogin extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         setContentView(R.layout.activity_logins);
         getSupportActionBar().hide();
         btn = findViewById(R.id.btn_login);
@@ -189,5 +190,6 @@ public class ActivityLogin extends AppCompatActivity{
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 }

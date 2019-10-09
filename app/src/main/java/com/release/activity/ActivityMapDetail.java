@@ -112,6 +112,7 @@ public class ActivityMapDetail extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         final Context ctx = getApplicationContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
         setContentView(R.layout.activity_mapdetailpaket);
@@ -217,6 +218,7 @@ public class ActivityMapDetail extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
+                overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
                 return true;
             case R.id.nav_pinmylocation :
                 progressDialog.show();
@@ -232,6 +234,7 @@ public class ActivityMapDetail extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 
     public void setMyLocation(){

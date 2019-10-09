@@ -352,6 +352,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                             String kriteria = Kriteria.get_kriteria(progressList.get(i).getPr_tanggal(), progressList.get(i).getPr_real(), progressList.get(i).getPr_target());
                             switch (kriteria.toLowerCase()){
                                 case "kritis" :
+                                    tx_lasptprog.setTextColor(Color.parseColor("#ffffff"));
                                     tx_lasptprog.setBackgroundColor(Color.parseColor("#cd4030"));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "kritis"));
                                     break;

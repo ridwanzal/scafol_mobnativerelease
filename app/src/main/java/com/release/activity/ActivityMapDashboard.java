@@ -495,8 +495,8 @@ public class ActivityMapDashboard extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home :
-                overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
                 finish();
+                overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
             case R.id.nav_mapdashinfo :
                 openBottomDialog();
                 return true;

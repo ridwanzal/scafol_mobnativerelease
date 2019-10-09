@@ -60,6 +60,7 @@ public class ActivityCatatan extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         setContentView(R.layout.recycle_catatan);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
@@ -154,6 +155,7 @@ public class ActivityCatatan extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
+                overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -205,6 +207,8 @@ public class ActivityCatatan extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 
     public int getCheckedLastPosition() {

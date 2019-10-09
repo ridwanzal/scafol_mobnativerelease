@@ -78,6 +78,7 @@ public class ActivityTag extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         setContentView(R.layout.activity_tag);
         Toolbar toolbar = findViewById(R.id.toolbar);
         imageView = findViewById(R.id.img);
@@ -455,5 +456,10 @@ public class ActivityTag extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
+    }
 }

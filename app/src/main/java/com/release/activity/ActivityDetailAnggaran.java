@@ -63,6 +63,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         setContentView(R.layout.activity_anggarandetail);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + "Informasi Detail Anggaran/ Non Fisik" + "</small>"));
@@ -199,6 +200,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
+                overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
                 return true;
             case R.id.nav_uploadphoto_anggaran :
                 path_todropbox = "/files/gov/"+dinas_id+"/an-"+id_anggaran+"/photos";
@@ -242,5 +244,27 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.right_menu_detail_anggaran, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 }

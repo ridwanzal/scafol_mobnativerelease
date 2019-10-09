@@ -113,6 +113,7 @@ public class ActivityDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
 //        SharedPreferences prefs = getSharedPreferences("dropbox-sample", MODE_PRIVATE);
 //        String accessToken = prefs.getString("access-token", null);
 //        Toasty.success(getApplicationContext(), "Token : " + accessToken, Toasty.LENGTH_LONG).show();
@@ -792,6 +793,8 @@ public class ActivityDashboard extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         sessionManager.checkLogin();
     }
 
