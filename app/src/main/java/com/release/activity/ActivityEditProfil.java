@@ -8,12 +8,15 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,12 +71,13 @@ public class ActivityEditProfil extends AppCompatActivity {
     private TextView prof_dinas;
     private ImageView prof_logo_dinas;
     private static final int PICKFILE_REQUEST_CODE = 1;
-    SessionManager sessionManager;
-    String user_id;
-    String role;
-    Dialog dialog;
-    ProgressDialog progressDialog;
+    private SessionManager sessionManager;
+    private String user_id;
+    private String role;
+    private Dialog dialog;
+    private ProgressDialog progressDialog;
     private Handler mHandler;
+    private RelativeLayout main_container_profile;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -89,13 +93,17 @@ public class ActivityEditProfil extends AppCompatActivity {
         prof_nama = findViewById(R.id.prof_namas);
         prof_dinas = findViewById(R.id.prof_dinas);
         prof_logo_dinas = findViewById(R.id.prof_logo_dinas);
+        main_container_profile = findViewById(R.id.main_container_profile);
+        main_container_profile.setVisibility(View.GONE);
+        progressDialog = new ProgressDialog(ActivityEditProfil.this);
 
         sessionManager = new SessionManager(getApplicationContext());
         sessionManager.checkLogin();
         HashMap<String, String> user = sessionManager.getUserDetails();
         user_id =  user.get(SessionManager.KEY_USERID);
         role = user.get(SessionManager.KEY_ROLE);
-
+        progressDialog.show();
+        progressDialog.setMessage("Loading");
         if(role.toLowerCase().equals("pptk")){
 //            prof_logo_dinas.setVisibility(View.GONE);
         }
@@ -147,6 +155,28 @@ public class ActivityEditProfil extends AppCompatActivity {
 //                launchFilePicker();
             }
         });
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(400);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                mHandler.sendMessage(Message.obtain(mHandler, 1));
+            }
+        }).start();
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        progressDialog.dismiss();
+                        main_container_profile.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        };
 
     }
 
