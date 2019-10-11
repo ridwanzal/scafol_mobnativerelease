@@ -114,9 +114,6 @@ public class ActivityDashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
-//        SharedPreferences prefs = getSharedPreferences("dropbox-sample", MODE_PRIVATE);
-//        String accessToken = prefs.getString("access-token", null);
-//        Toasty.success(getApplicationContext(), "Token : " + accessToken, Toasty.LENGTH_LONG).show();
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setIcon(R.drawable.ic_scafol_logo3);
@@ -141,8 +138,6 @@ public class ActivityDashboard extends AppCompatActivity {
         LineChart chart = findViewById(R.id.dashchart);
         chart.setVisibility(View.GONE);
 
-
-//        Toast.makeText(ActivityDashboard.this, "Masuk pak eko", Toast.LENGTH_SHORT).show();
         final String default_format_nomoney = "Rp. " +  formatMoneyIDR.convertIDR("0");
         tx_dashtotalpaket = findViewById(R.id.tx_dashtotalpaket);
         tx_dashongoing = findViewById(R.id.tx_dsahongoing);
@@ -161,7 +156,6 @@ public class ActivityDashboard extends AppCompatActivity {
         container_dashboards = findViewById(R.id.container_dashboards);
         container_dashboards.setVisibility(View.GONE);
 
-//        progress.show(this, "", "Please wait");
         date = Calendar.getInstance().getTime();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy/MM/dd");
         String date_result = format1.format(date);
@@ -169,10 +163,9 @@ public class ActivityDashboard extends AppCompatActivity {
         tx_datecalendar.setText(date_result);
         tx_namauser.setText("" + user_fullname);
 
-//        startServiceReminder();
-
         reminderCore = new ReminderCore(getApplicationContext(), ServiceReminder.class, "Silahkan Update Progress");
         reminderCore.run();
+
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setCancelable(false);
@@ -197,7 +190,6 @@ public class ActivityDashboard extends AppCompatActivity {
         };
 
         if(sessionManager.isLoggedIn()){
-//            Snackbar.make(parentLayout, "Selamat Datang", Snackbar.LENGTH_LONG).show();
             // total paket count
             dialog.show();
             if(role.toLowerCase().equals("pptk")){
@@ -243,7 +235,6 @@ public class ActivityDashboard extends AppCompatActivity {
                                     for(int i = 0; i < result.size(); i++){
                                         Log.d(TAG, "paket size all : " + result.get(i).getTotalPaguPPTK());
                                         total_progress =  result.get(i).getPaketProgress();
-        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
                                         String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguPPTK());
                                         tx_dashpagu.setText(reformat);
                                     }
@@ -268,7 +259,6 @@ public class ActivityDashboard extends AppCompatActivity {
                                     for(int i = 0; i < result.size(); i++){
                                         Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
                                         total_progress =  result.get(i).getTotalRealPPTK();
-        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
                                         String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
                                         tx_dashreal.setText(reformat);
                                     }
@@ -357,7 +347,6 @@ public class ActivityDashboard extends AppCompatActivity {
                                 paket_progress = result.get(i).getPaketProgress();
                                 paket_belum = result.get(i).getPaketBelumMulai();
                                 paket_selesai = result.get(i).getPaketSelesai();
-
                                 tx_dashtotalpaket.setText(paket_all + "");
                                 tx_dashongoing.setText(paket_progress + "");
                                 tx_dashbelum.setText(paket_belum + "");
@@ -387,7 +376,6 @@ public class ActivityDashboard extends AppCompatActivity {
                                     for(int i = 0; i < result.size(); i++){
                                         Log.d(TAG, "paket size all : " + result.get(i).getTotalPaguPPTK());
                                         total_progress =  result.get(i).getPaketProgress();
-                                        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
                                         String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguPPTK());
                                         tx_dashpagu.setText(reformat);
                                     }
@@ -418,7 +406,6 @@ public class ActivityDashboard extends AppCompatActivity {
                                     for(int i = 0; i < result.size(); i++){
                                         Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
                                         total_progress =  result.get(i).getTotalRealPPTK();
-                                        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
                                         String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
                                         tx_dashreal.setText(reformat);
                                     }
@@ -447,7 +434,6 @@ public class ActivityDashboard extends AppCompatActivity {
                                 if(result != null){
                                     for(int i = 0; i < result.size(); i++){
                                         Log.d(TAG, "paket size all : " + result.get(i).getTotalSisa());
-                                        //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
                                         String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalSisa());
                                         tx_dashsisa.setText(reformat);
                                     }
@@ -532,7 +518,6 @@ public class ActivityDashboard extends AppCompatActivity {
                             ArrayList<PaketDashboard> result = response.body().getData();
                             for(int i = 0; i < result.size(); i++){
                                 Log.d(TAG, "paket size all : " + result.get(i).getTotalRealPPTK());
-                                //                            Toast.makeText(ActivityDashboard.this, "Masuk pak eko "  + result.get(i).getPaketAll(), Toast.LENGTH_SHORT).show();
                                 String reformat = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealPPTK());
                                 tx_dashreal.setText(reformat);
                             }
@@ -683,7 +668,6 @@ public class ActivityDashboard extends AppCompatActivity {
 
         container_dashboards.setVisibility(View.VISIBLE);
         if(container_dashboards.getVisibility() == View.VISIBLE){
-                //            progress.hide();
         }
 
 
@@ -768,14 +752,6 @@ public class ActivityDashboard extends AppCompatActivity {
                 startActivity(intent2);
                 break;
             case R.id.nav_about :
-//                new AlertDialog.Builder(this)
-//                    .setTitle("Tentang")
-//                    .setMessage("Scafol Mobile Version 1.0.3")
-//                    .setNegativeButton("OK", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                        }
-//                    }).show();
                 openBottomDialog();
                 break;
             case R.id.nav_notif :
