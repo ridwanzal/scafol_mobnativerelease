@@ -32,6 +32,7 @@ import com.github.mikephil.charting.charts.LineChart;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
 import com.release.R;
+import com.release.dropbox.DropboxActivity;
 import com.release.dropbox.UserActivity;
 import com.release.model.Anggaran;
 import com.release.model.DataResponseAnggaran;
@@ -69,6 +70,8 @@ public class ActivityDashboard extends AppCompatActivity {
 
     SessionManager sessionManager;
     ProgressDialog progress;
+    SharedPreferences preferences;
+    SharedPreferences.Editor editor;
 
     public static ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
 
@@ -623,16 +626,16 @@ public class ActivityDashboard extends AppCompatActivity {
                 show_list.setVisibility(View.VISIBLE);
                 show_list.setVisibility(View.GONE);
                 show_list2.setVisibility(View.GONE);
-                new Thread(new Runnable() {
-                    public void run() {
-                        try {
-                            Thread.sleep(500);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        mHandler.sendMessage(Message.obtain(mHandler, 1));
-                    }
-                }).start();
+//                new Thread(new Runnable() {
+//                    public void run() {
+//                        try {
+//                            Thread.sleep(500);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                        mHandler.sendMessage(Message.obtain(mHandler, 1));
+//                    }
+//                }).start();
             }
 
             btn_mapdash.setOnClickListener(new View.OnClickListener() {
@@ -739,7 +742,10 @@ public class ActivityDashboard extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.d("MainActivity", "Sending atomic bombs to Jupiter");
                                 sessionManager.logoutUser();
-                                finish();
+                                preferences = getSharedPreferences("dropbox-sample", getApplicationContext().MODE_PRIVATE);
+                                editor = preferences.edit();
+                                editor.clear();
+                                editor.commit();
                             }
                         })
                         .setNegativeButton("Batal", new DialogInterface.OnClickListener() {

@@ -11,6 +11,7 @@ import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
 import com.release.model.DataResponseRencana;
 import com.release.model.DataResponseSerapan;
+import com.release.model.DataResponseToken;
 import com.release.model.DataResponseUsers;
 
 import retrofit2.Call;
@@ -226,4 +227,8 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("kurva_s/delete_rencana")
     Call<DataResponseRencana> removeKurvaS(@Field("re_id") String re_id);
+
+
+    @GET("token")
+    Call<DataResponseToken> getRemoteToken();
 }
