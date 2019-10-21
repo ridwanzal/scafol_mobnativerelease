@@ -794,6 +794,25 @@
         android:background="@drawable/button_ripple_generals"
         android:text="Lihat Semua Paket Non-Fisik" />
 
+
+        <Button
+            android:id="@+id/btn_tolist3"
+            android:visibility="visible"
+            android:layout_width="fill_parent"
+            android:layout_below="@+id/btn_tolist2"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:paddingRight="10dp"
+            android:textColor="#555"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="-2dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/paket_nonfisik"
+            android:textAlignment="viewStart"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@drawable/button_ripple_generals"
+            android:text="Lihat Daftar Dinas" />
+
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/dashchart"
         android:layout_below="@id/btn_tolist"

@@ -619,6 +619,20 @@ public class ActivityDashboard extends AppCompatActivity {
                         mHandler.sendMessage(Message.obtain(mHandler, 1));
                     }
                 }).start();
+            }else if(role.toLowerCase().equals("superadmin")){
+                show_list.setVisibility(View.VISIBLE);
+                show_list.setVisibility(View.GONE);
+                show_list2.setVisibility(View.GONE);
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        mHandler.sendMessage(Message.obtain(mHandler, 1));
+                    }
+                }).start();
             }
 
             btn_mapdash.setOnClickListener(new View.OnClickListener() {

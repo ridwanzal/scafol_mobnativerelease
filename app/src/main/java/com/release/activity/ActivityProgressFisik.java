@@ -101,7 +101,7 @@ public class ActivityProgressFisik extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(View view, int position, String id_list) {
                 new AlertDialog.Builder(ActivityProgressFisik.this)
-                        .setTitle("Hapus Catatan")
+                        .setTitle("Hapus Daftar Progres")
                         .setMessage("Anda yakin ingin menghapus item ini ?")
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
 
