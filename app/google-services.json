@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "143882934307",
+    "firebase_url": "https://scafolmobnativerelease.firebaseio.com",
+    "project_id": "scafolmobnativerelease",
+    "storage_bucket": "scafolmobnativerelease.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:143882934307:android:833dc69bec386c1a2c7996",
+        "android_client_info": {
+          "package_name": "com.release"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "143882934307-2nijd5dnibkea4hse6gjogqb9ckqi4ke.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.release",
+            "certificate_hash": "5f325ca778dcdd853ea7908d4f9e5aa39b83422d"
+          }
+        },
+        {
+          "client_id": "143882934307-evbfm9td8225nu9dg6prc8epcbcl3n94.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_PgDLOu7ZzPYmsBUEl50hDGbfvVYgadU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143882934307-evbfm9td8225nu9dg6prc8epcbcl3n94.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
