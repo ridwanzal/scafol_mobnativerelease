@@ -22,7 +22,6 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-
         generateNotification(remoteMessage.getNotification().getBody(),remoteMessage.getNotification().getTitle());
 
     }
@@ -36,9 +35,14 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_logo_notification)
+                .setBadgeIconType(NotificationCompat.BADGE_ICON_LARGE)
                 .setContentTitle("FCM Message")
                 .setContentText(body)
                 .setAutoCancel(true)
+                .setAutoCancel(true)
+                .setOngoing(false)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(body))
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 
@@ -46,5 +50,10 @@ public class FirebaseNotificationService extends FirebaseMessagingService {
                 (NotificationManager) getSystemService(getApplicationContext().NOTIFICATION_SERVICE);
 
         notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+    }
+
+    @Override
+    public void onNewToken(String s) {
+        super.onNewToken(s);
     }
 }
