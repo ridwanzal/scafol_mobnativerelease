@@ -37,16 +37,6 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <service
-            android:name=".firebase.FirebaseDeviceToken"
-            android:enabled="true"
-            android:exported="true"></service>
-        <service
-            android:name=".firebase.FirebaseNotificationService"
-            android:enabled="true"
-            android:exported="true">
-        </service>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.release.fileprovider"
@@ -184,17 +174,15 @@
 
         <service android:name=".service.ServiceReminder" />
 
-        <service android:name=".firebase.FirebaseCloudMessaging">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
+        <service
+            android:name=".firebase.FirebaseDeviceToken"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".firebase.FirebaseNotificationService"
+            android:enabled="true"
+            android:exported="true">
         </service>
-
-<!--        <service android:name=".firebase.FirebaseDeviceToken">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
-<!--            </intent-filter>-->
-<!--        </service>-->
 
         <receiver android:name=".receiver.NotificationPublisher" />
     </application>
