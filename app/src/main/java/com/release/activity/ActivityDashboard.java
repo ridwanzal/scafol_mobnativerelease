@@ -29,7 +29,11 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.Gson;
 import com.release.R;
 import com.release.dropbox.DropboxActivity;
@@ -64,6 +68,7 @@ public class ActivityDashboard extends AppCompatActivity {
 
     private Button show_list; // button paket fisik
     private Button show_list2; // button anggaran
+    private Button show_list3; // button daftar dinas
     private Button btn_mapdash;
     private Button btn_chartdash;
     private static String TAG = "ActivityDashboard";
@@ -134,6 +139,8 @@ public class ActivityDashboard extends AppCompatActivity {
         String user_name = user.get(SessionManager.KEY_USERNAME);
         show_list = findViewById(R.id.btn_tolist);
         show_list2 = findViewById(R.id.btn_tolist2);
+        show_list3 = findViewById(R.id.btn_tolist3);
+        show_list3.setVisibility(View.GONE);
         main_container_dashbaord = findViewById(R.id.main_container_dashbaord);
         progress = new ProgressDialog(this);
         final View parentLayout = findViewById(android.R.id.content);
@@ -178,6 +185,23 @@ public class ActivityDashboard extends AppCompatActivity {
         progressDialog = new ProgressDialog(ActivityDashboard.this);
         progressDialog.setMessage("Loading");
         progressDialog.show();
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+//To do//
+                            return;
+                        }
+
+// Get the Instance ID token//
+                        String token = task.getResult().getToken();
+                        String msg = "FCM TOKEN " + token;
+                        Log.d(TAG, msg);
+
+                    }
+                });
 
         mHandler = new Handler(Looper.myLooper()){
             @Override
@@ -623,7 +647,7 @@ public class ActivityDashboard extends AppCompatActivity {
                     }
                 }).start();
             }else if(role.toLowerCase().equals("superadmin")){
-                show_list.setVisibility(View.VISIBLE);
+                show_list3.setVisibility(View.VISIBLE);
                 show_list.setVisibility(View.GONE);
                 show_list2.setVisibility(View.GONE);
 //                new Thread(new Runnable() {
@@ -824,4 +848,6 @@ public class ActivityDashboard extends AppCompatActivity {
         dialog.setContentView(view);
         dialog.show();
     }
+
+
 }

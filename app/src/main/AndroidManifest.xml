@@ -2,182 +2,176 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.release"
-    android:versionCode="2"
-    >
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+    android:versionCode="2">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.
-   READ_GSERVICES" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.    READ_GSERVICES" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name = "android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name="com.release.app.App"
+        android:name=".app.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_scafol"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:usesCleartextTraffic="true"
         android:roundIcon="@mipmap/ic_launcher_scafol"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
+        <service
+            android:name=".firebase.FirebaseDeviceToken"
+            android:enabled="true"
+            android:exported="true"></service>
+        <service
+            android:name=".firebase.FirebaseNotificationService"
+            android:enabled="true"
+            android:exported="true">
+        </service>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.release.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
-            tools:replace="android:authorities"
-            >
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths2"
-                tools:replace="android:resource"/>
+                tools:replace="android:resource" />
         </provider>
+
         <activity
-            android:name="com.release.activity.ActivityLogin"
-            android:label="Login">
-        </activity>
+            android:name=".activity.ActivityLogin"
+            android:label="Login" />
         <activity
             android:name="com.dropbox.core.android.AuthActivity"
             android:configChanges="orientation|keyboard"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask">
             <intent-filter>
                 <data android:scheme="db-e897yn721b9n6pl" />
+
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityProgressFisik"
-            android:label="Progres Fisik">
-        </activity>
+            android:name=".activity.ActivityProgressFisik"
+            android:label="Progres Fisik"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.dropbox.FilesActivity"
-            android:label="Cloud Storage Scafol">
-        </activity>
+            android:name=".dropbox.FilesActivity"
+            android:label="Cloud Storage Scafol"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.dropbox.FilesActivityDirect"
-            android:label="Cloud Storage Scafol">
-        </activity>
+            android:name=".dropbox.FilesActivityDirect"
+            android:label="Cloud Storage Scafol"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.dropbox.UserActivity"
-            android:label="Sync Data">
-        </activity>
+            android:name=".dropbox.UserActivity"
+            android:label="Sync Data"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityProgressKeuangan"
-            android:label="Progres Keuangan">
-        </activity>
+            android:name=".activity.ActivityProgressKeuangan"
+            android:label="Progres Keuangan"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.release.activity.ActivityEditProfil"
-            android:label="Profil">
-        </activity>
+            android:name=".activity.ActivityEditProfil"
+            android:label="Profil" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityMapDetail"
-            android:label="Lokasi">
-        </activity>
+            android:name=".activity.ActivityMapDetail"
+            android:label="Lokasi"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityNotif"
-            android:label="Notification">
-        </activity>
+            android:name=".activity.ActivityNotif"
+            android:label="Notification"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityUpdateData"
-            android:label="Update Data">
-        </activity>
+            android:name=".activity.ActivityUpdateData"
+            android:label="Update Data"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityUpdateDataAnggaran"
-            android:label="Update Data Paket Non-Fisik">
-        </activity>
+            android:name=".activity.ActivityUpdateDataAnggaran"
+            android:label="Update Data Paket Non-Fisik"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityMyLocation"
-            android:label="Lokasi Saya">
-        </activity>
+            android:name=".activity.ActivityMyLocation"
+            android:label="Lokasi Saya"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name="com.release.activity.ActivityDashboard"
-            android:label="Scafol"
+            android:name=".activity.ActivityDashboard"
             android:drawable="@mipmap/ic_launcher_scafol"
-            >
+            android:label="Scafol">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER"
-                    />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.release.activity.ActivityDashboardFragment"
-            android:label="Scafol">
-        </activity>
+            android:name=".activity.ActivityDashboardFragment"
+            android:label="Scafol" />
         <activity
-            android:name="com.release.activity.ActivityMain"
-            android:label="@string/title_proyek">
-        </activity>
+            android:name=".activity.ActivityMain"
+            android:label="@string/title_proyek" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityDetailPaket"
-            android:label="@string/title_detail_paket">
-        </activity>
+            android:name=".activity.ActivityDetailPaket"
+            android:label="@string/title_detail_paket"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityDetailAnggaran"
-            android:label="@string/title_detail_paket">
-        </activity>
+            android:name=".activity.ActivityDetailAnggaran"
+            android:label="@string/title_detail_paket"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityCatatan"
-            android:label="@string/title_detail_paket">
-        </activity>
+            android:name=".activity.ActivityCatatan"
+            android:label="@string/title_detail_paket"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityMapDashboard"
-            android:label="@string/title_map_dash">
-        </activity>
+            android:name=".activity.ActivityMapDashboard"
+            android:label="@string/title_map_dash"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityCalendar"
-            android:label="Calendar">
-        </activity>
+            android:name=".activity.ActivityCalendar"
+            android:label="Calendar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityKurvaSRencana"
-            android:label="Kurva S Rencana">
-        </activity>
+            android:name=".activity.ActivityKurvaSRencana"
+            android:label="Kurva S Rencana"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.ActivityProgressSerapan"
-            android:label="Calendar">
-        </activity>
+            android:name=".activity.ActivityProgressSerapan"
+            android:label="Calendar"
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.dropbox.ActivityTag"
-            android:label="">
-        </activity>
+            android:name=".dropbox.ActivityTag"
+            android:label=""
+            android:windowSoftInputMode="adjustResize" />
         <activity
-            android:windowSoftInputMode="adjustResize"
-            android:name="com.release.activity.LineChartActivity1"
-            android:label="">
-        </activity>
-        <receiver android:name=".receiver.NotificationReceiver" >
+            android:name=".activity.LineChartActivity1"
+            android:label=""
+            android:windowSoftInputMode="adjustResize" />
+
+        <receiver android:name=".receiver.NotificationReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -187,7 +181,22 @@
                 <action android:name="android.intent.action.BATTERY_OKAY" />
             </intent-filter>
         </receiver>
-        <service android:name="com.release.service.ServiceReminder" />
-        <receiver android:name= ".receiver.NotificationPublisher" />
+
+        <service android:name=".service.ServiceReminder" />
+
+        <service android:name=".firebase.FirebaseCloudMessaging">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+<!--        <service android:name=".firebase.FirebaseDeviceToken">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />-->
+<!--            </intent-filter>-->
+<!--        </service>-->
+
+        <receiver android:name=".receiver.NotificationPublisher" />
     </application>
+
 </manifest>
