@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <!-- START*** Root Container *** -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_paketid"
+        android:clickable="true"
+        android:orientation="vertical"
+    >
+
+    <RelativeLayout
+        android:id="@+id/cont_paket"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:paddingRight="15dp"
+        android:paddingLeft="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/txt_pagu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#387D7A"
+            android:textStyle="bold"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@id/txt_nama_paket"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txt_nama_paket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:textColor="#444"
+            android:text="Ini contoh list"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txt_pajenis"
+            android:layout_toRightOf="@id/txt_pagu"
+            android:layout_below="@id/txt_nama_paket"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:textAlignment="viewEnd"
+            android:textColor="#CE4400"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/txt_idpaket"
+            android:visibility="invisible"
+            android:layout_toRightOf="@id/txt_nama_paket"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="10dp"
+            android:textAlignment="viewEnd"
+            android:textColor="#bbb"
+            android:layout_height="wrap_content"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tx_tanggal_update_salah"
+            android:layout_width="100sp"
+            android:layout_toRightOf="@+id/txt_nama_paket"
+            android:textColor="#bbb"
+            android:layout_alignParentRight="true"
+            android:textAlignment="viewEnd"
+            android:gravity="end"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:text="22 Juni 2019" />
+
+        <LinearLayout
+            android:layout_below="@+id/txt_pajenis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tx_tanggal_update"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_below="@+id/txt_pajenis"
+                android:textColor="#bbb"
+                android:textAlignment="viewStart"
+                android:gravity="end"
+                android:drawableLeft="@drawable/ic_update_black_24dp"
+                android:backgroundTint="#000"
+                android:drawablePadding="7dp"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="-2.1dp"
+                android:layout_height="wrap_content"
+                android:text="22 Juni 2019" />
+            <TextView
+                android:id="@+id/tx_progress"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_below="@+id/txt_pajenis"
+                android:textColor="#bbb"
+                android:textAlignment="textEnd"
+                android:gravity="end"
+                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:backgroundTint="#000"
+                android:drawablePadding="7dp"
+                android:layout_marginTop="7dp"
+                android:paddingLeft="-2.1dp"
+                android:layout_height="wrap_content"
+                android:text="" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+    <!-- TextView Employee Name -->
+
+
+    <View android:background="#bbb"
+        android:layout_below="@id/cont_paket"
+        android:layout_width = "match_parent"
+        android:layout_height="1dp"/>
+</RelativeLayout>
+
+    <!-- END*** Root Container *** -->
