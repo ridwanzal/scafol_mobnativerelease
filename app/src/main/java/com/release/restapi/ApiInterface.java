@@ -5,6 +5,7 @@ import com.release.model.DataResponseAnggaran;
 import com.release.model.DataResponseBidang;
 import com.release.model.DataResponseCatatan;
 import com.release.model.DataResponseDinas;
+import com.release.model.DataResponseInfo;
 import com.release.model.DataResponsePA;
 import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
@@ -228,7 +229,9 @@ public interface ApiInterface {
     @POST("kurva_s/delete_rencana")
     Call<DataResponseRencana> removeKurvaS(@Field("re_id") String re_id);
 
-
     @GET("token")
     Call<DataResponseToken> getRemoteToken();
+
+    @GET("info")
+    Call<DataResponseInfo> getNotificationInfo();
 }

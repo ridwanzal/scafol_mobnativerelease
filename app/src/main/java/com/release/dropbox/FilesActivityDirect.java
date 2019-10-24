@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -55,6 +57,7 @@ import es.dmoral.toasty.Toasty;
 public class FilesActivityDirect extends DropboxActivity {
     private static final String TAG = FilesActivityDirect.class.getName();
     private static final String AUTHORITY="com.release.dropbox.FilesActivity.provider";
+    SharedPreferences preferences;
 
     public final static String EXTRA_DETAIL = "";
     public final static String EXTRA_PATH = "";
@@ -217,9 +220,38 @@ public class FilesActivityDirect extends DropboxActivity {
             case android.R.id.home :
                 finish();
                 return true;
+            case R.id.nav_reset :
+                new androidx.appcompat.app.AlertDialog.Builder(this)
+                        .setTitle("Reset token")
+                        .setMessage("Apakah anda gagal meretrieve gambar? Reset token anda dan login kembali")
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d("MainActivity", "Sending atomic bombs to Jupiter");
+                                sessionManager.logoutUser();
+                                preferences = getSharedPreferences("dropbox-sample", getApplicationContext().MODE_PRIVATE);
+                                editor = preferences.edit();
+                                editor.clear();
+                                editor.commit();
+                            }
+                        })
+                        .setNegativeButton("Batal", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Log.d("MainActivity", "Aborting mission...");
+                            }
+                        })
+                        .show();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.right_menu_gallery, menu);
+        return true;
     }
 
     @Override

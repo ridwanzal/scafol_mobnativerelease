@@ -2,15 +2,24 @@ package com.release.activity;
 
 import android.os.Bundle;
 import android.view.Window;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.release.R;
+import com.release.adapter.ProgressAdapterSerapan;
+import com.release.model.DataResponseSerapan;
+import com.release.restapi.ApiClient;
+import com.release.restapi.ApiInterface;
 import com.release.tabcompnotif.SectionPagerAdapter;
 
 import com.google.android.material.tabs.TabLayout;
+
+import retrofit2.Call;
 
 public class ActivityNotif extends AppCompatActivity{
     @Override
