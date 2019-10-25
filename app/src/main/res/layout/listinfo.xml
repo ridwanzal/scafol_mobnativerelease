@@ -6,8 +6,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/layout_notifid"
         android:clickable="true"
-        android:orientation="vertical"
-    >
+        android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/cont_paket"
@@ -44,14 +43,14 @@
             android:layout_toRightOf="@id/txt_pagu"
             android:layout_below="@id/txt_nama_paket"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
-            android:textAlignment="viewEnd"
+            android:textAlignment="viewStart"
             android:textColor="#CE4400"
             android:textStyle="bold"
-            android:layout_height="wrap_content"
             android:text="" />
 
         <TextView
@@ -82,6 +81,7 @@
         <LinearLayout
             android:layout_below="@+id/txt_pajenis"
             android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/tx_tanggal_update"
@@ -94,7 +94,7 @@
                 android:drawableLeft="@drawable/ic_update_black_24dp"
                 android:backgroundTint="#000"
                 android:drawablePadding="7dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="7dp"
                 android:paddingLeft="-2.1dp"
                 android:layout_height="wrap_content"
                 android:text="22 Juni 2019" />

@@ -337,6 +337,11 @@ public class ActivityMain extends AppCompatActivity{
             public boolean onItemLongClick(View view, int position, String id_list) {
                 return false;
             }
+
+            @Override
+            public void onItemClick(View view, int position, String param1) {
+
+            }
         });
 
         total_paket_info = findViewById(R.id.total_paket_caption);
@@ -395,6 +400,11 @@ public class ActivityMain extends AppCompatActivity{
             @Override
             public boolean onItemLongClick(View view, int position, String id_list) {
                 return false;
+            }
+
+            @Override
+            public void onItemClick(View view, int position, String param1) {
+
             }
         });
 

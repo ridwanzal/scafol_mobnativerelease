@@ -153,6 +153,11 @@ public class ActivityKurvaSRencana extends AppCompatActivity {
             public void onDoubleClick(View view, int position) {
 
             }
+
+            @Override
+            public void onItemClick(View view, int position, String param1) {
+
+            }
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityKurvaSRencana.this);
         kurvaSRencanaAdapter.notifyDataSetChanged();

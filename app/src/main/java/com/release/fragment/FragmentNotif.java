@@ -66,7 +66,6 @@ public class FragmentNotif extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -77,9 +76,12 @@ public class FragmentNotif extends Fragment {
             public void onItemClick(View view, int position) {
                 TextView info_type;
                 info_type = getView().findViewById(R.id.notif_info_type);
-                if(info_type.getText().toString().toLowerCase().equals("link")){
+                Toasty.success(getActivity(), "Info Type : " + info_type.getText().toString(), Toasty.LENGTH_LONG).show();
+                if(info_type.getText().toString().equals("Link")){
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.release&hl=in"));
                     startActivity(browserIntent);
+                }else{
+
                 }
             }
 
@@ -96,6 +98,16 @@ public class FragmentNotif extends Fragment {
             @Override
             public void onDoubleClick(View view, int position) {
 
+            }
+
+            @Override
+            public void onItemClick(View view, int position, String param1) {
+                if(param1.toString().equals("Link")){
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.release&hl=in"));
+                    startActivity(browserIntent);
+                }else{
+                    // do nothing if it's not a link
+                }
             }
         });
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
