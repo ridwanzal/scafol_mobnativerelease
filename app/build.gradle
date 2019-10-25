@@ -16,8 +16,8 @@ android {
         applicationId "com.release"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 6
-        versionName "1.1.6"
+        versionCode 7
+        versionName "1.2.0"
         ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
