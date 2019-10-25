@@ -22,7 +22,7 @@ import com.release.sharedexternalmodule.formatMoneyIDR;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.PaketViewHolder> implements Filterable{
+public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.NotifViewHolder> implements Filterable{
     private ArrayList<Info> infoArrayList;
     private ArrayList<Info> infoArrayList2;
     private ArrayList<Info> infoArrayListfull;
@@ -42,21 +42,33 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.PaketViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PaketViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NotifViewHolder holder, int position) {
         holder.info_title.setText(infoArrayList.get(position).getInfoTitle());
         holder.info_caption.setText(infoArrayList.get(position).getInfoCaption());
         holder.info_id.setText(infoArrayList.get(position).getInfoId());
         holder.date_created.setText(infoArrayList.get(position).getDateUpdated());
+        holder.notif_info_status.setText(infoArrayList.get(position).getInfoStatus());
+        holder.notif_info_type.setText(infoArrayList.get(position).getInfoType());
+        if(holder.notif_info_status.getText().equals("0")){
+            holder.layout_notifid.setVisibility(View.GONE);
+        }else{
 
+        }
     }
 
     @NonNull
     @Override
-    public PaketViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public NotifViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
         View view = layoutInflater.inflate(R.layout.listinfo, parent, false);
-        final PaketViewHolder paketViewHolder = new PaketViewHolder(view);
-        return new NotifAdapter.PaketViewHolder(view);
+        final NotifViewHolder paketViewHolder = new NotifViewHolder(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClick(view, paketViewHolder.getAdapterPosition());
+            }
+        });
+        return new NotifAdapter.NotifViewHolder(view);
     }
 
     @Override
@@ -102,19 +114,24 @@ public class NotifAdapter extends RecyclerView.Adapter<NotifAdapter.PaketViewHol
         }
     };
 
-    class PaketViewHolder extends RecyclerView.ViewHolder{
+    class NotifViewHolder extends RecyclerView.ViewHolder{
         TextView info_title;
         TextView info_caption;
         TextView date_created;
         TextView info_id;
+        TextView notif_info_type;
+        TextView notif_info_status;
+        RelativeLayout layout_notifid;
 
-        PaketViewHolder(View itemView){
+        NotifViewHolder(View itemView){
             super(itemView);
-
+            layout_notifid = itemView.findViewById(R.id.layout_notifid);
             info_title = itemView.findViewById(R.id.txt_nama_paket);
             info_caption = itemView.findViewById(R.id.txt_pagu);
             date_created = itemView.findViewById(R.id.tx_tanggal_update);
             info_id = itemView.findViewById(R.id.txt_idpaket);
+            notif_info_type = itemView.findViewById(R.id.notif_info_type);
+            notif_info_status = itemView.findViewById(R.id.notif_info_status);
         }
     }
 

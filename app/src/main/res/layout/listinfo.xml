@@ -4,7 +4,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_paketid"
+        android:id="@+id/layout_notifid"
         android:clickable="true"
         android:orientation="vertical"
     >
@@ -94,7 +94,7 @@
                 android:drawableLeft="@drawable/ic_update_black_24dp"
                 android:backgroundTint="#000"
                 android:drawablePadding="7dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:paddingLeft="-2.1dp"
                 android:layout_height="wrap_content"
                 android:text="22 Juni 2019" />
@@ -118,7 +118,24 @@
 
     </RelativeLayout>
     <!-- TextView Employee Name -->
+    <!-- TextView Employee Name -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/notif_info_type"
+            android:layout_width="wrap_content"
+            android:text="Kegiatan ID"
+            android:visibility="invisible"
+            android:layout_height="wrap_content" />
 
+        <TextView
+            android:id="@+id/notif_info_status"
+            android:layout_width="wrap_content"
+            android:text="Kegiatan ID"
+            android:visibility="invisible"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <View android:background="#bbb"
         android:layout_below="@id/cont_paket"

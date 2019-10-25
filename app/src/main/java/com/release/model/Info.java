@@ -27,6 +27,9 @@ public class Info implements Serializable {
     @SerializedName("info_status")
     private String infoStatus;
 
+    @SerializedName("info_type")
+    private String infoType;
+
     @SerializedName("date_created")
     private String dateCreated;
 
@@ -94,6 +97,14 @@ public class Info implements Serializable {
 
     public String getInfoStatus() {
         return infoStatus;
+    }
+
+    public String getInfoType() {
+        return infoType;
+    }
+
+    public void setInfoType(String infoType) {
+        this.infoType = infoType;
     }
 
     public void setInfoStatus(String infoStatus) {

@@ -5,7 +5,6 @@ android:layout_marginBottom="10dp"
 android:layout_width="match_parent"
 android:background="#ddd"
 android:layout_height="wrap_content" >
-
 <TextView
     android:id="@+id/text_infokontrak"
     android:layout_width="wrap_content"
@@ -28,4 +27,13 @@ android:layout_height="wrap_content" >
         android:scrollbarStyle="outsideOverlay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+<ProgressBar
+    android:id="@+id/progress_bar_notification"
+    android:layout_width="30dp"
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:foregroundGravity="center_vertical"
+    android:visibility="visible"
+    >
+</ProgressBar>
 </RelativeLayout>
