@@ -1,6 +1,8 @@
 package com.release.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.release.R;
+import com.release.dropbox.ActivityTag;
 import com.release.model.DataResponse;
 import com.release.model.User;
 import com.release.restapi.ApiClient;
@@ -27,6 +30,8 @@ import com.release.restapi.ApiInterface;
 import com.google.gson.Gson;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -112,9 +117,24 @@ public class ActivityLogin extends AppCompatActivity{
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 String result_name = txt_uname.getText().toString().trim();
                 String result_pass = txt_uname.getText().toString().trim();
+                int PERMISSION_ALL = 1;
+                String[] PERMISSIONS = {
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.CAMERA,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+                        Manifest.permission.LOCATION_HARDWARE,
+                        Manifest.permission.CONTROL_LOCATION_UPDATES,
+                };
+                if(!checkAllPermission(this, PERMISSIONS)){
+                    ActivityCompat.requestPermissions(ActivityLogin.this, PERMISSIONS, PERMISSION_ALL);
+                }else{
+                }
                 check_conn = checkConnection.test();
                 if(check_conn){
                     if(result_name.equals("") || result_pass.equals("")){
@@ -146,9 +166,11 @@ public class ActivityLogin extends AppCompatActivity{
                                                     login_role,
                                                     login_bidang);
                                         }
+
                                         Intent intent = new Intent(getApplicationContext(), ActivityDashboard.class);
                                         startActivity(intent);
                                         finish();
+
                                     }
                                 }else{
                                     Toasty.error(getApplicationContext(), "Login Failed", Toasty.LENGTH_SHORT, true).show();
@@ -168,6 +190,17 @@ public class ActivityLogin extends AppCompatActivity{
             }
         });
 
+    }
+
+    private boolean checkAllPermission(View.OnClickListener listener, String... permissions){
+        if (listener != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
