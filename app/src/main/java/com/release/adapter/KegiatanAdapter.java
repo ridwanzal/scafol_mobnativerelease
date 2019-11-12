@@ -1,10 +1,12 @@
 package com.release.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.release.R;
+import com.release.activity.ActivityDetailPaket;
 import com.release.model.Kegiatan;
 import com.release.model.KegiatanTree;
 
@@ -61,13 +64,7 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.Kegiat
         }
         for (int textViewIndex = 0; textViewIndex < noOfChild; textViewIndex++) {
             TextView currentTextView = (TextView) holder.child_layout.getChildAt(textViewIndex);
-            currentTextView.setText(kegiatanTree.getChild().get(textViewIndex).getPaJudul());
-                /*currentTextView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Toast.makeText(mContext, "" + ((TextView) view).getText().toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });*/
+            currentTextView.setText(kegiatanTree.getChild().get(textViewIndex).getPaId() + " - " + kegiatanTree.getChild().get(textViewIndex).getPaJudul());
         }
     }
 
@@ -102,11 +99,12 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.Kegiat
                 for (int indexView = 0; indexView < intMaxNoOfChild; indexView++) {
                     TextView textView = new TextView(context);
                     textView.setId(indexView);
-                    textView.setPadding(60, 40, 0, 40);
+                    textView.setPadding(60, 40, 30, 40);
                     textView.setGravity(Gravity.LEFT);
                     textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_keyboard_arrow_right_black_24dp, 0, 0, 0);
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     textView.setOnClickListener(this);
+
                     child_layout.addView(textView, layoutParams);
                 }
                 layout_kegiatan.setOnClickListener(this);
@@ -122,7 +120,16 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.Kegiat
                     }
                 }else{
                     TextView textViewClicked = (TextView) v;
-                    Toast.makeText(context, "" + textViewClicked.getText().toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "" + textViewClicked.getText().toString(), Toast.LENGTH_SHORT).show();
+                    String[] get_text = textViewClicked.getText().toString().split(" - ");
+                    Toast.makeText(context, "" + get_text[0], Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ActivityDetailPaket.class);
+                    intent.putExtra("pa_id", get_text[0].toString());
+                    intent.putExtra("pa_nama", get_text[1].toString());
+                    intent.putExtra("pa_pagu", "");
+                    intent.putExtra("ke_id", "");
+                    intent.putExtra("request", "main");
+                    context.startActivity(intent);
                 }
             }
         }

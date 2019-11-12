@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:foregroundGravity="center_vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycle_listkegiatan"
