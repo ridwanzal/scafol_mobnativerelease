@@ -7,29 +7,37 @@
         android:orientation="vertical">
     <!-- TextView Employee Name -->
 
-    <TextView
-        android:id="@+id/txt_rekening"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="5dp"
-        android:layout_below="@id/txt_nama_kegiatan"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/txt_nama_kegiatan"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:text="Ini contoh list"
-        android:textStyle="bold"
-        android:textSize="16sp" />
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/layout_kegiatan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txt_nama_kegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"/>
+        </LinearLayout>
 
-    <View android:background="#eee"
-        android:layout_width = "match_parent"
-        android:layout_marginTop="15dp"
-        android:layout_below="@id/txt_rekening"
-        android:layout_height="1dp"/>
+        <LinearLayout
+            android:id="@+id/ll_child_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#eee"
+            />
+
+    </LinearLayout>
+
+
 </RelativeLayout>
 
     <!-- END*** Root Container *** -->

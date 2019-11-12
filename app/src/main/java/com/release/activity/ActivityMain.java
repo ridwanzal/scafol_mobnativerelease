@@ -21,8 +21,10 @@ import com.release.adapter.PaketAdapter;
 import com.release.interfacemodule.ItemClickListener;
 import com.release.model.Anggaran;
 import com.release.model.DataResponseAnggaran;
+import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
 import com.release.model.Kegiatan;
+import com.release.model.KegiatanTree;
 import com.release.model.Paket;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
@@ -145,6 +147,34 @@ public class ActivityMain extends AppCompatActivity{
                         @Override
                         public void onFailure(Call<DataResponseAnggaran> call, Throwable t) {
                             Log.e(TAG, t.toString());
+                        }
+                    });
+                }else if(flag_list.equals("3")){
+                    Log.d(TAG, "MASUK SINI");
+                    setContentView(R.layout.recycle_listkegiatan);
+                    text_notfound = findViewById(R.id.text_notfound);
+                    progress_listanggaran = findViewById(R.id.progress_listpaket);
+                    getSupportActionBar().setTitle("Kegiatan");
+                    Call<DataResponseKegiatan> call_kegiatan = apiInterface.getKegiatanTree(dinas_id);
+                    call_kegiatan.enqueue(new Callback<DataResponseKegiatan>() {
+                        @Override
+                        public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
+                            String response_code = new Gson().toJson(response.code()).toString();
+                            if(response_code.equals("200")){
+                                ArrayList<KegiatanTree> data = response.body().getData();
+                                Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                generateKegiatanList(response.body().getData());
+                                progress_listanggaran.setVisibility(View.GONE);
+                                text_notfound.setVisibility(View.GONE);
+                            }else{
+                                progress_listanggaran.setVisibility(View.GONE);
+                                text_notfound.setVisibility(View.VISIBLE);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponseKegiatan> call, Throwable t) {
+
                         }
                     });
                 }
@@ -277,9 +307,11 @@ public class ActivityMain extends AppCompatActivity{
         }
     }
 
-    private void generateKegiatanList(ArrayList<Kegiatan> kegiatanList){
+    private void generateKegiatanList(ArrayList<KegiatanTree> kegiatanList){
         recyclerView = findViewById(R.id.recycle_listkegiatan);
         kegiatanAdapter = new KegiatanAdapter(kegiatanList);
+        String title = "Total Kegiatan ("   + kegiatanAdapter.getItemCount() + ")";
+        getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityMain.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(kegiatanAdapter);

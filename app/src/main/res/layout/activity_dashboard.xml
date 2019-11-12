@@ -43,7 +43,7 @@
                         <TextView
                             android:id="@+id/tx_namauser"
                             android:ellipsize="end"
-                            android:drawableLeft="@drawable/owner"
+                            android:drawableLeft="@drawable/ic_account_circle_black_24dp"
                             android:drawableTint="@color/colorwhite"
                             android:drawablePadding="10dp"
                             android:layout_width="wrap_content"
@@ -796,8 +796,27 @@
 
 
         <Button
-            android:id="@+id/btn_tolist3"
+            android:id="@+id/btn_tolist4"
             android:visibility="visible"
+            android:layout_width="fill_parent"
+            android:layout_below="@+id/btn_tolist2"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:paddingRight="10dp"
+            android:textColor="#555"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="-2dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/paket_nonfisik"
+            android:textAlignment="viewStart"
+            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:background="@drawable/button_ripple_generals"
+            android:text="Lihat Semua Daftar Kegiatan" />
+
+
+        <Button
+            android:id="@+id/btn_tolist3"
+            android:visibility="gone"
             android:layout_width="fill_parent"
             android:layout_below="@+id/btn_tolist2"
             android:layout_height="wrap_content"

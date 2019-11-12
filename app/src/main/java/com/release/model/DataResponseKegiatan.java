@@ -8,14 +8,14 @@ public class DataResponseKegiatan {
     @SerializedName("status")
     private boolean status;
     @SerializedName("data")
-    private ArrayList<Kegiatan> data;
+    private ArrayList<KegiatanTree> data;
     @SerializedName("message")
     private String message;
     public boolean getStatus() {
         return status;
     }
 
-    public ArrayList<Kegiatan> getData() {
+    public ArrayList<KegiatanTree> getData() {
         return data;
     }
 

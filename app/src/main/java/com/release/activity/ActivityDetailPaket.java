@@ -35,6 +35,7 @@ import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
 import com.release.model.Kegiatan;
+import com.release.model.KegiatanTree;
 import com.release.model.Paket;
 import com.release.model.Progress;
 import com.release.model.User;
@@ -312,7 +313,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                         @Override
                         public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
                             if(response.code() == 200){
-                                ArrayList<Kegiatan> keglist = response.body().getData();
+                                ArrayList<KegiatanTree> keglist = response.body().getData();
                                 Log.d(TAG, "BIDANG NAME : " + new Gson().toJson(keglist));
                                 for(int i = 0; i < keglist.size(); i++){
                                     text_kegiatan.setText(keglist.get(i).getKeJudul());

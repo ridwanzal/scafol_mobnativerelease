@@ -56,6 +56,9 @@ public interface ApiInterface {
     @GET("kegiatan/")
     Call<DataResponseKegiatan> getKegiatanAdmin();
 
+    @GET("kegiatan/paket")
+    Call<DataResponseKegiatan> getKegiatanTree(@Query("dinas_id") String dinas_id);
+
     @GET("kegiatan/dinas")
     Call<DataResponseKegiatan> getKegiatanAdminDinas(@Query("dinas_id") String dinas_id);
 

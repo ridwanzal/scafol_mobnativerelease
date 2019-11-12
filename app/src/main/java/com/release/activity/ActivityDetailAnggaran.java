@@ -28,6 +28,7 @@ import com.release.model.DataResponseAnggaran;
 import com.release.model.DataResponseBidang;
 import com.release.model.DataResponseKegiatan;
 import com.release.model.Kegiatan;
+import com.release.model.KegiatanTree;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.sharedexternalmodule.formatMoneyIDR;
@@ -130,7 +131,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
                                 if(response.code() == 200){
-                                    ArrayList<Kegiatan> keglist = response.body().getData();
+                                    ArrayList<KegiatanTree> keglist = response.body().getData();
                                     Log.d(TAG, "BIDANG NAME : " + new Gson().toJson(keglist));
                                     for(int i = 0; i < keglist.size(); i++){
                                         text_kegjudul_ang.setText(keglist.get(i).getKeJudul());

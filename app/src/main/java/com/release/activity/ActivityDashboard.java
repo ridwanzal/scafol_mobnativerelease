@@ -68,7 +68,7 @@ public class ActivityDashboard extends AppCompatActivity {
 
     private Button show_list; // button paket fisik
     private Button show_list2; // button anggaran
-    private Button show_list3; // button daftar dinas
+    private Button show_list4; // button daftar dinas
     private Button btn_mapdash;
     private Button btn_chartdash;
     private static String TAG = "ActivityDashboard";
@@ -139,8 +139,7 @@ public class ActivityDashboard extends AppCompatActivity {
         String user_name = user.get(SessionManager.KEY_USERNAME);
         show_list = findViewById(R.id.btn_tolist);
         show_list2 = findViewById(R.id.btn_tolist2);
-        show_list3 = findViewById(R.id.btn_tolist3);
-        show_list3.setVisibility(View.GONE);
+        show_list4 = findViewById(R.id.btn_tolist4);
         main_container_dashbaord = findViewById(R.id.main_container_dashbaord);
         progress = new ProgressDialog(this);
         final View parentLayout = findViewById(android.R.id.content);
@@ -647,7 +646,7 @@ public class ActivityDashboard extends AppCompatActivity {
                     }
                 }).start();
             }else if(role.toLowerCase().equals("superadmin")){
-                show_list3.setVisibility(View.VISIBLE);
+                show_list4.setVisibility(View.VISIBLE);
                 show_list.setVisibility(View.GONE);
                 show_list2.setVisibility(View.GONE);
 //                new Thread(new Runnable() {
@@ -703,6 +702,16 @@ public class ActivityDashboard extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
                 intent.putExtra("flag_list", "2");
+                startActivity(intent);
+            }
+        });
+
+        // onclick activity kegiatan tree
+        show_list4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ActivityMain.class);
+                intent.putExtra("flag_list", "3");
                 startActivity(intent);
             }
         });
