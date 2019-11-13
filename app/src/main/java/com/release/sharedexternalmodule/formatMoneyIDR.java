@@ -27,5 +27,33 @@ public class formatMoneyIDR {
     }
 
 
+    public static String reverseIDR(Double money){
+        String result = "";
+        String reverse_money = "";
+        Boolean check_comma = result.contains(",");
+        if(check_comma){
+            reverse_money = String.valueOf(money).split(",")[0];
+            result = reverse_money;
+        }else{
+            result = String.valueOf(money);
+        }
+        return result;
+    }
+
+
+    public static String reverseIDR(String money){
+        String result = "";
+        String reverse_money = "";
+        Boolean check_comma = result.contains(",");
+        if(check_comma){
+            reverse_money = String.valueOf(money).split(",")[0];
+            result = reverse_money;
+        }else{
+            result = String.valueOf(money);
+        }
+        return result;
+    }
+
+
 
 }

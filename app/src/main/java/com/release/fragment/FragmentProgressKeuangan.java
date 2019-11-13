@@ -183,7 +183,8 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try{
 
-                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
+//                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
+                    String text_serap = formatMoneyIDR.reverseIDR(keu_serap.getCurrencyDouble());
                     String text_pagu = pagu_value.toString();
                     String text_kontrak = kontrak_value.toString();
 
@@ -214,7 +215,8 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
             @Override
             public void afterTextChanged(Editable editable) {
                 try{
-                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
+//                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
+                    String text_serap = formatMoneyIDR.reverseIDR(keu_serap.getCurrencyDouble());
                     String text_pagu = pagu_value.toString();
                     String text_kontrak = kontrak_value.toString();
 
