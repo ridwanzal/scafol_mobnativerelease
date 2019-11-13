@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -100,22 +101,39 @@
                         android:text="Daya Serap Kontrak"
                         android:textColor="#aaa" />
 
-                    <EditText
+<!--                    <EditText-->
+<!--                        android:id="@+id/keu_serap"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_marginTop="4dp"-->
+<!--                        android:text=""-->
+<!--                        android:drawableLeft="@drawable/money_icon"-->
+<!--                        android:drawablePadding="10dp"-->
+<!--                        android:textSize="16sp"-->
+<!--                        android:textColor="#000"-->
+<!--                        android:drawableRight="@drawable/ic_close_black_24dp"-->
+<!--                        android:inputType="numberDecimal"-->
+<!--                        android:padding="10dp"-->
+<!--                        android:background="@drawable/edittextborder_generic"-->
+<!--                        android:textStyle="" />-->
+
+                    <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/keu_serap"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginTop="4dp"
-                        android:text=""
+                        android:background="@drawable/edittextborder_generic"
                         android:drawableLeft="@drawable/money_icon"
-                        android:drawablePadding="10dp"
-                        android:textSize="16sp"
-                        android:textColor="#000"
                         android:drawableRight="@drawable/ic_close_black_24dp"
+                        android:drawablePadding="10dp"
                         android:inputType="numberDecimal"
                         android:padding="10dp"
-                        android:background="@drawable/edittextborder_generic"
-                        android:textStyle="" />
+                        android:textColor="@android:color/black"
+                        android:textStyle="normal"
+                        app:groupDivider="."
+                        app:monetaryDivider=","
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -124,7 +142,7 @@
                         android:text="Pagu"
                         android:textColor="#aaa" />
 
-                    <EditText
+                    <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/keu_pagu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -140,7 +158,10 @@
                         android:inputType="numberDecimal"
                         android:background="@drawable/edittextborder_generic"
                         android:textColor="#000"
-                        android:textStyle="" />
+                        android:textStyle=""
+                        app:groupDivider="."
+                        app:monetaryDivider=","
+                        />
 
 
                     <TextView
@@ -150,7 +171,7 @@
                         android:text="Nilai Kontrak"
                         android:textColor="#aaa" />
 
-                    <EditText
+                    <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/keu_kontrak"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -166,6 +187,8 @@
                         android:padding="10dp"
                         android:background="@drawable/edittextborder_generic"
                         android:textColor="#000"
+                        app:groupDivider="."
+                        app:monetaryDivider=","
                         />
 
                     <TextView
@@ -175,7 +198,7 @@
                         android:text="Sisa Kontrak"
                         android:textColor="#aaa" />
 
-                    <EditText
+                    <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/keu_sisa"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -191,6 +214,8 @@
                         android:drawablePadding="10dp"
                         android:layout_marginTop="4dp"
                         android:textColor="#000"
+                        app:groupDivider="."
+                        app:monetaryDivider=","
                         />
 
                     <TextView
@@ -200,7 +225,7 @@
                         android:text="Sisa Pagu"
                         android:textColor="#aaa" />
 
-                    <EditText
+                    <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/keu_sisang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -215,7 +240,10 @@
                         android:text=""
                         android:textSize="16sp"
                         android:layout_marginTop="4dp"
-                        android:textColor="#000" />
+                        android:textColor="#000"
+                        app:groupDivider="."
+                        app:monetaryDivider=","
+                        />
 
                         <LinearLayout
                             android:layout_width="match_parent"

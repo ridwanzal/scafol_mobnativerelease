@@ -38,6 +38,7 @@ import com.release.model.Paket;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.sharedexternalmodule.DatePickerFragment;
+import com.release.sharedexternalmodule.formatMoneyIDR;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,6 +46,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 import es.dmoral.toasty.Toasty;
+import faranjit.currency.edittext.CurrencyEditText;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -54,9 +56,9 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
     TextView pr_serapan_anggaran;
     ImageView btn_date_anggaran1;
     EditText tx_tanggal_proganggaran;
-    EditText keu_serap;
-    EditText keu_pagu;
-    EditText keu_sisang;
+    CurrencyEditText keu_serap;
+    CurrencyEditText keu_pagu;
+    CurrencyEditText keu_sisang;
     EditText keu_ket;
     Button keu_submit;
 
@@ -115,7 +117,7 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
                 if(response.code() == 200){
                     ArrayList<Anggaran> anggaranlist = response.body().getData();
                     for(int i = 0; i < anggaranlist.size(); i++){
-                        keu_pagu.setText(anggaranlist.get(i).getAnpPagu());
+                        keu_pagu.setText(formatMoneyIDR.convertIDR(anggaranlist.get(i).getAnpPagu()));
                         pagu_value = anggaranlist.get(i).getAnpPagu();
                     }
                 }
@@ -157,38 +159,44 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String text_serap = keu_serap.getText().toString().trim();
-                String text_pagu = pagu_value.toString().trim();
-                if(text_pagu.equals("")){
-                    text_pagu = "0";
-                }
+                try{
+                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
+                    String text_pagu = pagu_value.toString().trim();
+                    if(text_pagu.equals("")){
+                        text_pagu = "0";
+                    }
 
-                if(text_serap.equals("") || charSequence.equals("")){
-                    text_serap = "0";
-                    keu_sisang.setText("");
-                }else{
-                    Long sisa_anggaran = Long.valueOf(text_pagu) - (Long.valueOf(text_serap) + Long.valueOf(serap));
-                    keu_sisang.setText(sisa_anggaran.toString());
+                    if(text_serap.equals("") || charSequence.equals("")){
+                        text_serap = "0";
+                        keu_sisang.setText("");
+                    }else{
+                        Double sisa_anggaran = Double.valueOf(text_pagu) - (Double.valueOf(text_serap) + Double.valueOf(serap));
+                        keu_sisang.setText(formatMoneyIDR.convertIDR(sisa_anggaran.toString()));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String text_serap = keu_serap.getText().toString().trim();
-                String text_pagu = pagu_value.toString().trim();
-                if(text_pagu.equals("")){
-                    text_pagu = "0";
-                }
+                try{
+                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
+                    String text_pagu = pagu_value.toString().trim();
+                    if(text_pagu.equals("")){
+                        text_pagu = "0";
+                    }
 
-                if(text_serap.equals("") || editable.equals("")){
-                    text_serap = "0";
-                    keu_sisang.setText("");
-                }else{
-                    Long sisa_anggaran = Long.valueOf(text_pagu) - (Long.valueOf(text_serap) + Long.valueOf(serap));
-                    keu_sisang.setText(sisa_anggaran.toString());
+                    if(text_serap.equals("") || editable.equals("")){
+                        text_serap = "0";
+                        keu_sisang.setText("");
+                    }else{
+                        Double sisa_anggaran = Double.valueOf(text_pagu) - (Double.valueOf(text_serap) + Double.valueOf(serap));
+                        keu_sisang.setText(formatMoneyIDR.convertIDR(sisa_anggaran.toString()));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
-
             }
         });
 

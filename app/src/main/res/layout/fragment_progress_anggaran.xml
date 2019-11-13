@@ -100,7 +100,7 @@
                         android:text="Daya Serap Kontrak"
                         android:textColor="#aaa" />
 
-                    <EditText
+                    <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/keu_serap"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                         android:text="Pagu"
                         android:textColor="#aaa" />
 
-                    <EditText
+                    <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/keu_pagu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -149,7 +149,7 @@
                         android:text="Sisa Paket Non-Fisik"
                         android:textColor="#aaa" />
 
-                    <EditText
+                    <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/keu_sisang"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

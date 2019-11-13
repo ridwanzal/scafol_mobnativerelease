@@ -35,6 +35,7 @@ import com.release.model.Paket;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.sharedexternalmodule.DatePickerFragment;
+import com.release.sharedexternalmodule.formatMoneyIDR;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -58,11 +59,11 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
     TextView pr_keuangan_detail;
     ImageView btn_date_prog_keuangan;
     EditText tx_tanggal_keuangan;
-    EditText keu_pagu;
-    EditText keu_kontrak;
-    EditText keu_serap;
-    EditText keu_sisa;
-    EditText keu_sisang;
+    CurrencyEditText keu_pagu;
+    CurrencyEditText keu_kontrak;
+    CurrencyEditText keu_serap;
+    CurrencyEditText keu_sisa;
+    CurrencyEditText keu_sisang;
     EditText keu_ket;
     Button keu_submit;
     TextView text_infokontrak;
@@ -92,11 +93,11 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
         tx_tanggal_keuangan = view.findViewById(R.id.tx_tanggal_keuangan);
 
         loading_progress_submit = view.findViewById(R.id.loading_progress_submit);
-        keu_pagu = view.findViewById(R.id.keu_pagu);
-        keu_kontrak = view.findViewById(R.id.keu_kontrak);
-        keu_sisa = view.findViewById(R.id.keu_sisa);
-        keu_sisang = view.findViewById(R.id.keu_sisang);
-        keu_serap = view.findViewById(R.id.keu_serap);
+        keu_pagu = (CurrencyEditText)  view.findViewById(R.id.keu_pagu);
+        keu_kontrak = (CurrencyEditText)  view.findViewById(R.id.keu_kontrak);
+        keu_sisa = (CurrencyEditText)  view.findViewById(R.id.keu_sisa);
+        keu_sisang = (CurrencyEditText)  view.findViewById(R.id.keu_sisang);
+        keu_serap = (CurrencyEditText) view.findViewById(R.id.keu_serap);
         keu_ket = view.findViewById(R.id.keu_ket);
         keu_submit = view.findViewById(R.id.keu_submit);
 
@@ -125,8 +126,8 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                 if(response.code() == 200){
                     ArrayList<Paket> paketlist = response.body().getData();
                     for(int i = 0; i < paketlist.size(); i++){
-                        keu_pagu.setText(paketlist.get(i).getPaPagu());
-                        keu_kontrak.setText(paketlist.get(i).getPaNilaiKontrak().trim());
+                        keu_pagu.setText(formatMoneyIDR.convertIDR(paketlist.get(i).getPaPagu()));
+                        keu_kontrak.setText(formatMoneyIDR.convertIDR(paketlist.get(i).getPaNilaiKontrak().trim()));
                         pagu_value = paketlist.get(i).getPaPagu().trim();
                         kontrak_value = paketlist.get(i).getPaNilaiKontrak().trim();
                         if(paketlist.get(i).getPaNilaiKontrak().toString().equals("0")){
@@ -180,53 +181,63 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                String text_serap = keu_serap.getText().toString().trim();
-                String text_pagu = pagu_value.toString().trim();
-                String text_kontrak = kontrak_value.toString().trim();
-                if(text_pagu.equals("")){
-                    text_pagu = "0";
-                }
-                if(text_kontrak.equals("")){
-                    text_kontrak = "0";
-                }
+                try{
 
-                if(text_serap.equals("") || charSequence.equals("")){
-                    text_serap = "0";
-                    keu_sisang.setText("");
-                    keu_sisa.setText("");
-                }else{
-                    Long sisa_kontrak = Long.valueOf(text_kontrak) - (Long.valueOf(text_serap) + Long.valueOf(serap));
-                    keu_sisa.setText(sisa_kontrak.toString());
+                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
+                    String text_pagu = pagu_value.toString();
+                    String text_kontrak = kontrak_value.toString();
 
-                    Long sisa_anggaran = Long.valueOf(text_pagu) - (Long.valueOf(text_serap) + Long.valueOf(serap));
-                    keu_sisang.setText(sisa_anggaran.toString());
+                    if(text_pagu.equals("")){
+                        text_pagu = "0";
+                    }
+                    if(text_kontrak.equals("")){
+                        text_kontrak = "0";
+                    }
+
+                    if(text_serap.equals("") || charSequence.equals("")){
+                        text_serap = "0";
+                        keu_sisang.setText("");
+                        keu_sisa.setText("");
+                    }else{
+                    Double sisa_kontrak = Double.valueOf(text_kontrak) - (Double.valueOf(text_serap) + Double.valueOf(serap));
+                    keu_sisa.setText(formatMoneyIDR.convertIDR(sisa_kontrak.toString()));
+
+                    Double sisa_anggaran = Double.valueOf(text_pagu) - (Double.valueOf(text_serap) + Double.valueOf(serap));
+                    keu_sisang.setText(formatMoneyIDR.convertIDR(sisa_anggaran.toString()));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String text_serap = keu_serap.getText().toString().trim();
-                String text_pagu = pagu_value.toString().trim();
-                String text_kontrak = kontrak_value.toString().trim();
-                if(text_pagu.equals("")){
-                    text_pagu = "0";
-                }
-                if(text_kontrak.equals("")){
-                    text_kontrak = "0";
-                }
+                try{
+                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
+                    String text_pagu = pagu_value.toString();
+                    String text_kontrak = kontrak_value.toString();
 
-                if(text_serap.equals("") || editable.equals("")){
-                    text_serap = "0";
-                    keu_sisang.setText("");
-                    keu_sisa.setText("");
-                }else{
-                    Log.d(TAG,"Value serap: " + (Long.valueOf(text_kontrak) - (Long.valueOf(text_serap) + Long.valueOf(serap))));
-                    Long sisa_kontrak = Long.valueOf(text_kontrak) - (Long.valueOf(text_serap) + Long.valueOf(serap));
-                    keu_sisa.setText(sisa_kontrak.toString());
+                    if(text_pagu.equals("")){
+                        text_pagu = "0";
+                    }
+                    if(text_kontrak.equals("")){
+                        text_kontrak = "0";
+                    }
 
-                    Long sisa_anggaran = Long.valueOf(text_pagu) - (Long.valueOf(text_serap) + Long.valueOf(serap));
-                    keu_sisang.setText(sisa_anggaran.toString());
+                    if(text_serap.equals("") || editable.equals("")){
+                        text_serap = "0";
+                        keu_sisang.setText("");
+                        keu_sisa.setText("");
+                    }else{
+                    Double sisa_kontrak = Double.valueOf(text_kontrak) - (Double.valueOf(text_serap) + Double.valueOf(serap));
+                    keu_sisa.setText(formatMoneyIDR.convertIDR(sisa_kontrak.toString()));
+
+                    Double sisa_anggaran = Double.valueOf(text_pagu) - (Double.valueOf(text_serap) + Double.valueOf(serap));
+                    keu_sisang.setText(formatMoneyIDR.convertIDR(sisa_anggaran.toString()));
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
                 }
 
             }
