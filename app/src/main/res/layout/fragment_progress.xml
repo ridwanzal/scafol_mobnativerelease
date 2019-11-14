@@ -7,10 +7,12 @@
         android:layout_height="match_parent">
         <ProgressBar
             android:id="@+id/loading_progress_submit"
-            android:layout_width="match_parent"
-            android:textAlignment="center"
-            android:visibility="gone"
-            android:layout_height="30dp" />
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="100dp"
+            android:foregroundGravity="center_vertical"
+            />
         <LinearLayout
             android:id="@+id/labelis"
             android:layout_width="match_parent"
@@ -41,11 +43,33 @@
                 android:textColor="#4a9ed6" />
 
         </LinearLayout>
-
-
+        <LinearLayout
+            android:id="@+id/lin_keu1"
+            android:layout_marginTop="0dp"
+            android:layout_below="@id/labelis"
+            android:visibility="gone"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_infokontrak"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Nomor kontrak sudah diisi, anda sudah dapat mengupdate data progres"
+                android:drawableLeft="@drawable/ic_info_outline_black_24dp"
+                android:drawableTint="@color/colorAccent"
+                android:background="@drawable/button_ripple_white"
+                android:padding="10dp"
+                android:drawablePadding="7dp"
+                android:textColor="#888" />
+        </LinearLayout>
         <androidx.cardview.widget.CardView
             android:id="@+id/card1x"
-            android:layout_below="@id/labelis"
+            android:visibility="gone"
+            android:layout_below="@id/lin_keu1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
@@ -80,6 +104,7 @@
                         android:layout_weight="1"
                         android:inputType="numberDecimal"
                         android:padding="10dp"
+                        android:drawableRight="@drawable/ic_close_black_24dp"
                         android:background="@drawable/edittextborder_generic"
                         android:text=""
                         android:textColor="#000"
@@ -103,6 +128,7 @@
                         android:inputType="numberDecimal"
                         android:padding="10dp"
                         android:background="@drawable/edittextborder_generic"
+                        android:drawableRight="@drawable/ic_close_black_24dp"
                         android:textColor="#000"
                         android:textSize="16sp"
                         android:textStyle="" />
@@ -261,29 +287,6 @@
                 android:paddingTop="10dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="10dp">
-
-                <LinearLayout
-                    android:id="@+id/lin_keu1"
-                    android:paddingTop="5dp"
-                    android:paddingBottom="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/text_infokontrak"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:paddingLeft="10dp"
-                        android:text="Nomor kontrak sudah diisi, anda sudah dapat mengupdate data progres"
-                        android:drawableLeft="@drawable/ic_info_outline_white_24dp"
-                        android:drawableTint="@color/colorAccent"
-                        android:background="@drawable/button_ripple_info"
-                        android:padding="10dp"
-                        android:drawablePadding="7dp"
-                        android:textColor="#888" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/lin_keu2"

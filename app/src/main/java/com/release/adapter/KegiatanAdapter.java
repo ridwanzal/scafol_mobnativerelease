@@ -101,7 +101,8 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.Kegiat
                     textView.setId(indexView);
                     textView.setPadding(60, 40, 30, 40);
                     textView.setGravity(Gravity.LEFT);
-                    textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_keyboard_arrow_right_black_24dp, 0, 0, 0);
+                    textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_next, 0, 0, 0);
+                    textView.setCompoundDrawablePadding(10);
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                     textView.setOnClickListener(this);
 

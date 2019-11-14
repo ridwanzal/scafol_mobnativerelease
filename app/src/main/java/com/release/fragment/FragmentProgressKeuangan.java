@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -68,6 +69,8 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
     Button keu_submit;
     TextView text_infokontrak;
     LinearLayout lin_keu2;
+    LinearLayout lin_keu1;
+    CardView card2x;
 
     String pagu_value;
     String kontrak_value;
@@ -104,6 +107,8 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
         text_infokontrak = view.findViewById(R.id.text_infokontrak);
 
         lin_keu2 = view.findViewById(R.id.lin_keu2);
+        lin_keu1 = view.findViewById(R.id.lin_keu1);
+        card2x = view.findViewById(R.id.card2x);
 
         pr_keuangan_detail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,12 +139,11 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                             text_infokontrak.setText("Nomor kontrak belum diisi, harap isi terlebih dahulu di halaman Edit Kontrak");
                             text_infokontrak.setTextColor(Color.parseColor("#ff0000"));
                             lin_keu2.setVisibility(View.GONE);
-                            keu_kontrak.setEnabled(false);
-                            keu_serap.setEnabled(false);
-                            keu_sisa.setEnabled(false);
-                            keu_sisang.setEnabled(false);
-                            tx_tanggal_keuangan.setEnabled(false);
-                            keu_ket.setEnabled(false);
+                            lin_keu1.setVisibility(View.VISIBLE);
+                            card2x.setVisibility(View.GONE);
+                        }else{
+                            card2x.setVisibility(View.VISIBLE);
+                            lin_keu1.setVisibility(View.GONE);
                         }
                     }
                 }

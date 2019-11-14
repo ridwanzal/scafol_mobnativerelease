@@ -17,10 +17,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:drawableLeft="@drawable/ic_clipboards"
+                android:drawablePadding="10dp"
                 android:id="@+id/txt_nama_kegiatan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="16dp"
+                android:textStyle="bold"
                 android:paddingRight="16dp"
                 android:paddingTop="25dp"
                 android:paddingBottom="25dp"/>

@@ -2,6 +2,7 @@ package com.release.fragment;
 
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
@@ -68,6 +70,7 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
     ImageView btn_date_prog_keuangan;
     EditText tx_tanggalprogress;
     EditText tx_tanggal_keuangan;
+
 //    EditText keu_pagu;
 //    EditText keu_kontrak;
 //    EditText keu_serap;
@@ -86,7 +89,10 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
     EditText textcatatans;
 
     LinearLayout lin_keu2;
-
+    LinearLayout lin_keu1;
+    LinearLayout labelis;
+    CardView card1x;
+    Context ctx;
     ImageView get_deviasi;
     Handler mHandler;
 
@@ -99,6 +105,8 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
     private static String pa_judul = "";
     private static String pa_pagu = "";
 
+    boolean check_status = false;
+
     String pagu_value;
     String kontrak_value;
 
@@ -106,7 +114,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
     final int DRAWABLE_TOP = 1;
     final int DRAWABLE_RIGHT = 2;
     final int DRAWABLE_BOTTOM = 3;
-
     private ProgressBar loading_progress_submit;
 
     @Override
@@ -150,18 +157,122 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
         text_infokontrak = view.findViewById(R.id.text_infokontrak);
 
         lin_keu2 = view.findViewById(R.id.lin_keu2);
+        lin_keu1 = view.findViewById(R.id.lin_keu1);
+        card1x = view.findViewById(R.id.card1x);
+        labelis = view.findViewById(R.id.labelis);
 
         Calendar calendar = Calendar.getInstance();
         final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
         tx_tanggalprogress.setText(dateFormat.format(calendar.getTime()));
 
-
         Intent intent = getActivity().getIntent();
         pa_id = intent.getStringExtra("pa_id");
         pa_judul = intent.getStringExtra("pa_nama");
         pa_pagu = intent.getStringExtra("pa_pagu");
         ke_id = intent.getStringExtra("ke_id");
+
+        Call<DataResponsePaket> call_paket = apiInterface.getPaketId(pa_id);
+        call_paket.enqueue(new Callback<DataResponsePaket>() {
+            @Override
+            public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                if(response.code() == 200){
+                    ArrayList<Paket> paketlist = response.body().getData();
+                    for(int i = 0; i < paketlist.size(); i++){
+                        if(paketlist.get(i).getPaNilaiKontrak().toString().equals("0")){
+                            text_infokontrak.setText("Nomor kontrak belum diisi, harap isi terlebih dahulu di halaman Edit Kontrak");
+                            text_infokontrak.setTextColor(Color.parseColor("#ff0000"));
+                            lin_keu1.setVisibility(View.VISIBLE);
+                            card1x.setVisibility(View.GONE);
+                            loading_progress_submit.setVisibility(View.GONE);
+                            text_infokontrak.setVisibility(View.VISIBLE);
+                        }else{
+                            text_infokontrak.setText("Nomor kontrak sudah diisi, silahkan update progres pekerjaan");
+                            text_infokontrak.setTextColor(Color.parseColor("#888888"));
+                            lin_keu1.setVisibility(View.GONE);
+                            card1x.setVisibility(View.VISIBLE);
+                            loading_progress_submit.setVisibility(View.GONE);
+                            text_infokontrak.setVisibility(View.VISIBLE);
+                            check_status = true;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataResponsePaket> call, Throwable t) {
+
+            }
+        });
+
+
+        if(check_status){
+            prog_target_fisik.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        if(motionEvent.getRawX() >= (prog_target_fisik.getRight() - prog_target_fisik.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                            // your action here
+                            prog_target_fisik.getText().clear();
+                            prog_deviasi_fisik.getText().clear();
+                            prog_real_fisik.getText().clear();
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
+
+            prog_target_fisik.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        if(motionEvent.getRawX() >= (prog_target_fisik.getRight() - prog_target_fisik.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                            // your action here
+                            prog_target_fisik.getText().clear();
+                            prog_deviasi_fisik.getText().clear();
+                            prog_real_fisik.getText().clear();
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
+
+
+            prog_real_fisik.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        if(motionEvent.getRawX() >= (prog_real_fisik.getRight() - prog_real_fisik.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                            // your action here
+                            prog_real_fisik.getText().clear();
+                            prog_deviasi_fisik.getText().clear();
+                            prog_target_fisik.getText().clear();
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
+
+            prog_real_fisik.setOnTouchListener(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View view, MotionEvent motionEvent) {
+                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        if(motionEvent.getRawX() >= (prog_real_fisik.getRight() - prog_real_fisik.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                            // your action here
+                            prog_real_fisik.getText().clear();
+                            prog_deviasi_fisik.getText().clear();
+                            prog_target_fisik.getText().clear();
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
+        }
+
 
         /******************************************************************Progres Keuangan Submission********************************************************************************/
 
@@ -206,7 +317,13 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
         prog_real_fisik.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                Boolean check_target_fisik = prog_target_fisik.getText().toString().trim().equals("");
+                if(check_target_fisik){
+                    prog_target_fisik.setError("Required");
+                    prog_target_fisik.setHint("Masukkan persentase target");
+                    prog_target_fisik.requestFocus();
+                    return;
+                }
             }
 
             @Override
