@@ -54,25 +54,33 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
-                        android:text="Nilai Kontrak"
+                        android:text="Nilai Pagu"
                         android:textColor="#aaa" />
 
-                    <EditText
-                        android:id="@+id/text_nilaikontrak_salah"
+                    <faranjit.currency.edittext.CurrencyEditText
+                        android:id="@+id/text_nilaipagu"
                         android:layout_width="match_parent"
+                        android:enabled="false"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        android:background="@drawable/edittextborder_generic"
+                        android:background="@drawable/edittextborder_generic_disabled"
                         android:drawableLeft="@drawable/money_icon"
-                        android:drawableRight="@drawable/ic_close_black_24dp"
                         android:drawablePadding="10dp"
                         android:inputType="numberDecimal"
                         android:padding="10dp"
-                        android:text=""
                         android:textSize="16sp"
+                        android:textColor="@android:color/black"
                         android:textStyle="normal"
-                        android:visibility="gone" />
+                        app:groupDivider="."
+                        app:monetaryDivider="," />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:text="Nilai Kontrak"
+                        android:textColor="#aaa" />
 
                     <faranjit.currency.edittext.CurrencyEditText
                         android:id="@+id/text_nilaikontrak"
@@ -85,6 +93,7 @@
                         android:drawablePadding="10dp"
                         android:inputType="numberDecimal"
                         android:padding="10dp"
+                        android:textSize="16sp"
                         android:textColor="@android:color/black"
                         android:textStyle="normal"
                         app:groupDivider="."

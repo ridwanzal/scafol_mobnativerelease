@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:padding="0dp"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_kegiatan"
+        android:padding="15dp"
+        android:text="Filter sebagai Kegiatan"
+        android:drawablePadding="20dp"
+        />
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="#eee"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/open_paket"
+        android:padding="15dp"
+        android:text="Filter sebagai Paket"
+        android:drawablePadding="20dp"
+        />
+</LinearLayout>

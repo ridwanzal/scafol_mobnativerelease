@@ -146,14 +146,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
         btn_date_prog_keuangan = view.findViewById(R.id.btn_date_prog_keuangan);
         tx_tanggal_keuangan = view.findViewById(R.id.tx_tanggal_keuangan);
 
-//        keu_pagu = view.findViewById(R.id.keu_pagu);
-//        keu_kontrak = view.findViewById(R.id.keu_kontrak);
-//        keu_sisa = view.findViewById(R.id.keu_sisa);
-//        keu_sisang = view.findViewById(R.id.keu_sisang);
-//        keu_serap = view.findViewById(R.id.keu_serap);
-//        keu_ket = view.findViewById(R.id.keu_ket);
-//        keu_submit = view.findViewById(R.id.keu_submit);
-
         text_infokontrak = view.findViewById(R.id.text_infokontrak);
 
         lin_keu2 = view.findViewById(R.id.lin_keu2);
@@ -204,7 +196,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
 
             }
         });
-
 
         if(check_status){
             prog_target_fisik.setOnTouchListener(new View.OnTouchListener() {
@@ -273,38 +264,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
             });
         }
 
-
-        /******************************************************************Progres Keuangan Submission********************************************************************************/
-
-//        keu_serap.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View view, MotionEvent motionEvent) {
-//                if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-//                    if(motionEvent.getRawX() >= (keu_serap.getRight() - keu_serap.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-//                        // your action here
-//                        keu_serap.getText().clear();
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//        });
-
-        /******************************************************************Catatan Submission********************************************************************************/
-
-//        pr_keuangan_detail.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent2 = new Intent(getActivity(), ActivityProgressKeuangan.class);
-//                intent2.putExtra("pa_id", pa_id);
-//                intent2.putExtra("pa_nama", pa_judul);
-//                startActivity(intent2);
-//            }
-//        });
-
-
-        /******************************************************************Progress Fisik Submission********************************************************************************/
-
         pr_fisik_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -314,12 +273,53 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                 startActivity(intent);
             }
         });
+        prog_target_fisik.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String t = prog_target_fisik.getText().toString().trim();
+                if(t.equals("")){
+                    t = "0";
+                }else{
+                    double t_num = Double.valueOf(t);
+                    if(t_num > 100){
+                        prog_target_fisik.setText("");
+                        prog_target_fisik.setError("Warning");
+                        prog_target_fisik.setHint("Angka target melebihi batas maksimum");
+                        prog_target_fisik.requestFocus();
+                        return;
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String t = prog_target_fisik.getText().toString().trim();
+                if(t.equals("")){
+                    t = "0";
+                }else{
+                    double t_num = Double.valueOf(t);
+                    if(t_num > 100){
+                        prog_target_fisik.setText("");
+                        prog_target_fisik.setError("Warning");
+                        prog_target_fisik.setHint("Angka target melebihi batas maksimum");
+                        prog_target_fisik.requestFocus();
+                        return;
+                    }
+                }
+            }
+        });
+
         prog_real_fisik.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 Boolean check_target_fisik = prog_target_fisik.getText().toString().trim().equals("");
                 if(check_target_fisik){
-                    prog_target_fisik.setError("Required");
+                    prog_target_fisik.setError("Warning");
                     prog_target_fisik.setHint("Masukkan persentase target");
                     prog_target_fisik.requestFocus();
                     return;
@@ -333,6 +333,15 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                 if(r.equals("") || t.equals("")){
                     t = "0";
                     r = "0";
+                }else{
+                    double r_num = Double.valueOf(r);
+                    if(r_num >  100){
+                        prog_real_fisik.setText("");
+                        prog_real_fisik.setError("Warning");
+                        prog_real_fisik.setHint("Angka target melebihi batas maksimum");
+                        prog_real_fisik.requestFocus();
+                        return;
+                    }
                 }
                 Integer deviasi = Integer.valueOf(r) - Integer.valueOf(t);
                 prog_deviasi_fisik.setText(deviasi.toString());
@@ -345,6 +354,15 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                 if(r.equals("")|| t.equals("")){
                     t = "0";
                     r = "0";
+                }else{
+                    double r_num = Double.valueOf(r);
+                    if(r_num > 100){
+                        prog_real_fisik.setText("");
+                        prog_real_fisik.setError("Warning");
+                        prog_real_fisik.setHint("Angka target melebihi batas maksimum");
+                        prog_real_fisik.requestFocus();
+                        return;
+                    }
                 }
                 Integer deviasi = Integer.valueOf(r) - Integer.valueOf(t);
                 prog_deviasi_fisik.setText(deviasi.toString());

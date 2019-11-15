@@ -57,6 +57,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
     private TextView t_akhirkontrak;
 
     private CurrencyEditText t_nilaikontrak;
+    private CurrencyEditText t_nilaipagu;
     private ImageView btn_date_awal;
     private ImageView btn_date_akhir;
     Button btn_simpan;
@@ -83,6 +84,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
         ctx = getActivity();
         t_nomorkontrak = view.findViewById(R.id.text_nomorkontrak);
         t_nilaikontrak = (CurrencyEditText) view.findViewById(R.id.text_nilaikontrak);
+        t_nilaipagu = view.findViewById(R.id.text_nilaipagu);
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading");
 
@@ -115,7 +117,6 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
             }
         });
 
-
         t_awalkontrak = view.findViewById(R.id.text_awalkontrak);
         t_akhirkontrak = view.findViewById(R.id.text_akhirkontrak);
 
@@ -139,12 +140,12 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                         String nilai_kontrak = paketlist.get(i).getPaNilaiKontrak();
                         String awal_kontrak = paketlist.get(i).getPaAwalKontrak();
                         String akhir_kontrak = paketlist.get(i).getPaAkhirKontrak();
-
+                        String pagu = paketlist.get(i).getPaPagu();
+                        t_nilaipagu.setText(formatMoneyIDR.convertIDR(pagu));
                         t_nomorkontrak.setText(checkData(nomor_kontrak));
                         t_nilaikontrak.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
                         t_awalkontrak.setText(checkData(awal_kontrak));
                         t_akhirkontrak.setText(checkData(akhir_kontrak));
-
                     }
                 }
             }
@@ -154,6 +155,48 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                 Log.e(TAG, t.toString());
             }
         });
+
+        t_nilaikontrak.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                try{
+                    String text_pagu = formatMoneyIDR.reverseIDR(t_nilaipagu.getCurrencyDouble());
+                    String text_kontrak = formatMoneyIDR.reverseIDR(t_nilaikontrak.getCurrencyDouble());
+                    Double get_pagu = Double.valueOf(text_pagu);
+                    Double get_kontrak = Double.valueOf(text_kontrak);
+                    if(get_kontrak > get_pagu){
+                        t_nilaikontrak.setError("Melebihi pagu");
+                        t_nilaikontrak.requestFocus();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try{
+                    String text_pagu = formatMoneyIDR.reverseIDR(t_nilaipagu.getCurrencyDouble());
+                    String text_kontrak = formatMoneyIDR.reverseIDR(t_nilaikontrak.getCurrencyDouble());
+                    Double get_pagu = Double.valueOf(text_pagu);
+                    Double get_kontrak = Double.valueOf(text_kontrak);
+                    Log.d(TAG, "Pagu : " + text_pagu);
+                    Log.d(TAG, "Kontrak : " + text_kontrak);
+                    if(get_kontrak > get_pagu){
+                        t_nilaikontrak.setError("Melebihi pagu");
+                        t_nilaikontrak.requestFocus();
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        });
+
         btn_simpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

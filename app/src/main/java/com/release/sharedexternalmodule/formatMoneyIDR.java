@@ -33,7 +33,7 @@ public class formatMoneyIDR {
         Boolean check_comma = result.contains(",");
         if(check_comma){
             reverse_money = String.valueOf(money).split(",")[0];
-            result = reverse_money;
+            result = reverse_money.replaceAll("^0*([0-9]+).*", "$1");;
         }else{
             result = String.valueOf(money);
         }

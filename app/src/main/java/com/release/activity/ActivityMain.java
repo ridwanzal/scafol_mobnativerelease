@@ -1,5 +1,6 @@
 package com.release.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.release.R;
 import com.release.adapter.AnggaranAdapter;
 import com.release.adapter.KegiatanAdapter;
@@ -532,6 +534,104 @@ public class ActivityMain extends AppCompatActivity{
                         }
                     })
                     .show();
+            case R.id.nav_filter :
+                View view = getLayoutInflater().inflate(R.layout.dialog_chooser_filterproject, null);
+                final Dialog dialog = new BottomSheetDialog(this);
+                dialog.setContentView(view);
+                dialog.show();
+                TextView open_kegiatan = view.findViewById(R.id.open_kegiatan);
+                TextView open_paket = view.findViewById(R.id.open_paket);
+                open_kegiatan.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d(TAG, "MASUK SINI");
+                        setContentView(R.layout.recycle_listkegiatan);
+                        text_notfound = findViewById(R.id.text_notfound);
+                        progress_listanggaran = findViewById(R.id.progress_listpaket);
+                        getSupportActionBar().setTitle("Kegiatan");
+                        Call<DataResponseKegiatan> call_kegiatan = null;
+                        switch (role){
+                            case "Admin" :
+                                call_kegiatan = apiInterface.getKegiatanTree(dinas_id);
+                                break;
+                            case "Bidang" :
+                                call_kegiatan = apiInterface.getKegiatanTreeBidang(dinas_id, bi_id);
+                                break;
+                            case "Pptk" :
+                                call_kegiatan = apiInterface.getKegiatanTreePPTK(dinas_id, user_id);
+                                break;
+                        }
+                        call_kegiatan.enqueue(new Callback<DataResponseKegiatan>() {
+                            @Override
+                            public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
+                                String response_code = new Gson().toJson(response.code()).toString();
+                                if(response_code.equals("200")){
+                                    ArrayList<KegiatanTree> data = response.body().getData();
+                                    Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                    generateKegiatanList(response.body().getData());
+                                    progress_listanggaran.setVisibility(View.GONE);
+                                    text_notfound.setVisibility(View.GONE);
+                                }else{
+                                    progress_listanggaran.setVisibility(View.GONE);
+                                    text_notfound.setVisibility(View.VISIBLE);
+                                }
+                            }
+                            @Override
+                            public void onFailure(Call<DataResponseKegiatan> call, Throwable t) {
+
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                });
+
+                open_paket.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setContentView(R.layout.recycle_listpaket);
+                        text_notfound = findViewById(R.id.text_notfound);
+                        getSupportActionBar().setTitle("Paket Fisik");
+                        progress_listpaket = findViewById(R.id.progress_listpaket);
+                        Call<DataResponsePaket> call_paket2 = null;
+                        switch (role){
+                            case "Admin" :
+                                call_paket2 = apiInterface.getPaketDinas(dinas_id);
+                                break;
+                            case "Bidang" :
+                                call_paket2 = apiInterface.getPaketBidangId(bi_id);
+                                break;
+                            case "Pptk" :
+                                call_paket2 = apiInterface.getPaketPptk(user_id);
+                                break;
+                        }
+
+                        call_paket2.enqueue(new Callback<DataResponsePaket>() {
+                            @Override
+                            public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                                String response_code = new Gson().toJson(response.code()).toString();
+                                if(response_code.equals("200")){
+                                    ArrayList<Paket> data = response.body().getData();
+                                    Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                    generatePaketList(response.body().getData());
+                                    progress_listpaket.setVisibility(View.GONE);
+                                    recyclerView = findViewById(R.id.recycle_listpaket);
+                                    recyclerView.setVisibility(View.VISIBLE);
+                                    text_notfound.setVisibility(View.GONE);
+                                }else{
+                                    progress_listpaket.setVisibility(View.GONE);
+                                    text_notfound.setVisibility(View.VISIBLE);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<DataResponsePaket> call, Throwable t) {
+                                Log.e(TAG, t.toString());
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                });
+                break;
             case R.id.nav_search :
                 break;
             case R.id.nav_profile :
@@ -554,4 +654,11 @@ public class ActivityMain extends AppCompatActivity{
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 
+
+    public void openBottomDialog(){
+        View view = getLayoutInflater().inflate(R.layout.dialog_bottom, null);
+        Dialog dialog = new BottomSheetDialog(this);
+        dialog.setContentView(view);
+        dialog.show();
+    }
 }

@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -60,6 +62,7 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
     private TextView t_akhirkontrak_ang;
 
     private CurrencyEditText t_nilaikontrak_ang;
+    private CurrencyEditText t_pagu;
     private ImageView btn_date_awal_ang;
     private ImageView btn_date_akhir_ang;
 
@@ -87,6 +90,7 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
         final ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
         t_nomorkontrak_ang = view.findViewById(R.id.text_nomorkontrak_anggaran);
         t_nilaikontrak_ang = view.findViewById(R.id.text_nilaikontrak_anggaran);
+        t_pagu = view.findViewById(R.id.text_nilaipagu);
 
         btn_date_awal_ang = view.findViewById(R.id.btn_date_awal);
         btn_date_akhir_ang = view.findViewById(R.id.btn_date_akhir);
@@ -128,6 +132,7 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
             }
         });
 
+
         btn_date_awal_ang.setOnClickListener(this);
         btn_date_akhir_ang.setOnClickListener(this);
 
@@ -165,6 +170,22 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
             }
         });
 
+        t_nilaikontrak_ang.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         btn_simpan_editkontrak_ang.setOnClickListener(new View.OnClickListener() {
             @Override

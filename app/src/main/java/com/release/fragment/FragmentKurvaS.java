@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -111,6 +113,45 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
                 intent.putExtra("pa_id", pa_id);
                 intent.putExtra("pa_nama", pa_judul);
                 startActivity(intent);
+            }
+        });
+
+        edtProgress.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String text_progress = edtProgress.getText().toString();
+                if(text_progress.equals("")){
+                    text_progress = "0";
+                }
+                Double get_progress = Double.valueOf(text_progress.trim());
+                if(get_progress > 100){
+                    edtProgress.setText("");
+                    edtProgress.setError("Warning");
+                    edtProgress.setHint("Angka target melebihi batas maksimum");
+                    edtProgress.requestFocus();
+                    return;
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String text_progress = edtProgress.getText().toString();
+                if(text_progress.equals("")){
+                    text_progress = "0";
+                }
+                Double get_progress = Double.valueOf(text_progress.trim());
+                if(get_progress > 100){
+                    edtProgress.setText("");
+                    edtProgress.setError("Warning");
+                    edtProgress.setHint("Angka target melebihi batas maksimum");
+                    edtProgress.requestFocus();
+                    return;
+                }
             }
         });
 

@@ -11,8 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <LinearLayout
             android:id="@+id/layout_kegiatan"
+            android:background="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -22,11 +24,26 @@
                 android:id="@+id/txt_nama_kegiatan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="16dp"
+                android:paddingLeft="12dp"
                 android:textStyle="bold"
+                android:text="Ini nama kegiatan"
                 android:paddingRight="16dp"
-                android:paddingTop="25dp"
-                android:paddingBottom="25dp"/>
+                android:paddingTop="10dp"
+                android:textSize="16dp"
+                android:textColor="#444"
+                android:paddingBottom="10dp"/>
+            <TextView
+                android:id="@+id/total_pagu_kegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="37dp"
+                android:paddingBottom="15dp"
+                android:text="Total Pagu"
+                android:textSize="14sp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#eee"/>
         </LinearLayout>
 
         <LinearLayout
@@ -41,11 +58,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
         </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#eee"
-            />
+
 
     </LinearLayout>
 
