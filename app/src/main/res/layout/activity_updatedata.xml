@@ -17,8 +17,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:minHeight="?actionBarSize"
-            android:padding="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
             android:text="@string/tab_titleupdatedata"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
 
@@ -26,12 +28,11 @@
             android:id="@+id/subtitledata"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             android:gravity="left"
             android:minHeight="12dp"
             android:paddingLeft="16dp"
             android:textSize="12dp"
-            android:drawableLeft="@drawable/ic_subdirectory_arrow_right_black_24dp"
             android:text="@string/tab_titleupdatedata"
             android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title"
             />

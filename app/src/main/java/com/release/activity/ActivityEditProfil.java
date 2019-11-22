@@ -318,8 +318,7 @@ public class ActivityEditProfil extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home :
-                finish();
-                overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
+                onBackPressedRefresh();
                 return true;
             case R.id.nav_editprofil :
                 openBottomDialog();
@@ -346,6 +345,9 @@ public class ActivityEditProfil extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent(this, ActivityDashboard.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
@@ -363,5 +365,14 @@ public class ActivityEditProfil extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public void onBackPressedRefresh(){
+        Intent intent = new Intent(this, ActivityDashboard.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        sessionManager.checkLogin();
+        finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 }

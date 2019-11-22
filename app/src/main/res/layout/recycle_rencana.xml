@@ -20,7 +20,7 @@
             android:padding="20dp"
             android:layout_weight="1"
             android:layout_width="match_parent"
-            android:text="Belum ada progress"
+            android:text="Belum ada rencana"
             android:layout_height="wrap_content" />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/text_notfound"

@@ -1,5 +1,6 @@
 package com.release.activity;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -483,15 +484,6 @@ public class ActivityDetailPaket extends AppCompatActivity {
         };
     }
 
-
-    public static String idrFormat(String data){
-        if(data == null || data.equals("null") || data == "" || data.equals("")){
-            return "Rp. -";
-        }else{
-            return "Rp. " + data;
-        }
-    }
-
     public static String checkData(String data){
         if(data == null || data.equals("null") || data == "" || data.equals("")){
             return "-";
@@ -508,19 +500,11 @@ public class ActivityDetailPaket extends AppCompatActivity {
         }
     }
 
-    public static String checkStatus(String status){
-        if(status.equals('0')) {
-            return "-";
-        }else{
-            return status;
-        }
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        super.onRestart();
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
-        ActivityDetailPaket.this.finish();
     }
 
     @Override
@@ -566,10 +550,12 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent6.putExtra("pa_id", id_paket);
                 intent6.putExtra("pa_nama", nama_paket);
                 intent6.putExtra("ke_id", ke_id);
+                intent6.putExtra("pa_pagu", pa_pagu);
                 startActivity(intent6);
                 return true;
             case R.id.nav_editkontrak :
                 Intent intent2 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+
                 intent2.putExtra("pa_pagu", pa_pagu);
                 intent2.putExtra("position", 1);
                 intent2.putExtra("pa_id", id_paket);
@@ -626,22 +612,15 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent7.putExtra("ke_id", ke_id);
                 startActivity(intent7);
                 return true;
-//            case R.id.nav_penyediajasa :
-//                Intent intent5 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
-//                intent5.putExtra("position", 3);
-//                intent5.putExtra("pa_id", id_paket);
-//                intent5.putExtra("pa_nama", nama_paket);
-//                intent5.putExtra("ke_id", ke_id);
-//                startActivity(intent5);
-//                return true;
-//            case R.id.nav_upload :
-//                Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
-//                intent6.putExtra("position", 5);
-//                intent6.putExtra("pa_id", id_paket);
-//                intent6.putExtra("pa_nama", nama_paket);
-//                intent6.putExtra("ke_id", ke_id);
-//                startActivity(intent6);
-//                return true;
+            case R.id.nav_penyediajasa :
+                Intent intent9 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+                intent9.putExtra("position", 6);
+                intent9.putExtra("pa_pagu", pa_pagu);
+                intent9.putExtra("pa_id", id_paket);
+                intent9.putExtra("pa_nama", nama_paket);
+                intent9.putExtra("ke_id", ke_id);
+                startActivity(intent9);
+                return true;
             default :
                 return super.onOptionsItemSelected(item);
         }
@@ -652,30 +631,37 @@ public class ActivityDetailPaket extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.right_menu_detail_paket, menu);
         Intent intents = getIntent();
         String request = intents.getStringExtra("request");
-        Boolean check = request.equals("map_dash");
-//        if(check){
-//            MenuItem prog = menu.findItem(R.id.nav_progress);
-//            MenuItem up = menu.findItem(R.id.nav_upload);
-//            MenuItem up2 = menu.findItem(R.id.nav_uploadoc);
-//            MenuItem kont = menu.findItem(R.id.nav_editkontrak);
-//            MenuItem lok = menu.findItem(R.id.nav_editlokasi);
-//            prog.setVisible(false);
-//            kont.setVisible(false);
-//            lok.setVisible(false);
-//            up2.setVisible(false);
-//            up.setVisible(false);
-//        }else{
-//            MenuItem prog = menu.findItem(R.id.nav_progress);
-//            MenuItem up = menu.findItem(R.id.nav_upload);
-//            MenuItem up2 = menu.findItem(R.id.nav_uploadoc);
-//            MenuItem kont = menu.findItem(R.id.nav_editkontrak);
-//            MenuItem lok = menu.findItem(R.id.nav_editlokasi);
-//            prog.setVisible(true);
-//            kont.setVisible(true);
-//            lok.setVisible(true);
-//            up2.setVisible(true);
-//            up.setVisible(true);
-//        }
+        Boolean check = request.equals("admin");
+        MenuItem prog = menu.findItem(R.id.nav_progress);
+        MenuItem keu = menu.findItem(R.id.nav_keu);
+        MenuItem up = menu.findItem(R.id.nav_upload);
+        MenuItem up2 = menu.findItem(R.id.nav_uploadoc);
+        MenuItem kont = menu.findItem(R.id.nav_editkontrak);
+        MenuItem lok = menu.findItem(R.id.nav_editlokasi);
+        MenuItem kus = menu.findItem(R.id.nav_kurvasrencana);
+        MenuItem cat = menu.findItem(R.id.nav_catatan);
+        MenuItem pj = menu.findItem(R.id.nav_penyediajasa);
+        if(check){
+            pj.setVisible(false);
+            cat.setVisible(false);
+            keu.setVisible(false);
+            kus.setVisible(false);
+            prog.setVisible(false);
+            kont.setVisible(false);
+            lok.setVisible(false);
+            up2.setVisible(true);
+            up.setVisible(true);
+        }else{
+            pj.setVisible(true);
+            cat.setVisible(true);
+            keu.setVisible(true);
+            kus.setVisible(true);
+            prog.setVisible(true);
+            kont.setVisible(true);
+            lok.setVisible(true);
+            up2.setVisible(true);
+            up.setVisible(true);
+        }
         return true;
     }
 

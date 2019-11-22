@@ -8,7 +8,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/open_kegiatan"
         android:padding="15dp"
-        android:text="Filter sebagai Kegiatan"
+        android:text="Filter berdasarkan Kegiatan"
+        android:drawableLeft="@drawable/ic_low_priority_black_24dp"
         android:drawablePadding="20dp"
         />
     <View
@@ -19,9 +20,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_low_priority_black_24dp"
         android:id="@+id/open_paket"
         android:padding="15dp"
-        android:text="Filter sebagai Paket"
+        android:text="Filter berdasarkan Paket"
         android:drawablePadding="20dp"
         />
 </LinearLayout>

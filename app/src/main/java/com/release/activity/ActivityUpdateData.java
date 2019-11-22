@@ -29,6 +29,7 @@ public class ActivityUpdateData extends AppCompatActivity {
         viewPager.setAdapter(sectionPagerAdapterUpdate);
         Integer get_fromdetail = getIntent().getIntExtra("position", 0);
         String  get_namafromdetail = getIntent().getStringExtra("pa_nama");
+        String  get_pagufromdetail = getIntent().getStringExtra("pa_pagu");
 //        Toast.makeText(this, "get from detail " + get_fromdetail, Toast.LENGTH_SHORT).show();
         viewPager.setCurrentItem(get_fromdetail);
 
@@ -37,11 +38,16 @@ public class ActivityUpdateData extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         titlebardatas = findViewById(R.id.titlebardatas);
         subtitledata = findViewById(R.id.subtitledata);
-        subtitledata.setText("Update progres paket");
-        if(get_namafromdetail == ""){
+        if(get_namafromdetail.equals("")){
             titlebardatas.setText("Update Detail Paket");
         }else{
             titlebardatas.setText(get_namafromdetail);
+        }
+
+        if(get_pagufromdetail.equals("")){
+            subtitledata.setText("Rp. 0");
+        }else{
+            subtitledata.setText("Rp. " + get_pagufromdetail);
         }
     }
 

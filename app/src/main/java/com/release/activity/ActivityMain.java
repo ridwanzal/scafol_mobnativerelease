@@ -106,7 +106,7 @@ public class ActivityMain extends AppCompatActivity{
                             if(response_code.equals("200")){
                                 ArrayList<Paket> data = response.body().getData();
                                 Log.w(TAG, "paket data " + new Gson().toJson(data));
-                                generatePaketList(response.body().getData());
+                                generatePaketList(response.body().getData(),"admin");
                                 progress_listpaket.setVisibility(View.GONE);
                                 recyclerView = findViewById(R.id.recycle_listpaket);
                                 recyclerView.setVisibility(View.VISIBLE);
@@ -135,7 +135,7 @@ public class ActivityMain extends AppCompatActivity{
                             if(response_code.equals("200")){
                                 ArrayList<Anggaran> data = response.body().getData();
                                 Log.w(TAG, "paket data " + new Gson().toJson(data));
-                                generateAnggaranList(response.body().getData());
+                                generateAnggaranList(response.body().getData(), "admin");
                                 progress_listanggaran.setVisibility(View.GONE);
                                 recyclerView_ang = findViewById(R.id.recycle_listanggaran);
                                 recyclerView_ang.setVisibility(View.VISIBLE);
@@ -196,7 +196,7 @@ public class ActivityMain extends AppCompatActivity{
                             if(response_code.equals("200")){
                                 ArrayList<Paket> data = response.body().getData();
                                     Log.w(TAG, "paket data " + new Gson().toJson(data));
-                                    generatePaketList(response.body().getData());
+                                    generatePaketList(response.body().getData(), "");
                                     progress_listpaket.setVisibility(View.GONE);
                                     recyclerView = findViewById(R.id.recycle_listpaket);
                                     recyclerView.setVisibility(View.VISIBLE);
@@ -225,7 +225,7 @@ public class ActivityMain extends AppCompatActivity{
                             if(response_code.equals("200")){
                                 ArrayList<Anggaran> data = response.body().getData();
                                     Log.w(TAG, "paket data " + new Gson().toJson(data));
-                                    generateAnggaranList(response.body().getData());
+                                    generateAnggaranList(response.body().getData(), "");
                                     progress_listanggaran.setVisibility(View.GONE);
                                     recyclerView_ang = findViewById(R.id.recycle_listanggaran);
                                     recyclerView_ang.setVisibility(View.VISIBLE);
@@ -288,7 +288,7 @@ public class ActivityMain extends AppCompatActivity{
                             ArrayList<Paket> data = response.body().getData();
                             Log.w(TAG, "kegiatan data " + new Gson().toJson(data));
                             if(response.code() == 200){
-                                generatePaketList(response.body().getData());
+                                generatePaketList(response.body().getData(), "");
                                 progress_listpaket.setVisibility(View.GONE);
                                 recyclerView = findViewById(R.id.recycle_listpaket);
                                 recyclerView.setVisibility(View.VISIBLE);
@@ -314,7 +314,7 @@ public class ActivityMain extends AppCompatActivity{
                             if(response_code.equals("200")){
                                 ArrayList<Anggaran> data = response.body().getData();
                                 Log.w(TAG, "paket data " + new Gson().toJson(data));
-                                generateAnggaranList(response.body().getData());
+                                generateAnggaranList(response.body().getData(), "");
                                 progress_listanggaran.setVisibility(View.GONE);
                                 recyclerView_ang = findViewById(R.id.recycle_listanggaran);
                                 recyclerView_ang.setVisibility(View.VISIBLE);
@@ -352,7 +352,7 @@ public class ActivityMain extends AppCompatActivity{
         return super.onCreateView(parent, name, context, attrs);
     }
 
-    private void generatePaketList(ArrayList<Paket> paketList){
+    private void generatePaketList(ArrayList<Paket> paketList, final String request_role){
         recyclerView = findViewById(R.id.recycle_listpaket);
         paketAdapter = new PaketAdapter(getApplicationContext(), paketList, new ItemClickListener() {
             @Override
@@ -381,7 +381,14 @@ public class ActivityMain extends AppCompatActivity{
                 intent.putExtra("pa_id", getid_paket);
                 intent.putExtra("pa_nama", get_nama_paket);
                 intent.putExtra("ke_id", get_kegiatan);
-                intent.putExtra("request", "main");
+                switch (request_role){
+                    case "admin" :
+                        intent.putExtra("request", "admin");
+                        break;
+                    default:
+                        intent.putExtra("request", "main");
+                        break;
+                }
                 startActivity(intent);
             }
 
@@ -416,7 +423,7 @@ public class ActivityMain extends AppCompatActivity{
         recyclerView.setVisibility(View.GONE);
     }
 
-    private void generateAnggaranList(ArrayList<Anggaran> anggaranList){
+    private void generateAnggaranList(ArrayList<Anggaran> anggaranList, final String request_role){
         recyclerView_ang = findViewById(R.id.recycle_listanggaran);
         anggaranAdapter = new AnggaranAdapter(getApplicationContext(), anggaranList, new ItemClickListener() {
             @Override
@@ -445,7 +452,14 @@ public class ActivityMain extends AppCompatActivity{
                 intent.putExtra("an_id", getid_anggaran);
                 intent.putExtra("an_nama", get_nama_anggaran);
                 intent.putExtra("ke_id", get_kegiatan);
-                intent.putExtra("request", "main");
+                switch (request_role){
+                    case "admin" :
+                        intent.putExtra("request", "admin");
+                        break;
+                    default:
+                        intent.putExtra("request", "main");
+                        break;
+                }
                 startActivity(intent);
             }
 
@@ -612,7 +626,7 @@ public class ActivityMain extends AppCompatActivity{
                                 if(response_code.equals("200")){
                                     ArrayList<Paket> data = response.body().getData();
                                     Log.w(TAG, "paket data " + new Gson().toJson(data));
-                                    generatePaketList(response.body().getData());
+                                    generatePaketList(response.body().getData(), "");
                                     progress_listpaket.setVisibility(View.GONE);
                                     recyclerView = findViewById(R.id.recycle_listpaket);
                                     recyclerView.setVisibility(View.VISIBLE);
@@ -648,17 +662,29 @@ public class ActivityMain extends AppCompatActivity{
 
     @Override
     public void onBackPressed() {
+        super.onRestart();
         super.onBackPressed();
-        sessionManager.checkLogin();
-        finish();
-        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
+        onBackPressedRefresh();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+    }
 
     public void openBottomDialog(){
         View view = getLayoutInflater().inflate(R.layout.dialog_bottom, null);
         Dialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(view);
         dialog.show();
+    }
+
+    public void onBackPressedRefresh(){
+        Intent intent = new Intent(this, ActivityDashboard.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        sessionManager.checkLogin();
+        finish();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 }

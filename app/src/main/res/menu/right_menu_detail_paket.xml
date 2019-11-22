@@ -39,7 +39,7 @@
         android:id="@+id/nav_catatan"
         android:iconTint="@color/colorwhite"
         android:title="Catatan" />
-    <!--<item-->
-        <!--android:id="@+id/nav_penyediajasa"-->
-        <!--android:title="Penyedia Jasa" />-->
+    <item
+        android:id="@+id/nav_penyediajasa"
+        android:title="Penyedia Jasa" />
 </menu>

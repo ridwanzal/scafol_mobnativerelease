@@ -106,7 +106,7 @@
                 android:textColor="#bbb"
                 android:textAlignment="textEnd"
                 android:gravity="end"
-                android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+                android:drawableRight="@drawable/ic_next"
                 android:backgroundTint="#000"
                 android:drawablePadding="7dp"
                 android:layout_marginTop="7dp"

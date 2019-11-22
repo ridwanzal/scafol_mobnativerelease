@@ -797,7 +797,7 @@
 
         <Button
             android:id="@+id/btn_tolist4"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="fill_parent"
             android:layout_below="@+id/btn_tolist2"
             android:layout_height="wrap_content"

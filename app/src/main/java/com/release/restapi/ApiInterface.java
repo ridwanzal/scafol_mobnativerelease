@@ -8,6 +8,7 @@ import com.release.model.DataResponseDinas;
 import com.release.model.DataResponseInfo;
 import com.release.model.DataResponsePA;
 import com.release.model.DataResponseKegiatan;
+import com.release.model.DataResponsePJ;
 import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
 import com.release.model.DataResponseRencana;
@@ -42,6 +43,9 @@ public interface ApiInterface {
 
     @GET("users/")
     Call<DataResponse> getUserById(@Query("user_id") String user_id);
+
+    @GET("users/uname")
+    Call<DataResponseUsers> getUserByName(@Query("username") String username);
 
     @GET("users/kontraktorall")
     Call<DataResponseUsers> getKontrak();
@@ -234,7 +238,6 @@ public interface ApiInterface {
     @POST("kurva_s/submit_rencana/")
     Call<DataResponseRencana> addNewRencana(@Field("pa_id") String pa_id,  @Field("re_tanggal") String re_tanggal,  @Field("re_progress") String re_progress);
 
-
     @FormUrlEncoded
     @POST("kurva_s/delete_rencana")
     Call<DataResponseRencana> removeKurvaS(@Field("re_id") String re_id);
@@ -244,4 +247,15 @@ public interface ApiInterface {
 
     @GET("info")
     Call<DataResponseInfo> getNotificationInfo();
+
+    @GET("penyediajasa/dinas")
+    Call<DataResponsePJ> getPenyediaJasa(@Query("dinas_id") String dinas_id);
+
+
+    @GET("penyediajasa/penyedia_bypaket")
+    Call<DataResponsePJ> getPenyediaJasaByPaket(@Query("pa_id") String pa_id);
+
+    @FormUrlEncoded
+    @POST("penyediajasa/submit_penyedia_backup")
+    Call<DataResponsePJ> submitPenyedia(@Field("pa_id") String pa_id,  @Field("ko_nama") String ko_nama);
 }

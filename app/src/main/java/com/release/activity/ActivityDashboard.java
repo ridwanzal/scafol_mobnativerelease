@@ -40,8 +40,10 @@ import com.release.dropbox.DropboxActivity;
 import com.release.dropbox.UserActivity;
 import com.release.model.Anggaran;
 import com.release.model.DataResponseAnggaran;
+import com.release.model.DataResponseUsers;
 import com.release.model.PaketDashboard;
 import com.release.model.DataResponsePA;
+import com.release.model.User;
 import com.release.receiver.NotificationPublisher;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
@@ -170,7 +172,7 @@ public class ActivityDashboard extends AppCompatActivity {
         String date_result = format1.format(date);
         Log.d(TAG, "Date today " + date_result);
         tx_datecalendar.setText(date_result);
-        tx_namauser.setText("" + user_fullname);
+
 
         reminderCore = new ReminderCore(getApplicationContext(), ServiceReminder.class, "Silahkan Update Progress");
         reminderCore.run();
@@ -185,16 +187,36 @@ public class ActivityDashboard extends AppCompatActivity {
         progressDialog.setMessage("Loading");
         progressDialog.show();
 
+
+        Call<DataResponseUsers> callgetUsers = apiInterface.getUserByName(user_name);
+        callgetUsers.enqueue(new Callback<DataResponseUsers>() {
+            @Override
+            public void onResponse(Call<DataResponseUsers> call, Response<DataResponseUsers> response) {
+                if(response.code() == 200){
+                    ArrayList<User> result = response.body().getData();
+                    for(int i = 0; i < result.size(); i++){
+                        tx_namauser.setText("" + result.get(i).getNama());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataResponseUsers> call, Throwable t) {
+
+            }
+        });
+
+
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-//To do//
+                            //To do//
                             return;
                         }
 
-// Get the Instance ID token//
+                        // Get the Instance ID token//
                         String token = task.getResult().getToken();
                         String msg = "FCM TOKEN " + token;
                         Log.d(TAG, msg);
@@ -220,8 +242,8 @@ public class ActivityDashboard extends AppCompatActivity {
             dialog.show();
             if(role.toLowerCase().equals("pptk")){
 
-                        Call<DataResponsePA> callinfopaketpptk = apiInterface.infoPaketPPTK(user_id);
-                        callinfopaketpptk.enqueue(new Callback<DataResponsePA>() {
+                Call<DataResponsePA> callinfopaketpptk = apiInterface.infoPaketPPTK(user_id);
+                callinfopaketpptk.enqueue(new Callback<DataResponsePA>() {
                             @Override
                             public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
                                 if(response.code() == 200){
@@ -250,10 +272,10 @@ public class ActivityDashboard extends AppCompatActivity {
                             }
                         });
 
-                        // call total pagu
-                        Call<DataResponsePA> calltotalpagu = apiInterface.countPaguPPTK(user_id);
-                        Log.d(TAG, "paket datas " + user_id);
-                        calltotalpagu.enqueue(new Callback<DataResponsePA>() {
+                // call total pagu
+                Call<DataResponsePA> calltotalpagu = apiInterface.countPaguPPTK(user_id);
+                Log.d(TAG, "paket datas " + user_id);
+                calltotalpagu.enqueue(new Callback<DataResponsePA>() {
                             @Override
                             public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
                                 if(response.code() == 200){
@@ -274,10 +296,10 @@ public class ActivityDashboard extends AppCompatActivity {
                             }
                         });
 
-                        // call total realisasi
-                        Call<DataResponsePA> callreal = apiInterface.countRealPPTK(user_id);
-                        Log.d(TAG, "paket datas " + user_id);
-                        callreal.enqueue(new Callback<DataResponsePA>() {
+                // call total realisasi
+                Call<DataResponsePA> callreal = apiInterface.countRealPPTK(user_id);
+                Log.d(TAG, "paket datas " + user_id);
+                callreal.enqueue(new Callback<DataResponsePA>() {
                             @Override
                             public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
                                 if(response.code() == 200){
@@ -298,9 +320,9 @@ public class ActivityDashboard extends AppCompatActivity {
                             }
                         });
 
-                        // call total sisa
-                        Call<DataResponsePA> callsisa = apiInterface.countSisaPPTK(user_id);
-                        callsisa.enqueue(new Callback<DataResponsePA>() {
+                // call total sisa
+                Call<DataResponsePA> callsisa = apiInterface.countSisaPPTK(user_id);
+                callsisa.enqueue(new Callback<DataResponsePA>() {
                             @Override
                             public void onResponse(Call<DataResponsePA> call, Response<DataResponsePA> response) {
                                 if(response.code() == 200){
@@ -321,9 +343,9 @@ public class ActivityDashboard extends AppCompatActivity {
                             }
                         });
 
-                        // call count anggaran di pptk
-                        Call<DataResponseAnggaran> count_anggaran_bidang = apiInterface.getAnggaranPPTK(user_id);
-                        count_anggaran_bidang.enqueue(new Callback<DataResponseAnggaran>() {
+                // call count anggaran di pptk
+                Call<DataResponseAnggaran> count_anggaran_bidang = apiInterface.getAnggaranPPTK(user_id);
+                count_anggaran_bidang.enqueue(new Callback<DataResponseAnggaran>() {
                             @Override
                             public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
                                 Log.d(TAG, "RESPONSE " + new Gson().toJson(response.code()));
@@ -346,7 +368,7 @@ public class ActivityDashboard extends AppCompatActivity {
                 new Thread(new Runnable() {
                     public void run() {
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(200);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -849,6 +871,11 @@ public class ActivityDashboard extends AppCompatActivity {
         Dialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(view);
         dialog.show();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 
     public void openCalendarDialog(){

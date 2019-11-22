@@ -219,6 +219,7 @@ public class FilesActivityDirect extends DropboxActivity {
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
+                overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
                 return true;
             case R.id.nav_reset :
                 new androidx.appcompat.app.AlertDialog.Builder(this)
