@@ -44,7 +44,7 @@ public class ActivityUpdateData extends AppCompatActivity {
             titlebardatas.setText(get_namafromdetail);
         }
 
-        if(get_pagufromdetail.equals("")){
+        if(get_pagufromdetail == null){
             subtitledata.setText("Rp. 0");
         }else{
             subtitledata.setText("Rp. " + get_pagufromdetail);
