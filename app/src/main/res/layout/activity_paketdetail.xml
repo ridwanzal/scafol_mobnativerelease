@@ -48,7 +48,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="-"
                         android:paddingRight="15dp"
                         android:textColor="#000"
                         android:textSize="16sp"
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="Lelang"
+                        android:text="-"
                         android:textColor="#000"
                         android:textSize="16sp"
                         android:textStyle="" />
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="-"
                         android:textColor="#000"
                         android:textSize="16sp" />
 
@@ -148,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:layout_weight="1"
-                            android:text="TextView"
+                            android:text="-"
                             android:textColor="#000"
                             android:textSize="16sp" />
 
@@ -172,7 +172,31 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="-"
+                        android:textColor="#000"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="#eee" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Penyedia Jasa/ Kontraktor"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:id="@+id/text_penyediajasa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        android:text="-"
                         android:textColor="#000"
                         android:textSize="16sp" />
 
@@ -255,7 +279,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="-"
                         android:textColor="#000"
                         android:textSize="16sp" />
 
@@ -279,7 +303,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="-"
                         android:textSize="16sp"
                         android:textColor="#000"
                         />
@@ -304,7 +328,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="-"
                         android:textColor="#000"
                         android:textSize="16sp" />
 
@@ -328,7 +352,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_weight="1"
-                        android:text="TextView"
+                        android:text="-"
                         android:textSize="16sp"
                         android:textColor="#000" />
 

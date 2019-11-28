@@ -21,6 +21,7 @@ import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,6 +76,7 @@ public class FilesActivityDirect extends DropboxActivity {
     private Button fab2;
     private Button fab;
     private Button fab3;
+    private RelativeLayout linhahah;
 
     @Override
     public void onBackPressed() {
@@ -128,6 +130,7 @@ public class FilesActivityDirect extends DropboxActivity {
          fab = (Button)findViewById(R.id.fab);
          fab2 = (Button)findViewById(R.id.fab2);
          fab3 = (Button)findViewById(R.id.fab3);
+        linhahah = findViewById(R.id.linhahah2);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -391,6 +394,7 @@ public class FilesActivityDirect extends DropboxActivity {
                                         "Tidak ada item, silahkan upload",
                                         Toast.LENGTH_SHORT)
                                         .show();
+                                linhahah.setVisibility(View.VISIBLE);
                             }
                         }).execute(mPath);
                     }

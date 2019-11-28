@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/linhahah"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
@@ -47,8 +48,34 @@
         android:id="@+id/frame_layoutfile"
         android:background="#fff"
         android:layout_height="match_parent"
-        android:layout_below="@id/linhahah"
         xmlns:app="http://schemas.android.com/apk/res-auto">
+        <RelativeLayout
+            android:id="@+id/linhahah2"
+            android:visibility="gone"
+            android:background="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="match_parent"
+                android:foregroundGravity="center_vertical"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                android:background="#ffffff"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/empty"
+                />
+            <TextView
+                android:layout_below="@id/imageView"
+                android:textColor="#aaa"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:text="No Data found"
+                android:gravity="center"
+                />
+        </RelativeLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/files_list"
             android:layout_width="match_parent"

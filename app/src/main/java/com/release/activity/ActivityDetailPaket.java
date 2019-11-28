@@ -33,10 +33,12 @@ import com.release.model.Bidang;
 import com.release.model.DataResponse;
 import com.release.model.DataResponseBidang;
 import com.release.model.DataResponseKegiatan;
+import com.release.model.DataResponsePJ;
 import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
 import com.release.model.Kegiatan;
 import com.release.model.KegiatanTree;
+import com.release.model.Kontraktor;
 import com.release.model.Paket;
 import com.release.model.Progress;
 import com.release.model.User;
@@ -106,6 +108,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView sisa_waktukerja;
     private CardView card_info_pptk;
 
+    private TextView text_penyediajasa;
+
     private ScrollView main_layout_detail_paket;
     private Context mContext;
     private GoogleMap mMap;
@@ -154,6 +158,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
         text_bidangpptk = findViewById(R.id.textbidangs);
         text_kegiatan = findViewById(R.id.text_kegjudul);
+
+        text_penyediajasa = findViewById(R.id.text_penyediajasa);
 
         text_nilaikontrak = findViewById(R.id.prof_email);
 
@@ -338,6 +344,25 @@ public class ActivityDetailPaket extends AppCompatActivity {
             }
         });
 
+
+        // set penyediajasa
+        Call<DataResponsePJ> call_penyediajasa = apiInterface.getPenyediaJasaByPaket(id_paket);
+        call_penyediajasa.enqueue(new Callback<DataResponsePJ>() {
+            @Override
+            public void onResponse(Call<DataResponsePJ> call, Response<DataResponsePJ> response) {
+                if(response.code() == 200){
+                    ArrayList<Kontraktor> data = response.body().getData();
+                    for(int i = 0; i < data.size(); i++){
+                        text_penyediajasa.setText(data.get(i).getKoNama());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataResponsePJ> call, Throwable t) {
+
+            }
+        });
 
         // call last progress
         Call<DataResponseProgress> call_last_progfisik = apiInterface.getProgressFisikLast(id_paket);
