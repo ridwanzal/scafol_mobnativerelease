@@ -546,7 +546,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 return true;
             case R.id.nav_kurvasrencana :
                 Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
-                intent6.putExtra("position", 0);
+                intent6.putExtra("position", 2);
                 intent6.putExtra("pa_id", id_paket);
                 intent6.putExtra("pa_nama", nama_paket);
                 intent6.putExtra("ke_id", ke_id);
@@ -557,7 +557,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 Intent intent2 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
 
                 intent2.putExtra("pa_pagu", pa_pagu);
-                intent2.putExtra("position", 1);
+                intent2.putExtra("position", 0);
                 intent2.putExtra("pa_id", id_paket);
                 intent2.putExtra("pa_nama", nama_paket);
                 intent2.putExtra("ke_id", ke_id);
@@ -579,7 +579,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
             case R.id.nav_editlokasi :
                 Intent intent3 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
                 intent3.putExtra("pa_pagu", pa_pagu);
-                intent3.putExtra("position", 2);
+                intent3.putExtra("position", 1);
                 intent3.putExtra("pa_id", id_paket);
                 intent3.putExtra("pa_nama", nama_paket);
                 intent3.putExtra("ke_id", ke_id);

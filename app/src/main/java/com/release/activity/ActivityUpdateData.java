@@ -2,6 +2,7 @@ package com.release.activity;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class ActivityUpdateData extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         titlebardatas = findViewById(R.id.titlebardatas);
         subtitledata = findViewById(R.id.subtitledata);
+        subtitledata.setVisibility(View.GONE);
         if(get_namafromdetail.equals("")){
             titlebardatas.setText("Update Detail Paket");
         }else{
@@ -78,3 +80,4 @@ public class ActivityUpdateData extends AppCompatActivity {
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 }
+

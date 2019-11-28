@@ -1,6 +1,7 @@
 package com.release.activity;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -39,6 +40,7 @@ public class ActivityUpdateDataAnggaran extends AppCompatActivity {
         titlebardatas = findViewById(R.id.titlebardatas);
         subtitledata = findViewById(R.id.subtitledata);
         subtitledata.setText("Update Progres Anggaran");
+        subtitledata.setVisibility(View.GONE);
         if(get_namafromdetail == ""){
             titlebardatas.setText("Update Detail Anggaran");
         }else{

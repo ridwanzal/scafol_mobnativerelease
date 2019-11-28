@@ -17,19 +17,23 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.release.R;
 import com.release.activity.ActivityKurvaSRencana;
 import com.release.activity.ActivityProgressFisik;
 import com.release.adapter.KurvaSRencanaAdapter;
+import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
 import com.release.model.DataResponseRencana;
+import com.release.model.Paket;
 import com.release.model.Progress;
 import com.release.model.Rencana;
 import com.release.restapi.ApiClient;
@@ -72,6 +76,10 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
     private ProgressDialog progressDialog;
     private Handler mHandler;
 
+    private LinearLayout lin_keu1;
+    private LinearLayout labelis;
+    private CardView card1x;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +100,9 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
         edtProgress = view.findViewById(R.id.edt_progress);
         btnSubmit = view.findViewById(R.id.btn_submit);
         daftar_rencana = view.findViewById(R.id.daftar_rencana);
+        lin_keu1 = view.findViewById(R.id.lin_keu1);
+        labelis = view.findViewById(R.id.labelis);
+        card1x = view.findViewById(R.id.card1x);
 
         Intent intent = getActivity().getIntent();
         pa_id = intent.getStringExtra("pa_id");
@@ -101,6 +112,29 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading");
+
+        Call<DataResponsePaket> call_paket = apiInterface.getPaketId(pa_id);
+        call_paket.enqueue(new Callback<DataResponsePaket>() {
+            @Override
+            public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                if(response.code() == 200){
+                    ArrayList<Paket> paketlist = response.body().getData();
+                    for(int i = 0; i < paketlist.size(); i++){
+                        if(paketlist.get(i).getPaNilaiKontrak().toString().equals("0")){
+                            card1x.setVisibility(View.GONE);
+                            lin_keu1.setVisibility(View.VISIBLE);
+                        }else{
+                            card1x.setVisibility(View.VISIBLE);
+                            lin_keu1.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataResponsePaket> call, Throwable t) {
+            }
+        });
 
         btnDate.setOnClickListener(this);
 

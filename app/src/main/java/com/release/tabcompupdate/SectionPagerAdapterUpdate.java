@@ -29,9 +29,9 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
 //           };
             {
 //          R.string.update_kurvas,
-                R.string.update_kurvas,
                 R.string.update_editkontrak,
                 R.string.update_editlokasi,
+                R.string.update_kurvas,
                 R.string.update_progress,
                 R.string.update_progress_keu,
                 R.string.catatan,
@@ -52,12 +52,12 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
         // Return a PlaceholderFragment (defined as a static inner class below).
         switch (position){
             case 0 :
-                return new FragmentKurvaS();
+                return new FragmentEditKontrak();
             case 1 :
 //                return new FragmentKurvaS();
-                return new FragmentEditKontrak();
-            case 2 :
                 return new FragmentEditLokasi();
+            case 2 :
+            return new FragmentKurvaS();
             case 3 :
                 return new FragmentProgress();
             case 4 :
