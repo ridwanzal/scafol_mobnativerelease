@@ -14,18 +14,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.release.R;
 import com.release.activity.ActivityCatatan;
 import com.release.model.DataResponseCatatan;
+import com.release.model.DataResponsePaket;
+import com.release.model.Paket;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.release.sharedexternalmodule.DateInfo;
+
+import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
@@ -44,7 +50,9 @@ public class FragmentCatatan extends Fragment implements View.OnClickListener, D
     private ProgressDialog progressDialog;
     private Handler mHandler;
     public static ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
-
+    private LinearLayout lin_keu1;
+    private LinearLayout labelisx;
+    private CardView cardview_catatan;
 
     @Nullable
     @Override
@@ -62,6 +70,9 @@ public class FragmentCatatan extends Fragment implements View.OnClickListener, D
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading");
         btn_submit_catatan = view.findViewById(R.id.btn_submit_catatan);
+        lin_keu1 = view.findViewById(R.id.lin_keu1);
+        cardview_catatan = view.findViewById(R.id.cardview_catatan);
+        labelisx = view.findViewById(R.id.labelisx);
         pr_catatan_fisik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +80,29 @@ public class FragmentCatatan extends Fragment implements View.OnClickListener, D
                 intent.putExtra("pa_id", pa_id);
                 intent.putExtra("pa_nama", pa_judul);
                 startActivity(intent);
+            }
+        });
+
+        Call<DataResponsePaket> call_paket = apiInterface.getPaketId(pa_id);
+        call_paket.enqueue(new Callback<DataResponsePaket>() {
+            @Override
+            public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                if(response.code() == 200){
+                    ArrayList<Paket> paketlist = response.body().getData();
+                    for(int i = 0; i < paketlist.size(); i++){
+                        if(paketlist.get(i).getPaNilaiKontrak().toString().equals("0")){
+                            cardview_catatan.setVisibility(View.GONE);
+                            lin_keu1.setVisibility(View.VISIBLE);
+                        }else{
+                            cardview_catatan.setVisibility(View.VISIBLE);
+                            lin_keu1.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataResponsePaket> call, Throwable t) {
             }
         });
 

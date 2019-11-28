@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,16 +27,22 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.release.model.Paket;
 import com.release.sharedexternalmodule.formatMoneyIDR;
 
 import es.dmoral.toasty.Toasty;
 
-public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.KegiatanViewHolder>{
+public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.KegiatanViewHolder> implements Filterable {
     private ArrayList<KegiatanTree> kegiatanList;
+    private ArrayList<KegiatanTree> kegiatanListFull;
     private List<KegiatanTree> kegiatanList2;
+    Context mContext;
 
-    public KegiatanAdapter(ArrayList<KegiatanTree> kegiatanList){
+    public KegiatanAdapter(Context context, ArrayList<KegiatanTree> kegiatanList){
         this.kegiatanList = kegiatanList;
+        this.mContext = context;
+        kegiatanListFull = new ArrayList<>(kegiatanList);
     }
 
     public KegiatanAdapter(List<KegiatanTree> kegiatanList2){
@@ -103,6 +111,44 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.Kegiat
     public int getItemCount() {
         return kegiatanList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return kegiatanFilter;
+    }
+
+    private Filter kegiatanFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<KegiatanTree> filteredlist = new ArrayList<>();
+            if(constraint == null || constraint.length() == 0){
+                filteredlist.addAll(kegiatanListFull);
+            }else{
+                String filterPattern = constraint.toString().toLowerCase().trim();
+                for(KegiatanTree item : kegiatanListFull){
+                    if(item.getKeJudul().toLowerCase().contains(filterPattern)){
+                        filteredlist.add(item);
+                    }
+                }
+            }
+            FilterResults results = new FilterResults();
+            results.values = filteredlist;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            kegiatanList.clear();
+            kegiatanList.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public CharSequence convertResultToString(Object resultValue) {
+            return super.convertResultToString(resultValue);
+        }
+    };
 
     class KegiatanViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
             private Context context;
@@ -192,4 +238,7 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanAdapter.Kegiat
                 }
             }
         }
-    }
+
+
+
+}

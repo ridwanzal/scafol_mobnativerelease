@@ -339,12 +339,13 @@ public class ActivityMain extends AppCompatActivity{
 
     private void generateKegiatanList(ArrayList<KegiatanTree> kegiatanList){
         recyclerView = findViewById(R.id.recycle_listkegiatan);
-        kegiatanAdapter = new KegiatanAdapter(kegiatanList);
+        kegiatanAdapter = new KegiatanAdapter(getApplicationContext(), kegiatanList);
         String title = "Total Kegiatan ("   + kegiatanAdapter.getItemCount() + ")";
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityMain.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(kegiatanAdapter);
+        searchView.setQueryHint("Cari Kegiatan");
     }
 
     @Override
@@ -516,7 +517,11 @@ public class ActivityMain extends AppCompatActivity{
             @Override
             public boolean onQueryTextChange(String s) {
                 if(flag_list.equals("1")){
-                    paketAdapter.getFilter().filter(s);
+                    if(searchView.getQueryHint().equals("Cari Kegiatan")){
+                        kegiatanAdapter.getFilter().filter(s);
+                    }else{
+                        paketAdapter.getFilter().filter(s);
+                    }
                 }else{
                     anggaranAdapter.getFilter().filter(s);
                 }

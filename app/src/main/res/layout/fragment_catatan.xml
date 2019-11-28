@@ -11,6 +11,7 @@
             android:textAlignment="center"
             android:visibility="gone"
             android:layout_height="30dp" />
+
         <LinearLayout
             android:id="@+id/labelisx"
             android:visibility="visible"
@@ -42,10 +43,31 @@
                 android:textColor="#4a9ed6" />
 
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lin_keu1"
+            android:layout_below="@id/labelisx"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_infokontrak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:text="Nomor kontrak belum diisi, harap isi terlebih dahulu di halaman Edit Kontrak"
+                android:drawableLeft="@drawable/ic_info_outline_black_24dp"
+                android:drawableTint="@color/colorAccent"
+                android:background="@drawable/button_ripple_white"
+                android:padding="10dp"
+                android:drawablePadding="7dp"
+                android:textColor="#ff0000" />
+        </LinearLayout>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/labelisx"
+            android:layout_below="@+id/lin_keu1"
+            android:id="@+id/cardview_catatan"
             >
             <RelativeLayout
                 android:layout_width="match_parent"

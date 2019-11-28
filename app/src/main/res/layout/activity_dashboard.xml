@@ -733,7 +733,7 @@
         android:paddingLeft="15dp"
         android:drawableLeft="@drawable/maps"
         android:textStyle="normal"
-        android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:drawableRight="@drawable/ic_next"
         android:background="@drawable/button_ripple_white"
         android:drawablePadding="10dp"
         android:textAlignment="viewStart"
@@ -772,7 +772,7 @@
         android:textStyle="normal"
         android:drawablePadding="10dp"
         android:drawableLeft="@drawable/paket_fisik"
-        android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:drawableRight="@drawable/ic_next"
         android:background="@drawable/button_ripple_generals"
         android:text="Lihat Semua Paket Fisik" />
 
@@ -790,7 +790,7 @@
         android:drawablePadding="10dp"
         android:drawableLeft="@drawable/paket_nonfisik"
         android:textAlignment="viewStart"
-        android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:drawableRight="@drawable/ic_next"
         android:background="@drawable/button_ripple_generals"
         android:text="Lihat Semua Paket Non-Fisik" />
 
@@ -809,7 +809,7 @@
             android:drawablePadding="10dp"
             android:drawableLeft="@drawable/paket_nonfisik"
             android:textAlignment="viewStart"
-            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:drawableRight="@drawable/ic_next"
             android:background="@drawable/button_ripple_generals"
             android:text="Lihat Semua Daftar Kegiatan" />
 
@@ -828,7 +828,7 @@
             android:drawablePadding="10dp"
             android:drawableLeft="@drawable/paket_nonfisik"
             android:textAlignment="viewStart"
-            android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+            android:drawableRight="@drawable/ic_next"
             android:background="@drawable/button_ripple_generals"
             android:text="Lihat Daftar Dinas" />
 
