@@ -154,8 +154,10 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
                             String awal_kontrak = ang_list.get(i).getAnAwalkontrak();
                             String akhir_kontrak = ang_list.get(i).getAnAkhirkontrak();
                             String ke_id = ang_list.get(i).getKeId();
+                            String pagu = ang_list.get(i).getAnpPagu();
                             t_nomorkontrak_ang.setText(checkData(nomor_kontrak));
-//                            t_nilaikontrak_ang.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
+                            t_pagu.setText(formatMoneyIDR.convertIDR(pagu));
+                            t_nilaikontrak_ang.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
                             t_awalkontrak_ang.setText(checkData(awal_kontrak));
                             t_akhirkontrak_ang.setText(checkData(akhir_kontrak));
 
@@ -195,7 +197,7 @@ public class FragmentEditKontrakAnggaran extends Fragment implements View.OnClic
                 String get_nomorkontrak = t_nomorkontrak_ang.getText().toString();
                 String get_nilai_kontrak = "";
                 try{
-                    get_nilai_kontrak = t_nilaikontrak_ang.getCurrencyText();
+                    get_nilai_kontrak = String.valueOf(t_nilaikontrak_ang.getCurrencyDouble());
                 }catch (ParseException e){
                     e.printStackTrace();
                 }

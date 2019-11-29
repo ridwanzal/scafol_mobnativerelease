@@ -188,7 +188,7 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                 try{
 
 //                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
-                    String text_serap = formatMoneyIDR.reverseIDR(keu_serap.getCurrencyDouble());
+                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble());
                     String text_pagu = pagu_value.toString();
                     String text_kontrak = kontrak_value.toString();
 
@@ -220,7 +220,7 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
             public void afterTextChanged(Editable editable) {
                 try{
 //                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
-                    String text_serap = formatMoneyIDR.reverseIDR(keu_serap.getCurrencyDouble());
+                    String text_serap = String.valueOf(keu_serap.getCurrencyDouble());
                     String text_pagu = pagu_value.toString();
                     String text_kontrak = kontrak_value.toString();
 
@@ -271,8 +271,15 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                 }
 
                 next = true;
+                String s = "";
                 if(next){
-                    final String s = keu_serap.getText().toString();
+
+                    //String.valueOf(t_nilaikontrak.getCurrencyDouble()).split(",")[0];
+                    try{
+                        s = String.valueOf(keu_serap.getCurrencyDouble()).split(",")[0];
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     final String k = keu_ket.getText().toString();
                     final String dt = tx_tanggal_keuangan.getText().toString();
                     Call<DataResponseProgress> call_addnewprog_keu = apiInterface.addNewProgressKeuangan(pa_id, s, k, dt, ke_id);
@@ -296,6 +303,8 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                             loading_progress_submit.setVisibility(View.GONE);
                             keu_submit.setEnabled(true);
                             keu_serap.setText("");
+                            keu_kontrak.getText().clear();
+                            keu_sisa.getText().clear();
                             tx_tanggal_keuangan.setText("");
                             keu_ket.setText("");
                         }

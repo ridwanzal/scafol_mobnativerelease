@@ -1,8 +1,11 @@
 package com.release.activity;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,6 +22,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
@@ -69,6 +74,22 @@ public class ActivityMapDashboard extends AppCompatActivity {
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
         setContentView(R.layout.activity_mapdashboard);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        int PERMISSION_ALL = 1;
+        String[] PERMISSIONS = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+                Manifest.permission.LOCATION_HARDWARE,
+                Manifest.permission.CONTROL_LOCATION_UPDATES,
+        };
+        if(!checkAllPermission(getApplicationContext(), PERMISSIONS)){
+            ActivityCompat.requestPermissions(ActivityMapDashboard.this, PERMISSIONS, PERMISSION_ALL);
+        }else{
+        }
+
         Intent intent = getIntent();
         final String user_id = intent.getStringExtra("user_id");
         dashmap = findViewById(R.id.dashmap);
@@ -490,6 +511,18 @@ public class ActivityMapDashboard extends AppCompatActivity {
             }
         };
     }
+
+    private boolean checkAllPermission(Context context, String... permissions){
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

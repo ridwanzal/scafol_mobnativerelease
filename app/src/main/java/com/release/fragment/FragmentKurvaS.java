@@ -234,7 +234,7 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
 
                             if(check_duplicate == false){
 //                              Toasty.success(getActivity(), "Progres " + get_progres + " | " + get_tanggal, Toasty.LENGTH_LONG).show();
-                                Call<DataResponseRencana> submitrencana = apiInterface.addNewRencana(pa_id, edtProgress.getText().toString(), get_progres);
+                                Call<DataResponseRencana> submitrencana = apiInterface.addNewRencana(pa_id, get_tanggal, get_progres);
                                 submitrencana.enqueue(new Callback<DataResponseRencana>() {
                                     @Override
                                     public void onResponse(Call<DataResponseRencana> call, Response<DataResponseRencana> response) {
@@ -248,7 +248,7 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
                                             @Override
                                             public void run() {
                                                 try {
-                                                    Thread.sleep(500);
+                                                    Thread.sleep(200);
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
                                                 }

@@ -93,11 +93,7 @@ public class ActivityDetailAnggaran extends AppCompatActivity {
                     for(int i=0; i < data.size(); i++){
                         String ke_id = data.get(i).getKeId();
                         text_nama_anggaran.setText(data.get(i).getAnNama());
-//                        if(data.get(i).getAnNilaikontrak().equals("") || data.get(i).getAnNilaikontrak() == null){
-//                            text_kontrak_anggaran.setText("-");
-//                        }else {
-//                            text_kontrak_anggaran.setText(formatMoneyIDR.convertIDR(data.get(i).getAnNilaikontrak()));
-//                        }
+                        text_kontrak_anggaran.setText("Rp. " + formatMoneyIDR.convertIDR(data.get(i).getAnNilaikontrak()));
                         text_nomorkontrak_anggaran.setText(checkData(data.get(i).getAnNomorkontrak()));
                         text_akhirkontrak_anggaran.setText(checkData(data.get(i).getAnAkhirkontrak()));
                         text_anggaran_pagu.setText("Rp. " + formatMoneyIDR.convertIDR(data.get(i).getAnpPagu()));

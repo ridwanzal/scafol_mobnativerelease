@@ -224,10 +224,17 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
                 }
 
                 next = true;
+                String s = "";
+                String ss = "";
                 if(next){
-                    final String s = keu_serap.getText().toString();
+                    try{
+
+                        s = String.valueOf(keu_serap.getCurrencyDouble());
+                        ss =  String.valueOf(keu_sisang.getCurrencyDouble());
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                     final String k = keu_ket.getText().toString();
-                    final String ss = keu_sisang.getText().toString();
                     final String dt = tx_tanggal_proganggaran.getText().toString();
                     Call<DataResponseSerapan> call_addnewserap_keu = apiInterface.addSerapan(an_id, s, ss, dt, k);
                     call_addnewserap_keu.enqueue(new Callback<DataResponseSerapan>() {

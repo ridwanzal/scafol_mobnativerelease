@@ -165,8 +165,8 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 try{
-                    String text_pagu = formatMoneyIDR.reverseIDR(t_nilaipagu.getCurrencyDouble());
-                    String text_kontrak = formatMoneyIDR.reverseIDR(t_nilaikontrak.getCurrencyDouble());
+                    String text_pagu = String.valueOf(t_nilaipagu.getCurrencyDouble());
+                    String text_kontrak = String.valueOf(t_nilaikontrak.getCurrencyDouble());
                     Double get_pagu = Double.valueOf(text_pagu);
                     Double get_kontrak = Double.valueOf(text_kontrak);
                     if(get_kontrak > get_pagu){
@@ -181,8 +181,8 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
             @Override
             public void afterTextChanged(Editable s) {
                 try{
-                    String text_pagu = formatMoneyIDR.reverseIDR(t_nilaipagu.getCurrencyDouble());
-                    String text_kontrak = formatMoneyIDR.reverseIDR(t_nilaikontrak.getCurrencyDouble());
+                    String text_pagu = String.valueOf(t_nilaipagu.getCurrencyDouble());
+                    String text_kontrak = String.valueOf(t_nilaikontrak.getCurrencyDouble());
                     Double get_pagu = Double.valueOf(text_pagu);
                     Double get_kontrak = Double.valueOf(text_kontrak);
                     Log.d(TAG, "Pagu : " + text_pagu);

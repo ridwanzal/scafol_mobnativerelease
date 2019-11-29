@@ -15,6 +15,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,6 +33,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.gson.Gson;
 import com.release.R;
 import com.release.model.DataResponsePaket;
 import com.release.model.NominatimReverseMap;
@@ -157,6 +159,94 @@ public class ActivityMapDetail extends AppCompatActivity {
             startMarker.setTitle(location_name);
             startMarker.showInfoWindow();
             startMarker.setVisible(true);
+            startMarker.setDraggable(true);
+            startMarker.setOnMarkerDragListener(new Marker.OnMarkerDragListener() {
+                @Override
+                public void onMarkerDrag(Marker marker) {
+                    String data_map = marker.getPosition().toString();
+                    String[] result = data_map.split(",");
+                    Log.d(TAG, "ON DRAG SOMETHING " + result[0] + " | " + result[1]);
+                }
+
+                @Override
+                public void onMarkerDragEnd(Marker marker) {
+                    String data_map = marker.getPosition().toString();
+                    String[] result = data_map.split(",");
+                    Log.d(TAG, "ON DRAG SOMETHING " + result[0] + " | " + result[1]);
+                    startPoint = new GeoPoint(Double.valueOf(result[0]), Double.valueOf(result[1]));
+
+                    LayoutInflater inflater = (LayoutInflater) getApplication().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View views = inflater.inflate(R.layout.dialog_mapdetail, null);
+                    nama_lokasi_edited = views.findViewById(R.id.nama_lokasi_edited);
+                    latitude_edited = views.findViewById(R.id.latitude_edited);
+                    longitude_edited = views.findViewById(R.id.longitude_edited);
+
+                    latitude_edited.setText(result[0]);
+                    longitude_edited.setText(result[1]);
+                    btn_location_edited  = views.findViewById(R.id.btn_location_edited);
+                    dialog_editlocation = new BottomSheetDialog(ActivityMapDetail.this);
+                    dialog_editlocation.setContentView(views);
+                    dialog_editlocation.show();
+                    Call<NominatimReverseMap> call_reverselatlong = apiInterfaceCustom.reverseLatLang("json", result[0],  result[1], "18", "1");
+                    call_reverselatlong.enqueue(new Callback<NominatimReverseMap>() {
+                        @Override
+                        public void onResponse(Call<NominatimReverseMap> call, Response<NominatimReverseMap> response) {
+                            Log.d(TAG, "INI RESPONSE BORORORORORORO===========>" + new Gson().toJson(response));
+                            if(response.isSuccessful()){
+                                Log.d(TAG, "INI BERHASIL ================> " + response.body().getDisplay_name());
+                                startMarker.setTitle(response.body().getDisplay_name());
+                                nama_lokasi_edited.setText(response.body().getDisplay_name());
+                                startMarker.showInfoWindow();
+                                startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                btn_location_edited.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        progressDialog.show();
+                                        String get_lat = latitude_edited.getText().toString();
+                                        String get_long = longitude_edited.getText().toString();
+                                        String get_name = nama_lokasi_edited.getText().toString();
+
+                                        Call<DataResponsePaket> call_update = apiInterface.updateMap(pa_id, get_name, get_lat, get_long);
+                                        call_update.enqueue(new Callback<DataResponsePaket>() {
+                                            @Override
+                                            public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<DataResponsePaket> call, Throwable t) {
+                                                new Thread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+                                                        try{
+                                                            Thread.sleep(500);
+                                                        }catch (Exception e){
+                                                            e.printStackTrace();
+                                                        }
+                                                        progressDialog.dismiss();
+                                                        mHandler.sendMessage(Message.obtain(mHandler, 3));
+                                                    }
+                                                }).start();
+                                            }
+                                        });
+
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<NominatimReverseMap> call, Throwable t) {
+
+                        }
+                    });
+
+                }
+
+                @Override
+                public void onMarkerDragStart(Marker marker) {
+
+                }
+            });
         }
 
         mapController.stopPanning();
@@ -189,6 +279,8 @@ public class ActivityMapDetail extends AppCompatActivity {
                         break;
                     case 3 :
                         progressDialog.dismiss();
+                        dialog_editlocation.dismiss();
+                        startMarker.setPosition(startPoint);
                         Toasty.success(getApplicationContext(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
                         break;
                 }
@@ -307,7 +399,6 @@ public class ActivityMapDetail extends AppCompatActivity {
                                                             }catch (Exception e){
                                                                 e.printStackTrace();
                                                             }
-                                                            progressDialog.dismiss();
                                                             mHandler.sendMessage(Message.obtain(mHandler, 3));
                                                         }
                                                     }).start();
@@ -316,7 +407,6 @@ public class ActivityMapDetail extends AppCompatActivity {
 
                                         }
                                     });
-
 
                                     new Thread(new Runnable() {
                                         public void run() {

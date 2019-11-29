@@ -290,7 +290,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                         prog_target_fisik.setText("");
                         prog_target_fisik.setError("Warning");
                         prog_target_fisik.setHint("Angka target melebihi batas maksimum");
-                        prog_target_fisik.requestFocus();
                         return;
                     }
                 }
@@ -307,7 +306,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                         prog_target_fisik.setText("");
                         prog_target_fisik.setError("Warning");
                         prog_target_fisik.setHint("Angka target melebihi batas maksimum");
-                        prog_target_fisik.requestFocus();
                         return;
                     }
                 }
@@ -321,7 +319,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                 if(check_target_fisik){
                     prog_target_fisik.setError("Warning");
                     prog_target_fisik.setHint("Masukkan persentase target");
-                    prog_target_fisik.requestFocus();
                     return;
                 }
             }
@@ -339,7 +336,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                         prog_real_fisik.setText("");
                         prog_real_fisik.setError("Warning");
                         prog_real_fisik.setHint("Angka target melebihi batas maksimum");
-                        prog_real_fisik.requestFocus();
                         return;
                     }
                 }
@@ -360,7 +356,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                         prog_real_fisik.setText("");
                         prog_real_fisik.setError("Warning");
                         prog_real_fisik.setHint("Angka target melebihi batas maksimum");
-                        prog_real_fisik.requestFocus();
                         return;
                     }
                 }

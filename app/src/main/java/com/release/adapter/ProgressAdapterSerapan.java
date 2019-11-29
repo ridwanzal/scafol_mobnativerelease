@@ -14,6 +14,7 @@ import com.release.model.Progress;
 import com.release.model.Serapan;
 
 import java.util.ArrayList;
+import com.release.sharedexternalmodule.formatMoneyIDR;
 import com.release.R;
 import java.util.List;
 
@@ -37,8 +38,8 @@ public class ProgressAdapterSerapan extends RecyclerView.Adapter<ProgressAdapter
 
     @Override
     public void onBindViewHolder(SerapanViewHolder holder, int position) {
-        holder.serapan_serap.setText(checkData(serapanArrayList.get(position).getSeDayaSerap()));
-        holder.serapan_sisa.setText(checkData(serapanArrayList.get(position).getSeSisa()));
+        holder.serapan_serap.setText(formatMoneyIDR.convertIDR(serapanArrayList.get(position).getSeDayaSerap()));
+        holder.serapan_sisa.setText(formatMoneyIDR.convertIDR(serapanArrayList.get(position).getSeSisa()));
         holder.serapan_tanggal.setText(checkData(serapanArrayList.get(position).getSeTanggal()));
         holder.serapan_keterangan.setText(checkData(serapanArrayList.get(position).getSeKeterangan()));
     }

@@ -52,9 +52,9 @@ public class KurvaSRencanaAdapter extends RecyclerView.Adapter<KurvaSRencanaAdap
 
     @Override
     public void onBindViewHolder(@NonNull KurvaSRencanaAdapter.RencanaViewHolder holder, final int position) {
-        String[] date_only = rencanaArrayList.get(position).getDateCreated().split(" ");
+        String date_only = rencanaArrayList.get(position).getReTanggal();
         holder.prog_target.setText(rencanaArrayList.get(position).getReProgress());
-        holder.prog_tanggal.setText(date_only[0]);
+        holder.prog_tanggal.setText(date_only);
         holder.layout.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
