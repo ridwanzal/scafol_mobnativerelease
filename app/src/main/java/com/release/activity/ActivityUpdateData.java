@@ -1,5 +1,6 @@
 package com.release.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -77,6 +78,20 @@ public class ActivityUpdateData extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        onBackPressedRefresh();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
+    }
+
+    public void onBackPressedRefresh(){
+        Intent intent = new Intent(this, ActivityDetailPaket.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        String  get_paid = getIntent().getStringExtra("pa_id");
+        intent.putExtra("pa_id", get_paid);
+        intent.putExtra("request", "main");
+        intent.putExtra("pa_nama", getIntent().getStringExtra("pa_nama"));
+        intent.putExtra("ke_id", getIntent().getStringExtra("ke_id"));
+        startActivity(intent);
+        finish();
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 }

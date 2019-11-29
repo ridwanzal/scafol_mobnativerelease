@@ -122,7 +122,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private Handler mHandler;
     private String role;
     private String user_id;
-
+    private String id_paket;
     SessionManager sessionManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -188,7 +188,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
         progressDialog.setMessage("Loading");
 
         Intent intent = getIntent();
-        String id_paket = intent.getStringExtra("pa_id");
+        id_paket = intent.getStringExtra("pa_id");
         Call<DataResponsePaket> call_paket = apiInterface.getPaketId(id_paket);
         call_paket.enqueue(new Callback<DataResponsePaket>() {
             @Override
@@ -529,6 +529,25 @@ public class ActivityDetailPaket extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
         super.onRestart();
+        onBackPressedRefresh();
+        overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
+    }
+
+    public void onBackPressedRefresh(){
+        Intent intent = new Intent(this, ActivityMain.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        String flagtosend = "";
+        if(role.equals("Admin")){
+            flagtosend = "1";
+        }else if(role.equals("Bidang")){
+            flagtosend = "1";
+        }else if(role.equals("Pptk")){
+            flagtosend = "1";
+        }
+        intent.putExtra("flag_list", flagtosend);
+        startActivity(intent);
+        sessionManager.checkLogin();
+        finish();
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
     }
 
@@ -555,6 +574,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home :
                 finish();
+                onBackPressedRefresh();
                 overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
                 return true;
             case R.id.nav_upload :
