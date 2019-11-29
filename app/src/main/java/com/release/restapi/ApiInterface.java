@@ -124,7 +124,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("anggaran/serapan/")
-    Call<DataResponseSerapan> addSerapan(@Field("an_id") String an_id,  @Field("se_daya_serap") String se_daya_serap, @Field("se_sisa") String se_sisa, @Field("se_tanggal") String se_tanggal,  @Field("se_keterangan") String se_keterangan);
+    Call<DataResponseSerapan> addSerapan(@Field("an_id") String an_id,  @Field("se_daya_serap") String se_daya_serap, @Field("se_sisa") String se_sisa, @Field("se_tanggal") String se_tanggal,  @Field("se_keterangan") String se_keterangan,  @Field("ke_id") String ke_id);
 
     @FormUrlEncoded
     @POST("anggaran/anggaran_kontrak")
