@@ -45,7 +45,7 @@
                         android:background="@drawable/edittextborder_generic"
                         android:drawableRight="@drawable/ic_close_black_24dp"
                         android:padding="10dp"
-                        android:text="TextView"
+                        android:text=""
                         android:textSize="16sp"
                         android:textStyle="normal" />
 
