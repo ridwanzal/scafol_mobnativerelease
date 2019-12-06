@@ -13,7 +13,7 @@ public class Kriteria {
 
         if (r == 100 && defisit == 0){
             kriteria = "Selesai";
-        }else if (r == 100){
+        }else if (r == 0){
             kriteria = "Belum Mulai";
         }else {
             if (t == 0 || t <= 70){
@@ -33,7 +33,7 @@ public class Kriteria {
         }else {
             if(defisit == 0 || defisit >= (-7)){
                 kriteria = "Wajar";
-            }else if (defisit <(-7) && defisit >=(-10)){
+            }else if (defisit < -7 && defisit >= -10){
                 kriteria = "Terlambat";
             }else {
                 kriteria = "Kritis";
@@ -47,9 +47,9 @@ public class Kriteria {
         if (defisit > 0){
             kriteria = "Baik";
         }else{
-            if (defisit == 0 || defisit >= (-4)) {
+            if (defisit == 0 || defisit >= -4 ) {
                 kriteria = "Wajar";
-            }else if(defisit <(-4) && defisit >= (-5)){
+            }else if(defisit < -4 && defisit >= -5 ){
                 kriteria = "Terlambat";
             }else{
                 kriteria = "Kritis";
