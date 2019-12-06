@@ -52,6 +52,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.gson.Gson;
 
+import java.math.BigInteger;
 import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -124,6 +125,13 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private String user_id;
     private String id_paket;
     SessionManager sessionManager;
+
+    BigInteger daya_serap_total;
+    BigInteger sisa_kontrak_total;
+    BigInteger sisa_anggaran_total;
+    BigInteger pagu_total;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -288,6 +296,37 @@ public class ActivityDetailPaket extends AppCompatActivity {
                         }
                     });
 
+                    daya_serap_total = new BigInteger("0");
+                    sisa_kontrak_total = new BigInteger("0");
+                    sisa_anggaran_total = new BigInteger("0");
+                    final BigInteger pagu_total = new BigInteger(pagu);
+                    final BigInteger nilai_kontrak_total = new BigInteger(nilai_kontrak);
+                    Call<DataResponseProgress> call_lastprogall = apiInterface.getProgressByPaketKeuangan(id_paket);
+                    call_lastprogall.enqueue(new Callback<DataResponseProgress>() {
+                        @Override
+                        public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {
+                            if(response.code() == 200){
+                                ArrayList<Progress> progressList = response.body().getData();
+                                for(int i = 0; i < progressList.size(); i++){
+                                    BigInteger daya_serap = new BigInteger(progressList.get(i).getPr_daya_serap_kontrak());
+//                                    result_daya_serap  = progressList.get(i).getPr_daya_serap_kontrak() == null ? "-" : "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_daya_serap_kontrak());
+                                    daya_serap_total = daya_serap_total.add(daya_serap);
+                                }
+                                sisa_kontrak_total = nilai_kontrak_total.subtract(daya_serap_total);
+                                sisa_anggaran_total = pagu_total.subtract(daya_serap_total);
+                                text_dayaserap.setText("Rp. " + formatMoneyIDR.convertIDR(String.valueOf(daya_serap_total)));
+                                text_sisakontrak.setText("Rp. " + formatMoneyIDR.convertIDR(String.valueOf(sisa_kontrak_total)));
+                                text_sisaanggaran.setText("Rp. " + formatMoneyIDR.convertIDR(String.valueOf(sisa_anggaran_total)));
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DataResponseProgress> call, Throwable t) {
+
+                        }
+                    });
+
+
                     if(role.equals("Admin")){
                         card_info_pptk.setVisibility(View.VISIBLE);
                         Call<DataResponse> call_user = apiInterface.getUserById(pptk_id);
@@ -314,7 +353,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     }
 
 
-                    // get kegitan
+                    // get kegiatan
                     Call<DataResponseKegiatan> call_kegiataninfo = apiInterface.getKegiatan(ke_id);
                     call_kegiataninfo.enqueue(new Callback<DataResponseKegiatan>() {
                         @Override
@@ -423,38 +462,38 @@ public class ActivityDetailPaket extends AppCompatActivity {
         });
 
 
-        Call<DataResponseProgress> call_lastprogall = apiInterface.getProgressByPaketKeuangan(id_paket);
-        call_lastprogall.enqueue(new Callback<DataResponseProgress>() {
-            @Override
-            public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {
-                if(response.code() == 200){
-                    String real_percent = "";
-                    String result = "";
-                    ArrayList<Progress> progressList = response.body().getData();
-                    for(int i = 0; i < progressList.size(); i++){
-                        real_percent = progressList.get(i).getPr_real().equals("") ||  progressList.get(i).getPr_real() == null ? "0" : progressList.get(i).getPr_real().toString();
-                        result = real_percent + " %";
-
-                        String result_daya_serap = "";
-                        String result_sisa_kontrak = "";
-                        String result_sisa_anggaran = "";
-
-                        result_daya_serap  = progressList.get(i).getPr_daya_serap_kontrak() == null ? "-" : "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_daya_serap_kontrak());
-                        result_sisa_kontrak = progressList.get(i).getPr_sisa_kontrak() == null ? "-" :  "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_kontrak());
-                        result_sisa_anggaran = progressList.get(i).getPr_sisa_anggaran() == null ? "-" :  "Rp. " +  formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_anggaran());
-
-                        text_dayaserap.setText(result_daya_serap);
-                        text_sisakontrak.setText(result_sisa_kontrak);
-                        text_sisaanggaran.setText(result_sisa_anggaran);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DataResponseProgress> call, Throwable t) {
-
-            }
-        });
+//        Call<DataResponseProgress> call_lastprogall = apiInterface.getProgressByPaketKeuangan(id_paket);
+//        call_lastprogall.enqueue(new Callback<DataResponseProgress>() {
+//            @Override
+//            public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {
+//                if(response.code() == 200){
+//                    String real_percent = "";
+//                    String result = "";
+//                    ArrayList<Progress> progressList = response.body().getData();
+//                    for(int i = 0; i < progressList.size(); i++){
+//                        real_percent = progressList.get(i).getPr_real().equals("") ||  progressList.get(i).getPr_real() == null ? "0" : progressList.get(i).getPr_real().toString();
+//                        result = real_percent + " %";
+//
+//                        String result_daya_serap = "";
+//                        String result_sisa_kontrak = "";
+//                        String result_sisa_anggaran = "";
+//
+//                        result_daya_serap  = progressList.get(i).getPr_daya_serap_kontrak() == null ? "-" : "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_daya_serap_kontrak());
+//                        result_sisa_kontrak = progressList.get(i).getPr_sisa_kontrak() == null ? "-" :  "Rp. " + formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_kontrak());
+//                        result_sisa_anggaran = progressList.get(i).getPr_sisa_anggaran() == null ? "-" :  "Rp. " +  formatMoneyIDR.convertIDR(progressList.get(i).getPr_sisa_anggaran());
+//
+//                        text_dayaserap.setText(result_daya_serap);
+//                        text_sisakontrak.setText(result_sisa_kontrak);
+//                        text_sisaanggaran.setText(result_sisa_anggaran);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<DataResponseProgress> call, Throwable t) {
+//
+//            }
+//        });
 
 
         cardView.setOnClickListener(new View.OnClickListener() {

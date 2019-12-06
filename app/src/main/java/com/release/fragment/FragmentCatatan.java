@@ -71,6 +71,7 @@ public class FragmentCatatan extends Fragment implements View.OnClickListener, D
         progressDialog.setMessage("Loading");
         btn_submit_catatan = view.findViewById(R.id.btn_submit_catatan);
         lin_keu1 = view.findViewById(R.id.lin_keu1);
+        lin_keu1.setVisibility(View.GONE);
         cardview_catatan = view.findViewById(R.id.cardview_catatan);
         labelisx = view.findViewById(R.id.labelisx);
         pr_catatan_fisik.setOnClickListener(new View.OnClickListener() {
@@ -80,29 +81,6 @@ public class FragmentCatatan extends Fragment implements View.OnClickListener, D
                 intent.putExtra("pa_id", pa_id);
                 intent.putExtra("pa_nama", pa_judul);
                 startActivity(intent);
-            }
-        });
-
-        Call<DataResponsePaket> call_paket = apiInterface.getPaketId(pa_id);
-        call_paket.enqueue(new Callback<DataResponsePaket>() {
-            @Override
-            public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                if(response.code() == 200){
-                    ArrayList<Paket> paketlist = response.body().getData();
-                    for(int i = 0; i < paketlist.size(); i++){
-                        if(paketlist.get(i).getPaNilaiKontrak().toString().equals("0")){
-                            cardview_catatan.setVisibility(View.GONE);
-                            lin_keu1.setVisibility(View.VISIBLE);
-                        }else{
-                            cardview_catatan.setVisibility(View.VISIBLE);
-                            lin_keu1.setVisibility(View.GONE);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DataResponsePaket> call, Throwable t) {
             }
         });
 

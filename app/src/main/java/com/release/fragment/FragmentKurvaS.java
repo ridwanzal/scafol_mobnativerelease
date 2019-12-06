@@ -103,6 +103,7 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
         lin_keu1 = view.findViewById(R.id.lin_keu1);
         labelis = view.findViewById(R.id.labelis);
         card1x = view.findViewById(R.id.card1x);
+        lin_keu1.setVisibility(View.GONE);
 
         Intent intent = getActivity().getIntent();
         pa_id = intent.getStringExtra("pa_id");
@@ -112,29 +113,6 @@ public class FragmentKurvaS extends Fragment implements View.OnClickListener, Da
 
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading");
-
-        Call<DataResponsePaket> call_paket = apiInterface.getPaketId(pa_id);
-        call_paket.enqueue(new Callback<DataResponsePaket>() {
-            @Override
-            public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                if(response.code() == 200){
-                    ArrayList<Paket> paketlist = response.body().getData();
-                    for(int i = 0; i < paketlist.size(); i++){
-                        if(paketlist.get(i).getPaNilaiKontrak().toString().equals("0")){
-                            card1x.setVisibility(View.GONE);
-                            lin_keu1.setVisibility(View.VISIBLE);
-                        }else{
-                            card1x.setVisibility(View.VISIBLE);
-                            lin_keu1.setVisibility(View.GONE);
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<DataResponsePaket> call, Throwable t) {
-            }
-        });
 
         btnDate.setOnClickListener(this);
 
