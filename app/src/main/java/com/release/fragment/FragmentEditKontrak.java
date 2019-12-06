@@ -142,10 +142,10 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                         String akhir_kontrak = paketlist.get(i).getPaAkhirKontrak();
                         String pagu = paketlist.get(i).getPaPagu();
                         t_nilaipagu.setText(formatMoneyIDR.convertIDR(pagu));
-                        t_nomorkontrak.setText(checkData(nomor_kontrak));
+                        t_nomorkontrak.setText(nomor_kontrak);
                         t_nilaikontrak.setText(formatMoneyIDR.convertIDR(nilai_kontrak));
                         t_awalkontrak.setText(checkData(awal_kontrak));
-                        t_akhirkontrak.setText(checkData(akhir_kontrak));
+                        t_akhirkontrak.setText(akhir_kontrak);
                     }
                 }
             }
