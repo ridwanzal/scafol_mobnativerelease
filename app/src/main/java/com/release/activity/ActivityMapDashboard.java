@@ -422,7 +422,6 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                         marker.setTextLabelFontSize(14);
                                         marker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
 
-
                                         if(pr_tanggal != null && pr_real != null && pr_real != null){
                                             String kriteria = Kriteria.get_kriteria(pr_tanggal, pr_real, pr_real);
                                             switch (kriteria.toLowerCase()){
