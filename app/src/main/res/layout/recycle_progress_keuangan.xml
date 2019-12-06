@@ -12,9 +12,9 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:foregroundGravity="center_vertical"
-        android:visibility="gone"
+        android:visibility="visible"
         />
-        <TextView
+    <TextView
             android:id="@+id/text_notfoundkeu"
             android:textAlignment="center"
             android:padding="20dp"

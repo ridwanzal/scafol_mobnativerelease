@@ -63,8 +63,7 @@ public class ActivityProgressKeuangan extends AppCompatActivity {
                     if(response.code() == 200 ){
                         generateProgressList(response.body().getData());
                         textnofound.setVisibility(View.GONE);
-//                            progressAdapter = new ProgressAdapter(getApplicationContext(), response.body().getData());
-//                            progressAdapter.notifyDataSetChanged();
+                        recyclerView.setVisibility(View.VISIBLE);
                         progressBar.setVisibility(View.GONE);
                     }else{
                         progressBar.setVisibility(View.GONE);
@@ -87,10 +86,12 @@ public class ActivityProgressKeuangan extends AppCompatActivity {
 
     private void generateProgressList(ArrayList<Progress> progressArrayList){
         recyclerView = findViewById(R.id.recycle_listprogress3);
+        recyclerView.setVisibility(View.GONE);
         progressAdapter = new ProgressAdapterKeuangan(getApplicationContext(), progressArrayList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityProgressKeuangan.this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(progressAdapter);
+        progressAdapter.notifyDataSetChanged();
     }
 
     @Override

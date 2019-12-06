@@ -11,15 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.release.R;
 import com.release.interfacemodule.ItemClickListener;
+import com.release.model.DataResponsePA;
+import com.release.model.DataResponsePaket;
+import com.release.model.Paket;
 import com.release.model.Progress;
+import com.release.model.User;
+import com.release.restapi.ApiClient;
 import com.release.sharedexternalmodule.formatMoneyIDR;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+import com.release.restapi.ApiInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProgressAdapterKeuangan extends RecyclerView.Adapter<ProgressAdapterKeuangan.ProgressViewHolder> {
     private ArrayList<Progress> progressArrayList;
+    private static ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     Context mContext;
+    BigInteger daya_serap_total = new BigInteger("0");
     ItemClickListener listener;
     private List<Progress> progressArrayList2s;
 
@@ -49,10 +61,34 @@ public class ProgressAdapterKeuangan extends RecyclerView.Adapter<ProgressAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProgressViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ProgressViewHolder holder, final int position) {
+        String pa_id = progressArrayList.get(position).getPa_id();
+        Call<DataResponsePaket> callinfopaketpptk = apiInterface.getPaketId(pa_id);
+        callinfopaketpptk.enqueue(new Callback<DataResponsePaket>() {
+            @Override
+            public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                if(response.code() == 200){
+                    ArrayList<Paket> result = response.body().getData();
+                    for(int i = 0; i < result.size(); i++){
+                        BigInteger nilai_kontrak = new BigInteger(result.get(i).getPaNilaiKontrak());
+                        BigInteger nilai_pagu = new BigInteger(result.get(i).getPaPagu());
+                        BigInteger daya_serap = new BigInteger(progressArrayList.get(position).getPr_daya_serap_kontrak());
+                        daya_serap_total = daya_serap_total.add(daya_serap);
+                        BigInteger sisa_kontrak = nilai_kontrak.subtract(daya_serap_total);
+                        BigInteger sisa_anggaran =nilai_pagu.subtract(daya_serap_total);
+                        holder.progkeu_sisakontrak.setText(formatMoneyIDR.convertIDR(String.valueOf(sisa_kontrak)));
+                        holder.progkeu_sisaanggaran.setText(formatMoneyIDR.convertIDR(String.valueOf(sisa_anggaran)));
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DataResponsePaket> call, Throwable t) {
+
+            }
+        });
+
         holder.progkeu_serapan.setText(formatMoneyIDR.convertIDR(progressArrayList.get(position).getPr_daya_serap_kontrak()));
-        holder.progkeu_sisakontrak.setText(formatMoneyIDR.convertIDR(progressArrayList.get(position).getPr_sisa_kontrak()));
-        holder.progkeu_sisaanggaran.setText(formatMoneyIDR.convertIDR(progressArrayList.get(position).getPr_sisa_anggaran()));
         holder.progkeu_tanggal.setText(progressArrayList.get(position).getPr_tanggal());
         holder.progkeu_keterangan.setText(progressArrayList.get(position).getPr_keterangan());
     }
