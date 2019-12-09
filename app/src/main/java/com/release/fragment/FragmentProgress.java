@@ -138,6 +138,7 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
         prog_target_fisik = view.findViewById(R.id.prog_target_fisik);
         prog_real_fisik = view.findViewById(R.id.prog_real_fisik);
         prog_deviasi_fisik = view.findViewById(R.id.prog_deviasi_fisik);
+        prog_deviasi_fisik.setEnabled(false);
 
         loading_progress_submit = view.findViewById(R.id.loading_progress_submit);
         btn_submit_catatan = view.findViewById(R.id.btn_submit_catatan);
@@ -214,39 +215,6 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                 }
             });
 
-            prog_target_fisik.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        if(motionEvent.getRawX() >= (prog_target_fisik.getRight() - prog_target_fisik.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                            // your action here
-                            prog_target_fisik.getText().clear();
-                            prog_deviasi_fisik.getText().clear();
-                            prog_real_fisik.getText().clear();
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            });
-
-
-            prog_real_fisik.setOnTouchListener(new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View view, MotionEvent motionEvent) {
-                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        if(motionEvent.getRawX() >= (prog_real_fisik.getRight() - prog_real_fisik.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                            // your action here
-                            prog_real_fisik.getText().clear();
-                            prog_deviasi_fisik.getText().clear();
-                            prog_target_fisik.getText().clear();
-                            return true;
-                        }
-                    }
-                    return false;
-                }
-            });
-
             prog_real_fisik.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -284,6 +252,9 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                 String t = prog_target_fisik.getText().toString().trim();
                 if(t.equals("")){
                     t = "0";
+                    prog_target_fisik.getText().clear();
+                    prog_real_fisik.getText().clear();
+                    prog_deviasi_fisik.getText().clear();
                 }else{
                     double t_num = Double.valueOf(t);
                     if(t_num > 100){
@@ -300,6 +271,9 @@ public class FragmentProgress extends Fragment implements View.OnClickListener, 
                 String t = prog_target_fisik.getText().toString().trim();
                 if(t.equals("")){
                     t = "0";
+                    prog_target_fisik.getText().clear();
+                    prog_real_fisik.getText().clear();
+                    prog_deviasi_fisik.getText().clear();
                 }else{
                     double t_num = Double.valueOf(t);
                     if(t_num > 100){

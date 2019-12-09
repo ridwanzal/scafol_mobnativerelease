@@ -29,7 +29,9 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.release.R;
 import com.release.activity.ActivityCatatan;
+import com.release.activity.ActivityDetailPaket;
 import com.release.activity.ActivityProgressKeuangan;
+import com.release.activity.ActivityUpdateData;
 import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
 import com.release.model.Paket;
@@ -285,7 +287,6 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                     call_addnewprog_keu.enqueue(new Callback<DataResponseProgress>() {
                         @Override
                         public void onResponse(Call<DataResponseProgress> call, Response<DataResponseProgress> response) {
-                            Log.d(TAG,"RESULT=>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> " + new Gson().toJson(response));
                             try{
                                 Log.d(TAG, "Result SUCCESS" + new Gson().toJson(response));
                                 loading_progress_submit.setVisibility(View.GONE);
@@ -297,15 +298,16 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
 
                         @Override
                         public void onFailure(Call<DataResponseProgress> call, Throwable t) {
-                            Log.d(TAG, "throwable ->>>>>>>>>>>>>>>>>>>>>> " + t);
-                            Toast.makeText(getActivity(), "Ditambahkan", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Data Progress ditambahkan", Toast.LENGTH_SHORT).show();
                             loading_progress_submit.setVisibility(View.GONE);
                             keu_submit.setEnabled(true);
-                            keu_serap.setText("");
-                            keu_kontrak.getText().clear();
-                            keu_sisa.getText().clear();
-                            tx_tanggal_keuangan.setText("");
-                            keu_ket.setText("");
+                            Intent intent8 = new Intent(getActivity(), ActivityUpdateData.class);
+                            intent8.putExtra("pa_pagu", pa_pagu);
+                            intent8.putExtra("position", 4);
+                            intent8.putExtra("pa_id", pa_id);
+                            intent8.putExtra("pa_nama", pa_judul);
+                            intent8.putExtra("ke_id", ke_id);
+                            startActivity(intent8);
                         }
                     });
                 }

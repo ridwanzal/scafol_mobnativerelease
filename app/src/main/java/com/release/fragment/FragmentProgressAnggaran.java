@@ -27,6 +27,7 @@ import androidx.fragment.app.Fragment;
 import com.google.gson.Gson;
 import com.release.R;
 import com.release.activity.ActivityCatatan;
+import com.release.activity.ActivityDetailAnggaran;
 import com.release.activity.ActivityProgressSerapan;
 import com.release.activity.ActivityUpdateDataAnggaran;
 import com.release.model.Anggaran;
@@ -255,9 +256,13 @@ public class FragmentProgressAnggaran extends Fragment implements View.OnClickLi
                             Toast.makeText(getActivity(), "Ditambahkan", Toast.LENGTH_SHORT).show();
                             loading_progress_submit.setVisibility(View.GONE);
                             keu_submit.setEnabled(true);
-                            keu_serap.setText("");
-                            tx_tanggal_proganggaran.setText("");
-                            keu_ket.setText("");
+                            Intent intent4 = new Intent(getActivity(), ActivityUpdateDataAnggaran.class);
+                            intent4.putExtra("anp_pagu", anp_pagu);
+                            intent4.putExtra("an_id", an_id);
+                            intent4.putExtra("position", 1);
+                            intent4.putExtra("an_nama", an_nama);
+                            intent4.putExtra("ke_id", ke_id);
+                            startActivity(intent4);
                         }
                     });
                 }
