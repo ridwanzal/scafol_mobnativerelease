@@ -6,6 +6,7 @@ import com.release.model.DataResponseBidang;
 import com.release.model.DataResponseCatatan;
 import com.release.model.DataResponseDinas;
 import com.release.model.DataResponseInfo;
+import com.release.model.DataResponseKegiatanAnggaran;
 import com.release.model.DataResponsePA;
 import com.release.model.DataResponseKegiatan;
 import com.release.model.DataResponsePJ;
@@ -63,12 +64,20 @@ public interface ApiInterface {
     @GET("kegiatan/paket")
     Call<DataResponseKegiatan> getKegiatanTree(@Query("dinas_id") String dinas_id);
 
+    @GET("kegiatan/anggaran")
+    Call<DataResponseKegiatanAnggaran> getKegiatanTreeAnggaran(@Query("dinas_id") String dinas_id);
+
     @GET("kegiatan/paket")
     Call<DataResponseKegiatan> getKegiatanTreePPTK(@Query("dinas_id") String dinas_id, @Query("pptk_id") String pptk_id);
 
+    @GET("kegiatan/anggaran")
+    Call<DataResponseKegiatanAnggaran> getKegiatanTreeAnggaranPPTK(@Query("dinas_id") String dinas_id, @Query("pptk_id") String pptk_id);
 
     @GET("kegiatan/paket")
     Call<DataResponseKegiatan> getKegiatanTreeBidang(@Query("dinas_id") String dinas_id, @Query("bi_id") String bi_id);
+
+    @GET("kegiatan/anggaran")
+    Call<DataResponseKegiatanAnggaran> getKegiatanTreeAnggaranBidang(@Query("dinas_id") String dinas_id, @Query("bi_id") String bi_id);
 
     @GET("kegiatan/dinas")
     Call<DataResponseKegiatan> getKegiatanAdminDinas(@Query("dinas_id") String dinas_id);

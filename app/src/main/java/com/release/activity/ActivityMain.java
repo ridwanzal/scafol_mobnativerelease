@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.AttributeSet;
@@ -19,20 +20,24 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.release.R;
 import com.release.adapter.AnggaranAdapter;
 import com.release.adapter.KegiatanAdapter;
+import com.release.adapter.KegiatanAdapterAnggaran;
 import com.release.adapter.PaketAdapter;
 import com.release.interfacemodule.ItemClickListener;
 import com.release.model.Anggaran;
 import com.release.model.DataResponseAnggaran;
 import com.release.model.DataResponseKegiatan;
+import com.release.model.DataResponseKegiatanAnggaran;
 import com.release.model.DataResponsePaket;
 import com.release.model.Kegiatan;
 import com.release.model.KegiatanTree;
+import com.release.model.KegiatanTreeAnggaran;
 import com.release.model.Paket;
 import com.release.restapi.ApiClient;
 import com.release.restapi.ApiInterface;
 import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
@@ -54,6 +59,7 @@ public class ActivityMain extends AppCompatActivity{
     private RecyclerView recyclerView;
     private RecyclerView recyclerView_ang;
     private KegiatanAdapter kegiatanAdapter;
+    private KegiatanAdapterAnggaran kegiatanAdapterAnggaran;
     private PaketAdapter paketAdapter;
     private AnggaranAdapter anggaranAdapter;
     private TextView total_paket_info;
@@ -348,6 +354,18 @@ public class ActivityMain extends AppCompatActivity{
         searchView.setQueryHint("Cari Kegiatan");
     }
 
+
+    private void generateKegiatanAnggaranList(ArrayList<KegiatanTreeAnggaran> kegiatanList){
+        recyclerView = findViewById(R.id.recycle_listkegiatan);
+        kegiatanAdapterAnggaran = new KegiatanAdapterAnggaran(getApplicationContext(), kegiatanList);
+        String title = "Total Kegiatan ("   + kegiatanAdapterAnggaran.getItemCount() + ")";
+        getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + title + "</small>"));
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(ActivityMain.this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(kegiatanAdapterAnggaran);
+        searchView.setQueryHint("Cari Kegiatan");
+    }
+
     @Override
     public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
         return super.onCreateView(parent, name, context, attrs);
@@ -499,7 +517,6 @@ public class ActivityMain extends AppCompatActivity{
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.right_menu_paket, menu);
         MenuItem searMenuItem = menu.findItem(R.id.nav_search);
-        final String flag_list = getIntent().getStringExtra("flag_list");
         searchView = (SearchView) MenuItemCompat.getActionView(searMenuItem);
         searchView.setMaxWidth(2147483647);
         searchView.setMinimumHeight(Integer.MAX_VALUE);
@@ -514,6 +531,7 @@ public class ActivityMain extends AppCompatActivity{
                 return false;
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public boolean onQueryTextChange(String s) {
                 if(flag_list.equals("1")){
@@ -560,94 +578,190 @@ public class ActivityMain extends AppCompatActivity{
                 dialog.show();
                 TextView open_kegiatan = view.findViewById(R.id.open_kegiatan);
                 TextView open_paket = view.findViewById(R.id.open_paket);
+                switch (flag_list){
+                    case "1" :
+                            open_paket.setText("Filter berdasarkan Paket");
+                        break;
+                    case "2" :
+                            open_paket.setText("Filter berdasarkan Paket Non-Fisik");
+                        break;
+                }
+
                 open_kegiatan.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d(TAG, "MASUK SINI");
-                        setContentView(R.layout.recycle_listkegiatan);
-                        text_notfound = findViewById(R.id.text_notfound);
-                        progress_listanggaran = findViewById(R.id.progress_listpaket);
-                        getSupportActionBar().setTitle("Kegiatan");
-                        Call<DataResponseKegiatan> call_kegiatan = null;
-                        switch (role){
-                            case "Admin" :
-                                call_kegiatan = apiInterface.getKegiatanTree(dinas_id);
-                                break;
-                            case "Bidang" :
-                                call_kegiatan = apiInterface.getKegiatanTreeBidang(dinas_id, bi_id);
-                                break;
-                            case "Pptk" :
-                                call_kegiatan = apiInterface.getKegiatanTreePPTK(dinas_id, user_id);
-                                break;
-                        }
-                        call_kegiatan.enqueue(new Callback<DataResponseKegiatan>() {
-                            @Override
-                            public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
-                                String response_code = new Gson().toJson(response.code()).toString();
-                                if(response_code.equals("200")){
-                                    ArrayList<KegiatanTree> data = response.body().getData();
-                                    Log.w(TAG, "paket data " + new Gson().toJson(data));
-                                    generateKegiatanList(response.body().getData());
-                                    progress_listanggaran.setVisibility(View.GONE);
-                                    text_notfound.setVisibility(View.GONE);
-                                }else{
-                                    progress_listanggaran.setVisibility(View.GONE);
-                                    text_notfound.setVisibility(View.VISIBLE);
+                        if(flag_list.equals("1")){
+                            Log.d(TAG, "MASUK SINI");
+                            setContentView(R.layout.recycle_listkegiatan);
+                            text_notfound = findViewById(R.id.text_notfound);
+                            progress_listanggaran = findViewById(R.id.progress_listpaket);
+                            getSupportActionBar().setTitle("Kegiatan");
+                            Call<DataResponseKegiatan> call_kegiatan = null;
+                            switch (role){
+                                case "Admin" :
+                                    call_kegiatan = apiInterface.getKegiatanTree(dinas_id);
+                                    break;
+                                case "Bidang" :
+                                    call_kegiatan = apiInterface.getKegiatanTreeBidang(dinas_id, bi_id);
+                                    break;
+                                case "Pptk" :
+                                    call_kegiatan = apiInterface.getKegiatanTreePPTK(dinas_id, user_id);
+                                    break;
+                            }
+                            call_kegiatan.enqueue(new Callback<DataResponseKegiatan>() {
+                                @Override
+                                public void onResponse(Call<DataResponseKegiatan> call, Response<DataResponseKegiatan> response) {
+                                    String response_code = new Gson().toJson(response.code()).toString();
+                                    if(response_code.equals("200")){
+                                        ArrayList<KegiatanTree> data = response.body().getData();
+                                        Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                        generateKegiatanList(response.body().getData());
+                                        progress_listanggaran.setVisibility(View.GONE);
+                                        text_notfound.setVisibility(View.GONE);
+                                    }else{
+                                        progress_listanggaran.setVisibility(View.GONE);
+                                        text_notfound.setVisibility(View.VISIBLE);
+                                    }
                                 }
-                            }
-                            @Override
-                            public void onFailure(Call<DataResponseKegiatan> call, Throwable t) {
+                                @Override
+                                public void onFailure(Call<DataResponseKegiatan> call, Throwable t) {
 
+                                }
+                            });
+                            dialog.dismiss();
+                        }else{
+                            Log.d(TAG, "MASUK SINI");
+                            setContentView(R.layout.recycle_listkegiatan);
+                            text_notfound = findViewById(R.id.text_notfound);
+                            progress_listanggaran = findViewById(R.id.progress_listpaket);
+                            getSupportActionBar().setTitle("Kegiatan");
+                            Call<DataResponseKegiatanAnggaran> call_kegiatan = null;
+                            switch (role){
+                                case "Admin" :
+                                    call_kegiatan = apiInterface.getKegiatanTreeAnggaran(dinas_id);
+                                    break;
+                                case "Bidang" :
+                                    call_kegiatan = apiInterface.getKegiatanTreeAnggaranBidang(dinas_id, bi_id);
+                                    break;
+                                case "Pptk" :
+                                    call_kegiatan = apiInterface.getKegiatanTreeAnggaranPPTK(dinas_id, user_id);
+                                    break;
                             }
-                        });
-                        dialog.dismiss();
+                            call_kegiatan.enqueue(new Callback<DataResponseKegiatanAnggaran>() {
+                                @Override
+                                public void onResponse(Call<DataResponseKegiatanAnggaran> call, Response<DataResponseKegiatanAnggaran> response) {
+                                    String response_code = new Gson().toJson(response.code()).toString();
+                                    if(response_code.equals("200")){
+                                        ArrayList<KegiatanTreeAnggaran> data = response.body().getData();
+                                        Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                        generateKegiatanAnggaranList(response.body().getData());
+                                        progress_listanggaran.setVisibility(View.GONE);
+                                        text_notfound.setVisibility(View.GONE);
+                                    }else{
+                                        progress_listanggaran.setVisibility(View.GONE);
+                                        text_notfound.setVisibility(View.VISIBLE);
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<DataResponseKegiatanAnggaran> call, Throwable t) {
+
+                                }
+                            });
+                            dialog.dismiss();
+                        }
                     }
                 });
 
                 open_paket.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setContentView(R.layout.recycle_listpaket);
-                        text_notfound = findViewById(R.id.text_notfound);
-                        getSupportActionBar().setTitle("Paket Fisik");
-                        progress_listpaket = findViewById(R.id.progress_listpaket);
-                        Call<DataResponsePaket> call_paket2 = null;
-                        switch (role){
-                            case "Admin" :
-                                call_paket2 = apiInterface.getPaketDinas(dinas_id);
-                                break;
-                            case "Bidang" :
-                                call_paket2 = apiInterface.getPaketBidangId(bi_id);
-                                break;
-                            case "Pptk" :
-                                call_paket2 = apiInterface.getPaketPptk(user_id);
-                                break;
-                        }
-
-                        call_paket2.enqueue(new Callback<DataResponsePaket>() {
-                            @Override
-                            public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                                String response_code = new Gson().toJson(response.code()).toString();
-                                if(response_code.equals("200")){
-                                    ArrayList<Paket> data = response.body().getData();
-                                    Log.w(TAG, "paket data " + new Gson().toJson(data));
-                                    generatePaketList(response.body().getData(), "");
-                                    progress_listpaket.setVisibility(View.GONE);
-                                    recyclerView = findViewById(R.id.recycle_listpaket);
-                                    recyclerView.setVisibility(View.VISIBLE);
-                                    text_notfound.setVisibility(View.GONE);
-                                }else{
-                                    progress_listpaket.setVisibility(View.GONE);
-                                    text_notfound.setVisibility(View.VISIBLE);
+                        if(flag_list.equals("1")){
+                                // ini paket
+                                setContentView(R.layout.recycle_listpaket);
+                                text_notfound = findViewById(R.id.text_notfound);
+                                getSupportActionBar().setTitle("Paket Fisik");
+                                progress_listpaket = findViewById(R.id.progress_listpaket);
+                                Call<DataResponsePaket> call_paket2 = null;
+                                switch (role){
+                                    case "Admin" :
+                                        call_paket2 = apiInterface.getPaketDinas(dinas_id);
+                                        break;
+                                    case "Bidang" :
+                                        call_paket2 = apiInterface.getPaketBidangId(bi_id);
+                                        break;
+                                    case "Pptk" :
+                                        call_paket2 = apiInterface.getPaketPptk(user_id);
+                                        break;
                                 }
+
+                                call_paket2.enqueue(new Callback<DataResponsePaket>() {
+                                    @Override
+                                    public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                                        String response_code = new Gson().toJson(response.code()).toString();
+                                        if(response_code.equals("200")){
+                                            ArrayList<Paket> data = response.body().getData();
+                                            Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                            generatePaketList(response.body().getData(), "");
+                                            progress_listpaket.setVisibility(View.GONE);
+                                            recyclerView = findViewById(R.id.recycle_listpaket);
+                                            recyclerView.setVisibility(View.VISIBLE);
+                                            text_notfound.setVisibility(View.GONE);
+                                        }else{
+                                            progress_listpaket.setVisibility(View.GONE);
+                                            text_notfound.setVisibility(View.VISIBLE);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<DataResponsePaket> call, Throwable t) {
+                                        Log.e(TAG, t.toString());
+                                    }
+                                });
+                                dialog.dismiss();
+                        }else{
+                            // ini anggaran
+                            setContentView(R.layout.recycle_listanggaran);
+                            text_notfound = findViewById(R.id.text_notfound);
+                            getSupportActionBar().setTitle("Paket Fisik");
+                            progress_listanggaran = findViewById(R.id.progress_listpaket);
+                            Call<DataResponseAnggaran> call_paket3 = null;
+                            switch (role){
+                                case "Admin" :
+                                    call_paket3 = apiInterface.getAnggaranAdmin(dinas_id);
+                                    break;
+                                case "Bidang" :
+                                    call_paket3 = apiInterface.getAnggaranBidang(bi_id, dinas_id);
+                                    break;
+                                case "Pptk" :
+                                    call_paket3 = apiInterface.getAnggaranPPTK(user_id);
+                                    break;
                             }
 
-                            @Override
-                            public void onFailure(Call<DataResponsePaket> call, Throwable t) {
-                                Log.e(TAG, t.toString());
-                            }
-                        });
-                        dialog.dismiss();
+                            call_paket3.enqueue(new Callback<DataResponseAnggaran>() {
+                                @Override
+                                public void onResponse(Call<DataResponseAnggaran> call, Response<DataResponseAnggaran> response) {
+                                    String response_code = new Gson().toJson(response.code()).toString();
+                                    if(response.code() == 200){
+                                        ArrayList<Anggaran> data = response.body().getData();
+                                        Log.w(TAG, "paket data " + new Gson().toJson(data));
+                                        generateAnggaranList(response.body().getData(), "");
+                                        progress_listanggaran.setVisibility(View.GONE);
+                                        recyclerView = findViewById(R.id.recycle_listanggaran);
+                                        recyclerView.setVisibility(View.VISIBLE);
+                                        text_notfound.setVisibility(View.GONE);
+                                    }else{
+                                        progress_listpaket.setVisibility(View.GONE);
+                                        text_notfound.setVisibility(View.VISIBLE);
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<DataResponseAnggaran> call, Throwable t) {
+                                    Log.e(TAG, t.toString());
+                                }
+                            });
+                            dialog.dismiss();
+                        }
                     }
                 });
                 break;

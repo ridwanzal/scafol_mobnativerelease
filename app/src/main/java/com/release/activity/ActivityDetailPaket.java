@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuffColorFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -110,6 +111,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private CardView card_info_pptk;
 
     private TextView text_penyediajasa;
+    private ProgressBar progres_pekerjaan;
 
     private ScrollView main_layout_detail_paket;
     private Context mContext;
@@ -194,6 +196,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
         progressDialog = new ProgressDialog(ActivityDetailPaket.this);
         progressDialog.show();
         progressDialog.setMessage("Loading");
+
+        progres_pekerjaan = findViewById(R.id.progres_pekerjaan);
 
         Intent intent = getIntent();
         id_paket = intent.getStringExtra("pa_id");
@@ -418,31 +422,28 @@ public class ActivityDetailPaket extends AppCompatActivity {
                             String kriteria = Kriteria.get_kriteria(progressList.get(i).getPr_tanggal(), progressList.get(i).getPr_real(), progressList.get(i).getPr_target());
                             switch (kriteria.toLowerCase()){
                                 case "kritis" :
-                                    tx_lasptprog.setTextColor(Color.parseColor("#ffffff"));
-                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#cd4030"));
+                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "kritis"));
                                     break;
                                 case "terlambat" :
-                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#f0d65e"));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + " terlambat"));
+                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
                                     break;
                                 case "wajar" :
-                                    tx_lasptprog.setTextColor(Color.parseColor("#ffffff"));
-                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#35b5c8"));
+                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " +" wajar" ));
                                     break;
                                 case "baik" :
-                                    tx_lasptprog.setTextColor(Color.parseColor("#ffffff"));
-                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#2e8eb9"));
+                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "baik" ));
                                     break;
                                 case "selesai" :
-                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#237a47"));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "selesai" ));
+                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
                                     break;
                                 case "belum mulai" :
-                                    tx_lasptprog.setBackgroundColor(Color.parseColor("#eeeeee"));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "belum mulai" ));
+                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
                                     break;
                             }
                         }else{
