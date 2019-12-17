@@ -61,7 +61,7 @@ import retrofit2.Retrofit;
 
 public class FragmentEditLokasi extends Fragment {
     public static String TAG = "FragmentEditLokasi";
-    MapView map = null;
+    MapView map;
     MapEventsReceiver mapEventsReceiver;
     Context context;
     GeoPoint startPoint;
@@ -107,6 +107,7 @@ public class FragmentEditLokasi extends Fragment {
         mapController = map.getController();
         mapController.setZoom(11);
         startPoint = new GeoPoint(-2.9547949, 104.6929245);
+        startMarker = new Marker(map, getActivity().getBaseContext());
         mapController.setCenter(startPoint);
         Intent intent = getActivity().getIntent();
         final String id_paket = intent.getStringExtra("pa_id");
@@ -128,7 +129,6 @@ public class FragmentEditLokasi extends Fragment {
                     tx_latitude.setText(paketlist.get(i).getPaLocLatitude());
                     tx_longitude.setText(paketlist.get(i).getPaLongitude());
                     startPoint = new GeoPoint(latitude, longitude);
-                    startMarker = new Marker(map);
                     startMarker.setPosition(startPoint);
                     startMarker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
                     startMarker.setTextLabelFontSize(9);
