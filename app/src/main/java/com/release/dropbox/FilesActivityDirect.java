@@ -437,7 +437,13 @@ public class FilesActivityDirect extends DropboxActivity {
                 fab3.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.VISIBLE);
             }
-            recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
+            gridLayoutManager.setReverseLayout(false);
+            gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
+            gridLayoutManager.setSmoothScrollbarEnabled(true);
+            gridLayoutManager.setItemPrefetchEnabled(true);
+            gridLayoutManager.setUsingSpansToEstimateScrollbarDimensions(true);
+            recyclerView.setLayoutManager(gridLayoutManager);
             recyclerView.setAdapter(mFilesAdapter);
 //            getSupportActionBar().setSubtitle(mFilesAdapter.getItemCount() + " Total Images");
             paket_name = findViewById(R.id.paket_name_oflistfiles);

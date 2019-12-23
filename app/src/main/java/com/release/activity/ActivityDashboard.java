@@ -837,6 +837,11 @@ public class ActivityDashboard extends AppCompatActivity {
                 Intent intent3 = new Intent(getApplicationContext(), ActivityMyLocation.class);
                 startActivity(intent3);
                 return  true;
+            case R.id.nav_signature :
+                Intent intent4 = new Intent(getApplicationContext(), ActivitySignature.class);
+                startActivity(intent4);
+                break;
+
         }
         return super.onOptionsItemSelected(item);
     }

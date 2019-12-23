@@ -52,7 +52,7 @@ public class ActivityProgressSerapan extends AppCompatActivity {
         progressBar = findViewById(R.id.progress_listprogressserapan);
         progressBar.setVisibility(View.VISIBLE);
         textnofound.setVisibility(View.GONE);
-        getSupportActionBar().setTitle("Progres Serapan Paket Non-Fisik");
+        getSupportActionBar().setTitle("Serapan Keuangan Paket Non-Fisik");
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + nama_paket + "</small>"));
         Call<DataResponseSerapan> callserapan = apiInterface.getSerapan(id_anggaran);
         callserapan.enqueue(new Callback<DataResponseSerapan>() {

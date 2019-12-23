@@ -45,7 +45,9 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.views.MapView;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import es.dmoral.toasty.Toasty;
@@ -416,37 +418,52 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                         final String pr_tanggal = response.body().getData().get(i).getPrTanggal();
                                         final String pr_real = response.body().getData().get(i).getPrReal();
                                         final String pr_target = response.body().getData().get(i).getPrTarget();
+                                        final String pa_awal_kontrak = response.body().getData().get(i).getPaAwalKontrak();
 
                                         marker.setPosition(point);
                                         marker.setTextLabelBackgroundColor(getResources().getColor(R.color.colorMain));
                                         marker.setTextLabelFontSize(14);
                                         marker.setTextLabelForegroundColor(getResources().getColor(R.color.colorMain));
 
-                                        if(pr_tanggal != null && pr_real != null && pr_real != null){
-                                            String kriteria = Kriteria.get_kriteria(pr_tanggal, pr_real, pr_real);
-                                            switch (kriteria.toLowerCase()){
-                                                case "kritis" :
-                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_kritis));
-                                                    break;
-                                                case "terlambat" :
-                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_lambat));
-                                                    break;
-                                                case "wajar" :
-                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_wajar));
-                                                    break;
-                                                case "baik" :
-                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
-                                                    break;
-                                                case "selesai" :
-                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
-                                                    break;
-                                                case "belum mulai" :
-                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum));
-                                                    break;
-                                            }
-                                        }else{
-                                            marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum));
+//                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                        SimpleDateFormat sdf = new SimpleDateFormat("dd");
+
+                                        try{
+                                            String thisdate = sdf.format(new Date());
+                                            Date date1 = sdf.parse(pr_tanggal);
+                                            Date date2 = sdf.parse(thisdate);
+
+
+
+                                        }catch (Exception e){
+                                            e.printStackTrace();
                                         }
+
+//                                        if(pr_tanggal != null && (pr_real != null || !pr_real.equals("0")) && pr_real != null){
+//                                            String kriteria = Kriteria.get_kriteria(pr_tanggal, pr_real, pr_real);
+//                                            switch (kriteria.toLowerCase()){
+//                                                case "kritis" :
+//                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_kritis));
+//                                                    break;
+//                                                case "terlambat" :
+//                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_lambat));
+//                                                    break;
+//                                                case "wajar" :
+//                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_wajar));
+//                                                    break;
+//                                                case "baik" :
+//                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
+//                                                    break;
+//                                                case "selesai" :
+//                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_baik));
+//                                                    break;
+//                                                case "belum mulai" :
+//                                                    marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum));
+//                                                    break;
+//                                            }
+//                                        }else{
+//                                            marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum));
+//                                        }
 
                                         marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                                         marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
