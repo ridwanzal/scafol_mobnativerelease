@@ -21,7 +21,7 @@
     <string name="update_editlokasi">Edit Lokasi</string>
     <string name="update_progress">Progres Fisik</string>
     <string name="update_progress_keu">Progres Keuangan</string>
-    <string name="update_progress_nonfisik">Progres Non-Fisik</string>
+    <string name="update_progress_nonfisik">Progres Keuangan</string>
     <string name="catatan">Catatan</string>
     <string name="update_penyediajasa">Penyedia Jasa</string>
     <string name="update_upload">Upload Data</string>

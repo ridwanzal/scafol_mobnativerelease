@@ -16,6 +16,11 @@
         android:visible="false"
         android:title="Search" />
     <item
+        android:id="@+id/nav_signature"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_create_white_24dp"
+        android:title="Search" />
+    <item
         android:id="@+id/nav_profile"
         app:showAsAction="always"
         android:icon="@drawable/ic_person_outline_black_24dp"

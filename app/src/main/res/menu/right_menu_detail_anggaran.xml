@@ -4,7 +4,7 @@
     <item
         android:id="@+id/nav_progress_anggaran"
         android:iconTint="@color/colorwhite"
-        android:title="Progres Non-Fisik" />
+        android:title="Progres Keuangan" />
     <item
         android:id="@+id/nav_uploadphoto_anggaran"
         app:showAsAction="always"
