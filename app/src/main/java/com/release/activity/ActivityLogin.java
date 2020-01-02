@@ -167,9 +167,18 @@ public class ActivityLogin extends AppCompatActivity{
                                                     login_bidang);
                                         }
 
-                                        Intent intent = new Intent(getApplicationContext(), ActivityDashboard.class);
-                                        startActivity(intent);
-                                        finish();
+                                        // to do task 6 Jan 2020
+
+                                        if(login_role.equals("Superadmin")){ // go to superadmin
+//                                            Toast.makeText(ActivityLogin.this, "Ini super admin", Toast.LENGTH_SHORT).show();
+                                            Log.w(TAG, "Super admin view");
+                                        }else{
+                                            Log.w(TAG, "admin view");
+                                            Intent intent = new Intent(getApplicationContext(), ActivityDashboard.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+
 
                                     }
                                 }else{
