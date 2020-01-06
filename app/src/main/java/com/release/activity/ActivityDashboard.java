@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -40,9 +41,11 @@ import com.release.dropbox.DropboxActivity;
 import com.release.dropbox.UserActivity;
 import com.release.model.Anggaran;
 import com.release.model.DataResponseAnggaran;
+import com.release.model.DataResponsePAS;
 import com.release.model.DataResponseUsers;
 import com.release.model.PaketDashboard;
 import com.release.model.DataResponsePA;
+import com.release.model.PaketDashboardSuper;
 import com.release.model.User;
 import com.release.receiver.NotificationPublisher;
 import com.release.restapi.ApiClient;
@@ -106,6 +109,7 @@ public class ActivityDashboard extends AppCompatActivity {
     private String role;
     private String dinas_id;
     private String user_id;
+    private String daerah_id;
     private String bi_id;
     private String user_fullname;
     private String user_name;
@@ -136,6 +140,7 @@ public class ActivityDashboard extends AppCompatActivity {
         role = user.get(SessionManager.KEY_ROLE);
         dinas_id =  user.get(SessionManager.KEY_DINASID);
         user_id =  user.get(SessionManager.KEY_USERID);
+        daerah_id = user.get(SessionManager.KEY_DAERAH_ID);
         bi_id = user.get(SessionManager.KEY_BIDANG);
         user_fullname = user.get(SessionManager.KEY_NAME);
         String user_name = user.get(SessionManager.KEY_USERNAME);
@@ -668,19 +673,86 @@ public class ActivityDashboard extends AppCompatActivity {
                     }
                 }).start();
             }else if(role.toLowerCase().equals("superadmin")){
-                show_list4.setVisibility(View.VISIBLE);
+                Toast.makeText(getApplicationContext(), "Daerah id : " + daerah_id, Toast.LENGTH_LONG);
+                Log.d(TAG, "Daerah id : " + daerah_id);
+                show_list4.setVisibility(View.GONE);
                 show_list.setVisibility(View.GONE);
                 show_list2.setVisibility(View.GONE);
-//                new Thread(new Runnable() {
-//                    public void run() {
-//                        try {
-//                            Thread.sleep(500);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                        mHandler.sendMessage(Message.obtain(mHandler, 1));
-//                    }
-//                }).start();
+
+                Call<DataResponsePAS> callinfopaket_super = apiInterface.infoPaketSuper(daerah_id);
+                callinfopaket_super.enqueue(new Callback<DataResponsePAS>() {
+                    @Override
+                    public void onResponse(Call<DataResponsePAS> call, Response<DataResponsePAS> response) {
+                        if(response.code() == 200){
+                            ArrayList<PaketDashboardSuper> result = response.body().getData();
+                            String paket_all = "";
+                            String paket_progress = "";
+                            String paket_belum = "";
+                            String paket_selesai = "";
+                            for(int i = 0; i < result.size(); i++){
+                                paket_all = result.get(i).getTotalPaket();
+                                paket_progress = result.get(i).getPaketProgress();
+                                paket_belum = result.get(i).getPaketBelumMulai();
+                                paket_selesai = result.get(i).getPaketSelesai();
+                                String reformat1 = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguDaerah());
+                                String reformat2 = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getSisaPaguDaerah());
+                                String reformat3 = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealDaerah());
+
+                                tx_dashpagu.setText(reformat1);
+                                tx_dashsisa.setText(reformat2);
+                                tx_dashreal.setText(reformat3);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataResponsePAS> call, Throwable t) {
+
+                    }
+                });
+
+
+                Call<DataResponsePAS> callinfopaketsuper_detail = apiInterface.infoPaketDetailSuper(daerah_id);
+                callinfopaketsuper_detail.enqueue(new Callback<DataResponsePAS>() {
+                    @Override
+                    public void onResponse(Call<DataResponsePAS> call, Response<DataResponsePAS> response) {
+                        if(response.code() == 200){
+                            Toast.makeText(getApplicationContext(), "Ini response " + response.code(), Toast.LENGTH_LONG );
+                            Log.d(TAG, "Ini response : " + response.code());
+                            ArrayList<PaketDashboardSuper> result = response.body().getData();
+                            String paket_all = "";
+                            String paket_progress = "";
+                            String paket_belum = "";
+                            String paket_selesai = "";
+                            for(int i = 0; i < result.size(); i++){
+                                paket_all = result.get(i).getTotalPaket();
+                                paket_progress = result.get(i).getPaketProgress();
+                                paket_belum = result.get(i).getPaketBelumMulai();
+                                paket_selesai = result.get(i).getPaketSelesai();
+                                tx_dashtotalpaket.setText(paket_all + "");
+                                tx_dashongoing.setText(paket_progress + "");
+                                tx_dashbelum.setText(paket_belum + "");
+                                tx_dashselesai.setText(paket_selesai + "");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataResponsePAS> call, Throwable t) {
+
+                    }
+                });
+
+                new Thread(new Runnable() {
+                    public void run() {
+                        try {
+                            Thread.sleep(500);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        mHandler.sendMessage(Message.obtain(mHandler, 1));
+                    }
+                }).start();
             }
 
             btn_mapdash.setOnClickListener(new View.OnClickListener() {

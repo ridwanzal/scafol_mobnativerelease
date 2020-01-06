@@ -25,27 +25,13 @@ public class User implements Serializable {
     private String isactive;
     @SerializedName("email")
     private String email;
+    @SerializedName("daerah_id")
+    private String daerahId;
 
-    public User(String userId, String dinasId, String biId, String nama, String username, String telephone,
-                    String bagian, String role, String isactive){
+    public User(String userId, String dinasId, String biId, String nama, String username, String telephone, String bagian, String role, String isactive, String email, String daerah_id) {
         this.userId = userId;
         this.dinasId = dinasId;
         this.biId = biId;
-        this.userId = userId;
-        this.nama = nama;
-        this.username = username;
-        this.telephone = telephone;
-        this.bagian = bagian;
-        this.role = role;
-        this.isactive = isactive;
-    }
-
-    public User(String userId, String dinasId, String biId, String nama, String username, String telephone,
-                String bagian, String role, String isactive, String email){
-        this.userId = userId;
-        this.dinasId = dinasId;
-        this.biId = biId;
-        this.userId = userId;
         this.nama = nama;
         this.username = username;
         this.telephone = telephone;
@@ -53,6 +39,15 @@ public class User implements Serializable {
         this.role = role;
         this.isactive = isactive;
         this.email = email;
+        this.daerahId = daerah_id;
+    }
+
+    public String getDaerah_id() {
+        return daerahId;
+    }
+
+    public void setDaerah_id(String daerah_id) {
+        this.daerahId = daerah_id;
     }
 
     public String getUserId() {

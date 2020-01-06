@@ -63,6 +63,7 @@ public class ActivityLogin extends AppCompatActivity{
     private String login_email = "";
     private String login_role = "";
     private String login_bidang = "";
+    private String login_daerahid = "";
 
     private Boolean check_conn;
 
@@ -157,6 +158,7 @@ public class ActivityLogin extends AppCompatActivity{
                                             login_role = data.get(i).getRole();
                                             login_email = "";
                                             login_bidang = data.get(i).getBiId();
+                                            login_daerahid = data.get(i).getDaerah_id();
                                             sessionManager.createLoginSessionUsername(
                                                     login_name,
                                                     login_username,
@@ -164,7 +166,9 @@ public class ActivityLogin extends AppCompatActivity{
                                                     login_dinasid,
                                                     login_email,
                                                     login_role,
-                                                    login_bidang);
+                                                    login_bidang,
+                                                    login_daerahid
+                                                    );
                                         }
 
                                         // to do task 6 Jan 2020
@@ -172,9 +176,14 @@ public class ActivityLogin extends AppCompatActivity{
                                         if(login_role.equals("Superadmin")){ // go to superadmin
 //                                            Toast.makeText(ActivityLogin.this, "Ini super admin", Toast.LENGTH_SHORT).show();
                                             Log.w(TAG, "Super admin view");
+                                            Intent intent2 = new Intent(getApplicationContext(), ActivityDashboard.class);
+                                            intent2.putExtra("flagrole", "1");
+                                            startActivity(intent2);
+                                            finish();
                                         }else{
                                             Log.w(TAG, "admin view");
                                             Intent intent = new Intent(getApplicationContext(), ActivityDashboard.class);
+                                            intent.putExtra("flagrole", "2");
                                             startActivity(intent);
                                             finish();
                                         }

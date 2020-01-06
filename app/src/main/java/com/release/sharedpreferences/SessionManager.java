@@ -36,6 +36,8 @@ public class SessionManager {
 
     public static final String KEY_DINASID = "dinasid";
 
+    public static final String KEY_DAERAH_ID = "daerahid";
+
     public static final String KEY_EMAIL = "email";
 
     public static final String KEY_ROLE = "role";
@@ -49,7 +51,7 @@ public class SessionManager {
     }
 
 
-    public void createLoginSessionUsername(String nama, String username, String userid, String dinasid, String email, String role, String bi_id){
+    public void createLoginSessionUsername(String nama, String username, String userid, String dinasid, String email, String role, String bi_id, String daerah_id){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(KEY_NAME, nama);
@@ -59,6 +61,7 @@ public class SessionManager {
         editor.putString(KEY_EMAIL, email);
         editor.putString(KEY_ROLE, role);
         editor.putString(KEY_BIDANG, bi_id);
+        editor.putString(KEY_DAERAH_ID, daerah_id);
         editor.commit();
     }
 
@@ -89,7 +92,7 @@ public class SessionManager {
         user.put(KEY_DINASID, pref.getString(KEY_DINASID, null));
         user.put(KEY_ROLE, pref.getString(KEY_ROLE, null));
         user.put(KEY_BIDANG, pref.getString(KEY_BIDANG, null));
-
+        user.put(KEY_DAERAH_ID, pref.getString(KEY_DAERAH_ID, null));
         // return user
         return user;
     }

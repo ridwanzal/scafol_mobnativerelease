@@ -9,6 +9,7 @@ import com.release.model.DataResponseInfo;
 import com.release.model.DataResponseKegiatanAnggaran;
 import com.release.model.DataResponsePA;
 import com.release.model.DataResponseKegiatan;
+import com.release.model.DataResponsePAS;
 import com.release.model.DataResponsePJ;
 import com.release.model.DataResponsePaket;
 import com.release.model.DataResponseProgress;
@@ -161,6 +162,12 @@ public interface ApiInterface {
     @GET("login")
     Call<DataResponse> checkLogin(@Query("username") String username, @Query("password") String password);
 
+    @GET("dashboardsuper/total_pagu_daerah")
+    Call<DataResponsePAS> infoPaketSuper(@Query("daerah_id") String daerah_id);
+
+    @GET("dashboardsuper/total_paket_daerah")
+    Call<DataResponsePAS> infoPaketDetailSuper(@Query("daerah_id") String daerah_id);
+
     // role pptk
     @GET("dashboardadmin")
     Call<DataResponsePA> infoPaketAdmin(@Query("dinas_id") String dinas_id);
@@ -193,7 +200,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("paket/updatemap/")
-    Call<DataResponsePaket> updateMap(@Field("pa_id") String pa_id,  @Field("pa_lokasi") String pa_lokasi, @Field("pa_loc_latitude") String pa_loc_latitude, @Field("pa_loc_longitude") String pa_loc_longitude);
+    Call<DataResponsePaket> updateMap(@Path("pa_id") String pa_id,  @Field("pa_lokasi") String pa_lokasi, @Field("pa_loc_latitude") String pa_loc_latitude, @Field("pa_loc_longitude") String pa_loc_longitude);
 
     @FormUrlEncoded
     @POST("paket/updatekontrak/")

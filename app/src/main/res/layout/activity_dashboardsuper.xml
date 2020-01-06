@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_container_dashbaord"
+    android:background="@drawable/rectangle_black"
+    >
+
+<LinearLayout
+    android:id="@+id/container_dashboards"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    tools:context="com.release.activity.ActivityDashboardSuper">
+            <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingTop="5dp"
+            android:background="#000"
+            android:paddingBottom="15dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tx_namauser"
+                            android:ellipsize="end"
+                            android:drawableLeft="@drawable/ic_account_circle_black_24dp"
+                            android:drawableTint="@color/colorwhite"
+                            android:drawablePadding="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+                            android:maxLines="1"
+                            android:text="Andry"
+                            android:textColor="#fff"
+                            android:layout_marginLeft="10dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/linear_calendar"
+                android:clickable="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:orientation="vertical" >
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tx_datecalendar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginLeft="20dp"
+                            android:singleLine="true"
+                            android:layout_weight="1"
+                            android:text="2019-07-30"
+                            android:drawableLeft="@drawable/ic_date_range_black_24dp"
+                            android:drawablePadding="10dp"
+                            android:layout_marginRight="15dp"
+                            android:textColor="#fff" />
+                    </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_gravity="left"
+            app:cardCornerRadius="2dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_height="81dp">
+
+            <LinearLayout
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingTop="15dp"
+                android:paddingLeft="20dp"
+                android:paddingBottom="15dp"
+                android:paddingRight="20dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_height="20dp"
+                    android:layout_width="20dp"
+                    android:background="@drawable/ic_coin_blue"
+                    android:backgroundTint="@color/colorBlue"
+                    android:layout_gravity="center_vertical"
+                    />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_gravity="left"
+                        android:text="Total Pagu"
+                        android:textColor="#aaa"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/tx_dashpagu"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text=". . ."
+                        android:textColor="#444"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_gravity="left"
+        app:cardCornerRadius="2dp"
+        android:layout_marginTop="-5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="81dp">
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="15dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="15dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/colorAccent"
+                android:background="@drawable/ic_coin_blue" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="left"
+                    android:text="Total Realisasi"
+                    android:textColor="#aaa"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tx_dashreal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text=". . ."
+                    android:textColor="#444"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_gravity="left"
+        android:layout_marginTop="-5dp"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="2dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="89dp">
+
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingTop="15dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="30dp"
+            android:paddingRight="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center_vertical"
+                android:backgroundTint="@color/colorRed"
+                android:background="@drawable/ic_coin_blue" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text="Sisa Pagu"
+                    android:textColor="#aaa"
+                    />
+
+                <TextView
+                    android:id="@+id/tx_dashsisa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:text=". . ."
+                    android:textColor="#444"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+<!--    <LinearLayout-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_weight="1"-->
+<!--        android:orientation="horizontal">-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="vertical" >-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_gravity="left"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:layout_height="wrap_content">-->
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:paddingTop="15dp"-->
+<!--                    android:paddingBottom="15dp"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_gravity="left"-->
+<!--                        android:text="Total Paket"-->
+<!--                        android:textColor="#aaa"-->
+<!--                        />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tx_dashtotalpaket"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="left"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text=". . . "-->
+<!--                        android:textColor="#444"-->
+<!--                        android:textSize="22sp"-->
+<!--                        android:textStyle="bold" />-->
+<!--                </LinearLayout>-->
+<!--            </androidx.cardview.widget.CardView>-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_weight="1"-->
+<!--            android:orientation="vertical" >-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_gravity="left"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:paddingTop="15dp"-->
+<!--                    android:paddingBottom="15dp"-->
+<!--                    android:layout_gravity="center_vertical"-->
+<!--                    android:layout_height="wrap_content">-->
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="left"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text="Total Paket Ongoing"-->
+<!--                        android:textColor="#aaa" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tx_dsahongoing"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_gravity="left"-->
+<!--                        android:layout_marginLeft="20dp"-->
+<!--                        android:layout_weight="1"-->
+<!--                        android:text=". . . "-->
+<!--                        android:textColor="#444"-->
+<!--                        android:textSize="22sp"-->
+<!--                        android:textStyle="bold" />-->
+<!--                </LinearLayout>-->
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--        </LinearLayout>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--    android:layout_gravity="center"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:layout_weight="1"-->
+<!--    android:orientation="horizontal">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_weight="1"-->
+<!--        android:orientation="vertical" >-->
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_gravity="left"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <TextView-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:text="Paket Belum Mulai"-->
+<!--                    android:textColor="#aaa"-->
+<!--                    />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tx_dashpaketbelum"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text=". . . "-->
+<!--                    android:textColor="#444"-->
+<!--                    android:textSize="22sp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </LinearLayout>-->
+
+
+<!--        </androidx.cardview.widget.CardView>-->
+
+<!--    </LinearLayout>-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_weight="1"-->
+<!--        android:orientation="vertical" >-->
+
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_gravity="left"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:orientation="vertical"-->
+<!--                android:paddingTop="15dp"-->
+<!--                android:paddingBottom="15dp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_height="wrap_content">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="Paket Selesai"-->
+<!--                    android:textColor="#aaa" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tx_dashpaketselesai"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="left"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text=". . ."-->
+<!--                    android:textColor="#444"-->
+<!--                    android:textSize="22sp"-->
+<!--                    android:textStyle="bold" />-->
+<!--            </LinearLayout>-->
+
+<!--        </androidx.cardview.widget.CardView>-->
+
+
+<!--    </LinearLayout>-->
+<!--    &lt;!&ndash; put it here&ndash;&gt;-->
+
+<!--</LinearLayout>-->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:fadeScrollbars="true"
+        android:scrollbars="none"
+        android:scrollbarAlwaysDrawHorizontalTrack="false"
+        android:layout_height="match_parent"
+        android:layout_below="@id/btn_tolist2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingTop="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="15dp"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="Total Paket Fisik"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:id="@+id/tx_dashtotalpaket"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text=". . . "
+                        android:textColor="#444"
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@drawable/data_usage_blue"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingRight="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="Paket yang dikerjakan"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:id="@+id/tx_dsahongoing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text=". . . "
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@drawable/data_usage_green"
+                        android:textColor="#444"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingTop="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="Paket Belum Mulai"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:id="@+id/tx_dashpaketbelum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text=". . . "
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@drawable/data_usage_gray"
+                        android:textColor="#444"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="5dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingTop="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="Paket Selesai"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:id="@+id/tx_dashpaketselesai"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text=". . . "
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@drawable/data_usage_orange"
+                        android:textColor="#444"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical"
+                    android:paddingTop="15dp"
+                    android:paddingRight="15dp"
+                    android:paddingBottom="15dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:layout_weight="1"
+                        android:text="Total Paket Non Fisik"
+                        android:textColor="#aaa" />
+
+                    <TextView
+                        android:id="@+id/tx_dashtotalpaket_nonfisik"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="20dp"
+                        android:drawablePadding="5dp"
+                        android:drawableLeft="@drawable/data_usage"
+                        android:layout_weight="1"
+                        android:textColor="#444"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_marginTop="3dp"
+    android:id="@+id/rel_bottomdash"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <Button
+        android:id="@+id/btn_mapdash"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#555"
+        android:clickable="true"
+        android:paddingRight="10dp"
+        android:paddingLeft="15dp"
+        android:drawableLeft="@drawable/maps"
+        android:textStyle="normal"
+        android:drawableRight="@drawable/ic_next"
+        android:background="@drawable/button_ripple_white"
+        android:drawablePadding="10dp"
+        android:textAlignment="viewStart"
+        android:text="Lihat Map" />
+
+    <Button
+        android:id="@+id/btn_chartdash"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_mapdash"
+        android:textColor="#555"
+        android:layout_marginTop="-2dp"
+        android:clickable="true"
+        android:paddingRight="10dp"
+        android:paddingLeft="15dp"
+        android:drawableLeft="@drawable/chart"
+        android:textStyle="normal"
+        android:drawableRight="@drawable/ic_keyboard_arrow_right_black_24dp"
+        android:background="@drawable/button_ripple_white"
+        android:drawablePadding="10dp"
+        android:textAlignment="viewStart"
+        android:visibility="gone"
+        android:text="Lihat Grafik Realisasi" />
+
+    <Button
+        android:id="@+id/btn_tolist"
+        android:layout_below="@id/btn_chartdash"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#555"
+        android:clickable="true"
+        android:paddingRight="10dp"
+        android:textAlignment="viewStart"
+        android:layout_marginTop="-2dp"
+        android:paddingLeft="15dp"
+        android:textStyle="normal"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/paket_fisik"
+        android:drawableRight="@drawable/ic_next"
+        android:background="@drawable/button_ripple_generals"
+        android:text="Lihat Semua Paket Fisik" />
+
+    <Button
+        android:id="@+id/btn_tolist2"
+        android:visibility="visible"
+        android:layout_width="fill_parent"
+        android:layout_below="@+id/btn_tolist"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:paddingRight="10dp"
+        android:textColor="#555"
+        android:paddingLeft="15dp"
+        android:layout_marginTop="-2dp"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@drawable/paket_nonfisik"
+        android:textAlignment="viewStart"
+        android:drawableRight="@drawable/ic_next"
+        android:background="@drawable/button_ripple_generals"
+        android:text="Lihat Semua Paket Non-Fisik" />
+
+
+        <Button
+            android:id="@+id/btn_tolist4"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_below="@+id/btn_tolist2"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:paddingRight="10dp"
+            android:textColor="#555"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="-2dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/paket_nonfisik"
+            android:textAlignment="viewStart"
+            android:drawableRight="@drawable/ic_next"
+            android:background="@drawable/button_ripple_generals"
+            android:text="Lihat Semua Daftar Kegiatan" />
+
+
+        <Button
+            android:id="@+id/btn_tolist3"
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_below="@+id/btn_tolist2"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:paddingRight="10dp"
+            android:textColor="#555"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="-2dp"
+            android:drawablePadding="10dp"
+            android:drawableLeft="@drawable/paket_nonfisik"
+            android:textAlignment="viewStart"
+            android:drawableRight="@drawable/ic_next"
+            android:background="@drawable/button_ripple_generals"
+            android:text="Lihat Daftar Dinas" />
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/dashchart"
+        android:layout_below="@id/btn_tolist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
+</LinearLayout>
+</ScrollView>
