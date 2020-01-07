@@ -73,7 +73,8 @@ public class ActivityDashboard extends AppCompatActivity {
 
     private Button show_list; // button paket fisik
     private Button show_list2; // button anggaran
-    private Button show_list4; // button daftar dinas
+    private Button show_list4;
+    private Button show_list3; // button daftar dinas
     private Button btn_mapdash;
     private Button btn_chartdash;
     private static String TAG = "ActivityDashboard";
@@ -147,6 +148,7 @@ public class ActivityDashboard extends AppCompatActivity {
         show_list = findViewById(R.id.btn_tolist);
         show_list2 = findViewById(R.id.btn_tolist2);
         show_list4 = findViewById(R.id.btn_tolist4);
+        show_list3 = findViewById(R.id.btn_tolist3);
         main_container_dashbaord = findViewById(R.id.main_container_dashbaord);
         progress = new ProgressDialog(this);
         final View parentLayout = findViewById(android.R.id.content);
@@ -678,6 +680,7 @@ public class ActivityDashboard extends AppCompatActivity {
                 show_list4.setVisibility(View.GONE);
                 show_list.setVisibility(View.GONE);
                 show_list2.setVisibility(View.GONE);
+                show_list3.setVisibility(View.VISIBLE);
 
                 Call<DataResponsePAS> callinfopaket_super = apiInterface.infoPaketSuper(daerah_id);
                 callinfopaket_super.enqueue(new Callback<DataResponsePAS>() {
@@ -697,7 +700,6 @@ public class ActivityDashboard extends AppCompatActivity {
                                 String reformat1 = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalPaguDaerah());
                                 String reformat2 = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getSisaPaguDaerah());
                                 String reformat3 = "Rp. " +  formatMoneyIDR.convertIDR(result.get(i).getTotalRealDaerah());
-
                                 tx_dashpagu.setText(reformat1);
                                 tx_dashsisa.setText(reformat2);
                                 tx_dashreal.setText(reformat3);
@@ -742,6 +744,17 @@ public class ActivityDashboard extends AppCompatActivity {
 
                     }
                 });
+
+                show_list3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(ActivityDashboard.this, "Klik daftar dinas", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), ActivityDinas.class);
+                        intent.putExtra("daerah_id", daerah_id);
+                        startActivity(intent);
+                    }
+                });
+
 
                 new Thread(new Runnable() {
                     public void run() {

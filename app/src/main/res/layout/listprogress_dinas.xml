@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- START*** Root Container *** -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="#f6f6f6"
+    >
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/layout_paketid"
+        android:clickable="true"
+        android:background="#fff"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="4dp"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:id="@+id/lin_realisasis2"
+            android:paddingRight="20dp"
+            android:layout_below="@+id/lin_realisasis"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/dinas_nama"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:text="Dinas Examples" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/containers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:visibility="gone"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_below="@+id/lin_realisasis2"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:text="Total Pagu"
+                android:textColor="#aaa"
+                android:textSize="14sp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/containers2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/containers"
+            android:layout_marginTop="5dp"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:visibility="gone"
+            android:paddingBottom="10dp">
+            <TextView
+                android:id="@+id/dinas_pagu"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:text="-" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/containers3"
+            android:layout_below="@id/containers2"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_weight="2"
+                android:text="Realisasi"
+                android:textSize="14sp"
+                android:textColor="#aaa"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/containers4"
+            android:layout_below="@id/containers3"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:paddingBottom="10dp"
+            android:paddingLeft="20dp"
+            android:visibility="gone"
+            android:paddingRight="20dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_weight="2"
+                android:text="-"
+                android:textSize="14sp"
+                android:id="@+id/dinas_realisasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/containers5"
+            android:layout_below="@id/containers4"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_weight="2"
+                android:text="Sisa Pagu"
+                android:textSize="14sp"
+                android:textColor="#aaa"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/containers6"
+            android:layout_below="@id/containers5"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:paddingBottom="20dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_weight="2"
+                android:text="-"
+                android:textSize="14sp"
+                android:id="@+id/dinas_sisa_pagu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <!-- TextView Employee Name -->
+
+        <View android:background="#ccc"
+            android:layout_below="@+id/containers6"
+            android:layout_width = "match_parent"
+            android:layout_height="1dp"/>
+    </RelativeLayout>
+
+    <!-- END*** Root Container *** -->
+</ScrollView>

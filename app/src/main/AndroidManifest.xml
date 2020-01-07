@@ -138,6 +138,9 @@
             android:label="@string/title_detail_paket"
             android:windowSoftInputMode="adjustResize" />
         <activity
+            android:name=".activity.ActivityDinas"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name=".activity.ActivityMapDashboard"
             android:label="@string/title_map_dash"
             android:windowSoftInputMode="adjustResize" />

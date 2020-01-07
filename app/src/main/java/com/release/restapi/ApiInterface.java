@@ -168,6 +168,9 @@ public interface ApiInterface {
     @GET("dashboardsuper/total_paket_daerah")
     Call<DataResponsePAS> infoPaketDetailSuper(@Query("daerah_id") String daerah_id);
 
+    @GET("dashboardsuper/instansi")
+    Call<DataResponseDinas> getDinasSuper(@Query("daerah_id") String daerah_id);
+
     // role pptk
     @GET("dashboardadmin")
     Call<DataResponsePA> infoPaketAdmin(@Query("dinas_id") String dinas_id);
