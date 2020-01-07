@@ -4,6 +4,7 @@ import com.release.model.DataResponse;
 import com.release.model.DataResponseAnggaran;
 import com.release.model.DataResponseBidang;
 import com.release.model.DataResponseCatatan;
+import com.release.model.DataResponseDaerah;
 import com.release.model.DataResponseDinas;
 import com.release.model.DataResponseInfo;
 import com.release.model.DataResponseKegiatanAnggaran;
@@ -170,6 +171,9 @@ public interface ApiInterface {
 
     @GET("dashboardsuper/instansi")
     Call<DataResponseDinas> getDinasSuper(@Query("daerah_id") String daerah_id);
+
+    @GET("dashboardsuper/nama_daerah")
+    Call<DataResponseDaerah> getNamaDaerah(@Query("daerah_id") String daerah_id);
 
     // role pptk
     @GET("dashboardadmin")
