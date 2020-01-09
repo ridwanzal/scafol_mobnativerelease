@@ -675,6 +675,7 @@ public class ActivityDashboard extends AppCompatActivity {
                     }
                 }).start();
             }else if(role.toLowerCase().equals("superadmin")){
+                btn_mapdash.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Daerah id : " + daerah_id, Toast.LENGTH_LONG);
                 Log.d(TAG, "Daerah id : " + daerah_id);
                 show_list4.setVisibility(View.GONE);
@@ -719,7 +720,7 @@ public class ActivityDashboard extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<DataResponsePAS> call, Response<DataResponsePAS> response) {
                         if(response.code() == 200){
-                            Toast.makeText(getApplicationContext(), "Ini response " + response.code(), Toast.LENGTH_LONG );
+//                            Toast.makeText(getApplicationContext(), "Ini response " + response.code(), Toast.LENGTH_LONG );
                             Log.d(TAG, "Ini response : " + response.code());
                             ArrayList<PaketDashboardSuper> result = response.body().getData();
                             String paket_all = "";
@@ -748,7 +749,7 @@ public class ActivityDashboard extends AppCompatActivity {
                 show_list3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(ActivityDashboard.this, "Klik daftar dinas", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ActivityDashboard.this, "Klik daftar dinas", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(), ActivityDinas.class);
                         intent.putExtra("daerah_id", daerah_id);
                         startActivity(intent);

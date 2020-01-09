@@ -47,7 +47,7 @@ public class ActivityDinas extends AppCompatActivity {
         setContentView(R.layout.recycle_dinas);
         Intent intent = getIntent();
         daerah_id = intent.getStringExtra("daerah_id");
-        Toast.makeText(this, "=========== daerah_id " + daerah_id, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "=========== daerah_id " + daerah_id, Toast.LENGTH_SHORT).show();
         setTitle("Daftar Dinas");
         textnofound = findViewById(R.id.text_notfound_dinas);
         textnofound.setVisibility(View.GONE);
@@ -67,7 +67,6 @@ public class ActivityDinas extends AppCompatActivity {
 
             }
         });
-
 
 
         Call<DataResponseDinas> call_dinas = apiInterface.getDinasSuper(daerah_id);
