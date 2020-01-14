@@ -416,34 +416,43 @@ public class ActivityDetailPaket extends AppCompatActivity {
                     String real_percent = "";
                     String result = "";
                     String html_format = "";
+                    String format_progress;
+                    String result_format = "";
                     ArrayList<Progress> progressList = response.body().getData();
                     for(int i = 0; i < progressList.size(); i++){
                         if(progressList.get(i).getPr_tanggal() != null && progressList.get(i).getPr_real() != null && progressList.get(i).getPr_target() != null){
                             String kriteria = Kriteria.get_kriteria(progressList.get(i).getPr_tanggal(), progressList.get(i).getPr_real(), progressList.get(i).getPr_target());
+                            String real = String.valueOf(progressList.get(i).getPr_real());
+                            if(real.contains(".")){
+                                format_progress = real.split("\\.", -1)[0];
+                                result_format = format_progress;
+                            }else{
+                                result_format = progressList.get(i).getPr_real();
+                            }
                             switch (kriteria.toLowerCase()){
                                 case "kritis" :
-                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
+                                    progres_pekerjaan.setProgress((Integer.valueOf(result_format)));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "kritis"));
                                     break;
                                 case "terlambat" :
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + " terlambat"));
-                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
+                                    progres_pekerjaan.setProgress((Integer.valueOf(result_format)));
                                     break;
                                 case "wajar" :
-                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
+                                    progres_pekerjaan.setProgress((Integer.valueOf(result_format)));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " +" wajar" ));
                                     break;
                                 case "baik" :
-                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
+                                    progres_pekerjaan.setProgress((Integer.valueOf(result_format)));
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "baik" ));
                                     break;
                                 case "selesai" :
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "selesai" ));
-                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
+                                    progres_pekerjaan.setProgress((Integer.valueOf(result_format)));;
                                     break;
                                 case "belum mulai" :
                                     tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " % " + "belum mulai" ));
-                                    progres_pekerjaan.setProgress(Integer.valueOf(progressList.get(i).getPr_real()));
+                                    progres_pekerjaan.setProgress((Integer.valueOf(result_format)));
                                     break;
                             }
                         }else{
