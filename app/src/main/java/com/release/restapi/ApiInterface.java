@@ -206,8 +206,8 @@ public interface ApiInterface {
     // paket dan progress
 
     @FormUrlEncoded
-    @POST("paket/updatemap/")
-    Call<DataResponsePaket> updateMap(@Path("pa_id") String pa_id,  @Field("pa_lokasi") String pa_lokasi, @Field("pa_loc_latitude") String pa_loc_latitude, @Field("pa_loc_longitude") String pa_loc_longitude);
+    @POST("paket/updatemap")
+    Call<DataResponsePaket> updateMap(@Field("pa_id") String pa_id,  @Field("pa_lokasi") String pa_lokasi, @Field("pa_loc_latitude") String pa_loc_latitude, @Field("pa_loc_longitude") String pa_loc_longitude);
 
     @FormUrlEncoded
     @POST("paket/updatekontrak/")
