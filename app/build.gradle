@@ -84,4 +84,5 @@ dependencies {
     implementation 'androidx.vectordrawable:vectordrawable:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.github.smalam119:Easy-Signature-Android:0.3.0'
+
 }
