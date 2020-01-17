@@ -168,8 +168,19 @@ public class ActivityLogin extends AppCompatActivity{
                                                     login_role,
                                                     login_bidang,
                                                     login_daerahid
-                                                    );
+                                            );
+
                                         }
+
+                                        // To Do
+                                        /*
+                                        * Store data preference
+                                        * Dashboard
+                                        * Paket List
+                                        * Anggaran List
+                                        * Paket List Detail
+                                        * Anggaran List Detail
+                                        * */
 
                                         // to do task 6 Jan 2020
 

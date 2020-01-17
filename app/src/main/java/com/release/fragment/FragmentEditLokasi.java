@@ -1,5 +1,6 @@
 package com.release.fragment;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +29,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.SettingsClient;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.release.R;
@@ -52,14 +57,16 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import es.dmoral.toasty.Toasty;
+import pub.devrel.easypermissions.EasyPermissions;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class FragmentEditLokasi extends Fragment {
+public class FragmentEditLokasi extends Fragment implements EasyPermissions.PermissionCallbacks {
     public static String TAG = "FragmentEditLokasi";
     MapView map;
     MapEventsReceiver mapEventsReceiver;
@@ -78,9 +85,38 @@ public class FragmentEditLokasi extends Fragment {
     Handler mHandler;
     String id_paket;
     IMapController mapController;
+    GoogleApiClient mGoogleApiClient;
+    private static final int RC_LOCATION = 122;
+    private LocationRequest mLocationRequest;
+    private long UPDATE_INTERVAL = 10 * 1000;  /* 10 secs */
+    private long FASTEST_INTERVAL = 2000; /* 2 sec */
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    private void locationTask(){
+        if (EasyPermissions.hasPermissions(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION )&&
+                EasyPermissions.hasPermissions(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)) {
+            // Have permission, do the thing!
+            Toast.makeText(getActivity(), "Granted", Toast.LENGTH_LONG).show();
+            setMyLocation();
+        } else {
+            // Request one permission
+            EasyPermissions.requestPermissions(this, "Access to Fine Location",
+                    RC_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+        }
     }
 
     @Nullable
@@ -200,9 +236,11 @@ public class FragmentEditLokasi extends Fragment {
         setmylocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setMyLocation();
+//                setMyLocation();
+                locationTask();
             }
         });
+
 
 
         btn_changelocation.setOnClickListener(new View.OnClickListener() {
@@ -231,7 +269,7 @@ public class FragmentEditLokasi extends Fragment {
                             @Override
                             public void run() {
                                 try{
-                                    Thread.sleep(500);
+                                    Thread.sleep(300);
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }
@@ -294,6 +332,7 @@ public class FragmentEditLokasi extends Fragment {
                         call_reverselatlong.enqueue(new Callback<NominatimReverseMap>() {
                             @Override
                             public void onResponse(Call<NominatimReverseMap> call, Response<NominatimReverseMap> response) {
+                                Toast.makeText(getActivity(), "Problem change location " + call, Toast.LENGTH_SHORT).show();
                                 if(response.code() == 200){
                                     LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                                     View views = inflater.inflate(R.layout.dialog_mapdetail, null);
@@ -309,7 +348,8 @@ public class FragmentEditLokasi extends Fragment {
                             }
                             @Override
                             public void onFailure(Call<NominatimReverseMap> call, Throwable t) {
-
+                                Toast.makeText(getActivity(), "Problem change location " + call, Toast.LENGTH_SHORT).show();
+                                progressBar.setVisibility(View.GONE);
                             }
                         });
 
@@ -318,6 +358,8 @@ public class FragmentEditLokasi extends Fragment {
                         mapController.setCenter(startPoint);
                         // set marker
                         map.getOverlays().add(startMarker);
+                    }else{
+                        Toast.makeText(getActivity(), "location info " + location, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -355,4 +397,33 @@ public class FragmentEditLokasi extends Fragment {
         super.onPause();
         map.onResume();
     }
+
+//    protected void startLocationUpdates() {
+//
+//        // Create the location request to start receiving updates
+//        mLocationRequest = new LocationRequest();
+//        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+//        mLocationRequest.setInterval(UPDATE_INTERVAL);
+//        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+//
+//        // Create LocationSettingsRequest object using location request
+//        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder();
+//        builder.addLocationRequest(mLocationRequest);
+//        LocationSettingsRequest locationSettingsRequest = builder.build();
+//
+//        // Check whether location settings are satisfied
+//        // https://developers.google.com/android/reference/com/google/android/gms/location/SettingsClient
+//        SettingsClient settingsClient = LocationServices.getSettingsClient(this);
+//        settingsClient.checkLocationSettings(locationSettingsRequest);
+//
+//        // new Google API SDK v11 uses getFusedLocationProviderClient(this)
+//        getFusedLocationProviderClient(this).requestLocationUpdates(mLocationRequest, new LocationCallback() {
+//                    @Override
+//                    public void onLocationResult(LocationResult locationResult) {
+//                        // do work here
+//                        onLocationChanged(locationResult.getLastLocation());
+//                    }
+//                },
+//                Looper.myLooper());
+//    }
 }

@@ -50,7 +50,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="left"
                             android:maxLines="1"
-                            android:text="Andry"
+                            android:text="-"
                             android:textColor="#fff"
                             android:layout_marginLeft="10dp"
                             android:textStyle="bold" />
@@ -81,7 +81,7 @@
                             android:layout_marginLeft="20dp"
                             android:singleLine="true"
                             android:layout_weight="1"
-                            android:text="2019-07-30"
+                            android:text="-"
                             android:drawableLeft="@drawable/ic_date_range_black_24dp"
                             android:drawablePadding="10dp"
                             android:layout_marginRight="15dp"
