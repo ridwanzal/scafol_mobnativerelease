@@ -31,7 +31,6 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
 //          R.string.update_kurvas,
                 R.string.update_editkontrak,
                 R.string.update_editlokasi,
-                R.string.update_kurvas,
                 R.string.update_progress,
                 R.string.update_progress_keu,
                 R.string.catatan,
@@ -57,17 +56,17 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
 //                return new FragmentKurvaS();
                 return new FragmentEditLokasi();
             case 2 :
-            return new FragmentKurvaS();
-            case 3 :
                 return new FragmentProgress();
-            case 4 :
+            case 3 :
                 return new FragmentProgressKeuangan();
-            case 5 :
+            case 4 :
                 return new FragmentCatatan();
-            case 6 :
+            case 5 :
                 return new FragmentPenyediaJasa();
-            default:
+            case 6 :
                 return new FragmentKurvaS();
+            default:
+                return new FragmentEditKontrak();
         }
     }
 
@@ -80,6 +79,6 @@ public class SectionPagerAdapterUpdate extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         // Show 2 total pages.
-        return 7;
+        return 6;
     }
 }

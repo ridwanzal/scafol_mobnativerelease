@@ -269,7 +269,7 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
                             @Override
                             public void run() {
                                 try{
-                                    Thread.sleep(300);
+                                    Thread.sleep(100);
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }

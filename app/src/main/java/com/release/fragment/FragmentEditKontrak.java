@@ -246,7 +246,7 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                             @Override
                             public void run() {
                                 try{
-                                    Thread.sleep(500);
+                                    Thread.sleep(100);
                                 }catch (Exception e){
                                     e.printStackTrace();
                                 }

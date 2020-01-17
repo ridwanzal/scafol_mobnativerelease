@@ -218,7 +218,7 @@ public class ActivityMapDetail extends AppCompatActivity {
                                                     @Override
                                                     public void run() {
                                                         try{
-                                                            Thread.sleep(500);
+                                                            Thread.sleep(100);
                                                         }catch (Exception e){
                                                             e.printStackTrace();
                                                         }
@@ -257,7 +257,7 @@ public class ActivityMapDetail extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -395,7 +395,7 @@ public class ActivityMapDetail extends AppCompatActivity {
                                                         @Override
                                                         public void run() {
                                                             try{
-                                                                Thread.sleep(500);
+                                                                Thread.sleep(100);
                                                             }catch (Exception e){
                                                                 e.printStackTrace();
                                                             }
@@ -411,7 +411,7 @@ public class ActivityMapDetail extends AppCompatActivity {
                                     new Thread(new Runnable() {
                                         public void run() {
                                             try {
-                                                Thread.sleep(300);
+                                                Thread.sleep(100);
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }

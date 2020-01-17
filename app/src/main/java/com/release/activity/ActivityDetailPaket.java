@@ -138,7 +138,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
-        setContentView(R.layout.activity_paketdetail);
+        setContentView(R.layout.activity_paketdetailrev);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setSubtitle(Html.fromHtml("<small>" + "Informasi Detail Paket Fisik" + "</small>"));
 
@@ -536,7 +536,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    Thread.sleep(500);
+                    Thread.sleep(100);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -638,15 +638,15 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 startActivity(FilesActivityDirect.getIntent(ActivityDetailPaket.this, path_todropbox));
 //                startActivity(intent);
                 return true;
-            case R.id.nav_kurvasrencana :
-                Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
-                intent6.putExtra("position", 2);
-                intent6.putExtra("pa_id", id_paket);
-                intent6.putExtra("pa_nama", nama_paket);
-                intent6.putExtra("ke_id", ke_id);
-                intent6.putExtra("pa_pagu", pa_pagu);
-                startActivity(intent6);
-                return true;
+//            case R.id.nav_kurvasrencana :
+//                Intent intent6 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+//                intent6.putExtra("position", 2);
+//                intent6.putExtra("pa_id", id_paket);
+//                intent6.putExtra("pa_nama", nama_paket);
+//                intent6.putExtra("ke_id", ke_id);
+//                intent6.putExtra("pa_pagu", pa_pagu);
+//                startActivity(intent6);
+//                return true;
             case R.id.nav_editkontrak :
                 Intent intent2 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
 
@@ -682,7 +682,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
             case R.id.nav_progress :
                 Intent intent4 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
                 intent4.putExtra("pa_pagu", pa_pagu);
-                intent4.putExtra("position", 3);
+                intent4.putExtra("position", 2);
                 intent4.putExtra("pa_id", id_paket);
                 intent4.putExtra("pa_nama", nama_paket);
                 intent4.putExtra("ke_id", ke_id);
@@ -691,7 +691,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
             case R.id.nav_keu:
                 Intent intent8 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
                 intent8.putExtra("pa_pagu", pa_pagu);
-                intent8.putExtra("position", 4);
+                intent8.putExtra("position", 3);
                 intent8.putExtra("pa_id", id_paket);
                 intent8.putExtra("pa_nama", nama_paket);
                 intent8.putExtra("ke_id", ke_id);
@@ -700,7 +700,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
             case R.id.nav_catatan :
                 Intent intent7 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
                 intent7.putExtra("pa_pagu", pa_pagu);
-                intent7.putExtra("position", 5);
+                intent7.putExtra("position", 4);
                 intent7.putExtra("pa_id", id_paket);
                 intent7.putExtra("pa_nama", nama_paket);
                 intent7.putExtra("ke_id", ke_id);
@@ -708,7 +708,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 return true;
             case R.id.nav_penyediajasa :
                 Intent intent9 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
-                intent9.putExtra("position", 6);
+                intent9.putExtra("position", 5);
                 intent9.putExtra("pa_pagu", pa_pagu);
                 intent9.putExtra("pa_id", id_paket);
                 intent9.putExtra("pa_nama", nama_paket);
@@ -749,7 +749,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
             pj.setVisible(true);
             cat.setVisible(true);
             keu.setVisible(true);
-            kus.setVisible(true);
+            kus.setVisible(false);
             prog.setVisible(true);
             kont.setVisible(true);
             lok.setVisible(true);
