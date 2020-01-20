@@ -15,10 +15,13 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -83,8 +86,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
     private TextView text_satuan;
     private TextView text_volume;
-    private TextView text_tanggal_mulai;
-    private TextView text_tanggal_akhir;
+    private EditText text_tanggal_mulai;
+    private EditText text_tanggal_akhir;
 
     private TextView text_namapptk;
     private TextView text_emailpptk;
@@ -92,20 +95,20 @@ public class ActivityDetailPaket extends AppCompatActivity {
     private TextView text_bidangpptk;
     private TextView text_kegiatan;
 
-    private TextView text_nilaikontrak;
+    private EditText text_nilaikontrak;
     private TextView text_progress;
 
     private TextView maps_caption;
     private TextView tx_lasptprog;
 
-    private TextView text_dayaserap;
+    private EditText text_dayaserap;
     private TextView text_sisakontrak;
     private TextView text_sisaanggaran;
 
     private TextView lin_texttarget;
     private TextView lin_textreal;
     private TextView lin_textdeviasi;
-    private TextView text_nokontrak;
+    private EditText text_nokontrak;
 
     private TextView sisa_waktukerja;
     private CardView card_info_pptk;
@@ -132,6 +135,11 @@ public class ActivityDetailPaket extends AppCompatActivity {
     BigInteger sisa_kontrak_total;
     BigInteger sisa_anggaran_total;
     BigInteger pagu_total;
+
+    final int DRAWABLE_LEFT = 0;
+    final int DRAWABLE_TOP = 1;
+    final int DRAWABLE_RIGHT = 2;
+    final int DRAWABLE_BOTTOM = 3;
 
 
     @Override
@@ -199,9 +207,110 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
         progres_pekerjaan = findViewById(R.id.progres_pekerjaan);
 
+
+
         Intent intent = getIntent();
         id_paket = intent.getStringExtra("pa_id");
         Call<DataResponsePaket> call_paket = apiInterface.getPaketId(id_paket);
+        final Intent intents = getIntent();
+        final String id_paket = intents.getStringExtra("pa_id");
+        final String nama_paket = intents.getStringExtra("pa_nama");
+        final String pa_pagu = intents.getStringExtra("pa_pagu");
+        final String ke_id = intents.getStringExtra("ke_id");
+
+        final Intent intent2 = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+        intent2.putExtra("pa_pagu", pa_pagu);
+        intent2.putExtra("position", 0);
+        intent2.putExtra("pa_id", id_paket);
+        intent2.putExtra("pa_nama", nama_paket);
+        intent2.putExtra("ke_id", ke_id);
+
+
+        final Intent intent_keu = new Intent(ActivityDetailPaket.this, ActivityUpdateData.class);
+        intent_keu.putExtra("pa_pagu", pa_pagu);
+        intent_keu.putExtra("position", 3);
+        intent_keu.putExtra("pa_id", id_paket);
+        intent_keu.putExtra("pa_nama", nama_paket);
+        intent_keu.putExtra("ke_id", ke_id);
+
+        if(role.equals("Admin")){
+            text_nokontrak.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            text_nilaikontrak.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            text_tanggal_mulai.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            text_tanggal_akhir.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+            text_dayaserap.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+        }
+
+
+        text_nokontrak.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (text_nokontrak.getRight() - text_nokontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        intent2.putExtra("flag_update", "1");
+                        startActivity(intent2);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        text_nilaikontrak.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (text_nokontrak.getRight() - text_nokontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        intent2.putExtra("flag_update", "2");
+                        startActivity(intent2);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        text_tanggal_mulai.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (text_nokontrak.getRight() - text_nokontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        intent2.putExtra("flag_update", "3");
+                        startActivity(intent2);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        text_tanggal_akhir.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (text_nokontrak.getRight() - text_nokontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        intent2.putExtra("flag_update", "4");
+                        startActivity(intent2);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+        text_dayaserap.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (text_nokontrak.getRight() - text_nokontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        startActivity(intent_keu);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
         call_paket.enqueue(new Callback<DataResponsePaket>() {
             @Override
             public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
@@ -380,6 +489,8 @@ public class ActivityDetailPaket extends AppCompatActivity {
 
                 }
             }
+
+
 
             @Override
             public void onFailure(Call<DataResponsePaket> call, Throwable t) {
@@ -655,6 +766,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent2.putExtra("pa_id", id_paket);
                 intent2.putExtra("pa_nama", nama_paket);
                 intent2.putExtra("ke_id", ke_id);
+                intent2.putExtra("flag_update", "5");
                 startActivity(intent2);
                 return true;
             case R.id.nav_uploadoc :
@@ -667,6 +779,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent5.putExtra("path_dropbox", path_todropbox);
                 intent5.putExtra("pa_judul", nama_paket);
                 intent5.putExtra("upload_type", "2");
+                intent5.putExtra("flag_update", "");
                 startActivity(FilesActivityDirect.getIntent(ActivityDetailPaket.this, path_todropbox));
 //                startActivity(intent5);
                 return true;
@@ -677,6 +790,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent3.putExtra("pa_id", id_paket);
                 intent3.putExtra("pa_nama", nama_paket);
                 intent3.putExtra("ke_id", ke_id);
+                intent3.putExtra("flag_update", "");
                 startActivity(intent3);
                 return true;
             case R.id.nav_progress :
@@ -686,6 +800,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent4.putExtra("pa_id", id_paket);
                 intent4.putExtra("pa_nama", nama_paket);
                 intent4.putExtra("ke_id", ke_id);
+                intent4.putExtra("flag_update", "");
                 startActivity(intent4);
                 return true;
             case R.id.nav_keu:
@@ -695,6 +810,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent8.putExtra("pa_id", id_paket);
                 intent8.putExtra("pa_nama", nama_paket);
                 intent8.putExtra("ke_id", ke_id);
+                intent8.putExtra("flag_update", "");
                 startActivity(intent8);
                 return true;
             case R.id.nav_catatan :
@@ -704,6 +820,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent7.putExtra("pa_id", id_paket);
                 intent7.putExtra("pa_nama", nama_paket);
                 intent7.putExtra("ke_id", ke_id);
+                intent7.putExtra("flag_update", "");
                 startActivity(intent7);
                 return true;
             case R.id.nav_penyediajasa :
@@ -713,6 +830,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
                 intent9.putExtra("pa_id", id_paket);
                 intent9.putExtra("pa_nama", nama_paket);
                 intent9.putExtra("ke_id", ke_id);
+                intent9.putExtra("flag_update", "");
                 startActivity(intent9);
                 return true;
             default :

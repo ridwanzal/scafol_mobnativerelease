@@ -53,8 +53,8 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
     ApiInterface apiInterface = ApiClient.getClient().create(ApiInterface.class);
     private static String TAG = "FragmentEditKontrak";
     private EditText t_nomorkontrak;
-    private TextView t_awalkontrak;
-    private TextView t_akhirkontrak;
+    private EditText t_awalkontrak;
+    private EditText t_akhirkontrak;
 
     private CurrencyEditText t_nilaikontrak;
     private CurrencyEditText t_nilaipagu;
@@ -129,6 +129,10 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
         btn_simpan = view.findViewById(R.id.btn_simpan);
         Intent intent = getActivity().getIntent();
         final String id_paket = intent.getStringExtra("pa_id");
+        final String flag_update = intent.getStringExtra("flag_update");
+
+
+
         Call<DataResponsePaket> call_paket = apiInterface.getPaketId(id_paket);
         call_paket.enqueue(new Callback<DataResponsePaket>() {
             public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
@@ -275,6 +279,27 @@ public class FragmentEditKontrak extends Fragment implements View.OnClickListene
                 }
             }
         };
+
+        switch (flag_update){
+            case "1" :
+                t_nomorkontrak.requestFocus();
+                t_nomorkontrak.getText().clear();
+                break;
+            case "2" :
+                t_nilaikontrak.requestFocus();
+                t_nilaikontrak.getText().clear();
+                break;
+            case "3" :
+                t_awalkontrak.requestFocus();
+                t_awalkontrak.getText().clear();
+                break;
+            case "4" :
+                t_akhirkontrak.requestFocus();
+                t_akhirkontrak.getText().clear();
+                break;
+            default:
+                break;
+        }
 
         return view;
     }

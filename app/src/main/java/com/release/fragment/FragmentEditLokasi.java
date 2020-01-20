@@ -236,8 +236,8 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
         setmylocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                setMyLocation();
-                locationTask();
+                setMyLocation();
+//                locationTask();
             }
         });
 
@@ -313,6 +313,7 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
                 @Override
                 public void onSuccess(final Location location) {
                     if (location != null){
+                        Toasty.success(getActivity(), "location : " + location, Toasty.LENGTH_LONG).show();
                         map.setTileSource(TileSourceFactory.MAPNIK);
                         map.setBuiltInZoomControls(true);
                         map.setUseDataConnection(true);
