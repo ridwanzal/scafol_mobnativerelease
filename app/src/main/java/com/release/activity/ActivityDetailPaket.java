@@ -303,6 +303,7 @@ public class ActivityDetailPaket extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_UP) {
                     if(event.getRawX() >= (text_nokontrak.getRight() - text_nokontrak.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        intent_keu.putExtra("flag_update", "");
                         startActivity(intent_keu);
                         return true;
                     }
