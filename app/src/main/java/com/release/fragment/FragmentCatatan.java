@@ -117,7 +117,7 @@ public class FragmentCatatan extends Fragment implements View.OnClickListener, D
                             new Thread(new Runnable() {
                                 public void run() {
                                     try {
-                                        Thread.sleep(500);
+                                        Thread.sleep(100);
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }

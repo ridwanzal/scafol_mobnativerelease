@@ -727,7 +727,7 @@
     <Button
         android:id="@+id/btn_mapdash"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:textColor="#555"
         android:clickable="true"
         android:paddingRight="10dp"
@@ -736,7 +736,7 @@
         android:textStyle="normal"
         android:drawableRight="@drawable/ic_next"
         android:background="@drawable/button_ripple_white"
-        android:drawablePadding="10dp"
+        android:drawablePadding="20dp"
         android:textAlignment="viewStart"
         android:text="Lihat Map" />
 
@@ -764,7 +764,7 @@
         android:id="@+id/btn_tolist"
         android:layout_below="@id/btn_chartdash"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:textColor="#555"
         android:clickable="true"
         android:paddingRight="10dp"
@@ -772,7 +772,7 @@
         android:layout_marginTop="-2dp"
         android:paddingLeft="15dp"
         android:textStyle="normal"
-        android:drawablePadding="10dp"
+        android:drawablePadding="20dp"
         android:drawableLeft="@drawable/paket_fisik"
         android:drawableRight="@drawable/ic_next"
         android:background="@drawable/button_ripple_generals"
@@ -783,19 +783,18 @@
         android:visibility="visible"
         android:layout_width="fill_parent"
         android:layout_below="@+id/btn_tolist"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:clickable="true"
         android:paddingRight="10dp"
         android:textColor="#555"
         android:paddingLeft="15dp"
         android:layout_marginTop="-2dp"
-        android:drawablePadding="10dp"
+        android:drawablePadding="20dp"
         android:drawableLeft="@drawable/paket_nonfisik"
         android:textAlignment="viewStart"
         android:drawableRight="@drawable/ic_next"
         android:background="@drawable/button_ripple_generals"
         android:text="Lihat Semua Paket Non-Fisik" />
-
 
         <Button
             android:id="@+id/btn_tolist4"
@@ -827,7 +826,7 @@
             android:textColor="#555"
             android:paddingLeft="15dp"
             android:layout_marginTop="-2dp"
-            android:drawablePadding="10dp"
+            android:drawablePadding="20dp"
             android:drawableLeft="@drawable/paket_nonfisik"
             android:textAlignment="viewStart"
             android:drawableRight="@drawable/ic_next"

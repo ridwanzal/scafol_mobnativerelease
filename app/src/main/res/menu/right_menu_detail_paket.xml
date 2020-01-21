@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/nav_kurvasrencana"
+        android:visible="false"
         android:iconTint="@color/colorwhite"
         android:title="Kurva S Rencana" />
     <item

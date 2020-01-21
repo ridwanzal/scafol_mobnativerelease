@@ -529,7 +529,7 @@ public class ActivityDashboard extends AppCompatActivity {
                     new Thread(new Runnable() {
                         public void run() {
                             try {
-                                Thread.sleep(1000);
+                                Thread.sleep(100);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -667,7 +667,7 @@ public class ActivityDashboard extends AppCompatActivity {
                 new Thread(new Runnable() {
                     public void run() {
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(100);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -760,7 +760,7 @@ public class ActivityDashboard extends AppCompatActivity {
                 new Thread(new Runnable() {
                     public void run() {
                         try {
-                            Thread.sleep(500);
+                            Thread.sleep(100);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
