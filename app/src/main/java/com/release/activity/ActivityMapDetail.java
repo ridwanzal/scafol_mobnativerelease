@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,6 +31,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -127,8 +131,8 @@ public class ActivityMapDetail extends AppCompatActivity {
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("BUNDLE");
         ArrayList<Paket> object = (ArrayList<Paket>) args.getSerializable("ARRAYLIST");
-        progressDialog.show();
         progressDialog.setMessage("Loading");
+//        progressDialog.show();
         map = findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setBuiltInZoomControls(true);
@@ -136,6 +140,28 @@ public class ActivityMapDetail extends AppCompatActivity {
         IMapController mapController = map.getController();
         mapController.setZoom(9);
         startMarker = new Marker(map);
+        if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+            // only for gingerbread and newer versions
+            LocationRequest mLocationRequest = LocationRequest.create();
+            mLocationRequest.setInterval(60000);
+            mLocationRequest.setFastestInterval(5000);
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            LocationCallback mLocationCallback = new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    if (locationResult == null) {
+                        return;
+                    }
+                    for (Location location : locationResult.getLocations()) {
+                        if (location != null) {
+                        }
+                    }
+                }
+            };
+            LocationServices.getFusedLocationProviderClient(getApplicationContext()).requestLocationUpdates(mLocationRequest, mLocationCallback, null);
+        }
+
+
         for(int i = 0; i < object.size(); i++){
             String location_name = "";
             if(object.get(i).getPaLokasi() == ""){
@@ -198,9 +224,11 @@ public class ActivityMapDetail extends AppCompatActivity {
                                 nama_lokasi_edited.setText(response.body().getDisplay_name());
                                 startMarker.showInfoWindow();
                                 startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+
                                 btn_location_edited.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
+                                        Toasty.success(getApplicationContext(), "Masuk sinihh", Toasty.LENGTH_LONG).show();
                                         progressDialog.show();
                                         String get_lat = latitude_edited.getText().toString();
                                         String get_long = longitude_edited.getText().toString();
@@ -210,6 +238,7 @@ public class ActivityMapDetail extends AppCompatActivity {
                                         call_update.enqueue(new Callback<DataResponsePaket>() {
                                             @Override
                                             public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
+                                                Toasty.success(getApplicationContext(), "Tidak ada perubahan", Toasty.LENGTH_LONG).show();
                                             }
 
                                             @Override
@@ -218,11 +247,10 @@ public class ActivityMapDetail extends AppCompatActivity {
                                                     @Override
                                                     public void run() {
                                                         try{
-                                                            Thread.sleep(100);
+                                                            Thread.sleep(300);
                                                         }catch (Exception e){
                                                             e.printStackTrace();
                                                         }
-                                                        progressDialog.dismiss();
                                                         mHandler.sendMessage(Message.obtain(mHandler, 3));
                                                     }
                                                 }).start();
@@ -283,6 +311,12 @@ public class ActivityMapDetail extends AppCompatActivity {
                         startMarker.setPosition(startPoint);
                         Toasty.success(getApplicationContext(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
                         break;
+                    case 4 :
+                        progressDialog.dismiss();
+                        dialog_editlocation.dismiss();
+                        startMarker.setPosition(startPoint);
+                        Toasty.success(getApplicationContext(), "Tidak ada perubahan", Toasty.LENGTH_LONG).show();
+                        break;
                 }
             }
         };
@@ -314,7 +348,7 @@ public class ActivityMapDetail extends AppCompatActivity {
                 overridePendingTransition(R.anim.move_left_in_activity, R.anim.move_right_out_activity);
                 return true;
             case R.id.nav_pinmylocation :
-                progressDialog.show();
+//                progressDialog.show();
                 checkLocationPermission();
                 setMyLocation();
                 return true;
@@ -337,6 +371,7 @@ public class ActivityMapDetail extends AppCompatActivity {
                 @Override
                 public void onSuccess(final Location location) {
                     if (location != null){
+//                        Toast.makeText(getApplicationContext(),"Location " + location.getLatitude(),Toast.LENGTH_LONG).show();
                         map = findViewById(R.id.map);
                         map.setTileSource(TileSourceFactory.MAPNIK);
                         map.setBuiltInZoomControls(true);
@@ -360,12 +395,22 @@ public class ActivityMapDetail extends AppCompatActivity {
                             public void onResponse(Call<NominatimReverseMap> call, Response<NominatimReverseMap> response) {
                                 if(response.code() == 200){
                                     LayoutInflater inflater = (LayoutInflater) getApplication().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                                    View views = inflater.inflate(R.layout.dialog_mapdetail, null);
+                                    View views = inflater.inflate(R.layout.dialog_mapdetail_paket, null);
                                     nama_lokasi_edited = views.findViewById(R.id.nama_lokasi_edited);
                                     latitude_edited = views.findViewById(R.id.latitude_edited);
                                     longitude_edited = views.findViewById(R.id.longitude_edited);
                                     btn_location_edited  = views.findViewById(R.id.btn_location_edited);
+                                    if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+                                        nama_lokasi_edited.setVisibility(View.GONE);
+                                        latitude_edited.setVisibility(View.GONE);
+                                        longitude_edited.setVisibility(View.GONE);
+                                    }else{
+                                        nama_lokasi_edited.setVisibility(View.VISIBLE);
+                                        latitude_edited.setVisibility(View.VISIBLE);
+                                        longitude_edited.setVisibility(View.VISIBLE);
+                                    }
 
+                                    getSupportActionBar().setTitle(response.body().getDisplay_name());
                                     startMarker.setTitle(response.body().getDisplay_name());
                                     nama_lokasi_edited.setText(response.body().getDisplay_name().toString());
                                     longitude_edited.setText(String.valueOf(location.getLongitude()));
@@ -378,7 +423,7 @@ public class ActivityMapDetail extends AppCompatActivity {
                                     btn_location_edited.setOnClickListener(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            progressDialog.show();
+//                                            progressDialog.show();
                                             String get_lat = latitude_edited.getText().toString();
                                             String get_long = longitude_edited.getText().toString();
                                             String get_name = nama_lokasi_edited.getText().toString();
@@ -496,6 +541,5 @@ public class ActivityMapDetail extends AppCompatActivity {
         }
         return check_permission;
     }
-
 
 }

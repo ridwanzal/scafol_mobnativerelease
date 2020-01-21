@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -31,7 +32,9 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.SettingsClient;
@@ -122,6 +125,30 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (android.os.Build.VERSION.SDK_INT <= Build.VERSION_CODES.M) {
+            // only for gingerbread and newer versions
+            LocationRequest mLocationRequest = LocationRequest.create();
+            mLocationRequest.setInterval(5000);
+            mLocationRequest.setFastestInterval(5000);
+            mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+            LocationCallback mLocationCallback = new LocationCallback() {
+                @Override
+                public void onLocationResult(LocationResult locationResult) {
+                    if (locationResult == null) {
+                        return;
+                    }
+                    for (Location location : locationResult.getLocations()) {
+                        if (location != null) {
+                            //TODO: UI updates.
+                            Toast.makeText(getActivity(), "Location : " + location, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            };
+            LocationServices.getFusedLocationProviderClient(getActivity()).requestLocationUpdates(mLocationRequest, mLocationCallback, null);
+        }
+
+
         final LinearLayout view = (LinearLayout) inflater.inflate(R.layout.fragment_editlokasi, container, false);
         final Context ctx = getActivity();
         final ProgressDialog progressDialog = new ProgressDialog(getActivity());
@@ -246,25 +273,14 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
         btn_changelocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressDialog.show();
                 progressBar.setVisibility(View.VISIBLE);
                 String get_lat = tx_latitude.getText().toString();
                 String get_long = tx_longitude.getText().toString();
                 String get_name = tx_locname.getText().toString();
-                Log.d(TAG, "lATITUDE : " + get_lat + " LONGITUDE : " + get_long + " | " + id_paket);
                 Call<DataResponsePaket> call_update = apiInterface.updateMap(id_paket, get_name, get_lat, get_long);
                 call_update.enqueue(new Callback<DataResponsePaket>() {
                     @Override
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
-                            Log.d(TAG, "Response Result Success------------------------> : " + response.body());
-                            progressBar.setVisibility(View.GONE);
-                            Log.d(TAG, "Response Result Success------------------------> : " + response.body());
-                    }
-
-                    @Override
-                    public void onFailure(Call<DataResponsePaket> call, Throwable t) {
-                        progressBar.setVisibility(View.GONE);
-//                        Toast.makeText(ctx, "Berhasil Ubah Lokasi", Toast.LENGTH_SHORT).show();
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
@@ -274,33 +290,65 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
                                     e.printStackTrace();
                                 }
                                 progressDialog.dismiss();
+                                mHandler.sendMessage(Message.obtain(mHandler, 4));
+                            }
+                        }).start();
+                    }
+
+                    @Override
+                    public void onFailure(Call<DataResponsePaket> call, Throwable t) {
+                        Log.d(TAG, t.getMessage());
+                        progressDialog.show();
+                        progressBar.setVisibility(View.GONE);
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try{
+                                    Thread.sleep(500);
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                progressDialog.dismiss();
                                 mHandler.sendMessage(Message.obtain(mHandler, 1));
                             }
                         }).start();
-                        mHandler = new Handler(Looper.myLooper()){
-                            @Override
-                            public void handleMessage(@NonNull Message msg) {
-                                super.handleMessage(msg);
-                                switch (msg.what){
-                                    case 1 :
-                                        Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
-                                        btn_changelocation.setVisibility(View.GONE);
-                                        break;
-                                    case 2 :
-                                        Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
-                                        btn_changelocation.setVisibility(View.GONE);
-                                        break;
-                                    case 3 :
-                                        Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
-                                        btn_changelocation.setVisibility(View.GONE);
-                                        break;
-                                }
-                            }
-                        };
                     }
                 });
             }
         });
+
+        mHandler = new Handler(Looper.myLooper()){
+            @Override
+            public void handleMessage(@NonNull Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what){
+                    case 1 :
+                        Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
+                        btn_changelocation.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
+                        btn_changelocation.setVisibility(View.VISIBLE);
+                        break;
+                    case 2 :
+                        Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
+                        btn_changelocation.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
+                        btn_changelocation.setVisibility(View.VISIBLE);
+                        break;
+                    case 3 :
+                        Toasty.success(getActivity(), "Lokasi berhasil diubah", Toasty.LENGTH_LONG).show();
+                        btn_changelocation.setVisibility(View.GONE);
+                        progressBar.setVisibility(View.GONE);
+                        btn_changelocation.setVisibility(View.VISIBLE);
+                        break;
+                    case 4 :
+                        Toasty.success(getActivity(), "Tidak ada perubahan", Toasty.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
+                        btn_changelocation.setVisibility(View.VISIBLE);
+                        break;
+
+                }
+            }
+        };
         return view;
     }
 
@@ -313,7 +361,6 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
                 @Override
                 public void onSuccess(final Location location) {
                     if (location != null){
-                        Toasty.success(getActivity(), "location : " + location, Toasty.LENGTH_LONG).show();
                         map.setTileSource(TileSourceFactory.MAPNIK);
                         map.setBuiltInZoomControls(true);
                         map.setUseDataConnection(true);
@@ -333,7 +380,6 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
                         call_reverselatlong.enqueue(new Callback<NominatimReverseMap>() {
                             @Override
                             public void onResponse(Call<NominatimReverseMap> call, Response<NominatimReverseMap> response) {
-                                Toast.makeText(getActivity(), "Problem change location " + call, Toast.LENGTH_SHORT).show();
                                 if(response.code() == 200){
                                     LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                                     View views = inflater.inflate(R.layout.dialog_mapdetail, null);
@@ -345,6 +391,9 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
                                     startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                                     btn_changelocation.setVisibility(View.VISIBLE);
                                     progressBar.setVisibility(View.GONE);
+                                }else{
+                                    progressBar.setVisibility(View.GONE);
+                                    Toasty.success(getActivity(), "Tidak ada perubahan", Toasty.LENGTH_LONG).show();
                                 }
                             }
                             @Override
@@ -360,7 +409,6 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
                         // set marker
                         map.getOverlays().add(startMarker);
                     }else{
-                        Toast.makeText(getActivity(), "location info " + location, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
