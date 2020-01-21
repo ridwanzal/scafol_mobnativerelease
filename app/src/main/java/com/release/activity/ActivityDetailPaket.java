@@ -567,6 +567,10 @@ public class ActivityDetailPaket extends AppCompatActivity {
                                     progres_pekerjaan.setProgress((Integer.valueOf(result_format)));
                                     break;
                             }
+                            if (progressList.get(i).getPr_real().toString().equals("10")) {
+                                sisa_waktukerja.setText("Selesai");
+                                sisa_waktukerja.setTextColor(Color.parseColor("1B998B"));
+                            }
                         }else{
                             tx_lasptprog.setText(checkData(progressList.get(i).getPr_real(), progressList.get(i).getPr_real() + " %" + ""));
                         }
