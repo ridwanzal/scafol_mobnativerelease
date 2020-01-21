@@ -192,6 +192,20 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                     String text_serap = String.valueOf(keu_serap.getCurrencyDouble());
                     String text_pagu = pagu_value.toString();
                     String text_kontrak = kontrak_value.toString();
+                    Double text_sisa = keu_sisa.getCurrencyDouble();
+                    Double text_pagu_sisa = keu_sisang.getCurrencyDouble();
+
+                    if(text_sisa < 0 || text_pagu_sisa < 0) {
+                        keu_sisa.setError("Hasil tidak boleh minus");
+                        keu_sisang.setError("Hasil tidak boleh minus");
+                        keu_sisa.requestFocus();
+                        keu_sisang.requestFocus();
+                        keu_submit.setEnabled(false);
+                    } else {
+                        keu_sisa.setError(null);
+                        keu_sisang.setError(null);
+                        keu_submit.setEnabled(true);
+                    }
 
                     if(text_pagu.equals("")){
                         text_pagu = "0";
@@ -243,10 +257,11 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
                     Double sisa_anggaran = Double.valueOf(text_pagu) - (Double.valueOf(text_serap) + Double.valueOf(serap));
                     keu_sisang.setText(formatMoneyIDR.convertIDR(sisa_anggaran.toString()));
                     }
+
+                    // if sisa_kontrak
                 }catch (Exception e){
                     e.printStackTrace();
                 }
-
             }
         });
 
@@ -255,6 +270,7 @@ public class FragmentProgressKeuangan extends Fragment implements View.OnClickLi
             public void onClick(View view) {
                 Boolean check_isi = keu_serap.getText().toString().trim().equals("");
                 Boolean check_tanggal = tx_tanggal_keuangan.getText().toString().equals("");
+
 
                 Boolean next = false;
                 if(check_isi){
