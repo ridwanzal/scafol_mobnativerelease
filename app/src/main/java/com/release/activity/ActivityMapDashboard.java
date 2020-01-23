@@ -251,7 +251,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                     new Thread(new Runnable() {
                                         public void run() {
                                             try {
-                                                Thread.sleep(2000);
+                                                Thread.sleep(100);
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
@@ -363,7 +363,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                     new Thread(new Runnable() {
                                         public void run() {
                                             try {
-                                                Thread.sleep(2000);
+                                                Thread.sleep(100);
                                             } catch (Exception e) {
                                                 e.printStackTrace();
                                             }
@@ -475,7 +475,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                 new Thread(new Runnable() {
                                     public void run() {
                                         try {
-                                            Thread.sleep(2000);
+                                            Thread.sleep(100);
                                         } catch (Exception e) {
                                             e.printStackTrace();
                                         }
@@ -590,7 +590,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                         new Thread(new Runnable() {
                                             public void run() {
                                                 try {
-                                                    Thread.sleep(2000);
+                                                    Thread.sleep(100);
                                                 } catch (Exception e) {
                                                     e.printStackTrace();
                                                 }

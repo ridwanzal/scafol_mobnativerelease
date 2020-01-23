@@ -437,7 +437,7 @@ public class FilesActivityDirect extends DropboxActivity {
                 fab3.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.VISIBLE);
             }
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 4);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
             gridLayoutManager.setReverseLayout(false);
             gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
             gridLayoutManager.setSmoothScrollbarEnabled(true);
