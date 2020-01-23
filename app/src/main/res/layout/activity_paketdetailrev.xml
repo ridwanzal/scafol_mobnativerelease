@@ -3,6 +3,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#f1f1f1"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="0dp"
     android:id="@+id/main_layout_detail_paket"
     android:layout_height="match_parent">
@@ -171,32 +173,37 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- detail -->
-        <LinearLayout
-            android:id="@+id/header_kontrak"
-            android:layout_above="@id/card2"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/title_separator_one"
             android:layout_below="@id/card1"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            >
-            <TextView
-                android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:background="#f1f1f1"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Kontrak"
-                />
-        </LinearLayout>
-
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp"
+                android:layout_alignLeft="@+id/title_separator_one">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Kontrak"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card2"
             android:layout_marginBottom="20dp"
-            android:layout_below="@id/card1"
+            android:layout_below="@id/title_separator_one"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
             >
-
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -373,9 +380,32 @@
         <!-- info bidang dan program dll-->
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/title_separator_two"
+            android:layout_below="@id/card2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:background="#f1f1f1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp"
+                android:layout_alignLeft="@+id/title_separator_two">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Info"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/card6"
             android:layout_marginBottom="20dp"
-            android:layout_below="@id/card2"
+            android:layout_below="@id/title_separator_two"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -590,11 +620,34 @@
 
     </androidx.cardview.widget.CardView>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/title_separator_three"
+            android:layout_below="@id/card3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:background="#f1f1f1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingBottom="15dp"
+                android:layout_alignLeft="@+id/title_separator_two">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Keuangan"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card4"
         android:layout_marginBottom="20dp"
-        android:layout_below="@id/card3"
+        android:layout_below="@id/title_separator_three"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"

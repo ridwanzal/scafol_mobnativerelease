@@ -140,7 +140,8 @@ public class FragmentEditLokasi extends Fragment implements EasyPermissions.Perm
                     for (Location location : locationResult.getLocations()) {
                         if (location != null) {
                             //TODO: UI updates.
-                            Toast.makeText(getActivity(), "Location : " + location, Toast.LENGTH_LONG).show();
+//                            Toast.makeText(getActivity(), "Location : " + location, Toast.LENGTH_LONG).show();
+                            Log.d(TAG, "Location " + location);
                         }
                     }
                 }

@@ -288,7 +288,7 @@ public class FilesActivityDirect extends DropboxActivity {
 
     public Uri getImageUri(Context inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        inImage.compress(Bitmap.CompressFormat.JPEG, 59, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
@@ -437,7 +437,7 @@ public class FilesActivityDirect extends DropboxActivity {
                 fab3.setVisibility(View.VISIBLE);
                 fab.setVisibility(View.VISIBLE);
             }
-            GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 3);
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 4);
             gridLayoutManager.setReverseLayout(false);
             gridLayoutManager.setOrientation(RecyclerView.VERTICAL);
             gridLayoutManager.setSmoothScrollbarEnabled(true);

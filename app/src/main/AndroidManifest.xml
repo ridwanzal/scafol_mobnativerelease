@@ -79,11 +79,11 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".dropbox.FilesActivity"
-            android:label="Cloud Storage Scafol"
+            android:label="Galeri"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".dropbox.FilesActivityDirect"
-            android:label="Cloud Storage Scafol"
+            android:label="Galeri"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".dropbox.UserActivity"
