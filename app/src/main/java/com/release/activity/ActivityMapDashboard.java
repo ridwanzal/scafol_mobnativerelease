@@ -384,6 +384,7 @@ public class ActivityMapDashboard extends AppCompatActivity {
                 progressDialog.setMessage("Loading");
                 Call<DataResponsePaket> callpptk = apiInterface.getMapPPTK(user_id);
                 callpptk.enqueue(new Callback<DataResponsePaket>() {
+
                     @Override
                     public void onResponse(Call<DataResponsePaket> call, Response<DataResponsePaket> response) {
                         String title = "Total Paket (" + String.valueOf(response.body().getData().size()) + ")";
@@ -448,30 +449,33 @@ public class ActivityMapDashboard extends AppCompatActivity {
                                     marker.setIcon(getResources().getDrawable(R.drawable.ic_map_belum));
                                 }
 
-                                marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-                                marker.setTitle(pa_nama+ " - " + response.body().getData().get(i).getPaLokasi());
-                                marker.setVisible(true);
-                                marker.setPanToView(true);
-                                mapController = dashmap.getController();
-                                mapController.setZoom(11);
-                                mapController.stopPanning();
-                                mapController.setCenter(point);
-                                // set marker
-                                dashmap.getOverlays().add(marker);
-                                marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
-                                    @Override
-                                    public boolean onMarkerClick(Marker marker, MapView mapView) {
-                                        marker.setSnippet(latitude + ", " + longitude);
-                                        marker.showInfoWindow();
-                                        Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
-                                        intent.putExtra("pa_id", pa_id);
-                                        intent.putExtra("pa_nama", pa_nama);
-                                        intent.putExtra("ke_id", ke_id);
-                                        intent.putExtra("request", "map_dash");
-                                        startActivity(intent);
-                                        return true;
-                                    }
-                                });
+                                if (!response.body().getData().get(i).getPaLokasi().equals("")) {
+                                    marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+                                    marker.setTitle(pa_nama + " - " + response.body().getData().get(i).getPaLokasi());
+                                    marker.setVisible(true);
+                                    marker.setPanToView(true);
+                                    mapController = dashmap.getController();
+                                    mapController.setZoom(11);
+                                    mapController.stopPanning();
+                                    mapController.setCenter(point);
+                                    // set marker
+                                    dashmap.getOverlays().add(marker);
+                                    marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+                                        @Override
+                                        public boolean onMarkerClick(Marker marker, MapView mapView) {
+                                            marker.setSnippet(latitude + ", " + longitude);
+                                            marker.showInfoWindow();
+                                            Intent intent = new Intent(getApplicationContext(), ActivityDetailPaket.class);
+                                            intent.putExtra("pa_id", pa_id);
+                                            intent.putExtra("pa_nama", pa_nama);
+                                            intent.putExtra("ke_id", ke_id);
+                                            intent.putExtra("request", "map_dash");
+                                            startActivity(intent);
+                                            return true;
+                                        }
+                                    });
+                                }
+
                                 new Thread(new Runnable() {
                                     public void run() {
                                         try {
